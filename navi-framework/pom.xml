@@ -23,6 +23,7 @@
     </properties>
 
     <modules>
+        <module>navi-data</module>
         <module>navi-core</module>
     </modules>
 
@@ -49,6 +50,11 @@
                 <version>${hamcrest.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-core</artifactId>
