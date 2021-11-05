@@ -1,0 +1,36 @@
+package org.navistack.framework.core.utils;
+
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
+public class MathUtils {
+    public long clamp(long val, long min, long max) {
+        if (val < min) {
+            return min;
+        } else if (val > max) {
+            return max;
+        } else {
+            return val;
+        }
+    }
+
+    public int clamp(int val, int min, int max) {
+        if (val < min) {
+            return min;
+        } else if (val > max) {
+            return max;
+        } else {
+            return val;
+        }
+    }
+
+    public short clamp(short val, short min, short max) {
+        if (val < min) {
+            return min;
+        } else if (val > max) {
+            return max;
+        } else {
+            return val;
+        }
+    }
+}
