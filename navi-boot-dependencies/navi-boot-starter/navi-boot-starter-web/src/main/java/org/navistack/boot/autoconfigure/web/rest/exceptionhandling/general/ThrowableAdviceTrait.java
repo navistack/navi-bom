@@ -15,7 +15,7 @@ public interface ThrowableAdviceTrait extends AdviceTrait {
                 throwable,
                 RestResult.SimpleError.of(
                         "InternalServerError",
-                        throwable.getMessage()
+                        "Internal Server Error"
                 ),
                 HttpStatus.INTERNAL_SERVER_ERROR
         );
