@@ -6,29 +6,25 @@
 
     <parent>
         <groupId>org.navistack.boot</groupId>
-        <artifactId>navi-boot-dependencies</artifactId>
+        <artifactId>navi-boot-starter</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>navi-boot-starter</artifactId>
+    <artifactId>navi-boot-starter-mybatis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>navi-boot-starter-mybatis</module>
-        <module>navi-boot-starter-security</module>
-        <module>navi-boot-starter-web</module>
-    </modules>
 
     <dependencies>
         <dependency>
-            <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-data</artifactId>
         </dependency>
     </dependencies>
 </project>

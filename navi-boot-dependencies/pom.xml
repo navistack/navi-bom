@@ -141,6 +141,11 @@
                 <artifactId>navi-boot-starter-web</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>org.navistack.boot</groupId>
+                <artifactId>navi-boot-starter-mybatis</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
