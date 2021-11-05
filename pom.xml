@@ -11,6 +11,7 @@
 
     <modules>
         <module>navi-framework</module>
+        <module>navi-boot-dependencies</module>
     </modules>
 
 </project>
