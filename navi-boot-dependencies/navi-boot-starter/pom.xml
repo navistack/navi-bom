@@ -17,6 +17,7 @@
     <modules>
         <module>navi-boot-starter-mybatis</module>
         <module>navi-boot-starter-security</module>
+        <module>navi-boot-starter-validation</module>
         <module>navi-boot-starter-web</module>
     </modules>
 
