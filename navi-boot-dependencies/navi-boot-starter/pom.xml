@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>navi-boot-starter-security</module>
         <module>navi-boot-starter-web</module>
     </modules>
 
