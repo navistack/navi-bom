@@ -16,7 +16,7 @@ public class RestResultAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(AdviceTrait.class)
-    public AdviceTrait exceptionHandling() {
+    public ExceptionHandlingImpl exceptionHandling() {
         return new ExceptionHandlingImpl();
     }
 
