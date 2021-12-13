@@ -20,12 +20,17 @@
         <modelmapper.version>2.4.4</modelmapper.version>
         <jupiter.version>5.7.2</jupiter.version>
         <hamcrest.version>2.2</hamcrest.version>
+        <spring-data-redis.vrsion>2.6.0</spring-data-redis.vrsion>
+        <spring-web.version>5.3.9</spring-web.version>
+        <jackson.version>2.13.0</jackson.version>
     </properties>
 
     <modules>
         <module>navi-web</module>
         <module>navi-data</module>
         <module>navi-core</module>
+        <module>navi-cache</module>
+        <module>navi-captcha</module>
     </modules>
 
     <dependencyManagement>
@@ -50,6 +55,26 @@
                 <artifactId>hamcrest-library</artifactId>
                 <version>${hamcrest.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>${spring-data-redis.vrsion}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring-web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring-web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.navistack.framework</groupId>
@@ -64,6 +89,16 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-captcha</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

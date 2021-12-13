@@ -19,6 +19,8 @@
         <module>navi-boot-starter-security</module>
         <module>navi-boot-starter-validation</module>
         <module>navi-boot-starter-web</module>
+        <module>navi-boot-starter-cache</module>
+        <module>navi-boot-starter-captcha</module>
     </modules>
 
     <dependencies>
@@ -30,6 +32,10 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 </project>
