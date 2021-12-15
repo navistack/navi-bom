@@ -31,6 +31,7 @@
         <module>navi-core</module>
         <module>navi-cache</module>
         <module>navi-captcha</module>
+        <module>navi-crudsupport</module>
     </modules>
 
     <dependencyManagement>
@@ -71,6 +72,11 @@
                 <version>${spring-web.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring-web.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
@@ -99,6 +105,11 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-captcha</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-crudsupport</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

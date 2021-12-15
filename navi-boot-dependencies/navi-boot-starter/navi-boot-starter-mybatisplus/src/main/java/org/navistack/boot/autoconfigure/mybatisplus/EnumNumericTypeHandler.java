@@ -1,4 +1,4 @@
-package org.navistack.boot.autoconfigure.mybatis;
+package org.navistack.boot.autoconfigure.mybatisplus;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;

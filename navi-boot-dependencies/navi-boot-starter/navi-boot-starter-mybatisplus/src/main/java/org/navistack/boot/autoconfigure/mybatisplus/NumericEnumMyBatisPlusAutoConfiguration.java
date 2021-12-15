@@ -1,4 +1,4 @@
-package org.navistack.boot.autoconfigure.mybatis;
+package org.navistack.boot.autoconfigure.mybatisplus;
 
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
