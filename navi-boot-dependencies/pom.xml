@@ -25,14 +25,12 @@
 
         <navi-framework.version>0.0.1-SNAPSHOT</navi-framework.version>
         <mybatis.version>3.5.7</mybatis.version>
-        <mybatis-plus.version>3.4.3.3</mybatis-plus.version>
-        <lombok.version>1.18.20</lombok.version>
+        <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <jsonwebtoken.version>0.11.2</jsonwebtoken.version>
-        <modelmapper.version>2.4.4</modelmapper.version>
         <knife4j.version>3.0.3</knife4j.version>
         <springfox.version>3.0.0</springfox.version>
-        <springdoc.version>1.5.11</springdoc.version>
+        <springdoc.version>1.6.1</springdoc.version>
     </properties>
 
     <modules>
@@ -43,14 +41,18 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-framework</artifactId>
+                <version>${navi-framework.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+            <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
@@ -107,43 +109,6 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-jackson</artifactId>
                 <version>${jsonwebtoken.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.modelmapper</groupId>
-                <artifactId>modelmapper</artifactId>
-                <version>${modelmapper.version}</version>
-            </dependency>
-
-
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-web</artifactId>
-                <version>${navi-framework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-data</artifactId>
-                <version>${navi-framework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-core</artifactId>
-                <version>${navi-framework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-cache</artifactId>
-                <version>${navi-framework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-captcha</artifactId>
-                <version>${navi-framework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-crudsupport</artifactId>
-                <version>${navi-framework.version}</version>
             </dependency>
 
 
