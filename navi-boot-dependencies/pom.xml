@@ -23,6 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <navi-framework.version>0.0.1-SNAPSHOT</navi-framework.version>
         <mybatis.version>3.5.7</mybatis.version>
         <mybatis-plus.version>3.4.3.3</mybatis-plus.version>
         <lombok.version>1.18.20</lombok.version>
@@ -117,64 +118,64 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-web</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${navi-framework.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-data</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${navi-framework.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-core</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${navi-framework.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-cache</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${navi-framework.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-captcha</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${navi-framework.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-crudsupport</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${navi-framework.version}</version>
             </dependency>
 
 
             <dependency>
                 <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-starter-security</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-starter-web</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-starter-validation</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-starter-mybatisplus</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-starter-cache</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-starter-captcha</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

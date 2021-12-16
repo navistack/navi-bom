@@ -11,7 +11,6 @@
     </parent>
 
     <artifactId>navi-crudsupport</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
