@@ -34,6 +34,7 @@
         <module>navi-cache</module>
         <module>navi-captcha</module>
         <module>navi-crudsupport</module>
+        <module>navi-jackson</module>
     </modules>
 
     <dependencyManagement>
@@ -126,6 +127,11 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-crudsupport</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-jackson</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
