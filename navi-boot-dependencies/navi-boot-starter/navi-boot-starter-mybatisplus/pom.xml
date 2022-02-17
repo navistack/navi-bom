@@ -25,5 +25,9 @@
             <groupId>org.navistack.framework</groupId>
             <artifactId>navi-crudsupport</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-mybatisplus</artifactId>
+        </dependency>
     </dependencies>
 </project>
