@@ -16,13 +16,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <spring-framework.version>5.3.14</spring-framework.version>
-        <spring-data-bom.version>2021.1.0</spring-data-bom.version>
+        <spring-framework.version>5.3.15</spring-framework.version>
+        <spring-data-bom.version>2021.1.1</spring-data-bom.version>
         <jackson-bom.version>2.13.1</jackson-bom.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
 
         <lombok.version>1.18.22</lombok.version>
-        <modelmapper.version>2.4.5</modelmapper.version>
+        <modelmapper.version>3.0.0</modelmapper.version>
         <junit.version>4.13.2</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
     </properties>
