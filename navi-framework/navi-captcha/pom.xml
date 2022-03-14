@@ -14,9 +14,9 @@
 
     <properties>
         <kaptcha.version>2.3.2</kaptcha.version>
-        <aliyun-sdk-core.version>4.5.30</aliyun-sdk-core.version>
+        <aliyun-sdk-core.version>4.6.0</aliyun-sdk-core.version>
         <aliyun-sdk-afs.version>1.0.1</aliyun-sdk-afs.version>
-        <tencentcloud-sdk.version>3.1.407</tencentcloud-sdk.version>
+        <tencentcloud-sdk.version>3.1.467</tencentcloud-sdk.version>
     </properties>
 
     <dependencies>
