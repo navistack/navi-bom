@@ -33,9 +33,8 @@
         <module>navi-core</module>
         <module>navi-cache</module>
         <module>navi-captcha</module>
-        <module>navi-crudsupport</module>
         <module>navi-jackson</module>
-        <module>navi-mybatisplus</module>
+        <module>navi-mybatisplusplus</module>
     </modules>
 
     <dependencyManagement>
@@ -127,18 +126,13 @@
             </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-crudsupport</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-jackson</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-mybatisplus</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <artifactId>navi-mybatisplusplus</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

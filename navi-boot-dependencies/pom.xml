@@ -24,7 +24,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <navi-framework.version>0.0.1-SNAPSHOT</navi-framework.version>
-        <mybatis.version>3.5.9</mybatis.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <jsonwebtoken.version>0.11.2</jsonwebtoken.version>
@@ -61,11 +60,6 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>${mybatis.version}</version>
             </dependency>
 
             <dependency>
@@ -117,7 +111,7 @@
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
-                <artifactId>navi-boot-starter-mybatisplus</artifactId>
+                <artifactId>navi-boot-starter-mybatisplusplus</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

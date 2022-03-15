@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>navi-boot-starter-mybatisplus</module>
+        <module>navi-boot-starter-mybatisplusplus</module>
         <module>navi-boot-starter-security</module>
         <module>navi-boot-starter-validation</module>
         <module>navi-boot-starter-web</module>
