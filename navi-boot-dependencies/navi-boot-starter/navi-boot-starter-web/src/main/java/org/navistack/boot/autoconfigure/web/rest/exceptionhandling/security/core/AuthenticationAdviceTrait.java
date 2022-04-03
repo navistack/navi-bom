@@ -1,6 +1,7 @@
 package org.navistack.boot.autoconfigure.web.rest.exceptionhandling.security.core;
 
 import org.navistack.boot.autoconfigure.web.rest.exceptionhandling.common.AdviceTrait;
+import org.navistack.framework.core.problem.PlatformProblems;
 import org.navistack.framework.web.rest.RestResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ public interface AuthenticationAdviceTrait extends AdviceTrait {
         return toResponse(
                 exception,
                 RestResult.SimpleError.of(
-                        "AuthenticationFailed",
+                        PlatformProblems.AUTHENTICATION_FAILURE,
                         exception.getMessage()
                 ),
                 HttpStatus.UNAUTHORIZED

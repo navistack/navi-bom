@@ -1,6 +1,7 @@
 package org.navistack.boot.autoconfigure.web.rest.exceptionhandling.web.servlet;
 
 import org.navistack.boot.autoconfigure.web.rest.exceptionhandling.common.AdviceTrait;
+import org.navistack.framework.core.problem.PlatformProblems;
 import org.navistack.framework.web.rest.RestResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ public interface NoHandlerFoundExceptionAdviceTrait extends AdviceTrait {
     ) {
         return toResponse(
                 exception,
-                RestResult.SimpleError.of("EndpointUnknown", exception.getMessage()),
+                RestResult.SimpleError.of(PlatformProblems.UNKNOWN_ENDPOINT, exception.getMessage()),
                 HttpStatus.NOT_FOUND
         );
     }

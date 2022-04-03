@@ -1,6 +1,7 @@
 package org.navistack.boot.autoconfigure.web.rest.exceptionhandling.general;
 
 import org.navistack.boot.autoconfigure.web.rest.exceptionhandling.common.AdviceTrait;
+import org.navistack.framework.core.problem.UncategorizedProblems;
 import org.navistack.framework.web.rest.RestResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ public interface ThrowableAdviceTrait extends AdviceTrait {
         return toResponse(
                 throwable,
                 RestResult.SimpleError.of(
-                        "InternalServerError",
+                        UncategorizedProblems.UNKNOWN_PROBLEM,
                         "Internal Server Error"
                 ),
                 HttpStatus.INTERNAL_SERVER_ERROR

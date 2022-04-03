@@ -2,6 +2,7 @@ package org.navistack.boot.autoconfigure.web.rest.exceptionhandling.validation;
 
 import org.navistack.boot.autoconfigure.web.rest.exceptionhandling.InvalidParam;
 import org.navistack.boot.autoconfigure.web.rest.exceptionhandling.common.AdviceTrait;
+import org.navistack.framework.core.problem.PlatformProblems;
 import org.navistack.framework.web.rest.RestResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public interface BaseValidationAdviceTrait extends AdviceTrait {
         return toResponse(
                 throwable,
                 RestResult.ParameterizedError.of(
-                        "ParametersInvalid",
+                        PlatformProblems.INVALID_PARAMETER,
                         "Invalid Parameters",
                         Collections.singletonMap("invalidParams", invalidParams)
                 ),

@@ -3,6 +3,7 @@ package org.navistack.framework.web.rest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.navistack.framework.core.problem.Problem;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -23,11 +24,11 @@ public interface RestResult<T, E> {
         return new Ok<>(result);
     }
 
-    static Err<SimpleError> err(String error, String message) {
+    static Err<SimpleError> err(int error, String message) {
         return Err.of(SimpleError.of(error, message));
     }
 
-    static Err<ParameterizedError> err(String error, String message, Map<String, ? super Object> parameters) {
+    static Err<ParameterizedError> err(int error, String message, Map<String, ? super Object> parameters) {
         return Err.of(ParameterizedError.of(error, message, parameters));
     }
 
@@ -36,20 +37,20 @@ public interface RestResult<T, E> {
     }
 
     @SafeVarargs
-    static Err<ParameterizedError> err(String error, String message, Map.Entry<String, ? super Object>... parameters) {
+    static Err<ParameterizedError> err(int error, String message, Map.Entry<String, ? super Object>... parameters) {
         return Err.of(ParameterizedError.of(error, message, parameters));
     }
 
-    static Err<SimpleError> err(Throwable throwable) {
+    static Err<SimpleError> err(Problem problem) {
         return Err.of(
                 SimpleError.of(
-                        throwable.getClass().getSimpleName(),
-                        throwable.getMessage())
+                        problem.getError(),
+                        problem.getMessage())
         );
     }
 
     @Data
-    @AllArgsConstructor
+    @AllArgsConstructor(staticName = "of")
     class Ok<T> implements RestResult<T, Void> {
         private T result;
 
@@ -62,14 +63,10 @@ public interface RestResult<T, E> {
         public Void getError() {
             return null;
         }
-
-        public static <U> Ok<U> of(U result) {
-            return new Ok<>(result);
-        }
     }
 
     @Data
-    @AllArgsConstructor
+    @AllArgsConstructor(staticName = "of")
     class Err<E> implements RestResult<Void, E> {
         private E error;
 
@@ -82,37 +79,25 @@ public interface RestResult<T, E> {
         public Void getResult() {
             return null;
         }
-
-        public static <F> Err<F> of(F err) {
-            return new Err<>(err);
-        }
     }
 
     @Data
-    @AllArgsConstructor
+    @AllArgsConstructor(staticName = "of")
     class SimpleError {
-        private String error;
+        private int error;
         private String message;
-
-        public static SimpleError of(String error, String message) {
-            return new SimpleError(error, message);
-        }
     }
 
     @Data
     @NoArgsConstructor
-    @AllArgsConstructor
+    @AllArgsConstructor(staticName = "of")
     class ParameterizedError {
-        private String error;
+        private int error;
         private String message;
         private Map<String, ? super Object> parameters;
 
-        public static ParameterizedError of(String error, String message, Map<String, ? super Object> parameters) {
-            return new ParameterizedError(error, message, parameters);
-        }
-
         @SafeVarargs
-        public static ParameterizedError of(String error, String message, Map.Entry<String, ? super Object>... parameters) {
+        public static ParameterizedError of(int error, String message, Map.Entry<String, ? super Object>... parameters) {
             Map<String, ? super Object> parametersMap = Arrays.stream(parameters)
                     .collect(
                             Collectors.toMap(

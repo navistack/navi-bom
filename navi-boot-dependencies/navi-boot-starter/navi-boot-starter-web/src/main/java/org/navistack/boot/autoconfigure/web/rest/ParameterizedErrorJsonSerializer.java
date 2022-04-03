@@ -12,7 +12,7 @@ public class ParameterizedErrorJsonSerializer extends JsonSerializer<RestResult.
     @Override
     public void serialize(RestResult.ParameterizedError error, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringField("code", error.getError());
+        jsonGenerator.writeNumberField("code", error.getError());
         jsonGenerator.writeStringField("message", error.getMessage());
         for (Map.Entry<String, Object> entry : error.getParameters().entrySet()) {
             jsonGenerator.writeObjectField(entry.getKey(), entry.getValue());
