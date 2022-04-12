@@ -1,12 +1,12 @@
-package org.navistack.boot.autoconfigure.security;
+package org.navistack.boot.autoconfigure.security.jwt;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = AuthProperties.PROPERTIES_PREFIX)
+@ConfigurationProperties(prefix = JwtTokenProperties.PROPERTIES_PREFIX)
 @Data
-public class AuthProperties {
-    public static final String PROPERTIES_PREFIX = "navi.auth";
+public class JwtTokenProperties {
+    public static final String PROPERTIES_PREFIX = "navi.security.jwt";
 
     private Token token = new Token();
 

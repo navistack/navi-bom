@@ -1,4 +1,4 @@
-package org.navistack.boot.autoconfigure.security;
+package org.navistack.framework.security.jwt;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -13,16 +13,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class AuthTokenFilter extends GenericFilterBean {
+public class JwtTokenFilter extends GenericFilterBean {
 
     public static final String AUTHORIZATION_HEADER = HttpHeaders.AUTHORIZATION;
 
     public static final String AUTHORIZATION_TOKEN = "access_token";
 
-    private final TokenService tokenService;
+    private final JwtTokenService jwtTokenService;
 
-    public AuthTokenFilter(TokenService tokenService) {
-        this.tokenService = tokenService;
+    public JwtTokenFilter(JwtTokenService jwtTokenService) {
+        this.jwtTokenService = jwtTokenService;
     }
 
     @Override
@@ -30,8 +30,8 @@ public class AuthTokenFilter extends GenericFilterBean {
             throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String token = resolveToken(httpServletRequest);
-        if (StringUtils.hasText(token) && this.tokenService.validate(token)) {
-            Authentication authentication = this.tokenService.authenticate(token);
+        if (StringUtils.hasText(token) && this.jwtTokenService.validate(token)) {
+            Authentication authentication = this.jwtTokenService.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(servletRequest, servletResponse);

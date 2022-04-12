@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.navistack.boot.autoconfigure.security.AuthAutoConfiguration,\
-  org.navistack.boot.autoconfigure.security.AuthTokenSecurityAutoConfiguration
+  org.navistack.boot.autoconfigure.security.jwt.JwtTokenAutoConfiguration

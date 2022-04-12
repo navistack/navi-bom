@@ -1,4 +1,4 @@
-package org.navistack.boot.autoconfigure.security;
+package org.navistack.framework.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.impl.DefaultClaims;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class DefaultJsonWebTokenResolver implements JsonWebTokenResolver {
+public class DefaultJwtTokenResolver implements JwtTokenResolver {
     private static final String AUTHORITIES_KEY = "auth";
 
     @Override
