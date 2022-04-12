@@ -25,10 +25,9 @@ public class JwtTokenAutoConfiguration {
             JwtTokenProperties properties,
             JwtTokenResolver tokenResolver
     ) {
-        JwtTokenProperties.Token token = properties.getToken();
-        String secret = token.getSecret();
+        String secret = properties.getSecret();
         Assert.hasText(secret, "secret can not be null or empty");
-        int validity = token.getValidity();
+        int validity = properties.getValidity();
         Assert.isTrue(validity > 0, "Validity can not be negative or zero");
 
         DefaultJwtTokenService jsonWebTokenService = new DefaultJwtTokenService(secret, validity);
