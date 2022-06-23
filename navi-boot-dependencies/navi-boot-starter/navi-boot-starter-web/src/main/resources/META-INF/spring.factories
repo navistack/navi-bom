@@ -1,5 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.navistack.boot.autoconfigure.web.rest.RestResultAutoConfiguration,\
-  org.navistack.boot.autoconfigure.web.rest.RestResultJacksonAutoConfiguration,\
-  org.navistack.boot.autoconfigure.web.rest.RestResultJacksonWebMvcAutoConfiguration,\
-  org.navistack.boot.autoconfigure.web.rest.RestResultSecurityAutoConfiguration

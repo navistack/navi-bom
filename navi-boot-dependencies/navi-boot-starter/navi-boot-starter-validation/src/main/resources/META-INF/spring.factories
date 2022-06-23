@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.navistack.boot.autoconfigure.validation.ValidationMessageI18nAutoConfiguration

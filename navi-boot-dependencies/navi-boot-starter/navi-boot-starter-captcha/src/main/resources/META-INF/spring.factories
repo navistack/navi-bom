@@ -1,4 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.navistack.boot.autoconfigure.captcha.aliyun.AliyunAutoConfiguration,\
-  org.navistack.boot.autoconfigure.captcha.tencentcloud.TencentCloudAutoConfiguration,\
-  org.navistack.boot.autoconfigure.captcha.CaptchaAutoConfiguration

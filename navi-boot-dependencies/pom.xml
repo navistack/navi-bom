@@ -27,6 +27,7 @@
     </properties>
 
     <modules>
+        <module>navi-boot-autoconfigure</module>
         <module>navi-boot-starter</module>
         <module>navi-boot-starter-parent</module>
     </modules>
@@ -39,6 +40,12 @@
                 <version>${navi-framework.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.navistack.boot</groupId>
+                <artifactId>navi-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- Starter modules -->

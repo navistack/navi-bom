@@ -1,0 +1,11 @@
+org.navistack.boot.autoconfigure.cache.KvCacheAutoConfiguration
+org.navistack.boot.autoconfigure.captcha.aliyun.AliyunAutoConfiguration
+org.navistack.boot.autoconfigure.captcha.tencentcloud.TencentCloudAutoConfiguration
+org.navistack.boot.autoconfigure.captcha.CaptchaAutoConfiguration
+org.navistack.boot.autoconfigure.mybatisplusplus.MybatisPlusPlusAutoConfiguration
+org.navistack.boot.autoconfigure.security.jwt.JwtTokenAutoConfiguration
+org.navistack.boot.autoconfigure.validation.ValidationMessageI18nAutoConfiguration
+org.navistack.boot.autoconfigure.web.rest.RestResultAutoConfiguration
+org.navistack.boot.autoconfigure.web.rest.RestResultJacksonAutoConfiguration
+org.navistack.boot.autoconfigure.web.rest.RestResultJacksonWebMvcAutoConfiguration
+org.navistack.boot.autoconfigure.web.rest.RestResultSecurityAutoConfiguration
