@@ -9,3 +9,4 @@ org.navistack.boot.autoconfigure.web.rest.RestResultAutoConfiguration
 org.navistack.boot.autoconfigure.web.rest.RestResultJacksonAutoConfiguration
 org.navistack.boot.autoconfigure.web.rest.RestResultJacksonWebMvcAutoConfiguration
 org.navistack.boot.autoconfigure.web.rest.RestResultSecurityAutoConfiguration
+org.navistack.boot.autoconfigure.logging.LoggingAutoConfiguration

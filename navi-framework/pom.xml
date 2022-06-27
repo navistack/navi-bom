@@ -35,6 +35,7 @@
         <swagger-v3.version>2.2.0</swagger-v3.version>
         <servlet-api.version>4.0.1</servlet-api.version>
         <slf4j.version>1.7.36</slf4j.version>
+        <aspectj.version>1.9.7</aspectj.version>
     </properties>
 
     <modules>
@@ -46,6 +47,7 @@
         <module>navi-jackson</module>
         <module>navi-mybatisplusplus</module>
         <module>navi-security</module>
+        <module>navi-logging</module>
     </modules>
 
     <dependencies>
@@ -283,6 +285,23 @@
                 <version>${slf4j.version}</version>
             </dependency>
 
+            <!-- AspectJ -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjtools</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
             <!-- submodules -->
             <dependency>
                 <groupId>org.navistack.framework</groupId>
@@ -322,6 +341,11 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-logging</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

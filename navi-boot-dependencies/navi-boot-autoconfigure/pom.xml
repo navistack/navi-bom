@@ -91,5 +91,10 @@
             <artifactId>navi-security</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-logging</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>
