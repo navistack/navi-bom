@@ -96,5 +96,10 @@
             <artifactId>navi-logging</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-locking</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

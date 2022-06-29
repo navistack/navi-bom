@@ -21,6 +21,7 @@
         <module>navi-boot-starter-cache</module>
         <module>navi-boot-starter-captcha</module>
         <module>navi-boot-starter-logging</module>
+        <module>navi-boot-starter-locking</module>
     </modules>
 
     <dependencies>

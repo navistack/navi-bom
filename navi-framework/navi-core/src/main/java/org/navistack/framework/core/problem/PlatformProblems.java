@@ -37,6 +37,11 @@ public class PlatformProblems {
      */
     public final int UNKNOWN_ENDPOINT = ProblemCodeBuilder.platformProblem(0x006);
 
+    /**
+     * Resource locked
+     */
+    public final int RESOURCE_LOCKED = ProblemCodeBuilder.platformProblem(0x007);
+
     public PlatformProblem authenticationFailure(String message) {
         return new PlatformProblem(AUTHENTICATION_FAILURE, message);
     }
@@ -51,5 +56,9 @@ public class PlatformProblems {
 
     public PlatformProblem captchaTestFailed(String message) {
         return new PlatformProblem(CAPTCHA_TEST_FAILED, message);
+    }
+
+    public PlatformProblem resourceLocked(String message) {
+        return new PlatformProblem(RESOURCE_LOCKED, message);
     }
 }

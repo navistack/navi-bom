@@ -29,6 +29,16 @@ public class RedisKvCacheService implements KvCacheService {
         redisOperations.opsForValue().set(key, value, timeout, unit);
     }
 
+    public <K, V> boolean setIfAbsent(K key, V value) {
+        Boolean result = redisOperations.opsForValue().setIfAbsent(key, value);
+        return result != null && result;
+    }
+
+    public <K, V> boolean setIfAbsent(K key, V value, long timeout, TimeUnit unit) {
+        Boolean result = redisOperations.opsForValue().setIfAbsent(key, value, timeout, unit);
+        return result != null && result;
+    }
+
     @Override
     public <V> V get(Object key, Class<V> clazz) {
         return clazz.cast(redisOperations.opsForValue().get(key));
