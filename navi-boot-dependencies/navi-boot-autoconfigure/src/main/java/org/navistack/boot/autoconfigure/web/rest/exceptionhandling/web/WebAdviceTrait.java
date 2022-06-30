@@ -7,5 +7,6 @@ import org.navistack.boot.autoconfigure.web.rest.exceptionhandling.web.servlet.N
 public interface WebAdviceTrait extends
         MethodArgumentNotValidAdviceTrait,
         MissingServletRequestParameterAdviceTrait,
-        NoHandlerFoundExceptionAdviceTrait {
+        NoHandlerFoundExceptionAdviceTrait,
+        HttpRequestMethodNotSupportedExceptionAdviceTrait {
 }

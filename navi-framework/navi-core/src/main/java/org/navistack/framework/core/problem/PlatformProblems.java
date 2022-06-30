@@ -42,6 +42,11 @@ public class PlatformProblems {
      */
     public final int RESOURCE_LOCKED = ProblemCodeBuilder.platformProblem(0x007);
 
+    /**
+     * Illegal request
+     */
+    public final int ILLEGAL_REQUEST = ProblemCodeBuilder.platformProblem(0x008);
+
     public PlatformProblem authenticationFailure(String message) {
         return new PlatformProblem(AUTHENTICATION_FAILURE, message);
     }
