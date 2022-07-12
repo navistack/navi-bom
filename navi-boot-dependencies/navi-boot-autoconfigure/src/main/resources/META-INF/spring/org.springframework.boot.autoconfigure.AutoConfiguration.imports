@@ -6,8 +6,8 @@ org.navistack.boot.autoconfigure.mybatisplusplus.MybatisPlusPlusAutoConfiguratio
 org.navistack.boot.autoconfigure.security.jwt.JwtTokenAutoConfiguration
 org.navistack.boot.autoconfigure.validation.ValidationMessageI18nAutoConfiguration
 org.navistack.boot.autoconfigure.web.rest.RestResultAutoConfiguration
-org.navistack.boot.autoconfigure.web.rest.RestResultJacksonAutoConfiguration
-org.navistack.boot.autoconfigure.web.rest.RestResultJacksonWebMvcAutoConfiguration
+org.navistack.boot.autoconfigure.jackson.RestResultJacksonAutoConfiguration
+org.navistack.boot.autoconfigure.jackson.RestResultJacksonWebMvcAutoConfiguration
 org.navistack.boot.autoconfigure.web.rest.RestResultSecurityAutoConfiguration
 org.navistack.boot.autoconfigure.logging.LoggingAutoConfiguration
 org.navistack.boot.autoconfigure.locking.LockingAutoConfiguration

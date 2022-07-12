@@ -1,8 +1,7 @@
 package org.navistack.boot.autoconfigure.web.rest;
 
-import org.navistack.boot.autoconfigure.web.rest.exceptionhandling.security.RestResultHttpSecurityBeanPostProcessor;
-import org.navistack.boot.autoconfigure.web.rest.exceptionhandling.security.SecurityExceptionHandling;
-import org.navistack.boot.autoconfigure.web.rest.exceptionhandling.common.AdviceTrait;
+import org.navistack.framework.web.rest.exceptionhanders.SecurityExceptionHandlingImpl;
+import org.navistack.framework.web.rest.exceptionhanders.common.ExceptionHandlerTrait;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -26,9 +25,9 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 @AutoConfigureAfter(SecurityAutoConfiguration.class)
 public class RestResultSecurityAutoConfiguration {
     @Bean
-    @ConditionalOnMissingBean(AdviceTrait.class)
-    public SecurityExceptionHandling securityExceptionHandling() {
-        return new SecurityExceptionHandling();
+    @ConditionalOnMissingBean(ExceptionHandlerTrait.class)
+    public SecurityExceptionHandlingImpl securityExceptionHandling() {
+        return new SecurityExceptionHandlingImpl();
     }
 
     @Bean
