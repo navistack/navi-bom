@@ -1,7 +1,5 @@
 package org.navistack.framework.cache;
 
-import org.springframework.data.redis.core.TimeoutUtils;
-
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +19,8 @@ public interface KvCacheService {
             throw new IllegalArgumentException("Timeout must not be null!");
         }
 
-        if (TimeoutUtils.hasMillis(timeout)) {
+        // Check if the given timeout can be represented in sec or requires msec representation.
+        if (timeout.toMillis() % 1000 != 0) {
             return setIfAbsent(key, value, timeout.toMillis(), TimeUnit.MILLISECONDS);
         }
 
