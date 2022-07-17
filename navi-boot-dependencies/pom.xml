@@ -81,6 +81,16 @@
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
+                <artifactId>navi-boot-starter-captcha-afs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.boot</groupId>
+                <artifactId>navi-boot-starter-captcha-tcc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-starter-logging</artifactId>
                 <version>${project.version}</version>
             </dependency>

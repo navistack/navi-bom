@@ -1,4 +1,4 @@
-package org.navistack.boot.autoconfigure.captcha.tencentcloud;
+package org.navistack.boot.autoconfigure.cloudservice.tencentcloud;
 
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import com.tencentcloudapi.common.Credential;

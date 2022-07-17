@@ -51,6 +51,30 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Alibaba Cloud -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-afs</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Tencent Cloud -->
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java-common</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java-captcha</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Navi Framework -->
         <dependency>
             <groupId>org.navistack.framework</groupId>

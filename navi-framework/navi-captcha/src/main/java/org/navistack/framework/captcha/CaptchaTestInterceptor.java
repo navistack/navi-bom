@@ -1,5 +1,7 @@
 package org.navistack.framework.captcha;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.navistack.framework.core.problem.PlatformProblems;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -10,21 +12,35 @@ import javax.servlet.http.HttpServletResponse;
 public class CaptchaTestInterceptor implements HandlerInterceptor {
     private final CaptchaTester captchaTester;
 
+    @Getter
+    @Setter
+    private boolean checkForAnnotation = true;
+
     public CaptchaTestInterceptor(CaptchaTester captchaTester) {
         this.captchaTester = captchaTester;
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (handler instanceof HandlerMethod) {
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            if (handlerMethod.hasMethodAnnotation(CaptchaTest.class)) {
-                if (captchaTester.test(request)) {
-                    return true;
-                }
-                throw PlatformProblems.captchaTestFailed("CAPTCHA test failed");
+        do {
+            if (!checkForAnnotation) {
+                break;
             }
+
+            if (handler instanceof HandlerMethod) {
+                HandlerMethod handlerMethod = (HandlerMethod) handler;
+                if (handlerMethod.hasMethodAnnotation(CaptchaTest.class)) {
+                    break;
+                }
+            }
+
+            return true;
+        } while (false);
+
+        if (!captchaTester.test(request)) {
+            throw PlatformProblems.captchaTestFailed("CAPTCHA test failed");
         }
+
         return true;
     }
 }

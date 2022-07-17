@@ -1,4 +1,4 @@
-package org.navistack.boot.autoconfigure.captcha.aliyun;
+package org.navistack.boot.autoconfigure.cloudservice.aliyun;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

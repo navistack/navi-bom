@@ -1,4 +1,4 @@
-package org.navistack.boot.autoconfigure.captcha.aliyun;
+package org.navistack.boot.autoconfigure.cloudservice.aliyun;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;

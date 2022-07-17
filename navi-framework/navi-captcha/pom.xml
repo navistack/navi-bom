@@ -40,18 +40,22 @@
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-afs</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.tencentcloudapi</groupId>
             <artifactId>tencentcloud-sdk-java-common</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.tencentcloudapi</groupId>
             <artifactId>tencentcloud-sdk-java-captcha</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

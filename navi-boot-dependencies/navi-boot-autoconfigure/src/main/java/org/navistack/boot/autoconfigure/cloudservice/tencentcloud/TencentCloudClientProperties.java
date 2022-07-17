@@ -1,4 +1,4 @@
-package org.navistack.boot.autoconfigure.captcha.tencentcloud;
+package org.navistack.boot.autoconfigure.cloudservice.tencentcloud;
 
 import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;

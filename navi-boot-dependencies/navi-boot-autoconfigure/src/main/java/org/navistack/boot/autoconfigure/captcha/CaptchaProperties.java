@@ -4,8 +4,10 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties(prefix = CaptchaProperties.PROPERTY_PREFIX)
+@ConfigurationProperties(prefix = CaptchaProperties.PROPERTIES_PREFIX)
 public class CaptchaProperties {
-    public static final String PROPERTY_PREFIX = "navi.captcha";
-    private String service = "SIMPLE_CAPTCHA";
+    public static final String PROPERTIES_PREFIX = "navi.captcha";
+
+    private boolean enabled = true;
+    private boolean checkForAnnotation = true;
 }
