@@ -26,8 +26,10 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 public class RestResultSecurityAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(ExceptionHandlerTrait.class)
-    public SecurityExceptionHandlingImpl securityExceptionHandling() {
-        return new SecurityExceptionHandlingImpl();
+    public SecurityExceptionHandlingImpl securityExceptionHandling(RestResultProperties properties) {
+        SecurityExceptionHandlingImpl securityExceptionHandling = new SecurityExceptionHandlingImpl();
+        securityExceptionHandling.setIncludeStackTrace(properties.isIncludeStackTrace());
+        return securityExceptionHandling;
     }
 
     @Bean

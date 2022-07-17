@@ -5,6 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public interface ExceptionHandlerTrait {
+    default boolean includeStackTrace() {
+        return false;
+    }
+
     default <E> ResponseEntity<RestResult<Void, E>> toResponse(Throwable throwable, E error, HttpStatus httpStatus) {
         LogUtils.log(throwable, httpStatus);
 

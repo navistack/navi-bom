@@ -17,7 +17,5 @@ public class RestResultModule extends SimpleModule {
 
         setMixInAnnotation(RestResult.class, RestResultMixIn.class);
         setMixInAnnotation(RestResult.ParameterizedError.class, ParameterizedErrorMixIn.class);
-
-//        addSerializer(new ProblemJsonSerializer());
     }
 }

@@ -2,6 +2,7 @@ package org.navistack.framework.web.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.navistack.framework.core.problem.Problem;
 
@@ -82,6 +83,7 @@ public interface RestResult<T, E> {
     }
 
     @Data
+    @NoArgsConstructor
     @AllArgsConstructor(staticName = "of")
     class SimpleError {
         private int error;
@@ -89,12 +91,21 @@ public interface RestResult<T, E> {
     }
 
     @Data
+    @EqualsAndHashCode(callSuper = true)
     @NoArgsConstructor
     @AllArgsConstructor(staticName = "of")
-    class ParameterizedError {
-        private int error;
-        private String message;
+    class ParameterizedError extends SimpleError {
         private Map<String, ? super Object> parameters;
+
+        public ParameterizedError(int error, String message, Map<String, ? super Object> parameters) {
+            super(error, message);
+
+            this.parameters = parameters;
+        }
+
+        public static ParameterizedError of(int error, String message, Map<String, ? super Object> parameters) {
+            return new ParameterizedError(error, message, parameters);
+        }
 
         @SafeVarargs
         public static ParameterizedError of(int error, String message, Map.Entry<String, ? super Object>... parameters) {
