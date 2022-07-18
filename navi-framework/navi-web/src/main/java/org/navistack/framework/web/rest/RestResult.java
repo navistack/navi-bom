@@ -50,6 +50,14 @@ public interface RestResult<T, E> {
         );
     }
 
+    static Err<ExceptionalError> err(int error, String message, Throwable throwable) {
+        return Err.of(ExceptionalError.of(error, message, throwable));
+    }
+
+    static Err<ExceptionalError> err(int error, String message, ExceptionalEntity exception) {
+        return Err.of(ExceptionalError.of(error, message, exception));
+    }
+
     @Data
     @AllArgsConstructor(staticName = "of")
     class Ok<T> implements RestResult<T, Void> {
@@ -118,6 +126,27 @@ public interface RestResult<T, E> {
                     );
 
             return of(error, message, parametersMap);
+        }
+    }
+
+    @Data
+    @EqualsAndHashCode(callSuper = true)
+    @NoArgsConstructor
+    class ExceptionalError extends SimpleError {
+        private ExceptionalEntity exception;
+
+        public ExceptionalError(int error, String message, ExceptionalEntity exception) {
+            super(error, message);
+            this.exception = exception;
+        }
+
+        public static ExceptionalError of(int error, String message, ExceptionalEntity exception) {
+            return new ExceptionalError(error, message, exception);
+        }
+
+        public static ExceptionalError of(int error, String message, Throwable throwable) {
+            ExceptionalEntity exception = ExceptionalEntityBuilder.of(throwable).build();
+            return new ExceptionalError(error, message, exception);
         }
     }
 }
