@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 
-public interface ManipulationService<ID extends Serializable, ENTITY, DTO> {
-    void create(DTO dto);
+public interface ManipulationService<T, ID extends Serializable> {
+    void create(T entity);
 
-    void modify(DTO dto);
+    void modify(T entity);
 
     default void remove(ID id) {
         remove(Collections.singleton(id));

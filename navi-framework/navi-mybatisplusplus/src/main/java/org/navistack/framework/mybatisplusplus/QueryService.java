@@ -6,10 +6,10 @@ import org.navistack.framework.data.Pageable;
 import java.io.Serializable;
 import java.util.List;
 
-public interface QueryService<ID extends Serializable, ENTITY, DTO, QUERY_PARAM> {
-    List<DTO> list(QUERY_PARAM queryParams);
+public interface QueryService<T, ID extends Serializable, Q> {
+    List<T> list(Q query);
 
-    Page<DTO> paginate(QUERY_PARAM queryParams, Pageable pageable);
+    Page<T> paginate(Q query, Pageable pageable);
 
-    DTO queryById(ID id);
+    T queryById(ID id);
 }

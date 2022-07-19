@@ -1,7 +1,6 @@
 package org.navistack.framework.mybatisplusplus;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.navistack.framework.core.utils.StaticModelMapper;
 import org.navistack.framework.mybatisplusplus.utils.GenericTypeUtils;
 import org.navistack.framework.mybatisplusplus.utils.MyBatisPlusUtils;
@@ -16,12 +15,12 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public abstract class AbstractCrudService<ID extends Serializable, ENTITY, DTO, QUERY_PARAM, DAO extends BaseMapper<ENTITY>>
-        implements CrudService<ID, ENTITY, DTO, QUERY_PARAM> {
+public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DAO extends CrudMapper<T>>
+        implements CrudService<DTO, ID, Q> {
     protected final DAO dao;
 
     @SuppressWarnings("unchecked")
-    private final Class<ENTITY> entityClass = (Class<ENTITY>) GenericTypeUtils.resolveTypeArgumentsOf(getClass(), AbstractCrudService.class, 1);
+    private final Class<T> entityClass = (Class<T>) GenericTypeUtils.resolveTypeArgumentsOf(getClass(), AbstractCrudService.class, 1);
 
     @SuppressWarnings("unchecked")
     private final Class<DTO> dtoClass = (Class<DTO>) GenericTypeUtils.resolveTypeArgumentsOf(getClass(), AbstractCrudService.class, 2);
@@ -65,7 +64,7 @@ public abstract class AbstractCrudService<ID extends Serializable, ENTITY, DTO, 
     public void create(DTO dto) {
         preCreate(dto);
 
-        ENTITY entity = StaticModelMapper.map(dto, entityClass);
+        T entity = StaticModelMapper.map(dto, entityClass);
 
         dao.insert(entity);
 
@@ -83,7 +82,7 @@ public abstract class AbstractCrudService<ID extends Serializable, ENTITY, DTO, 
     public void modify(DTO dto) {
         preModify(dto);
 
-        ENTITY entity = StaticModelMapper.map(dto, entityClass);
+        T entity = StaticModelMapper.map(dto, entityClass);
 
         dao.updateById(entity);
     }
@@ -100,11 +99,11 @@ public abstract class AbstractCrudService<ID extends Serializable, ENTITY, DTO, 
         dao.deleteBatchIds(ids);
     }
 
-    protected abstract Wrapper<ENTITY> buildWrapper(QUERY_PARAM queryParams);
+    protected abstract Wrapper<T> buildWrapper(Q queryParams);
 
     @Override
-    public List<DTO> list(QUERY_PARAM queryParams) {
-        Wrapper<ENTITY> wrapper = buildWrapper(queryParams);
+    public List<DTO> list(Q queryParams) {
+        Wrapper<T> wrapper = buildWrapper(queryParams);
 
         return dao.selectList(wrapper).stream()
                 .map(e -> StaticModelMapper.map(e, dtoClass))
@@ -112,8 +111,8 @@ public abstract class AbstractCrudService<ID extends Serializable, ENTITY, DTO, 
     }
 
     @Override
-    public Page<DTO> paginate(QUERY_PARAM queryParams, Pageable pageable) {
-        Wrapper<ENTITY> wrapper = buildWrapper(queryParams);
+    public Page<DTO> paginate(Q queryParams, Pageable pageable) {
+        Wrapper<T> wrapper = buildWrapper(queryParams);
 
         return MyBatisPlusUtils.PageUtils.toPage(
                 dao.selectPage(
