@@ -1,6 +1,6 @@
 package org.navistack.boot.autoconfigure.locking;
 
-import org.navistack.framework.cache.KvCacheService;
+import org.navistack.framework.cache.CacheService;
 import org.navistack.framework.locking.PessimisticLock;
 import org.navistack.framework.locking.PessimisticLockAspect;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -19,7 +19,7 @@ public class LockingAutoConfiguration {
     public static class PessimisticLockConfiguration {
         @Bean
         @ConditionalOnMissingBean(PessimisticLockAspect.class)
-        public PessimisticLockAspect pessimisticLockAspect(KvCacheService cacheService) {
+        public PessimisticLockAspect pessimisticLockAspect(CacheService cacheService) {
             return new PessimisticLockAspect(cacheService);
         }
     }

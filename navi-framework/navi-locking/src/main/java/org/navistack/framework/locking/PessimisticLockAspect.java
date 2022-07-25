@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.navistack.framework.cache.KvCacheService;
+import org.navistack.framework.cache.CacheService;
 import org.navistack.framework.core.problem.PlatformProblems;
 
 import java.lang.reflect.Method;
@@ -25,9 +25,9 @@ public class PessimisticLockAspect {
     @Setter
     private String lockKeyPrefix = "P_LOCK.";
 
-    private final KvCacheService cacheService;
+    private final CacheService cacheService;
 
-    public PessimisticLockAspect(KvCacheService cacheService) {
+    public PessimisticLockAspect(CacheService cacheService) {
         this.cacheService = cacheService;
     }
 

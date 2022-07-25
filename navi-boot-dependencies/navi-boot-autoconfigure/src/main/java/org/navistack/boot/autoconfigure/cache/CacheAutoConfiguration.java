@@ -1,7 +1,7 @@
 package org.navistack.boot.autoconfigure.cache;
 
-import org.navistack.framework.cache.KvCacheService;
-import org.navistack.framework.cache.RedisKvCacheService;
+import org.navistack.framework.cache.CacheService;
+import org.navistack.framework.cache.RedisCacheService;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -12,12 +12,12 @@ import org.springframework.data.redis.core.RedisOperations;
 
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-public class KvCacheAutoConfiguration {
+public class CacheAutoConfiguration {
 
     @Bean
     @ConditionalOnBean(RedisOperations.class)
-    @ConditionalOnMissingBean(KvCacheService.class)
-    public KvCacheService kvCacheService(RedisOperations<Object, Object> redisOperations) {
-        return new RedisKvCacheService(redisOperations);
+    @ConditionalOnMissingBean(CacheService.class)
+    public CacheService cacheService(RedisOperations<Object, Object> redisOperations) {
+        return new RedisCacheService(redisOperations);
     }
 }

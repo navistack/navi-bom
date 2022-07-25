@@ -3,7 +3,7 @@ package org.navistack.framework.cache;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public interface KvCacheService {
+public interface CacheService {
     <K, V> void set(K key, V value);
 
     <K, V> void set(K key, V value, Duration timeout);

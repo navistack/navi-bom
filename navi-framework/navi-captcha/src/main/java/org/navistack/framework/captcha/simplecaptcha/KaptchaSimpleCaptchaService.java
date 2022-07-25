@@ -3,7 +3,7 @@ package org.navistack.framework.captcha.simplecaptcha;
 import com.google.code.kaptcha.Producer;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
-import org.navistack.framework.cache.KvCacheService;
+import org.navistack.framework.cache.CacheService;
 
 import java.awt.image.RenderedImage;
 import java.util.Optional;
@@ -18,7 +18,7 @@ public class KaptchaSimpleCaptchaService implements SimpleCaptchaService {
     private static final int CHALLENGE_VALIDITY = 10 * 60 * 1000;
     private static final int TICKET_VALIDITY = 10 * 60 * 1000;
 
-    private final KvCacheService kvCacheService;
+    private final CacheService cacheService;
 
     private final Producer kaptcha;
 
@@ -32,8 +32,8 @@ public class KaptchaSimpleCaptchaService implements SimpleCaptchaService {
         kaptcha = defaultKaptcha;
     }
 
-    public KaptchaSimpleCaptchaService(KvCacheService kvCacheService) {
-        this.kvCacheService = kvCacheService;
+    public KaptchaSimpleCaptchaService(CacheService cacheService) {
+        this.cacheService = cacheService;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class KaptchaSimpleCaptchaService implements SimpleCaptchaService {
         String challenge = UUID.randomUUID().toString();
 
         String expected = kaptcha.createText();
-        kvCacheService.set(buildChallengeCacheKey(challenge), expected, CHALLENGE_VALIDITY, TimeUnit.MILLISECONDS);
+        cacheService.set(buildChallengeCacheKey(challenge), expected, CHALLENGE_VALIDITY, TimeUnit.MILLISECONDS);
 
         return challenge;
     }
@@ -51,7 +51,7 @@ public class KaptchaSimpleCaptchaService implements SimpleCaptchaService {
         String ticket = UUID.randomUUID().toString();
 
         boolean passed = Optional.ofNullable(
-                        kvCacheService.getAndDelete(buildChallengeCacheKey(challenge), String.class)
+                        cacheService.getAndDelete(buildChallengeCacheKey(challenge), String.class)
                 ).map(expectedAnswer -> expectedAnswer.equals(answer))
                 .orElse(false);
 
@@ -59,7 +59,7 @@ public class KaptchaSimpleCaptchaService implements SimpleCaptchaService {
         userAttempt.setAnswer(answer);
         userAttempt.setValidated(passed);
 
-        kvCacheService.set(buildTicketCacheKey(ticket), userAttempt, TICKET_VALIDITY, TimeUnit.MILLISECONDS);
+        cacheService.set(buildTicketCacheKey(ticket), userAttempt, TICKET_VALIDITY, TimeUnit.MILLISECONDS);
 
         UserAttemptResult result = new UserAttemptResult();
         result.setValidated(passed);
@@ -70,7 +70,7 @@ public class KaptchaSimpleCaptchaService implements SimpleCaptchaService {
 
     @Override
     public boolean validate(String ticket) {
-        return Optional.ofNullable(kvCacheService.getAndDelete(
+        return Optional.ofNullable(cacheService.getAndDelete(
                         buildTicketCacheKey(ticket),
                         UserAttempt.class
                 ))
@@ -81,7 +81,7 @@ public class KaptchaSimpleCaptchaService implements SimpleCaptchaService {
     @Override
     public RenderedImage draw(String challenge) {
         String response = Optional.ofNullable(
-                        kvCacheService.get(buildChallengeCacheKey(challenge), String.class)
+                        cacheService.get(buildChallengeCacheKey(challenge), String.class)
                 )
                 .orElse("");
         return kaptcha.createImage(response);

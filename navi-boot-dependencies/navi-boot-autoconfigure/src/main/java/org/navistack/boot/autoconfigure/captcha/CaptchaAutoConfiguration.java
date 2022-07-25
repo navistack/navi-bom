@@ -2,10 +2,10 @@ package org.navistack.boot.autoconfigure.captcha;
 
 import com.aliyuncs.IAcsClient;
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
-import org.navistack.boot.autoconfigure.cache.KvCacheAutoConfiguration;
+import org.navistack.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.navistack.boot.autoconfigure.cloudservice.aliyun.AliyunAfsProperties;
 import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.TencentCloudCaptchaProperties;
-import org.navistack.framework.cache.KvCacheService;
+import org.navistack.framework.cache.CacheService;
 import org.navistack.framework.captcha.CaptchaTestInterceptor;
 import org.navistack.framework.captcha.CaptchaTester;
 import org.navistack.framework.captcha.CaptchaTesterComposite;
@@ -32,7 +32,7 @@ import java.util.Collection;
 @EnableConfigurationProperties(CaptchaProperties.class)
 @ConditionalOnProperty(value = CaptchaProperties.PROPERTIES_PREFIX + ".enabled", havingValue = "true", matchIfMissing = true)
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
-@AutoConfigureAfter(KvCacheAutoConfiguration.class)
+@AutoConfigureAfter(CacheAutoConfiguration.class)
 public class CaptchaAutoConfiguration {
     @Bean
     @ConditionalOnBean(CaptchaTester.class)
@@ -73,8 +73,8 @@ public class CaptchaAutoConfiguration {
     public static class SimpleCaptchaTesterConfiguration {
         @Bean
         @ConditionalOnMissingBean(SimpleCaptchaService.class)
-        public KaptchaSimpleCaptchaService kaptchaSimpleCaptchaService(KvCacheService kvCacheService) {
-            return new KaptchaSimpleCaptchaService(kvCacheService);
+        public KaptchaSimpleCaptchaService kaptchaSimpleCaptchaService(CacheService cacheService) {
+            return new KaptchaSimpleCaptchaService(cacheService);
         }
 
         @Bean

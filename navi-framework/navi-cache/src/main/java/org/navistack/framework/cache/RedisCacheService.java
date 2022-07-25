@@ -7,10 +7,10 @@ import org.springframework.data.redis.core.SessionCallback;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public class RedisKvCacheService implements KvCacheService {
+public class RedisCacheService implements CacheService {
     private final RedisOperations<Object, Object> redisOperations;
 
-    public RedisKvCacheService(RedisOperations<Object, Object> redisOperations) {
+    public RedisCacheService(RedisOperations<Object, Object> redisOperations) {
         this.redisOperations = redisOperations;
     }
 
