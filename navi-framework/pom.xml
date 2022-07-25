@@ -30,12 +30,12 @@
         <aliyun-sdk-afs.version>1.0.1</aliyun-sdk-afs.version>
         <tencentcloud-sdk.version>3.1.526</tencentcloud-sdk.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
-        <jsonwebtoken.version>0.11.5</jsonwebtoken.version>
         <mapstruct.version>1.5.1.Final</mapstruct.version>
         <swagger-v3.version>2.2.0</swagger-v3.version>
         <servlet-api.version>4.0.1</servlet-api.version>
         <slf4j.version>1.7.36</slf4j.version>
         <aspectj.version>1.9.7</aspectj.version>
+        <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
     </properties>
 
     <modules>
@@ -181,23 +181,6 @@
                 <version>${mybatis-plus.version}</version>
             </dependency>
 
-            <!-- jsonwebtoken -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-api</artifactId>
-                <version>${jsonwebtoken.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-impl</artifactId>
-                <version>${jsonwebtoken.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-jackson</artifactId>
-                <version>${jsonwebtoken.version}</version>
-            </dependency>
-
             <!-- mapstruct -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
@@ -301,6 +284,13 @@
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
                 <version>${aspectj.version}</version>
+            </dependency>
+
+            <!-- Nimbus JOSE+JWT -->
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbus-jose-jwt.version}</version>
             </dependency>
 
             <!-- submodules -->

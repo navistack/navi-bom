@@ -1,7 +1,5 @@
 package org.navistack.framework.security.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,18 +14,18 @@ public class DefaultJwtTokenResolver implements JwtTokenResolver {
     private static final String AUTHORITIES_KEY = "auth";
 
     @Override
-    public Claims getClaims(Authentication authentication) {
+    public JwtClaims getClaims(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-        Claims claims = new DefaultClaims();
+        JwtClaims claims = new DefaultJwtClaims();
         claims.put(AUTHORITIES_KEY, authorities);
         return claims;
     }
 
     @Override
-    public Authentication getAuthentication(Claims claims) {
+    public Authentication getAuthentication(JwtClaims claims) {
         Collection<? extends GrantedAuthority> authorities = Arrays
                 .stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                 .filter(auth -> !auth.trim().isEmpty())
