@@ -75,6 +75,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Navi Framework -->
         <dependency>
             <groupId>org.navistack.framework</groupId>
@@ -87,22 +94,7 @@
         </dependency>
         <dependency>
             <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-data</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-cache</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.navistack.framework</groupId>
             <artifactId>navi-captcha</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-jackson</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -113,16 +105,6 @@
         <dependency>
             <groupId>org.navistack.framework</groupId>
             <artifactId>navi-security</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-logging</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-locking</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>

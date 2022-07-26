@@ -40,15 +40,10 @@
 
     <modules>
         <module>navi-web</module>
-        <module>navi-data</module>
         <module>navi-core</module>
-        <module>navi-cache</module>
         <module>navi-captcha</module>
-        <module>navi-jackson</module>
         <module>navi-mybatisplusplus</module>
         <module>navi-security</module>
-        <module>navi-logging</module>
-        <module>navi-locking</module>
     </modules>
 
     <dependencies>
@@ -301,27 +296,12 @@
             </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-data</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-cache</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-captcha</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-jackson</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -332,16 +312,6 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-logging</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-locking</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

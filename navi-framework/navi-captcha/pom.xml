@@ -19,10 +19,6 @@
         </dependency>
         <dependency>
             <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-cache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.navistack.framework</groupId>
             <artifactId>navi-web</artifactId>
         </dependency>
         <dependency>

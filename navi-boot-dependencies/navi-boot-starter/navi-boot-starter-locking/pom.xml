@@ -21,9 +21,5 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-locking</artifactId>
-        </dependency>
     </dependencies>
 </project>
