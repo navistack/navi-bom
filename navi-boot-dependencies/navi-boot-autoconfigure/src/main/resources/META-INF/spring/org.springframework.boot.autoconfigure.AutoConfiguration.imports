@@ -11,3 +11,5 @@ org.navistack.boot.autoconfigure.jackson.RestResultJacksonWebMvcAutoConfiguratio
 org.navistack.boot.autoconfigure.web.rest.RestResultSecurityAutoConfiguration
 org.navistack.boot.autoconfigure.logging.LoggingAutoConfiguration
 org.navistack.boot.autoconfigure.locking.LockingAutoConfiguration
+org.navistack.boot.autoconfigure.ratelimit.RateLimitAutoConfiguration
+org.navistack.boot.autoconfigure.redis.RedisAutoConfiguration

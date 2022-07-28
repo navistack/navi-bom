@@ -24,6 +24,7 @@
         <module>navi-boot-starter-captcha-tcc</module>
         <module>navi-boot-starter-logging</module>
         <module>navi-boot-starter-locking</module>
+        <module>navi-boot-starter-ratelimit</module>
     </modules>
 
     <dependencies>

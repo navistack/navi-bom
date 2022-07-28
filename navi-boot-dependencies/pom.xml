@@ -99,6 +99,11 @@
                 <artifactId>navi-boot-starter-locking</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.navistack.boot</groupId>
+                <artifactId>navi-boot-starter-ratelimit</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

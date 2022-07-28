@@ -47,6 +47,11 @@ public class PlatformProblems {
      */
     public final int ILLEGAL_REQUEST = ProblemCodeBuilder.platformProblem(0x008);
 
+    /**
+     * Frequent request
+     */
+    public final int FREQUENT_REQUEST = ProblemCodeBuilder.platformProblem(0x009);
+
     public PlatformProblem authenticationFailure(String message) {
         return new PlatformProblem(AUTHENTICATION_FAILURE, message);
     }
@@ -65,5 +70,9 @@ public class PlatformProblems {
 
     public PlatformProblem resourceLocked(String message) {
         return new PlatformProblem(RESOURCE_LOCKED, message);
+    }
+
+    public PlatformProblem frequentRequest(String message) {
+        return new PlatformProblem(FREQUENT_REQUEST, message);
     }
 }
