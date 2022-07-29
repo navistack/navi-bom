@@ -9,4 +9,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OperationLog {
     String value();
+
+    Level level() default Level.INFO;
+
+    enum Level {
+        TRACE,
+        DEBUG,
+        INFO,
+        WARN,
+        ERROR
+    }
 }
