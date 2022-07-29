@@ -1,69 +1,45 @@
 package org.navistack.framework.locking;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.navistack.framework.cache.CacheService;
 import org.navistack.framework.core.problem.PlatformProblems;
+import org.navistack.framework.expression.MethodExpressionEvaluator;
+import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
 
 import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+import java.time.temporal.TemporalUnit;
 
 @Slf4j
 @Aspect
 public class PessimisticLockAspect {
-    private final Map<Method, AnnotatedExpressionEvaluator<?>> evaluatorCache = new ConcurrentHashMap<>();
+    private final MethodExpressionEvaluatorFactory evaluatorFactory = new MethodExpressionEvaluatorFactory();
+    private final PessimisticLockService lockService;
 
-    @Getter
-    @Setter
-    private String lockKeyPrefix = "P_LOCK.";
-
-    private final CacheService cacheService;
-
-    public PessimisticLockAspect(CacheService cacheService) {
-        this.cacheService = cacheService;
+    public PessimisticLockAspect(PessimisticLockService lockService) {
+        this.lockService = lockService;
     }
 
-    @Pointcut("@annotation(PessimisticLock)")
-    public void pointcut() {
-
-    }
-
-    @Around("pointcut()")
-    @SuppressWarnings("unchecked")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Around("@annotation(pessimisticLock)")
+    public Object around(ProceedingJoinPoint joinPoint, PessimisticLock pessimisticLock) throws Throwable {
         Object[] args = joinPoint.getArgs();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-
-        PessimisticLock pessimisticLock = method.getAnnotation(PessimisticLock.class);
         String userKeyExpression = pessimisticLock.key();
         long timeout = pessimisticLock.timeout();
-        TimeUnit unit = pessimisticLock.unit();
-
-        AnnotatedExpressionEvaluator<String> evaluator = (AnnotatedExpressionEvaluator<String>)
-                evaluatorCache.computeIfAbsent(
-                        method,
-                        k -> new AnnotatedExpressionEvaluator<>(userKeyExpression, method, String.class)
-                );
-
-        String userKey = evaluator.evaluate(args);
-        String key = lockKeyPrefix + userKey;
-        if (!cacheService.setIfAbsent(key, "1", timeout, unit)) {
+        TemporalUnit unit = pessimisticLock.unit();
+        MethodExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
+        String userKey = evaluator.evaluate(String.class, args);
+        if (!lockService.tryLock(userKey, Duration.of(timeout, unit))) {
             throw PlatformProblems.resourceLocked("Resource Locked");
         }
-
         try {
             return joinPoint.proceed(args);
         } finally {
-            cacheService.delete(key);
+            lockService.unlock(userKey);
         }
     }
 }
