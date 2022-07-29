@@ -1,6 +1,7 @@
 package org.navistack.framework.cache;
 
 import lombok.Getter;
+import org.navistack.framework.utils.Strings;
 
 import java.util.StringJoiner;
 
@@ -35,12 +36,16 @@ public class StringCacheKeyBuilder implements CacheKeyBuilder<String> {
     @Override
     public String build(String part, String... extraParts) {
         StringJoiner joiner = new StringJoiner(delimiter);
-        joiner.add(prefix);
+        if (Strings.hasLength(prefix)) {
+            joiner.add(prefix);
+        }
         joiner.add(part);
         for (String extraPart : extraParts) {
             joiner.add(extraPart);
         }
-        joiner.add(DEFAULT_SUFFIX);
+        if (Strings.hasLength(suffix)) {
+            joiner.add(suffix);
+        }
         return joiner.toString();
     }
 
