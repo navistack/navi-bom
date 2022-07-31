@@ -1,4 +1,4 @@
-package org.navistack.framework.core.utils;
+package org.navistack.framework.utils;
 
 import lombok.experimental.UtilityClass;
 import org.modelmapper.ModelMapper;
@@ -7,7 +7,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import java.lang.reflect.Type;
 
 @UtilityClass
-public class StaticModelMapper {
+public class ModelMappers {
     private final ModelMapper instance;
 
     static {

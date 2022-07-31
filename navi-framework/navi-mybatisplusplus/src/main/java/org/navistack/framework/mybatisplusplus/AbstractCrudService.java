@@ -1,8 +1,8 @@
 package org.navistack.framework.mybatisplusplus;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import org.navistack.framework.core.utils.StaticModelMapper;
-import org.navistack.framework.mybatisplusplus.utils.GenericTypeUtils;
+import org.navistack.framework.utils.ModelMappers;
+import org.navistack.framework.utils.GenericTypeResolvers;
 import org.navistack.framework.mybatisplusplus.utils.MyBatisPlusUtils;
 import org.navistack.framework.data.Page;
 import org.navistack.framework.data.Pageable;
@@ -20,10 +20,10 @@ public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DA
     protected final DAO dao;
 
     @SuppressWarnings("unchecked")
-    private final Class<T> entityClass = (Class<T>) GenericTypeUtils.resolveTypeArgumentsOf(getClass(), AbstractCrudService.class, 1);
+    private final Class<T> entityClass = (Class<T>) GenericTypeResolvers.resolveTypeArgumentsOf(getClass(), AbstractCrudService.class, 1);
 
     @SuppressWarnings("unchecked")
-    private final Class<DTO> dtoClass = (Class<DTO>) GenericTypeUtils.resolveTypeArgumentsOf(getClass(), AbstractCrudService.class, 2);
+    private final Class<DTO> dtoClass = (Class<DTO>) GenericTypeResolvers.resolveTypeArgumentsOf(getClass(), AbstractCrudService.class, 2);
 
     private final Collection<Consumer<DTO>> preCreateActions = new ArrayList<>();
 
@@ -64,11 +64,11 @@ public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DA
     public void create(DTO dto) {
         preCreate(dto);
 
-        T entity = StaticModelMapper.map(dto, entityClass);
+        T entity = ModelMappers.map(dto, entityClass);
 
         dao.insert(entity);
 
-        StaticModelMapper.map(entity, dto);
+        ModelMappers.map(entity, dto);
     }
 
     protected void preModify(DTO dto) {
@@ -82,7 +82,7 @@ public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DA
     public void modify(DTO dto) {
         preModify(dto);
 
-        T entity = StaticModelMapper.map(dto, entityClass);
+        T entity = ModelMappers.map(dto, entityClass);
 
         dao.updateById(entity);
     }
@@ -106,7 +106,7 @@ public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DA
         Wrapper<T> wrapper = buildWrapper(queryParams);
 
         return dao.selectList(wrapper).stream()
-                .map(e -> StaticModelMapper.map(e, dtoClass))
+                .map(e -> ModelMappers.map(e, dtoClass))
                 .collect(Collectors.toList());
     }
 
@@ -119,12 +119,12 @@ public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DA
                         MyBatisPlusUtils.PageUtils.fromPageable(pageable),
                         wrapper
                 ),
-                e -> StaticModelMapper.map(e, dtoClass)
+                e -> ModelMappers.map(e, dtoClass)
         );
     }
 
     @Override
     public DTO queryById(ID id) {
-        return StaticModelMapper.map(dao.selectById(id), dtoClass);
+        return ModelMappers.map(dao.selectById(id), dtoClass);
     }
 }

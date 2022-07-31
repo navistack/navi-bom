@@ -1,9 +1,9 @@
-package org.navistack.framework.core.utils;
+package org.navistack.framework.utils;
 
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class MathUtils {
+public class Maths {
     public long clamp(long val, long min, long max) {
         if (val < min) {
             return min;
