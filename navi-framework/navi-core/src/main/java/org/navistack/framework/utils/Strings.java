@@ -5,24 +5,37 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Strings {
     public String trimWhitespace(String str) {
-        return hasLength(str)
-                ? str.substring(indexOfLeadingNonWhitespace(str), indexOfTrailingNonWhitespace(str))
-                : str
-                ;
+        if (!hasLength(str)) {
+            return str;
+        }
+        int i = indexOfLeadingNonWhitespace(str);
+        if (i == str.length()) {
+            return "";
+        }
+        int j = indexOfTrailingNonWhitespace(str);
+        return str.substring(i, j + 1);
     }
 
     public String trimLeadingWhitespace(String str) {
-        return hasLength(str)
-                ? str.substring(indexOfLeadingNonWhitespace(str))
-                : str
-                ;
+        if (!hasLength(str)) {
+            return str;
+        }
+        int idx = indexOfLeadingNonWhitespace(str);
+        if (idx == str.length()) {
+            return "";
+        }
+        return str.substring(idx);
     }
 
     public String trimTrailingWhitespace(String str) {
-        return hasLength(str)
-                ? str.substring(0, indexOfTrailingNonWhitespace(str) + 1)
-                : str
-                ;
+        if (!hasLength(str)) {
+            return str;
+        }
+        int idx = indexOfTrailingNonWhitespace(str);
+        if (idx == -1) {
+            return "";
+        }
+        return str.substring(0, idx + 1);
     }
 
     public boolean hasLength(String str) {
@@ -34,15 +47,13 @@ public class Strings {
     }
 
     private int indexOfLeadingNonWhitespace(String str) {
-        int i = 0;
-        int len = str.length();
+        int i = 0, len = str.length();
         while (i < len) {
             char ch = str.charAt(i);
-            if (Character.isWhitespace(ch)) {
-                ++i;
-            } else {
+            if (ch != ' ' && ch != '\t' && !Character.isWhitespace(ch)) {
                 break;
             }
+            ++i;
         }
         return i;
     }
@@ -51,23 +62,15 @@ public class Strings {
         int i = str.length() - 1;
         while (i >= 0) {
             char ch = str.charAt(i);
-            if (Character.isWhitespace(ch)) {
-                --i;
-            } else {
+            if (ch != ' ' && ch != '\t' && !Character.isWhitespace(ch)) {
                 break;
             }
+            --i;
         }
         return i;
     }
 
-    private boolean containsText(CharSequence str) {
-        int len = str.length();
-        for (int i = 0; i < len; ++i) {
-            char ch = str.charAt(i);
-            if (!Character.isWhitespace(ch)) {
-                return true;
-            }
-        }
-        return false;
+    private boolean containsText(String str) {
+        return indexOfLeadingNonWhitespace(str) < str.length();
     }
 }
