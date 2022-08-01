@@ -1,11 +1,11 @@
 package org.navistack.framework.ratelimit;
 
-import com.sun.tools.javac.util.List;
 import org.springframework.core.io.Resource;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.script.RedisScript;
 
 import java.time.Duration;
+import java.util.Collections;
 
 public class RedisOperationSlidingWindowRateLimiter extends AbstractRedisSlidingWindowRateLimiter {
     private final RedisOperations<String, Long> redisOperations;
@@ -19,7 +19,7 @@ public class RedisOperationSlidingWindowRateLimiter extends AbstractRedisSliding
         long windowSizeInMillis = windowSize.toMillis();
         Boolean result = redisOperations.execute(
                 RedisScript.of(scriptResource, Boolean.class),
-                List.of(key),
+                Collections.singletonList(key),
                 Integer.toString(maxRequests),
                 Long.toString(timestamp),
                 Long.toString(windowSizeInMillis)
