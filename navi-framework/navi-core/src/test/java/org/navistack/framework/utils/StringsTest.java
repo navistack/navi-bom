@@ -19,41 +19,41 @@ class StringsTest {
     }
 
     @Test
-    void trimWhitespace() {
-        assertThat(Strings.trimWhitespace(null)).isEqualTo(null);
-        assertThat(Strings.trimWhitespace("")).isEqualTo("");
-        assertThat(Strings.trimWhitespace(" \t\r\n ")).isEqualTo("");
-        assertThat(Strings.trimWhitespace(" a b c ")).isEqualTo("a b c");
-        assertThat(Strings.trimWhitespace("\ta b c\t")).isEqualTo("a b c");
-        assertThat(Strings.trimWhitespace("\ta\tb\tc\t")).isEqualTo("a\tb\tc");
-        assertThat(Strings.trimWhitespace(" a b c ")).isEqualTo("a b c");
-        assertThat(Strings.trimWhitespace("\t a b c \t")).isEqualTo("a b c");
-        assertThat(Strings.trimWhitespace("\t a b c \r")).isEqualTo("a b c");
-        assertThat(Strings.trimWhitespace("\n a b c \n")).isEqualTo("a b c");
-        assertThat(Strings.trimWhitespace("\r\n a b c \r\n")).isEqualTo("a b c");
+    void strip() {
+        assertThat(Strings.strip(null)).isEqualTo(null);
+        assertThat(Strings.strip("")).isEqualTo("");
+        assertThat(Strings.strip(" \t\r\n ")).isEqualTo("");
+        assertThat(Strings.strip(" a b c ")).isEqualTo("a b c");
+        assertThat(Strings.strip("\ta b c\t")).isEqualTo("a b c");
+        assertThat(Strings.strip("\ta\tb\tc\t")).isEqualTo("a\tb\tc");
+        assertThat(Strings.strip(" a b c ")).isEqualTo("a b c");
+        assertThat(Strings.strip("\t a b c \t")).isEqualTo("a b c");
+        assertThat(Strings.strip("\t a b c \r")).isEqualTo("a b c");
+        assertThat(Strings.strip("\n a b c \n")).isEqualTo("a b c");
+        assertThat(Strings.strip("\r\n a b c \r\n")).isEqualTo("a b c");
     }
 
     @Test
-    void trimLeadingWhitespace() {
-        assertThat(Strings.trimLeadingWhitespace(null)).isEqualTo(null);
-        assertThat(Strings.trimLeadingWhitespace("")).isEqualTo("");
-        assertThat(Strings.trimLeadingWhitespace(" \t\r\n")).isEqualTo("");
-        assertThat(Strings.trimLeadingWhitespace(" a b c ")).isEqualTo("a b c ");
-        assertThat(Strings.trimLeadingWhitespace("\ra b c ")).isEqualTo("a b c ");
-        assertThat(Strings.trimLeadingWhitespace("\na b c ")).isEqualTo("a b c ");
-        assertThat(Strings.trimLeadingWhitespace("\r\na b c ")).isEqualTo("a b c ");
+    void stripLeading() {
+        assertThat(Strings.stripLeading(null)).isEqualTo(null);
+        assertThat(Strings.stripLeading("")).isEqualTo("");
+        assertThat(Strings.stripLeading(" \t\r\n")).isEqualTo("");
+        assertThat(Strings.stripLeading(" a b c ")).isEqualTo("a b c ");
+        assertThat(Strings.stripLeading("\ra b c ")).isEqualTo("a b c ");
+        assertThat(Strings.stripLeading("\na b c ")).isEqualTo("a b c ");
+        assertThat(Strings.stripLeading("\r\na b c ")).isEqualTo("a b c ");
     }
 
     @Test
-    void trimTrailingWhitespace() {
-        assertThat(Strings.trimTrailingWhitespace(null)).isEqualTo(null);
-        assertThat(Strings.trimTrailingWhitespace("")).isEqualTo("");
-        assertThat(Strings.trimTrailingWhitespace(" \t\r\n")).isEqualTo("");
-        assertThat(Strings.trimTrailingWhitespace(" a b c ")).isEqualTo(" a b c");
-        assertThat(Strings.trimTrailingWhitespace(" a b c\t")).isEqualTo(" a b c");
-        assertThat(Strings.trimTrailingWhitespace(" a b c\r")).isEqualTo(" a b c");
-        assertThat(Strings.trimTrailingWhitespace(" a b c\n")).isEqualTo(" a b c");
-        assertThat(Strings.trimTrailingWhitespace(" a b c\r\n")).isEqualTo(" a b c");
+    void stripTrailing() {
+        assertThat(Strings.stripTrailing(null)).isEqualTo(null);
+        assertThat(Strings.stripTrailing("")).isEqualTo("");
+        assertThat(Strings.stripTrailing(" \t\r\n")).isEqualTo("");
+        assertThat(Strings.stripTrailing(" a b c ")).isEqualTo(" a b c");
+        assertThat(Strings.stripTrailing(" a b c\t")).isEqualTo(" a b c");
+        assertThat(Strings.stripTrailing(" a b c\r")).isEqualTo(" a b c");
+        assertThat(Strings.stripTrailing(" a b c\n")).isEqualTo(" a b c");
+        assertThat(Strings.stripTrailing(" a b c\r\n")).isEqualTo(" a b c");
     }
 
     @Test

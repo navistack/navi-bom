@@ -4,34 +4,34 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Strings {
-    public String trimWhitespace(String str) {
+    public String strip(String str) {
         if (!hasLength(str)) {
             return str;
         }
-        int i = indexOfLeadingNonWhitespace(str);
+        int i = indexOfNonWhitespace(str);
         if (i == str.length()) {
             return "";
         }
-        int j = indexOfTrailingNonWhitespace(str);
+        int j = lastIndexOfNonWhitespace(str);
         return str.substring(i, j + 1);
     }
 
-    public String trimLeadingWhitespace(String str) {
+    public String stripLeading(String str) {
         if (!hasLength(str)) {
             return str;
         }
-        int idx = indexOfLeadingNonWhitespace(str);
+        int idx = indexOfNonWhitespace(str);
         if (idx == str.length()) {
             return "";
         }
         return str.substring(idx);
     }
 
-    public String trimTrailingWhitespace(String str) {
+    public String stripTrailing(String str) {
         if (!hasLength(str)) {
             return str;
         }
-        int idx = indexOfTrailingNonWhitespace(str);
+        int idx = lastIndexOfNonWhitespace(str);
         if (idx == -1) {
             return "";
         }
@@ -46,7 +46,7 @@ public class Strings {
         return hasLength(str) && containsText(str);
     }
 
-    private int indexOfLeadingNonWhitespace(String str) {
+    private int indexOfNonWhitespace(String str) {
         int i = 0, len = str.length();
         while (i < len) {
             char ch = str.charAt(i);
@@ -58,7 +58,7 @@ public class Strings {
         return i;
     }
 
-    private int indexOfTrailingNonWhitespace(String str) {
+    private int lastIndexOfNonWhitespace(String str) {
         int i = str.length() - 1;
         while (i >= 0) {
             char ch = str.charAt(i);
@@ -71,6 +71,6 @@ public class Strings {
     }
 
     private boolean containsText(String str) {
-        return indexOfLeadingNonWhitespace(str) < str.length();
+        return indexOfNonWhitespace(str) < str.length();
     }
 }
