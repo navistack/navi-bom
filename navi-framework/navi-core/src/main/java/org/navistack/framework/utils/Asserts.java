@@ -4,6 +4,9 @@ import lombok.experimental.UtilityClass;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.function.BiPredicate;
+import java.util.function.BooleanSupplier;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @UtilityClass
@@ -21,13 +24,46 @@ public class Asserts {
     }
 
     /**
+     * Assert a boolean expression, throwing an {@link RuntimeException}
+     *
+     * @param expression a boolean expression supplier
+     * @param exceptionSupplier a supplier for the exception to use if the assertion fails
+     */
+    public void state(BooleanSupplier expression, Supplier<RuntimeException> exceptionSupplier) {
+        state(expression.getAsBoolean(), exceptionSupplier);
+    }
+
+    /**
+     * Assert a boolean expression, throwing an {@link RuntimeException}
+     *
+     * @param object the object to test with
+     * @param predicate the predicate to execute
+     * @param exceptionSupplier a supplier for the exception to use if the assertion fails
+     */
+    public <T> void state(T object, Predicate<T> predicate, Supplier<RuntimeException> exceptionSupplier) {
+        state(predicate.test(object), exceptionSupplier);
+    }
+
+    /**
+     * Assert a boolean expression, throwing an {@link RuntimeException}
+     *
+     * @param left the object to test with
+     * @param right the other object to test with
+     * @param predicate the predicate to execute
+     * @param exceptionSupplier a supplier for the exception to use if the assertion fails
+     */
+    public <T, U> void state(T left, U right, BiPredicate<T, U> predicate, Supplier<RuntimeException> exceptionSupplier) {
+        state(predicate.test(left, right), exceptionSupplier);
+    }
+
+    /**
      * Assert that an object is null.
      *
      * @param object the object to check
      * @param exceptionSupplier a supplier for the exception to use if the assertion fails
      */
-    public void isNull(Object object, Supplier<RuntimeException> exceptionSupplier) {
-        state(object == null, exceptionSupplier);
+    public <T> void isNull(T object, Supplier<RuntimeException> exceptionSupplier) {
+        state(object, Objects::isNull, exceptionSupplier);
     }
 
     /**
@@ -36,8 +72,8 @@ public class Asserts {
      * @param object the object to check
      * @param exceptionSupplier a supplier for the exception to use if the assertion fails
      */
-    public void notNull(Object object, Supplier<RuntimeException> exceptionSupplier) {
-        state(object != null, exceptionSupplier);
+    public <T> void notNull(T object, Supplier<RuntimeException> exceptionSupplier) {
+        state(object, Objects::isNotNull, exceptionSupplier);
     }
 
     /**
@@ -47,11 +83,9 @@ public class Asserts {
      * @param right the other object to check
      * @param exceptionSupplier a supplier for the exception to use if the assertion fails
      */
+    @Deprecated
     public void doesEqual(Object left, Object right, Supplier<RuntimeException> exceptionSupplier) {
-        state(
-                left != null && right != null && left.equals(right) && right.equals(left),
-                exceptionSupplier
-        );
+        state(left, right, Objects::equals, exceptionSupplier);
     }
 
     /**
@@ -60,8 +94,9 @@ public class Asserts {
      * @param string the object to check
      * @param exceptionSupplier a supplier for the exception to use if the assertion fails
      */
+    @Deprecated
     public void notEmpty(String string, Supplier<RuntimeException> exceptionSupplier) {
-        state(string != null && !"".equals(string), exceptionSupplier);
+        state(string, Strings::hasLength, exceptionSupplier);
     }
 
     /**
@@ -70,8 +105,9 @@ public class Asserts {
      * @param collection the object to check
      * @param exceptionSupplier a supplier for the exception to use if the assertion fails
      */
+    @Deprecated
     public void notEmpty(Collection<?> collection, Supplier<RuntimeException> exceptionSupplier) {
-        state(collection != null && !collection.isEmpty(), exceptionSupplier);
+        state(collection, Collections::isNotEmpty, exceptionSupplier);
     }
 
     /**
@@ -80,8 +116,9 @@ public class Asserts {
      * @param map the object to check
      * @param exceptionSupplier a supplier for the exception to use if the assertion fails
      */
+    @Deprecated
     public void notEmpty(Map<?, ?> map, Supplier<RuntimeException> exceptionSupplier) {
-        state(map != null && !map.isEmpty(), exceptionSupplier);
+        state(map, Maps::isNotEmpty, exceptionSupplier);
     }
 
     /**
@@ -90,7 +127,8 @@ public class Asserts {
      * @param array the object to check
      * @param exceptionSupplier a supplier for the exception to use if the assertion fails
      */
+    @Deprecated
     public void notEmpty(Object[] array, Supplier<RuntimeException> exceptionSupplier) {
-        state(array != null && array.length > 0, exceptionSupplier);
+        state(array, Arrays::isNotEmpty, exceptionSupplier);
     }
 }

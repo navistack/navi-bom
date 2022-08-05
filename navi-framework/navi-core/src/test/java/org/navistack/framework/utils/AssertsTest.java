@@ -29,6 +29,24 @@ class AssertsTest {
     }
 
     @Test
+    void stateBooleanSupplier() {
+        Asserts.state(() -> true, RuntimeException::new);
+        assertThatThrownBy(() -> Asserts.state(() -> false, RuntimeException::new)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    void statePredicate() {
+        Asserts.state(new Object(), object -> true, RuntimeException::new);
+        assertThatThrownBy(() -> Asserts.state(new Object(), object -> false, RuntimeException::new)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    void stateBiPredicate() {
+        Asserts.state(new Object(), new Object(), (left, right) -> true, RuntimeException::new);
+        assertThatThrownBy(() -> Asserts.state(new Object(), new Object(), (left, right) -> false, RuntimeException::new)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
     void isNull() {
         Asserts.isNull(null, IllegalArgumentException::new);
         assertThatThrownBy(() -> Asserts.isNull(new Object(), IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
