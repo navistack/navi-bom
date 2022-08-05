@@ -5,32 +5,18 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Maths {
     public long clamp(long val, long min, long max) {
-        if (val < min) {
-            return min;
-        } else if (val > max) {
-            return max;
-        } else {
-            return val;
-        }
+        return Math.min(Math.max(val, min), max);
     }
 
     public int clamp(int val, int min, int max) {
-        if (val < min) {
-            return min;
-        } else if (val > max) {
-            return max;
-        } else {
-            return val;
-        }
+        return Math.min(Math.max(val, min), max);
     }
 
-    public short clamp(short val, short min, short max) {
-        if (val < min) {
-            return min;
-        } else if (val > max) {
-            return max;
-        } else {
-            return val;
-        }
+    public float clamp(float val, float min, float max) {
+        return Math.min(Math.max(val, min), max);
+    }
+
+    public double clamp(double val, double min, double max) {
+        return Math.min(Math.max(val, min), max);
     }
 }

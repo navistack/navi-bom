@@ -34,9 +34,16 @@ class MathsTest {
     }
 
     @Test
-    void clampShort() {
-        Assertions.assertThat(Maths.clamp((short) 1, (short) 5, (short) 15)).isEqualTo((short) 5);
-        Assertions.assertThat(Maths.clamp((short) 10, (short) 5, (short) 15)).isEqualTo((short) 10);
-        Assertions.assertThat(Maths.clamp((short) 20, (short) 5, (short) 15)).isEqualTo((short) 15);
+    void clampDouble() {
+        Assertions.assertThat(Maths.clamp(1.0, 5.0, 15.0)).isEqualTo(5.0f);
+        Assertions.assertThat(Maths.clamp(10.0, 5.0, 15.0)).isEqualTo(10.0f);
+        Assertions.assertThat(Maths.clamp(20.0, 5.0, 15.0)).isEqualTo(15.0f);
+    }
+
+    @Test
+    void clampFloat() {
+        Assertions.assertThat(Maths.clamp(1.0f, 5.0f, 15.0f)).isEqualTo(5.0f);
+        Assertions.assertThat(Maths.clamp(10.0f, 5.0f, 15.0f)).isEqualTo(10.0f);
+        Assertions.assertThat(Maths.clamp(20.0f, 5.0f, 15.0f)).isEqualTo(15.0f);
     }
 }
