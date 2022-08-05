@@ -3,7 +3,7 @@ package org.navistack.framework.ratelimit;
 import lombok.Getter;
 import lombok.Setter;
 import org.navistack.framework.cache.CacheKeyBuilder;
-import org.navistack.framework.cache.StringCacheKeyBuilder;
+import org.navistack.framework.cache.PrefixedCacheKeyBuilder;
 import org.navistack.framework.utils.Strings;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -15,10 +15,10 @@ import java.time.Duration;
 public abstract class AbstractRedisSlidingWindowRateLimiter extends AbstractSlidingWindowRateLimiter {
     private final static String DEFAULT_USER_KEY = "GLOBAL_RESOURCE";
     private final static Resource DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("scripts/slidingwindowratelimiter.lua");
-    private final static CacheKeyBuilder<String> KEY_BUILDER = new StringCacheKeyBuilder(".", new String[] {"NAVI", "RATE_LIMITER"});
+    private final static CacheKeyBuilder KEY_BUILDER = new PrefixedCacheKeyBuilder(".", "NAVI", "RATE_LIMITER");
 
     private Resource scriptResource = DEFAULT_SCRIPT_RESOURCE;
-    private CacheKeyBuilder<String> keyBuilder = KEY_BUILDER;
+    private CacheKeyBuilder keyBuilder = KEY_BUILDER;
 
     @Override
     public boolean tryAcquire(String key) {
@@ -35,7 +35,7 @@ public abstract class AbstractRedisSlidingWindowRateLimiter extends AbstractSlid
         if (!Strings.hasLength(prefix)) {
             throw new IllegalArgumentException("prefix can not be null or empty");
         }
-        keyBuilder = new StringCacheKeyBuilder(".", prefix);
+        keyBuilder = new PrefixedCacheKeyBuilder(".", prefix);
     }
 
     protected abstract boolean executeScript(Resource scriptResource, String key, int maxRequests, long timestamp, Duration windowSize);

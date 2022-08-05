@@ -8,54 +8,54 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class RedisCacheService implements CacheService {
-    private final RedisOperations<Object, Object> redisOperations;
+    private final RedisOperations<String, Object> redisOperations;
 
-    public RedisCacheService(RedisOperations<Object, Object> redisOperations) {
+    public RedisCacheService(RedisOperations<String, Object> redisOperations) {
         this.redisOperations = redisOperations;
     }
 
     @Override
-    public <K, V> void set(K key, V value) {
+    public void set(String key, Object value) {
         redisOperations.opsForValue().set(key, value);
     }
 
     @Override
-    public <K, V> void set(K key, V value, Duration timeout) {
+    public void set(String key, Object value, Duration timeout) {
         redisOperations.opsForValue().set(key, value, timeout);
     }
 
     @Override
-    public <K, V> void set(K key, V value, long timeout, TimeUnit unit) {
+    public void set(String key, Object value, long timeout, TimeUnit unit) {
         redisOperations.opsForValue().set(key, value, timeout, unit);
     }
 
-    public <K, V> boolean setIfAbsent(K key, V value) {
+    public boolean setIfAbsent(String key, Object value) {
         Boolean result = redisOperations.opsForValue().setIfAbsent(key, value);
         return result != null && result;
     }
 
-    public <K, V> boolean setIfAbsent(K key, V value, long timeout, TimeUnit unit) {
+    public boolean setIfAbsent(String key, Object value, long timeout, TimeUnit unit) {
         Boolean result = redisOperations.opsForValue().setIfAbsent(key, value, timeout, unit);
         return result != null && result;
     }
 
     @Override
-    public <V> V get(Object key, Class<V> clazz) {
+    public <V> V get(String key, Class<V> clazz) {
         return clazz.cast(redisOperations.opsForValue().get(key));
     }
 
     @Override
-    public boolean delete(Object key) {
+    public boolean delete(String key) {
         Boolean result = redisOperations.delete(key);
         return result != null && result;
     }
 
-    public <V> V getAndDelete(Object key, Class<V> clazz) {
+    public <V> V getAndDelete(String key, Class<V> clazz) {
         return clazz.cast(redisOperations.execute(new SessionCallback<Object>() {
             @Override
             public <K, TV> Object execute(RedisOperations<K, TV> pOperations) throws DataAccessException {
                 @SuppressWarnings("unchecked")
-                RedisOperations<Object, Object> operations = (RedisOperations<Object, Object>) pOperations;
+                RedisOperations<String, Object> operations = (RedisOperations<String, Object>) pOperations;
                 Object value = operations.opsForValue().get(key);
                 operations.delete(key);
                 return value;

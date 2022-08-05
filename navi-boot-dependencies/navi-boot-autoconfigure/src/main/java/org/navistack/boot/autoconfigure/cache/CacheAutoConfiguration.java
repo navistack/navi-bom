@@ -17,7 +17,7 @@ public class CacheAutoConfiguration {
     @Bean
     @ConditionalOnBean(RedisOperations.class)
     @ConditionalOnMissingBean(CacheService.class)
-    public CacheService cacheService(RedisOperations<Object, Object> redisOperations) {
+    public CacheService cacheService(RedisOperations<String, Object> redisOperations) {
         return new RedisCacheService(redisOperations);
     }
 }

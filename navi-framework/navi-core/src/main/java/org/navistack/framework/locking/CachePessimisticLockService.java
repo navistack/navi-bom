@@ -2,12 +2,12 @@ package org.navistack.framework.locking;
 
 import org.navistack.framework.cache.CacheKeyBuilder;
 import org.navistack.framework.cache.CacheService;
-import org.navistack.framework.cache.StringCacheKeyBuilder;
+import org.navistack.framework.cache.PrefixedCacheKeyBuilder;
 
 import java.time.Duration;
 
 public class CachePessimisticLockService implements PessimisticLockService {
-    private final CacheKeyBuilder<String> keyBuilder = new StringCacheKeyBuilder(".", new String[]{"NAVI", "P_LOCK"});
+    private final CacheKeyBuilder keyBuilder = new PrefixedCacheKeyBuilder(".", "NAVI", "P_LOCK");
     private final CacheService cacheService;
 
     public CachePessimisticLockService(CacheService cacheService) {

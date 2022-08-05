@@ -4,17 +4,17 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public interface CacheService {
-    <K, V> void set(K key, V value);
+    void set(String key, Object value);
 
-    <K, V> void set(K key, V value, Duration timeout);
+    void set(String key, Object value, Duration timeout);
 
-    <K, V> void set(K key, V value, long timeout, TimeUnit unit);
+    void set(String key, Object value, long timeout, TimeUnit unit);
 
-    <K, V> boolean setIfAbsent(K key, V value);
+    boolean setIfAbsent(String key, Object value);
 
-    <K, V> boolean setIfAbsent(K key, V value, long timeout, TimeUnit unit);
+    boolean setIfAbsent(String key, Object value, long timeout, TimeUnit unit);
 
-    default <K, V> boolean setIfAbsent(K key, V value, Duration timeout) {
+    default boolean setIfAbsent(String key, Object value, Duration timeout) {
         if (timeout == null) {
             throw new IllegalArgumentException("Timeout must not be null!");
         }
@@ -27,9 +27,9 @@ public interface CacheService {
         return setIfAbsent(key, value, timeout.getSeconds(), TimeUnit.SECONDS);
     }
 
-    <V> V get(Object key, Class<V> clazz);
+    <V> V get(String key, Class<V> clazz);
 
-    boolean delete(Object key);
+    boolean delete(String key);
 
-    <V> V getAndDelete(Object key, Class<V> clazz);
+    <V> V getAndDelete(String key, Class<V> clazz);
 }
