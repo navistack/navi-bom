@@ -22,7 +22,7 @@ public interface Page<T> {
      *
      * @return the number of total pages
      */
-    int getTotalPages();
+    long getTotalPages();
 
     /**
      * Returns the page records as {@link Collection}.

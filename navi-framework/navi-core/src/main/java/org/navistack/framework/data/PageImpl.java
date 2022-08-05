@@ -1,25 +1,47 @@
 package org.navistack.framework.data;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Collection;
+import java.util.Collections;
 
 @Data
-@AllArgsConstructor
 public class PageImpl<T> implements Page<T> {
     private Collection<T> records;
     private int pageNumber;
     private int pageSize;
     private long totalRecords;
 
+    public PageImpl(Collection<T> records, int pageNumber, int pageSize, long totalRecords) {
+        setRecords(records);
+        setPageNumber(pageNumber);
+        setPageSize(pageSize);
+        setTotalRecords(totalRecords);
+    }
+
+    public void setRecords(Collection<T> records) {
+        this.records = records != null ? records : Collections.emptyList();
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = Math.max(1, pageNumber);
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = Math.max(0, pageSize);
+    }
+
+    public void setTotalRecords(long totalRecords) {
+        this.totalRecords = Math.max(0, totalRecords);
+    }
+
     @Override
-    public int getTotalPages() {
+    public long getTotalPages() {
         long totalRecords = getTotalRecords();
         int pageSize = getPageSize();
 
-        return pageSize <= 0
+        return pageSize < 1
                 ? 0
-                : (int) Math.ceil((double) totalRecords / pageSize);
+                : (totalRecords + pageSize - 1) / pageSize;
     }
 }
