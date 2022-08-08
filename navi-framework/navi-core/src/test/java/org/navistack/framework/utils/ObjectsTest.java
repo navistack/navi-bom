@@ -33,4 +33,15 @@ class ObjectsTest {
         assertThat(Objects.equals(cStr, cStr)).isTrue();
         assertThat(Objects.equals(str, cStr)).isTrue();
     }
+
+    @Test
+    void firstNonNull() {
+        assertThat(Objects.firstNonNull((Object) null)).isNull();
+        assertThat(Objects.firstNonNull((Object[]) null)).isNull();
+        assertThat(Objects.firstNonNull(null, (Object) null)).isNull();
+        assertThat(Objects.firstNonNull(new Object[]{})).isNull();
+        assertThat(Objects.firstNonNull(null, "str")).isEqualTo("str");
+        assertThat(Objects.firstNonNull(null, null, "str")).isEqualTo("str");
+        assertThat(Objects.firstNonNull(null, "str1", null, null, "str2")).isEqualTo("str1");
+    }
 }
