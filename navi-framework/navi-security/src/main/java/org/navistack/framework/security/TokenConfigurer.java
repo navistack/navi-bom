@@ -1,21 +1,21 @@
-package org.navistack.framework.security.jwt;
+package org.navistack.framework.security;
 
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-public class JwtTokenConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+public class TokenConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    private final JwtTokenService jwtTokenService;
+    private final TokenService tokenService;
 
-    public JwtTokenConfigurer(JwtTokenService jwtTokenService) {
-        this.jwtTokenService = jwtTokenService;
+    public TokenConfigurer(TokenService tokenService) {
+        this.tokenService = tokenService;
     }
 
     @Override
     public void configure(HttpSecurity http) {
-        JwtTokenFilter customFilter = new JwtTokenFilter(jwtTokenService);
+        TokenFilter customFilter = new TokenFilter(tokenService);
         http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

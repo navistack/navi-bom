@@ -1,5 +1,7 @@
 package org.navistack.boot.autoconfigure.security.jwt;
 
+import org.navistack.framework.security.TokenConfigurer;
+import org.navistack.framework.security.TokenService;
 import org.navistack.framework.security.jwt.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -21,7 +23,7 @@ public class JwtTokenAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public JwtTokenService tokenService(
+    public TokenService tokenService(
             JwtTokenProperties properties,
             JwtTokenResolver tokenResolver
     ) {
@@ -30,13 +32,13 @@ public class JwtTokenAutoConfiguration {
         int validity = properties.getValidity();
         Assert.isTrue(validity > 0, "Validity can not be negative or zero");
 
-        DefaultJwtTokenService jsonWebTokenService = new DefaultJwtTokenService(secret, validity);
+        JwtTokenService jsonWebTokenService = new JwtTokenService(secret, validity);
         jsonWebTokenService.setTokenResolver(tokenResolver);
         return jsonWebTokenService;
     }
 
     @Bean
-    public JwtTokenConfigurer authTokenConfigurer(JwtTokenService jwtTokenService) {
-        return new JwtTokenConfigurer(jwtTokenService);
+    public TokenConfigurer authTokenConfigurer(TokenService tokenService) {
+        return new TokenConfigurer(tokenService);
     }
 }
