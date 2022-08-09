@@ -29,9 +29,21 @@ class AssertsTest {
     }
 
     @Test
+    void stateIllegalArgument() {
+        Asserts.state(true, "Assertion failure");
+        assertThatThrownBy(() -> Asserts.state(false, "Assertion failure")).isInstanceOf(IllegalArgumentException.class).hasMessage("Assertion failure");
+    }
+
+    @Test
     void stateBooleanSupplier() {
         Asserts.state(() -> true, RuntimeException::new);
         assertThatThrownBy(() -> Asserts.state(() -> false, RuntimeException::new)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    void stateBooleanSupplierIllegalArgument() {
+        Asserts.state(() -> true, "Assertion failure");
+        assertThatThrownBy(() -> Asserts.state(() -> false, "Assertion failure")).isInstanceOf(IllegalArgumentException.class).hasMessage("Assertion failure");
     }
 
     @Test
@@ -41,9 +53,21 @@ class AssertsTest {
     }
 
     @Test
+    void statePredicateIllegalArgument() {
+        Asserts.state(new Object(), object -> true, "Assertion failure");
+        assertThatThrownBy(() -> Asserts.state(new Object(), object -> false, "Assertion failure")).isInstanceOf(IllegalArgumentException.class).hasMessage("Assertion failure");
+    }
+
+    @Test
     void stateBiPredicate() {
         Asserts.state(new Object(), new Object(), (left, right) -> true, RuntimeException::new);
         assertThatThrownBy(() -> Asserts.state(new Object(), new Object(), (left, right) -> false, RuntimeException::new)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    void stateBiPredicateIllegalArgument() {
+        Asserts.state(new Object(), new Object(), (left, right) -> true, "Assertion failure");
+        assertThatThrownBy(() -> Asserts.state(new Object(), new Object(), (left, right) -> false, "Assertion failure")).isInstanceOf(IllegalArgumentException.class).hasMessage("Assertion failure");
     }
 
     @Test

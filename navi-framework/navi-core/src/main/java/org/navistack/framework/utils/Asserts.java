@@ -24,6 +24,16 @@ public class Asserts {
     }
 
     /**
+     * Assert a boolean expression, throwing an {@link IllegalArgumentException}
+     *
+     * @param expression a boolean expression
+     * @param message a message to be attached to exception thrown
+     */
+    public void state(boolean expression, String message) {
+        state(expression, () -> new IllegalArgumentException(message));
+    }
+
+    /**
      * Assert a boolean expression, throwing an {@link RuntimeException}
      *
      * @param expression a boolean expression supplier
@@ -31,6 +41,16 @@ public class Asserts {
      */
     public void state(BooleanSupplier expression, Supplier<RuntimeException> exceptionSupplier) {
         state(expression.getAsBoolean(), exceptionSupplier);
+    }
+
+    /**
+     * Assert a boolean expression, throwing an {@link IllegalArgumentException}
+     *
+     * @param expression a boolean expression supplier
+     * @param message a message to be attached to exception thrown
+     */
+    public void state(BooleanSupplier expression, String message) {
+        state(expression, () -> new IllegalArgumentException(message));
     }
 
     /**
@@ -45,6 +65,17 @@ public class Asserts {
     }
 
     /**
+     * Assert a boolean expression, throwing an {@link IllegalArgumentException}
+     *
+     * @param object the object to test with
+     * @param predicate the predicate to execute
+     * @param message a message to be attached to exception thrown
+     */
+    public <T> void state(T object, Predicate<T> predicate, String message) {
+        state(object, predicate, () -> new IllegalArgumentException(message));
+    }
+
+    /**
      * Assert a boolean expression, throwing an {@link RuntimeException}
      *
      * @param left the object to test with
@@ -54,6 +85,18 @@ public class Asserts {
      */
     public <T, U> void state(T left, U right, BiPredicate<T, U> predicate, Supplier<RuntimeException> exceptionSupplier) {
         state(predicate.test(left, right), exceptionSupplier);
+    }
+
+    /**
+     * Assert a boolean expression, throwing an {@link IllegalArgumentException}
+     *
+     * @param left the object to test with
+     * @param right the other object to test with
+     * @param predicate the predicate to execute
+     * @param message a message to be attached to exception thrown
+     */
+    public <T, U> void state(T left, U right, BiPredicate<T, U> predicate, String message) {
+        state(left, right, predicate, () -> new IllegalArgumentException(message));
     }
 
     /**
