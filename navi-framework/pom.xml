@@ -37,6 +37,7 @@
         <aspectj.version>1.9.7</aspectj.version>
         <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
         <assertj.version>3.22.0</assertj.version>
+        <minio.version>8.4.3</minio.version>
     </properties>
 
     <modules>
@@ -45,6 +46,7 @@
         <module>navi-captcha</module>
         <module>navi-mybatisplusplus</module>
         <module>navi-security</module>
+        <module>navi-objectstorage</module>
     </modules>
 
     <dependencies>
@@ -296,6 +298,13 @@
                 <version>${assertj.version}</version>
             </dependency>
 
+            <!-- MinIO -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+
             <!-- submodules -->
             <dependency>
                 <groupId>org.navistack.framework</groupId>
@@ -320,6 +329,11 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-objectstorage</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
