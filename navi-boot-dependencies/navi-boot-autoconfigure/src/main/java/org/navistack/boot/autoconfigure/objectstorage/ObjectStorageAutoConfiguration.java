@@ -1,6 +1,7 @@
 package org.navistack.boot.autoconfigure.objectstorage;
 
 import io.minio.MinioClient;
+import org.navistack.framework.objectstorage.FilesystemObjectStorageService;
 import org.navistack.framework.objectstorage.MinioObjectStorageService;
 import org.navistack.framework.objectstorage.ObjectStorageService;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -11,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 @AutoConfiguration
-@Import(MinioConfiguration.class)
+@Import({FilesystemConfiguration.class, MinioConfiguration.class})
 public class ObjectStorageAutoConfiguration {
     @Bean
     @ConditionalOnClass(MinioClient.class)
@@ -19,5 +20,11 @@ public class ObjectStorageAutoConfiguration {
     @ConditionalOnMissingBean
     public ObjectStorageService MinioObjectStorageService(MinioClient minioClient) {
         return new MinioObjectStorageService(minioClient);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ObjectStorageService MinioObjectStorageService(FilesystemProperties properties) {
+        return new FilesystemObjectStorageService(properties.getDataDir());
     }
 }
