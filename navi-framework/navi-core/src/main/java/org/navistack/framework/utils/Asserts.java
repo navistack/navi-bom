@@ -120,6 +120,16 @@ public class Asserts {
     }
 
     /**
+     * Assert that an object is not null, throwing an {@link NullPointerException}
+     *
+     * @param object the object to check
+     * @param message a message to be attached to exception thrown
+     */
+    public <T> void notNull(T object, String message) {
+        state(object, Objects::isNotNull, () -> new NullPointerException(message));
+    }
+
+    /**
      * Assert that an object equals to another one.
      *
      * @param left the object to check

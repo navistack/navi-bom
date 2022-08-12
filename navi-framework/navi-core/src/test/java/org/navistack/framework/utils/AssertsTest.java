@@ -91,6 +91,16 @@ class AssertsTest {
     }
 
     @Test
+    void notNullNullPointer() {
+        Asserts.notNull(0, "Assertion failure");
+        Asserts.notNull(true, "Assertion failure");
+        Asserts.notNull(false, "Assertion failure");
+        Asserts.notNull("", "Assertion failure");
+        Asserts.notNull(new Object(), "Assertion failure");
+        assertThatThrownBy(() -> Asserts.notNull(null, "Assertion failure")).isInstanceOf(NullPointerException.class).hasMessage("Assertion failure");
+    }
+
+    @Test
     void doesEqual() {
         Object obj = new Object();
         Asserts.doesEqual(obj, obj, IllegalArgumentException::new);
