@@ -46,6 +46,14 @@ public class Strings {
         return hasLength(str) && containsText(str);
     }
 
+    public String[] split(String str, String regex) {
+        return hasLength(str) ? str.split(regex) : new String[]{};
+    }
+
+    public String[] split(String str, String regex, int limit) {
+        return hasLength(str) ? str.split(regex, limit) : new String[]{};
+    }
+
     private int indexOfNonWhitespace(String str) {
         int i = 0, len = str.length();
         while (i < len) {

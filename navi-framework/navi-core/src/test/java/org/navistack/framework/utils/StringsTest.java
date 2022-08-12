@@ -80,4 +80,24 @@ class StringsTest {
         assertThat(Strings.hasText(" abc ")).isTrue();
         assertThat(Strings.hasText(" a b c ")).isTrue();
     }
+
+    @Test
+    void split() {
+        assertThat(Strings.split(null, ":")).isNotNull().isEmpty();
+        assertThat(Strings.split("", ":")).isNotNull().isEmpty();
+        assertThat(Strings.split(":", ":")).isNotNull().isEmpty();
+        assertThat(Strings.split("a:b", ":")).containsExactly("a", "b");
+        assertThat(Strings.split("a:", ":")).containsExactly("a");
+        assertThat(Strings.split(":b", ":")).containsExactly("", "b");
+    }
+
+    @Test
+    void splitLimit() {
+        assertThat(Strings.split(null, ":", 2)).isNotNull().isEmpty();
+        assertThat(Strings.split("", ":", 2)).isNotNull().isEmpty();
+        assertThat(Strings.split(":", ":", 2)).containsExactly("", "");
+        assertThat(Strings.split("a:b:c", ":", 2)).containsExactly("a", "b:c");
+        assertThat(Strings.split("a:b:", ":", 2)).containsExactly("a", "b:");
+        assertThat(Strings.split(":b:c", ":", 2)).containsExactly("", "b:c");
+    }
 }
