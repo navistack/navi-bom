@@ -102,7 +102,7 @@ public interface FileUploadService {
      * @param contentType Content type of file on failing probing
      */
     default UploadedFileStat uploadFile(String bucket, String file, String filename, String contentType) {
-        return uploadFile(bucket, file, filename, contentType, getDefaultUploadPolicy());
+        return uploadFile(bucket, file, filename, contentType, null);
     }
 
     /**
@@ -123,6 +123,4 @@ public interface FileUploadService {
      * @param file   name of file to be deleted
      */
     void removeFile(String bucket, String file);
-
-    FileUploadPolicy getDefaultUploadPolicy();
 }

@@ -6,11 +6,8 @@ import org.navistack.framework.objectstorage.namebuilders.FileHashedFileNameBuil
 import org.navistack.framework.utils.Asserts;
 import org.navistack.framework.utils.Strings;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Set;
 
 public class DefaultFileUploadService implements FileUploadService {
     @Getter
@@ -21,7 +18,8 @@ public class DefaultFileUploadService implements FileUploadService {
     private FilenameBuilder filenameBuilder = new FileHashedFileNameBuilder();
 
     @Getter
-    private FileUploadPolicy defaultUploadPolicy = new FileUploadPolicy();
+    @Setter
+    private FileUploadPolicyEnforcer uploadPolicyEnforcer = new DefaultFileUploadPolicyEnforcer();
 
 
     public DefaultFileUploadService(ObjectStorageService objectStorageService) {
@@ -39,11 +37,6 @@ public class DefaultFileUploadService implements FileUploadService {
         Asserts.state(file, Strings::hasText, "file can not be empty");
 
         return objectStorageService.getObject(bucket, file);
-    }
-
-    public void setDefaultUploadPolicy(FileUploadPolicy defaultUploadPolicy) {
-        Asserts.notNull(defaultUploadPolicy, "defaultUploadPolicy can not be null");
-        this.defaultUploadPolicy = defaultUploadPolicy;
     }
 
     @Override
@@ -66,7 +59,7 @@ public class DefaultFileUploadService implements FileUploadService {
         Asserts.state(file, Strings::hasText, "file can not be empty");
         Asserts.notNull(filePath, "filePath can not be null");
 
-        ensureUploadPolicy(filePath, contentType, policy);
+        uploadPolicyEnforcer.enforce(filePath, contentType, policy);
 
         String managedFile = filenameBuilder.build(file, contentType);
         objectStorageService.uploadObject(bucket, managedFile, filePath.getFileName().toString());
@@ -74,36 +67,6 @@ public class DefaultFileUploadService implements FileUploadService {
                 .setContentType(contentType)
                 .setOriginalFilename(file)
                 ;
-    }
-
-    private void ensureUploadPolicy(Path filePath, String contentType, FileUploadPolicy policy) {
-        long sizeLimit = policy.getContentSizeLimit();
-        if (sizeLimit >= 0) {
-            try {
-                long fileSize = Files.size(filePath);
-                if (fileSize > sizeLimit) {
-                    throw new FileUploadPolicyViolationException("File too large " + fileSize);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        Set<String> typeLimit = policy.getContentTypeLimit();
-        if (typeLimit != null) {
-            try {
-                String actualContentType = Files.probeContentType(filePath);
-                if (actualContentType != null) {
-                    contentType = actualContentType;
-                }
-            } catch (IOException e) {
-                throw new FileUploadPolicyViolationException("Error occurred while probing filetype", e);
-            }
-
-            if (typeLimit.contains(contentType)) {
-                throw new FileUploadPolicyViolationException("filetype " + contentType + " not allowed");
-            }
-        }
     }
 
     @Override
