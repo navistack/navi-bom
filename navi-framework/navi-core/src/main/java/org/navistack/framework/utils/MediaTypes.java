@@ -14,6 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @UtilityClass
 public class MediaTypes {
+    private final Map<String, MediaType> TYPES_POOL = new ConcurrentHashMap<>(1840);
+
     public final MediaType APPLICATION_1D_INTERLEAVED_PARITYFEC = of("application", "1d-interleaved-parityfec");
     public final MediaType APPLICATION_3GPDASH_QOE_REPORT_XML = of("application", "3gpdash-qoe-report+xml");
     public final MediaType APPLICATION_3GPP_IMS_XML = of("application", "3gpp-ims+xml");
@@ -1853,8 +1855,6 @@ public class MediaTypes {
     public final MediaType VIDEO_X_SGI_MOVIE = of("video", "x-sgi-movie", "movie");
     public final MediaType VIDEO_X_SMV = of("video", "x-smv", "smv");
     public final MediaType X_CONFERENCE_X_COOLTALK = of("x-conference", "x-cooltalk", "ice");
-
-    private static final Map<String, MediaType> TYPES_POOL = new ConcurrentHashMap<>(1840);
 
     public MediaType of(String type, String subType, Set<String> extensions) {
         MediaType mediaType = new MediaType(type, subType, extensions);
