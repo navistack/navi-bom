@@ -2,12 +2,16 @@ package org.navistack.framework.objectstorage;
 
 import io.minio.*;
 import io.minio.errors.MinioException;
+import io.minio.http.Method;
 import lombok.Getter;
 import lombok.Setter;
+import org.navistack.framework.utils.Arrays;
+import org.navistack.framework.utils.Strings;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
+import java.time.Duration;
 
 public class MinioObjectStorageService implements ObjectStorageService {
     private final MinioClient minioClient;
@@ -73,6 +77,34 @@ public class MinioObjectStorageService implements ObjectStorageService {
                     RemoveObjectArgs.builder()
                             .bucket(bucket)
                             .object(object)
+                            .build()
+            );
+        } catch (IOException | MinioException | GeneralSecurityException e) {
+            throw new ObjectWriteException(e);
+        }
+    }
+
+    public String getPresignedObjectUrl(String object) {
+        return getPresignedObjectUrl(object, Duration.ofDays(7));
+    }
+
+    public String getPresignedObjectUrl(String object, Duration expiration) {
+        return getPresignedObjectUrl(object, expiration, "GET");
+    }
+
+    public String getPresignedObjectUrl(String object, Duration expiration, String method) {
+        String[] parts = Strings.split(object, ":");
+        return getPresignedObjectUrl(Arrays.get(parts, 0), Arrays.get(parts, 1), expiration, method);
+    }
+
+    public String getPresignedObjectUrl(String bucket, String object, Duration expiration, String method) {
+        try {
+            return minioClient.getPresignedObjectUrl(
+                    GetPresignedObjectUrlArgs.builder()
+                            .bucket(bucket)
+                            .object(object)
+                            .expiry((int) expiration.getSeconds())
+                            .method(Method.valueOf(method))
                             .build()
             );
         } catch (IOException | MinioException | GeneralSecurityException e) {
