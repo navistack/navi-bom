@@ -1,6 +1,6 @@
 package org.navistack.framework.objectstorage;
 
-import org.navistack.framework.utils.Asserts;
+import org.navistack.framework.utils.Arrays;
 import org.navistack.framework.utils.Strings;
 
 import java.io.InputStream;
@@ -23,8 +23,7 @@ public interface FileUploadService {
      */
     default InputStream getFile(String file) {
         String[] parts = Strings.split(file, ":");
-        Asserts.state(parts.length > 1, "file must contain bucket");
-        return getFile(parts[0], parts[1]);
+        return getFile(Arrays.get(parts, 0), Arrays.get(parts, 1));
     }
 
     /**
@@ -45,8 +44,7 @@ public interface FileUploadService {
      */
     default UploadedFileStat statFile(String file) {
         String[] parts = Strings.split(file, ":");
-        Asserts.state(parts.length > 1, "file must contain bucket");
-        return statFile(parts[0], parts[1]);
+        return statFile(Arrays.get(parts, 0), Arrays.get(parts, 1));
     }
 
     /**
@@ -112,8 +110,7 @@ public interface FileUploadService {
      */
     default void removeFile(String file) {
         String[] parts = Strings.split(file, ":");
-        Asserts.state(parts.length > 1, "file must contain bucket");
-        removeFile(parts[0], parts[1]);
+        removeFile(Arrays.get(parts, 0), Arrays.get(parts, 1));
     }
 
     /**

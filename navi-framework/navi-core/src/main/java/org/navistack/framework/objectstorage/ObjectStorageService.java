@@ -1,8 +1,6 @@
 package org.navistack.framework.objectstorage;
 
-import org.navistack.framework.utils.Asserts;
-import org.navistack.framework.utils.Objects;
-import org.navistack.framework.utils.Strings;
+import org.navistack.framework.utils.Arrays;
 
 import java.io.InputStream;
 
@@ -21,10 +19,8 @@ public interface ObjectStorageService {
      * @return InputStream to read object from
      */
     default InputStream getObject(String object) {
-        String[] parts;
-        Asserts.state(object, Objects::isNotNull, "object can not be null");
-        Asserts.state((parts = object.split(":", 2)).length > 1, "object must contains bucket");
-        return getObject(parts[0], parts[1]);
+        String[] parts = object.split(":", 2);
+        return getObject(Arrays.get(parts, 0), Arrays.get(parts, 1));
     }
 
     /**
@@ -42,10 +38,8 @@ public interface ObjectStorageService {
     void uploadObject(String bucket, String object, String filename);
 
     default void removeObject(String object) {
-        String[] parts;
-        Asserts.state(object, Objects::isNotNull, "object can not be null");
-        Asserts.state((parts = object.split(":", 2)).length > 1, "object must contains bucket");
-        removeObject(parts[0], parts[1]);
+        String[] parts = object.split(":", 2);
+        removeObject(Arrays.get(parts, 0), Arrays.get(parts, 1));
     }
 
     void removeObject(String bucket, String object);
