@@ -136,6 +136,18 @@ public class MinioObjectStorageService implements ObjectStorageService {
         }
     }
 
+    public void removeBucket(String bucket) {
+        try {
+            minioClient.removeBucket(
+                    RemoveBucketArgs.builder()
+                            .bucket(bucket)
+                            .build()
+            );
+        } catch (IOException | MinioException | GeneralSecurityException e) {
+            throw new BucketManipulationException(e);
+        }
+    }
+
     private void makeBucketIfNecessary(String bucket) {
         if (makeBucketIfNotExisted && bucketExists(bucket)) {
             makeBucket(bucket);
