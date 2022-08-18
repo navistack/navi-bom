@@ -18,6 +18,10 @@ public class MinioObjectStorageService implements ObjectStorageService {
 
     @Getter
     @Setter
+    private String endpoint;
+
+    @Getter
+    @Setter
     private boolean makeBucketIfNotExisted = false;
 
     public MinioObjectStorageService(MinioClient minioClient) {
@@ -82,6 +86,18 @@ public class MinioObjectStorageService implements ObjectStorageService {
         } catch (IOException | MinioException | GeneralSecurityException e) {
             throw new ObjectManipulationException(e);
         }
+    }
+
+    public String getPermanentObjectUrl(String object) {
+        String[] parts = Strings.split(object, ":");
+        return getPermanentObjectUrl(Arrays.get(parts, 0), Arrays.get(parts, 1));
+    }
+
+    public String getPermanentObjectUrl(String bucket, String object) {
+        if (endpoint == null) {
+            return null;
+        }
+        return endpoint + "/" + bucket + "/" + object;
     }
 
     public String getPresignedObjectUrl(String object) {
