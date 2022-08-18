@@ -1,6 +1,6 @@
 package org.navistack.framework.objectstorage;
 
-public class BucketManipulationException extends RuntimeException {
+public class BucketManipulationException extends ObjectStorageException {
     public BucketManipulationException() {
         super();
     }

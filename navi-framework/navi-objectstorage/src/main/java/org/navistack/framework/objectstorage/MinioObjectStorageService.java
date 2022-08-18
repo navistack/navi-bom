@@ -34,7 +34,7 @@ public class MinioObjectStorageService implements ObjectStorageService {
                             .build()
             );
         } catch (IOException | MinioException | GeneralSecurityException e) {
-            throw new ObjectWriteException(e);
+            throw new ObjectReadException(e);
         }
     }
 
@@ -80,7 +80,7 @@ public class MinioObjectStorageService implements ObjectStorageService {
                             .build()
             );
         } catch (IOException | MinioException | GeneralSecurityException e) {
-            throw new ObjectWriteException(e);
+            throw new ObjectManipulationException(e);
         }
     }
 
@@ -108,7 +108,7 @@ public class MinioObjectStorageService implements ObjectStorageService {
                             .build()
             );
         } catch (IOException | MinioException | GeneralSecurityException e) {
-            throw new ObjectWriteException(e);
+            throw new ObjectManipulationException(e);
         }
     }
 
@@ -120,7 +120,7 @@ public class MinioObjectStorageService implements ObjectStorageService {
                             .build()
             );
         } catch (IOException | MinioException | GeneralSecurityException e) {
-            throw new ObjectWriteException(e);
+            throw new BucketManipulationException(e);
         }
     }
 
@@ -132,7 +132,7 @@ public class MinioObjectStorageService implements ObjectStorageService {
                             .build()
             );
         } catch (IOException | MinioException | GeneralSecurityException e) {
-            throw new ObjectWriteException(e);
+            throw new BucketManipulationException(e);
         }
     }
 
