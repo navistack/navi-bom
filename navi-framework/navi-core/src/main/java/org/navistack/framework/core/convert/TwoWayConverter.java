@@ -30,4 +30,18 @@ public interface TwoWayConverter<S, T> extends Converter<S, T> {
     default Converter<T, S> backwardConverter() {
         return this::convertBack;
     }
+
+    static <S, T> TwoWayConverter<S, T> of(Converter<S, T> converter, Converter<T, S> backwardConverter) {
+        return new TwoWayConverter<S, T>() {
+            @Override
+            public T convert(S src) {
+                return converter.convert(src);
+            }
+
+            @Override
+            public S convertBack(T dst) {
+                return backwardConverter.convert(dst);
+            }
+        };
+    }
 }
