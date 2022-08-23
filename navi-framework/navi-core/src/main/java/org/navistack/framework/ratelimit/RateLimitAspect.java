@@ -4,7 +4,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.navistack.framework.core.problem.PlatformProblems;
 import org.navistack.framework.expression.MethodExpressionEvaluator;
 import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
 
@@ -28,7 +27,7 @@ public class RateLimitAspect {
         MethodExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
         String userKey = evaluator.evaluate(String.class, args);
         if (!rateLimiter.tryAcquire(userKey)) {
-            throw PlatformProblems.frequentRequest("Too many requests");
+            throw new RateLimitExceededException("Too many requests");
         }
 
         return joinPoint.proceed();

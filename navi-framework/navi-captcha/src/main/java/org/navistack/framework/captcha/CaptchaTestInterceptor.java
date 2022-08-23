@@ -2,7 +2,6 @@ package org.navistack.framework.captcha;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.navistack.framework.core.problem.PlatformProblems;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -38,7 +37,7 @@ public class CaptchaTestInterceptor implements HandlerInterceptor {
         } while (false);
 
         if (!captchaTester.test(request)) {
-            throw PlatformProblems.captchaTestFailed("CAPTCHA test failed");
+            throw new CaptchaTestFailureException("CAPTCHA test failed");
         }
 
         return true;

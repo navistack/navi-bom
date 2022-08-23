@@ -1,7 +1,7 @@
 package org.navistack.boot.autoconfigure.web.rest;
 
-import org.navistack.framework.web.rest.exceptionhanders.SecurityExceptionHandlingImpl;
-import org.navistack.framework.web.rest.exceptionhanders.common.ExceptionHandlerTrait;
+import org.navistack.boot.autoconfigure.web.rest.exceptionhanders.SecurityExceptionHandlingImpl;
+import org.navistack.boot.autoconfigure.web.rest.exceptionhanders.common.ExceptionHandlerTrait;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.navistack.framework.core.problem.Problem;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -40,14 +40,6 @@ public interface RestResult<T, E> {
     @SafeVarargs
     static Err<ParameterizedError> err(int error, String message, Map.Entry<String, ? super Object>... parameters) {
         return Err.of(ParameterizedError.of(error, message, parameters));
-    }
-
-    static Err<SimpleError> err(Problem problem) {
-        return Err.of(
-                SimpleError.of(
-                        problem.getError(),
-                        problem.getMessage())
-        );
     }
 
     static Err<ExceptionalError> err(int error, String message, Throwable throwable) {
@@ -111,6 +103,10 @@ public interface RestResult<T, E> {
             this.parameters = parameters;
         }
 
+        public static ParameterizedError of(int error, String message) {
+            return new ParameterizedError(error, message, Collections.emptyMap());
+        }
+
         public static ParameterizedError of(int error, String message, Map<String, ? super Object> parameters) {
             return new ParameterizedError(error, message, parameters);
         }
@@ -132,21 +128,31 @@ public interface RestResult<T, E> {
     @Data
     @EqualsAndHashCode(callSuper = true)
     @NoArgsConstructor
-    class ExceptionalError extends SimpleError {
+    @AllArgsConstructor(staticName = "of")
+    class ExceptionalError extends ParameterizedError {
         private ExceptionalEntity exception;
 
-        public ExceptionalError(int error, String message, ExceptionalEntity exception) {
-            super(error, message);
+        public ExceptionalError(int error, String message, Map<String, ? super Object> parameters, ExceptionalEntity exception) {
+            super(error, message, parameters);
             this.exception = exception;
         }
 
+        public static ExceptionalError of(int error, String message, Map<String, ? super Object> parameters, ExceptionalEntity exception) {
+            return new ExceptionalError(error, message, parameters, exception);
+        }
+
         public static ExceptionalError of(int error, String message, ExceptionalEntity exception) {
-            return new ExceptionalError(error, message, exception);
+            return new ExceptionalError(error, message, Collections.emptyMap(), exception);
+        }
+
+        public static ExceptionalError of(int error, String message, Map<String, ? super Object> parameters, Throwable throwable) {
+            ExceptionalEntity exception = ExceptionalEntityBuilder.of(throwable).build();
+            return new ExceptionalError(error, message, parameters, exception);
         }
 
         public static ExceptionalError of(int error, String message, Throwable throwable) {
             ExceptionalEntity exception = ExceptionalEntityBuilder.of(throwable).build();
-            return new ExceptionalError(error, message, exception);
+            return new ExceptionalError(error, message, Collections.emptyMap(), exception);
         }
     }
 }

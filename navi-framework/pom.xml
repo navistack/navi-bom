@@ -43,7 +43,6 @@
     </properties>
 
     <modules>
-        <module>navi-web</module>
         <module>navi-core</module>
         <module>navi-captcha</module>
         <module>navi-mybatisplusplus</module>
@@ -324,11 +323,6 @@
             </dependency>
 
             <!-- submodules -->
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-web</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-core</artifactId>

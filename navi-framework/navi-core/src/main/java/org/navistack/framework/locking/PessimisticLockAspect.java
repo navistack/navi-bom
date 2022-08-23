@@ -5,7 +5,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.navistack.framework.core.problem.PlatformProblems;
 import org.navistack.framework.expression.MethodExpressionEvaluator;
 import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
 
@@ -34,7 +33,7 @@ public class PessimisticLockAspect {
         MethodExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
         String userKey = evaluator.evaluate(String.class, args);
         if (!lockService.tryLock(userKey, Duration.of(timeout, unit))) {
-            throw PlatformProblems.resourceLocked("Resource Locked");
+            throw new LockAcquisitionFailureException("Resource Locked");
         }
         try {
             return joinPoint.proceed(args);
