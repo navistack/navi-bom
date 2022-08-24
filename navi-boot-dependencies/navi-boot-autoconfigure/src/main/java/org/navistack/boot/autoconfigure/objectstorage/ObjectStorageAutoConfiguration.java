@@ -12,19 +12,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 @AutoConfiguration
-@Import({FilesystemConfiguration.class, MinioConfiguration.class})
 public class ObjectStorageAutoConfiguration {
-    @Bean
+
     @ConditionalOnClass(MinioClient.class)
-    @ConditionalOnBean(MinioClient.class)
-    @ConditionalOnMissingBean
-    public ObjectStorageService MinioObjectStorageService(MinioClient minioClient) {
-        return new MinioObjectStorageService(minioClient);
+    @Import(MinioConfiguration.class)
+    public static class MinioObjectStorageConfiguration {
+        @Bean
+        @ConditionalOnBean(MinioClient.class)
+        @ConditionalOnMissingBean
+        public ObjectStorageService MinioObjectStorageService(MinioClient minioClient) {
+            return new MinioObjectStorageService(minioClient);
+        }
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public ObjectStorageService MinioObjectStorageService(FilesystemProperties properties) {
-        return new FilesystemObjectStorageService(properties.getDataDir());
+    @ConditionalOnClass(FilesystemObjectStorageService.class)
+    @Import(FilesystemConfiguration.class)
+    public static class FilesystemObjectStorageConfiguration {
+        @Bean
+        @ConditionalOnMissingBean
+        public ObjectStorageService MinioObjectStorageService(FilesystemProperties properties) {
+            return new FilesystemObjectStorageService(properties.getDataDir());
+        }
     }
 }
