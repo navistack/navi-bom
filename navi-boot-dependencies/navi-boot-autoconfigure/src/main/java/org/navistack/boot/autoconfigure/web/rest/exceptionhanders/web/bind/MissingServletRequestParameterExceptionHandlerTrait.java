@@ -8,15 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface MissingServletRequestParameterExceptionHandlerTrait extends ExceptionHandlerTrait {
     @ExceptionHandler
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> handleMissingServletRequestParameter(
-            MissingServletRequestParameterException exception
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> handleMissingServletRequestParameter(
+            MissingServletRequestParameterException exception,
+            HttpServletRequest request
     ) {
-        return toResponse(
-                exception,
-                RestResult.ParameterizedError.of(UserErrorCodes.MISSING_PARAMETER, exception.getMessage()),
-                HttpStatus.BAD_REQUEST
+        RestResult.ThrowableError error = RestResult.ThrowableError.of(
+                UserErrorCodes.MISSING_PARAMETER,
+                exception.getMessage(),
+                exception
         );
+        return toResponse(error, HttpStatus.BAD_REQUEST, request);
     }
 }

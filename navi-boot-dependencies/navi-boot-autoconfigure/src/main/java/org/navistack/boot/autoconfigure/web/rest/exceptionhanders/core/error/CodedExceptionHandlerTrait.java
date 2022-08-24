@@ -7,18 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface CodedExceptionHandlerTrait extends ExceptionHandlerTrait {
     @ExceptionHandler
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> handleCodedException(
-            CodedException exception
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> handleCodedException(
+            CodedException exception,
+            HttpServletRequest request
     ) {
-        return toResponse(
-                exception,
-                RestResult.ParameterizedError.of(
-                        exception.getErrorCode(),
-                        exception.getMessage()
-                ),
-                HttpStatus.INTERNAL_SERVER_ERROR
+        RestResult.ThrowableError error = RestResult.ThrowableError.of(
+                exception.getErrorCode(),
+                exception.getMessage(),
+                exception
         );
+        return toResponse(error, HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 }

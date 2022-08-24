@@ -7,18 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface ThrowableExceptionHandlerTrait extends ExceptionHandlerTrait {
     @ExceptionHandler
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> handleThrowable(
-            Throwable throwable
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> handleThrowable(
+            Throwable throwable,
+            HttpServletRequest request
     ) {
-        return toResponse(
-                throwable,
-                RestResult.ParameterizedError.of(
-                        UncategorizedErrorCodes.UNCATEGORIZED_ERROR,
-                        "Internal Server Error"
-                ),
-                HttpStatus.INTERNAL_SERVER_ERROR
+        RestResult.ThrowableError error = RestResult.ThrowableError.of(
+                UncategorizedErrorCodes.UNCATEGORIZED_ERROR,
+                "Internal Server Error",
+                throwable
         );
+        return toResponse(error, HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 }

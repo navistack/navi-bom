@@ -7,18 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface DomainExceptionHandlerTrait extends ExceptionHandlerTrait {
     @ExceptionHandler
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> handleDomainException(
-            DomainException exception
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> handleDomainException(
+            DomainException exception,
+            HttpServletRequest request
     ) {
-        return toResponse(
-                exception,
-                RestResult.ParameterizedError.of(
-                        exception.getErrorCode(),
-                        exception.getMessage()
-                ),
-                HttpStatus.BAD_REQUEST
+        RestResult.ThrowableError error = RestResult.ThrowableError.of(
+                exception.getErrorCode(),
+                exception.getMessage(),
+                exception
         );
+        return toResponse(error, HttpStatus.BAD_REQUEST, request);
     }
 }

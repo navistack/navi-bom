@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -38,17 +39,16 @@ public interface BaseValidationExceptionHandlerTrait extends ExceptionHandlerTra
         ).collect(Collectors.toList());
     }
 
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> toResponse(
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> toResponse(
             Throwable throwable,
+            HttpServletRequest request,
             Collection<InvalidParam> invalidParams) {
-        return toResponse(
-                throwable,
-                RestResult.ParameterizedError.of(
-                        UserErrorCodes.INVALID_PARAMETER,
-                        "Invalid Parameters",
-                        Collections.singletonMap("invalidParams", invalidParams)
-                ),
-                HttpStatus.BAD_REQUEST
+        RestResult.ThrowableError error = RestResult.ThrowableError.of(
+                UserErrorCodes.INVALID_PARAMETER,
+                "Invalid Parameters",
+                Collections.singletonMap("invalidParams", invalidParams),
+                throwable
         );
+        return toResponse(error, HttpStatus.BAD_REQUEST, request);
     }
 }

@@ -8,18 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface AccessDeniedExceptionHandlerTrait extends ExceptionHandlerTrait {
     @ExceptionHandler
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> handleAccessDenied(
-            AccessDeniedException exception
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> handleAccessDenied(
+            AccessDeniedException exception,
+            HttpServletRequest request
     ) {
-        return toResponse(
-                exception,
-                RestResult.ParameterizedError.of(
-                        UserErrorCodes.AUTHORIZATION_FAILURE,
-                        exception.getMessage()
-                ),
-                HttpStatus.FORBIDDEN
+        RestResult.ThrowableError error = RestResult.ThrowableError.of(
+                UserErrorCodes.AUTHORIZATION_FAILURE,
+                exception.getMessage(),
+                exception
         );
+        return toResponse(error, HttpStatus.FORBIDDEN, request);
     }
 }

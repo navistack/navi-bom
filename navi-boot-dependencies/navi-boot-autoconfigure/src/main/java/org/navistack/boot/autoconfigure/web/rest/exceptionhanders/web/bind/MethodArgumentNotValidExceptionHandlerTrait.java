@@ -6,11 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface MethodArgumentNotValidExceptionHandlerTrait extends BaseValidationExceptionHandlerTrait {
     @ExceptionHandler
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException exception
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException exception,
+            HttpServletRequest request
     ) {
-        return toResponse(exception, fromBindingResult(exception.getBindingResult()));
+        return toResponse(exception, request, fromBindingResult(exception.getBindingResult()));
     }
 }

@@ -11,11 +11,15 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.LocaleResolver;
+
+import java.util.Optional;
 
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication
@@ -26,9 +30,15 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 public class RestResultSecurityAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(ExceptionHandlerTrait.class)
-    public SecurityExceptionHandlingImpl securityExceptionHandling(RestResultProperties properties) {
+    public SecurityExceptionHandlingImpl securityExceptionHandling(
+            RestResultProperties properties,
+            Optional<MessageSource> messageSource,
+            Optional<LocaleResolver> localeResolver
+    ) {
         SecurityExceptionHandlingImpl securityExceptionHandling = new SecurityExceptionHandlingImpl();
         securityExceptionHandling.setIncludeStackTrace(properties.isIncludeStackTrace());
+        messageSource.ifPresent(securityExceptionHandling::setMessageSource);
+        localeResolver.ifPresent(securityExceptionHandling::setLocaleResolver);
         return securityExceptionHandling;
     }
 

@@ -8,18 +8,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface LockAcquisitionFailureExceptionHandlerTrait extends ExceptionHandlerTrait {
     @ExceptionHandler
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> handleLockAcquisitionFailure(
-            LockAcquisitionFailureException exception
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> handleLockAcquisitionFailure(
+            LockAcquisitionFailureException exception,
+            HttpServletRequest request
     ) {
-        return toResponse(
-                exception,
-                RestResult.ParameterizedError.of(
-                        UserErrorCodes.RESOURCE_LOCKED,
-                        exception.getMessage()
-                ),
-                HttpStatus.CONFLICT
+        RestResult.ThrowableError error = RestResult.ThrowableError.of(
+                UserErrorCodes.RESOURCE_LOCKED,
+                exception.getMessage(),
+                exception
         );
+        return toResponse(error, HttpStatus.CONFLICT, request);
     }
 }

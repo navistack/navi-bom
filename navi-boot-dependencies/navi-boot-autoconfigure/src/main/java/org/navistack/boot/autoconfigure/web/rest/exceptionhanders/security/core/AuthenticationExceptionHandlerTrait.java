@@ -8,18 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface AuthenticationExceptionHandlerTrait extends ExceptionHandlerTrait {
     @ExceptionHandler
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> handleAuthentication(
-            AuthenticationException exception
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> handleAuthentication(
+            AuthenticationException exception,
+            HttpServletRequest request
     ) {
-        return toResponse(
-                exception,
-                RestResult.ParameterizedError.of(
-                        UserErrorCodes.AUTHENTICATION_FAILURE,
-                        exception.getMessage()
-                ),
-                HttpStatus.UNAUTHORIZED
+        RestResult.ThrowableError error = RestResult.ThrowableError.of(
+                UserErrorCodes.AUTHENTICATION_FAILURE,
+                exception.getMessage(),
+                exception
         );
+        return toResponse(error, HttpStatus.UNAUTHORIZED, request);
     }
 }

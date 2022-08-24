@@ -8,15 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface NoHandlerFoundExceptionHandlerTrait extends ExceptionHandlerTrait {
     @ExceptionHandler
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> handleNoHandlerFoundException(
-            NoHandlerFoundException exception
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> handleNoHandlerFoundException(
+            NoHandlerFoundException exception,
+            HttpServletRequest request
     ) {
-        return toResponse(
-                exception,
-                RestResult.ParameterizedError.of(UserErrorCodes.UNKNOWN_ENDPOINT, exception.getMessage()),
-                HttpStatus.NOT_FOUND
-        );
+        RestResult.ThrowableError error = RestResult.ThrowableError.of(
+                UserErrorCodes.UNKNOWN_ENDPOINT,
+                exception.getMessage(),
+                exception);
+        return toResponse(error, HttpStatus.NOT_FOUND, request);
     }
 }

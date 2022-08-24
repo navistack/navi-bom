@@ -5,11 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface BindExceptionHandlerTrait extends BaseValidationExceptionHandlerTrait {
     @ExceptionHandler
-    default ResponseEntity<RestResult.Err<? super RestResult.ParameterizedError>> handleBindException(
-            BindException exception
+    default ResponseEntity<RestResult.Err<? super RestResult.ThrowableError>> handleBindException(
+            BindException exception,
+            HttpServletRequest request
     ) {
-        return toResponse(exception, fromBindingResult(exception.getBindingResult()));
+        return toResponse(exception, request, fromBindingResult(exception.getBindingResult()));
     }
 }

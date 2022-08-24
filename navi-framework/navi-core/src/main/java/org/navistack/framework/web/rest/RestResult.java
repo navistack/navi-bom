@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.navistack.framework.core.error.CodedException;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -122,6 +123,31 @@ public interface RestResult<T, E> {
                     );
 
             return of(error, message, parametersMap);
+        }
+    }
+
+    @Data
+    @EqualsAndHashCode(callSuper = true)
+    @NoArgsConstructor
+    @AllArgsConstructor(staticName = "of")
+    class ThrowableError extends ParameterizedError {
+        private Throwable throwable;
+
+        public ThrowableError(int error, String message, Map<String, ? super Object> parameters, Throwable throwable) {
+            super(error, message, parameters);
+            this.throwable = throwable;
+        }
+
+        public static ThrowableError of(int error, String message, Map<String, ? super Object> parameters, Throwable throwable) {
+            return new ThrowableError(error, message, parameters, throwable);
+        }
+
+        public static ThrowableError of(int error, String message, Throwable throwable) {
+            return new ThrowableError(error, message, Collections.emptyMap(), throwable);
+        }
+
+        public static ThrowableError of(CodedException exception) {
+            return new ThrowableError(exception.getErrorCode(), exception.getMessage(), Collections.emptyMap(), exception);
         }
     }
 
