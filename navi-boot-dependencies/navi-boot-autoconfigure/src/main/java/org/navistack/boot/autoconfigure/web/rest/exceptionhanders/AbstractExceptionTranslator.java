@@ -19,6 +19,8 @@ import java.util.Map;
 
 @Slf4j
 public abstract class AbstractExceptionTranslator implements ExceptionHandlerTrait, InitializingBean {
+    private static final String ERROR_MESSAGE_KEY_PREFIX = "errors.coded.";
+
     @Getter
     @Setter
     private boolean includeStackTrace = false;
@@ -46,7 +48,7 @@ public abstract class AbstractExceptionTranslator implements ExceptionHandlerTra
         }
 
         String localizedMessage = Objects.firstNonNull(
-                messageSource.getMessage(Integer.toString(errorCode), null, null, localeResolver.resolveLocale(httpServletRequest)),
+                messageSource.getMessage(ERROR_MESSAGE_KEY_PREFIX + errorCode, null, null, localeResolver.resolveLocale(httpServletRequest)),
                 messageSource.getMessage(message, null, null, localeResolver.resolveLocale(httpServletRequest)),
                 message
         );
