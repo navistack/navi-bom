@@ -18,8 +18,8 @@ public interface RestResult<T, E> {
 
     E getError();
 
-    static <U> Ok<U> ok() {
-        return new Ok<>(null);
+    static None ok() {
+        return None.instance();
     }
 
     static <U> Ok<U> ok(U result) {
@@ -64,6 +64,18 @@ public interface RestResult<T, E> {
         @Override
         public Void getError() {
             return null;
+        }
+    }
+
+    final class None extends RestResult.Ok<Void> {
+        private static final None INSTANCE = new None();
+
+        private None() {
+            super(null);
+        }
+
+        public static None instance() {
+            return INSTANCE;
         }
     }
 
