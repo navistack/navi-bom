@@ -22,7 +22,7 @@ public interface FileUploadService {
      * @return InputStream to read file from
      */
     default InputStream getFile(String file) {
-        String[] parts = Strings.split(file, ":");
+        String[] parts = Strings.split(file, ":", 2);
         return getFile(Arrays.get(parts, 0), Arrays.get(parts, 1));
     }
 
@@ -43,7 +43,7 @@ public interface FileUploadService {
      * @return file stat
      */
     default UploadedFileStat statFile(String file) {
-        String[] parts = Strings.split(file, ":");
+        String[] parts = Strings.split(file, ":", 2);
         return statFile(Arrays.get(parts, 0), Arrays.get(parts, 1));
     }
 
@@ -109,7 +109,7 @@ public interface FileUploadService {
      * @param file name of file to be deleted, having bucket name prefixed
      */
     default void removeFile(String file) {
-        String[] parts = Strings.split(file, ":");
+        String[] parts = Strings.split(file, ":", 2);
         removeFile(Arrays.get(parts, 0), Arrays.get(parts, 1));
     }
 

@@ -89,7 +89,7 @@ public class MinioObjectStorageService implements ObjectStorageService {
     }
 
     public String getPermanentObjectUrl(String object) {
-        String[] parts = Strings.split(object, ":");
+        String[] parts = Strings.split(object, ":", 2);
         return getPermanentObjectUrl(Arrays.get(parts, 0), Arrays.get(parts, 1));
     }
 
@@ -109,7 +109,7 @@ public class MinioObjectStorageService implements ObjectStorageService {
     }
 
     public String getPresignedObjectUrl(String object, Duration expiration, String method) {
-        String[] parts = Strings.split(object, ":");
+        String[] parts = Strings.split(object, ":", 2);
         return getPresignedObjectUrl(Arrays.get(parts, 0), Arrays.get(parts, 1), expiration, method);
     }
 
