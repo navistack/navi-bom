@@ -9,4 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RateLimit {
     String key();
+
+    String message() default "navi.service.ratelimit.message";
 }

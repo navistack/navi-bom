@@ -2,4 +2,5 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="navi.service.locking.message">资源已被锁定</entry>
+    <entry key="navi.service.ratelimit.message">请求过多</entry>
 </properties>

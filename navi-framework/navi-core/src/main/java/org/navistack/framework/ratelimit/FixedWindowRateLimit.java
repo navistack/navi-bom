@@ -14,4 +14,6 @@ public @interface FixedWindowRateLimit {
     int maxRequests();
 
     ChronoUnit temporalUnit() default ChronoUnit.SECONDS;
+
+    String message() default "navi.service.ratelimit.message";
 }

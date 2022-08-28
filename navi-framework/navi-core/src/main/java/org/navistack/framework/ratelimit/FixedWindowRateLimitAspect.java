@@ -27,10 +27,11 @@ public class FixedWindowRateLimitAspect {
         String userKeyExpression = rateLimit.key();
         int maxRequests = rateLimit.maxRequests();
         TemporalUnit timeUnit = rateLimit.temporalUnit();
+        String message = rateLimit.message();
         MethodExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
         String userKey = evaluator.evaluate(String.class, args);
         if (!rateLimiter.tryAcquire(userKey, maxRequests, timeUnit)) {
-            throw new RateLimitExceededException("Too many requests");
+            throw new RateLimitExceededException(message);
         }
 
         return joinPoint.proceed();

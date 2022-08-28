@@ -16,4 +16,6 @@ public @interface SlidingWindowRateLimit {
     long windowSize();
 
     ChronoUnit sizeUnit() default ChronoUnit.MILLIS;
+
+    String message() default "navi.service.ratelimit.message";
 }

@@ -29,10 +29,11 @@ public class SlidingWindowRateLimitAspect {
         int maxRequests = rateLimit.maxRequests();
         long windowSize = rateLimit.windowSize();
         TemporalUnit sizeUnit = rateLimit.sizeUnit();
+        String message = rateLimit.message();
         MethodExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
         String userKey = evaluator.evaluate(String.class, args);
         if (!rateLimiter.tryAcquire(userKey, maxRequests, Duration.of(windowSize, sizeUnit))) {
-            throw new RateLimitExceededException("Too many requests");
+            throw new RateLimitExceededException(message);
         }
 
         return joinPoint.proceed();

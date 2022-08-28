@@ -24,10 +24,11 @@ public class RateLimitAspect {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         String userKeyExpression = rateLimit.key();
+        String message = rateLimit.message();
         MethodExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
         String userKey = evaluator.evaluate(String.class, args);
         if (!rateLimiter.tryAcquire(userKey)) {
-            throw new RateLimitExceededException("Too many requests");
+            throw new RateLimitExceededException(message);
         }
 
         return joinPoint.proceed();
