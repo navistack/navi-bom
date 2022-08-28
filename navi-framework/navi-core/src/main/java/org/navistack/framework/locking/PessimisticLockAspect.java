@@ -30,10 +30,11 @@ public class PessimisticLockAspect {
         String userKeyExpression = pessimisticLock.key();
         long timeout = pessimisticLock.timeout();
         TemporalUnit unit = pessimisticLock.unit();
+        String message = pessimisticLock.message();
         MethodExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
         String userKey = evaluator.evaluate(String.class, args);
         if (!lockService.tryLock(userKey, Duration.of(timeout, unit))) {
-            throw new LockAcquisitionFailureException("Resource Locked");
+            throw new LockAcquisitionFailureException(message);
         }
         try {
             return joinPoint.proceed(args);

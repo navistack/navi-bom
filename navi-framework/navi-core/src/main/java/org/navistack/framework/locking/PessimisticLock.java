@@ -24,4 +24,6 @@ public @interface PessimisticLock {
      * Timeout unit. Default to milliseconds.
      */
     ChronoUnit unit() default ChronoUnit.MILLIS;
+
+    String message() default "navi.service.locking.message";
 }
