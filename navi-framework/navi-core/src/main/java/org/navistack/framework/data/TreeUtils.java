@@ -19,6 +19,7 @@ public class TreeUtils {
      */
     public <ID, T extends TreeNode<ID, T>, U> Collection<T> treeize(
             Collection<U> collection,
+            ID rootId,
             Function<U, T> converter
     ) {
         Collection<T> rootNodes = new LinkedList<>();
@@ -34,7 +35,7 @@ public class TreeUtils {
 
             nodesMap.putIfAbsent(id, node);
 
-            if (id.equals(parentId) || parentId == null) {
+            if (id.equals(parentId) || (rootId == null && parentId == null || (rootId != null && rootId.equals(parentId)))) {
                 rootNodes.add(node);
             } else {
                 T parentNode = nodesMap.get(parentId);
@@ -62,7 +63,15 @@ public class TreeUtils {
         return rootNodes;
     }
 
+    public <ID, T extends TreeNode<ID, T>, U> Collection<T> treeize(Collection<U> collection, Function<U, T> converter) {
+        return treeize(collection, null, converter);
+    }
+
+    public <ID, T extends TreeNode<ID, T>> Collection<T> treeize(Collection<T> collection, ID rootId) {
+        return treeize(collection, rootId, Function.identity());
+    }
+
     public <ID, T extends TreeNode<ID, T>> Collection<T> treeize(Collection<T> collection) {
-        return treeize(collection, Function.identity());
+        return treeize(collection, null, Function.identity());
     }
 }
