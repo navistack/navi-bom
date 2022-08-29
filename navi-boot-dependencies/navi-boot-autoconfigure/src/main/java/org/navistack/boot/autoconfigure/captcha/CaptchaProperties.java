@@ -8,6 +8,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class CaptchaProperties {
     public static final String PROPERTIES_PREFIX = "navi.captcha";
 
-    private boolean enabled = true;
     private boolean checkForAnnotation = true;
 }

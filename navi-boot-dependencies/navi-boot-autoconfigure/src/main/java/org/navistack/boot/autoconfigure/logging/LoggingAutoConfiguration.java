@@ -6,12 +6,10 @@ import org.navistack.framework.logging.OperationLogService;
 import org.navistack.framework.logging.Slf4jOperationLogService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnProperty(value = LoggingProperties.PROPERTIES_PREFIX + ".enabled", havingValue = "true", matchIfMissing = true)
 public class LoggingAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
