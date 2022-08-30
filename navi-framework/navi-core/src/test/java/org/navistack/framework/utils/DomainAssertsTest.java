@@ -1,7 +1,7 @@
 package org.navistack.framework.utils;
 
 import org.junit.jupiter.api.Test;
-import org.navistack.framework.core.domain.DomainException;
+import org.navistack.framework.core.error.DomainException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;

@@ -1,10 +1,8 @@
 package org.navistack.framework.utils;
 
 import lombok.experimental.UtilityClass;
-import org.navistack.framework.core.domain.DomainException;
+import org.navistack.framework.core.error.DomainException;
 
-import java.util.Collection;
-import java.util.Map;
 import java.util.function.BiPredicate;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
