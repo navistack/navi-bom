@@ -12,16 +12,18 @@ public class AuditingEntity<T> implements AuditingProperties<T> {
     @TableField(fill = FieldFill.INSERT)
     private Instant createdAt;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Instant updatedAt;
-
-    private Instant deletedAt;
-
     @TableField(fill = FieldFill.INSERT)
     private T createdBy;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Instant updatedAt;
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private T updatedBy;
+
+    private boolean deleted;
+
+    private Instant deletedAt;
 
     private T deletedBy;
 }
