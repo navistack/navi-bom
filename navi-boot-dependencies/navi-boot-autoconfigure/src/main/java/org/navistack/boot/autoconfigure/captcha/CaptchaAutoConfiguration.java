@@ -50,7 +50,7 @@ public class CaptchaAutoConfiguration {
     @ConditionalOnClass(CaptchaClient.class)
     public static class TccCaptchaTesterConfiguration {
         @Bean
-        @ConditionalOnBean(CaptchaClient.class)
+        @ConditionalOnBean({TencentCloudCaptchaProperties.class, CaptchaClient.class})
         public TccCaptchaTester tccCaptchaTester(TencentCloudCaptchaProperties properties, CaptchaClient captchaClient) {
             return new TccCaptchaTester(properties.getAppId(), properties.getAppSecret(), captchaClient);
         }
@@ -60,7 +60,7 @@ public class CaptchaAutoConfiguration {
     @ConditionalOnClass(IAcsClient.class)
     public static class AfsCaptchaTesterConfiguration {
         @Bean
-        @ConditionalOnBean(IAcsClient.class)
+        @ConditionalOnBean({AliyunAfsProperties.class, IAcsClient.class})
         public AfsCaptchaTester afsCaptchaTester(AliyunAfsProperties properties, IAcsClient acsClient) {
             return new AfsCaptchaTester(properties.getAppKey(), properties.getScene(), acsClient);
         }
@@ -71,6 +71,7 @@ public class CaptchaAutoConfiguration {
     public static class SimpleCaptchaTesterConfiguration {
         @Bean
         @ConditionalOnMissingBean(SimpleCaptchaService.class)
+        @ConditionalOnBean(CacheService.class)
         public KaptchaSimpleCaptchaService kaptchaSimpleCaptchaService(CacheService cacheService) {
             return new KaptchaSimpleCaptchaService(cacheService);
         }

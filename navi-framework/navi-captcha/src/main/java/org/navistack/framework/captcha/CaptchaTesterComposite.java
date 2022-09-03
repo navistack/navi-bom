@@ -1,10 +1,13 @@
 package org.navistack.framework.captcha;
 
+import lombok.Getter;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class CaptchaTesterComposite implements CaptchaTester {
+    @Getter
     private final Collection<CaptchaTester> captchaTesters = new ArrayList<>();
 
     public CaptchaTesterComposite(Collection<? extends CaptchaTester> captchaTesters) {
