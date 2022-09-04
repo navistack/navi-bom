@@ -1,6 +1,6 @@
 package org.navistack.framework.security.jwt;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.navistack.framework.security.TokenAuthentication;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,6 +34,6 @@ public class DefaultJwtTokenResolver implements JwtTokenResolver {
 
         User principal = new User(claims.getSubject(), "NO_PASSWORD", authorities);
 
-        return new UsernamePasswordAuthenticationToken(principal, "NO_CREDENTIALS", authorities);
+        return TokenAuthentication.authenticated(principal, "NO_CREDENTIALS", authorities);
     }
 }

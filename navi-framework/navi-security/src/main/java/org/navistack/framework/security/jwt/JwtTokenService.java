@@ -7,6 +7,9 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.extern.slf4j.Slf4j;
 import org.navistack.framework.security.TokenService;
+import org.navistack.framework.security.TokenServiceAuthenticationException;
+import org.navistack.framework.security.TokenServiceException;
+import org.navistack.framework.security.TokenServiceIssueException;
 import org.springframework.security.core.Authentication;
 
 import javax.crypto.SecretKey;
@@ -66,7 +69,7 @@ public class JwtTokenService implements TokenService {
             this.jwsVerifier = new MACVerifier(secretKey);
             this.validity = validity;
         } catch (JOSEException e) {
-            throw new JwtTokenServiceException(e);
+            throw new TokenServiceException(e);
         }
     }
 
@@ -79,7 +82,7 @@ public class JwtTokenService implements TokenService {
     }
 
     @Override
-    public String issue(Authentication authentication) {
+    public String issue(Authentication authentication) throws TokenServiceIssueException {
         JwtClaims claims = tokenResolver.getClaims(authentication);
         claims.putExpiration(Instant.now().plus(validity, ChronoUnit.MILLIS));
         JWTClaimsSet jwtClaimsSet = convert(claims);
@@ -90,13 +93,13 @@ public class JwtTokenService implements TokenService {
         try {
             signedJWT.sign(jwsSigner);
         } catch (JOSEException e) {
-            throw new JwtIssueException("Failed to sign token", e);
+            throw new TokenServiceIssueException("Failed to sign token", e);
         }
         return signedJWT.serialize();
     }
 
     @Override
-    public Authentication authenticate(String token) throws JwtAuthenticationException {
+    public Authentication authenticate(String token) throws TokenServiceAuthenticationException {
         JwtClaims claims = parseAndGetPayload(token);
 
         Instant now = Instant.now();
@@ -105,12 +108,12 @@ public class JwtTokenService implements TokenService {
         if (expiration == null) {
             log.warn("Never-expiring token received: {}", token);
         } else if (expiration.isBefore(now)) {
-            throw new JwtAuthenticationException("Expired token");
+            throw new TokenServiceAuthenticationException("Expired token");
         }
 
         Instant notBefore = claims.getNotBefore();
         if (notBefore != null && notBefore.isAfter(now)) {
-            throw new JwtAuthenticationException("Ineffective token");
+            throw new TokenServiceAuthenticationException("Ineffective token");
         }
 
         return tokenResolver.getAuthentication(claims);
@@ -120,7 +123,7 @@ public class JwtTokenService implements TokenService {
     public boolean validate(String token) {
         try {
             return authenticate(token) != null;
-        } catch (JwtAuthenticationException e) {
+        } catch (TokenServiceAuthenticationException e) {
             return false;
         }
     }
@@ -128,23 +131,23 @@ public class JwtTokenService implements TokenService {
     private JwtClaims parseAndGetPayload(String token) {
         try {
             if (token == null) {
-                throw new JwtAuthenticationException("Empty Token");
+                throw new TokenServiceAuthenticationException("Empty Token");
             }
 
             token = token.trim();
             if (token.isEmpty()) {
-                throw new JwtAuthenticationException("Empty Token");
+                throw new TokenServiceAuthenticationException("Empty Token");
             }
 
             SignedJWT jwt = SignedJWT.parse(token);
 
             if (!jwt.verify(jwsVerifier)) {
-                throw new JwtAuthenticationException("Invalid Token");
+                throw new TokenServiceAuthenticationException("Invalid Token");
             }
 
             return convertBack(jwt.getJWTClaimsSet());
         } catch (ParseException | JOSEException e) {
-            throw new JwtAuthenticationException("Malformed Token", e);
+            throw new TokenServiceAuthenticationException("Malformed Token", e);
         }
     }
 

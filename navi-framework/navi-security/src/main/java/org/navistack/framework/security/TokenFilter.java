@@ -1,9 +1,15 @@
 package org.navistack.framework.security;
 
-import org.springframework.http.HttpHeaders;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StringUtils;
+import org.springframework.util.Assert;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -13,39 +19,38 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class TokenFilter extends GenericFilterBean {
+@Slf4j
+public class TokenFilter extends GenericFilterBean implements InitializingBean {
+    private AuthenticationManager authenticationManager;
 
-    public static final String AUTHORIZATION_HEADER = HttpHeaders.AUTHORIZATION;
+    @Getter
+    @Setter
+    private BearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
 
-    public static final String AUTHORIZATION_TOKEN = "access_token";
-
-    private final TokenService tokenService;
-
-    public TokenFilter(TokenService tokenService) {
-        this.tokenService = tokenService;
+    public TokenFilter(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        String token = resolveToken(httpServletRequest);
-        if (StringUtils.hasText(token) && this.tokenService.validate(token)) {
-            Authentication authentication = this.tokenService.authenticate(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        try {
+            String token = tokenResolver.resolveToken((HttpServletRequest) servletRequest);
+            Authentication authentication = authenticationManager.authenticate(TokenAuthentication.unauthenticated(token, token));
+            if (authentication == null) {
+                return;
+            }
+            SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+            securityContext.setAuthentication(authentication);
+            SecurityContextHolder.setContext(securityContext);
+        } catch (AuthenticationException e) {
+            SecurityContextHolder.clearContext();
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
-        }
-        String token = request.getParameter(AUTHORIZATION_TOKEN);
-        if (StringUtils.hasText(token)) {
-            return token;
-        }
-        return null;
+    @Override
+    public void afterPropertiesSet() throws ServletException {
+        Assert.notNull(this.authenticationManager, "authenticationManager must be specified");
     }
 }

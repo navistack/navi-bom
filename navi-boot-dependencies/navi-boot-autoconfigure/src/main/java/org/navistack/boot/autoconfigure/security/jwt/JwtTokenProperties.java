@@ -1,11 +1,13 @@
 package org.navistack.boot.autoconfigure.security.jwt;
 
 import lombok.Data;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.Assert;
 
 @ConfigurationProperties(prefix = JwtTokenProperties.PROPERTIES_PREFIX)
 @Data
-public class JwtTokenProperties {
+public class JwtTokenProperties implements InitializingBean {
     public static final String PROPERTIES_PREFIX = "navi.security.jwt";
 
     private final static int DEFAULT_VALIDITY = 2 * 60 * 60 * 1000;
@@ -19,4 +21,10 @@ public class JwtTokenProperties {
      * Secret encoded in Base64
      */
     private String secret;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Assert.hasText(secret, "secret can not be null or empty");
+        Assert.isTrue(validity > 0, "Validity can not be negative or zero");
+    }
 }
