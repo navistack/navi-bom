@@ -24,7 +24,14 @@ public class JwtTokenConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public TokenService tokenService(JwtTokenProperties properties, JwtTokenResolver tokenResolver) {
-        JwtTokenService jsonWebTokenService = new JwtTokenService(properties.getSecret(), properties.getValidity());
+        JwtTokenService jsonWebTokenService;
+        String secret = properties.getSecret();
+        int validity = properties.getValidity();
+        if (secret == null) {
+            jsonWebTokenService = new JwtTokenService(validity);
+        } else {
+            jsonWebTokenService = new JwtTokenService(secret, validity);
+        }
         jsonWebTokenService.setTokenResolver(tokenResolver);
         return jsonWebTokenService;
     }

@@ -24,7 +24,6 @@ public class JwtTokenProperties implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.hasText(secret, "secret can not be null or empty");
         Assert.isTrue(validity > 0, "Validity can not be negative or zero");
     }
 }

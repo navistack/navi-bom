@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.sql.Date;
 import java.text.ParseException;
 import java.time.Instant;
@@ -39,6 +40,14 @@ public class JwtTokenService implements TokenService {
     private final JWSSigner jwsSigner;
 
     private final JWSVerifier jwsVerifier;
+
+    public JwtTokenService() {
+        this(DEFAULT_VALIDITY);
+    }
+
+    public JwtTokenService(int validity) {
+        this(generateRandomSecretKey(), validity);
+    }
 
     public JwtTokenService(String base64encodedKey) {
         this(base64encodedKey, DEFAULT_VALIDITY);
@@ -253,5 +262,12 @@ public class JwtTokenService implements TokenService {
         }
 
         return claims;
+    }
+
+    private static byte[] generateRandomSecretKey() {
+        SecureRandom random = new SecureRandom();
+        byte[] key = new byte[32];
+        random.nextBytes(key);
+        return key;
     }
 }
