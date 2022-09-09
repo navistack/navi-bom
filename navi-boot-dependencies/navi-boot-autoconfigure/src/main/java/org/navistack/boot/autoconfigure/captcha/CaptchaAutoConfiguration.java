@@ -10,7 +10,7 @@ import org.navistack.framework.captcha.CaptchaTestInterceptor;
 import org.navistack.framework.captcha.CaptchaTester;
 import org.navistack.framework.captcha.CaptchaTesterComposite;
 import org.navistack.framework.captcha.afs.AfsCaptchaTester;
-import org.navistack.framework.captcha.simplecaptcha.KaptchaSimpleCaptchaService;
+import org.navistack.framework.captcha.simplecaptcha.DefaultSimpleCaptchaService;
 import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaService;
 import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaTester;
 import org.navistack.framework.captcha.tcc.TccCaptchaTester;
@@ -72,8 +72,8 @@ public class CaptchaAutoConfiguration {
         @Bean
         @ConditionalOnMissingBean(SimpleCaptchaService.class)
         @ConditionalOnBean(CacheService.class)
-        public KaptchaSimpleCaptchaService kaptchaSimpleCaptchaService(CacheService cacheService) {
-            return new KaptchaSimpleCaptchaService(cacheService);
+        public DefaultSimpleCaptchaService defaultSimpleCaptchaService(CacheService cacheService) {
+            return new DefaultSimpleCaptchaService(cacheService);
         }
 
         @Bean

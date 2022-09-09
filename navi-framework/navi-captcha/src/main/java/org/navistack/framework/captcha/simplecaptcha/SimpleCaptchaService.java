@@ -9,7 +9,6 @@ public interface SimpleCaptchaService {
     String challenge();
 
     /**
-     *
      * @return Response ID
      */
     UserAttemptResult answer(String challenge, String answer);

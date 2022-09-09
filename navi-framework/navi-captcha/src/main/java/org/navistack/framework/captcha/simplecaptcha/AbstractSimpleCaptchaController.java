@@ -36,13 +36,13 @@ public abstract class AbstractSimpleCaptchaController {
         RenderedImage image = simpleCaptchaService.draw(challenge);
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, "JPEG", byteArrayOutputStream);
+        ImageIO.write(image, "PNG", byteArrayOutputStream);
         byte[] bytes = byteArrayOutputStream.toByteArray();
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.noCache())
-                .contentType(MediaType.IMAGE_JPEG)
+                .contentType(MediaType.IMAGE_PNG)
                 .body(new InputStreamResource(byteArrayInputStream));
     }
 }

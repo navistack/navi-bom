@@ -25,7 +25,6 @@
         <modelmapper.version>3.1.0</modelmapper.version>
         <junit.version>4.13.2</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <kaptcha.version>2.3.2</kaptcha.version>
         <aliyun-sdk-core.version>4.6.0</aliyun-sdk-core.version>
         <aliyun-sdk-afs.version>1.0.1</aliyun-sdk-afs.version>
         <tencentcloud-sdk.version>3.1.526</tencentcloud-sdk.version>
@@ -40,6 +39,7 @@
         <minio.version>8.4.3</minio.version>
         <commons-codec.version>1.15</commons-codec.version>
         <mockito.version>4.5.1</mockito.version>
+        <jhlabs-filters.version>2.0.235-1</jhlabs-filters.version>
     </properties>
 
     <modules>
@@ -144,9 +144,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.github.penggle</groupId>
-                <artifactId>kaptcha</artifactId>
-                <version>${kaptcha.version}</version>
+                <groupId>com.jhlabs</groupId>
+                <artifactId>filters</artifactId>
+                <version>${jhlabs-filters.version}</version>
             </dependency>
 
             <!-- Alibaba Cloud -->

@@ -22,8 +22,8 @@
             <artifactId>navi-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.penggle</groupId>
-            <artifactId>kaptcha</artifactId>
+            <groupId>com.jhlabs</groupId>
+            <artifactId>filters</artifactId>
         </dependency>
         <dependency>
             <groupId>com.aliyun</groupId>

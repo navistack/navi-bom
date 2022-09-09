@@ -8,7 +8,7 @@ import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.TencentCloudCa
 import org.navistack.framework.cache.CacheService;
 import org.navistack.framework.captcha.CaptchaTesterComposite;
 import org.navistack.framework.captcha.afs.AfsCaptchaTester;
-import org.navistack.framework.captcha.simplecaptcha.KaptchaSimpleCaptchaService;
+import org.navistack.framework.captcha.simplecaptcha.DefaultSimpleCaptchaService;
 import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaService;
 import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaTester;
 import org.navistack.framework.captcha.tcc.TccCaptchaTester;
@@ -27,7 +27,7 @@ class CaptchaAutoConfigurationTest {
         contextRunner.withBean(CacheService.class, () -> mock(CacheService.class))
                 .run(context -> {
                     assertThat(context).hasSingleBean(SimpleCaptchaService.class);
-                    assertThat(context.getBean(SimpleCaptchaService.class)).isInstanceOf(KaptchaSimpleCaptchaService.class);
+                    assertThat(context.getBean(SimpleCaptchaService.class)).isInstanceOf(DefaultSimpleCaptchaService.class);
                     assertThat(context).hasSingleBean(SimpleCaptchaTester.class);
                     assertThat(context).hasSingleBean(CaptchaTesterComposite.class);
                     assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asList().hasSize(1).hasOnlyElementsOfType(SimpleCaptchaTester.class);
