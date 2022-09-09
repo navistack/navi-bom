@@ -15,7 +15,7 @@ import java.time.temporal.TemporalUnit;
 @Setter
 public abstract class AbstractRedisFixedWindowRateLimiter extends AbstractFixedWindowRateLimiter {
     private final static String DEFAULT_USER_KEY = "GLOBAL_RESOURCE";
-    private final static Resource DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("scripts/fixedwindowratelimiter.lua");
+    private final static Resource DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("navi/scripts/fixedwindowratelimiter.lua");
     private final static CacheKeyBuilder KEY_BUILDER = new PrefixedCacheKeyBuilder(".", "NAVI", "RATE_LIMITER");
 
     private Resource scriptResource = DEFAULT_SCRIPT_RESOURCE;
