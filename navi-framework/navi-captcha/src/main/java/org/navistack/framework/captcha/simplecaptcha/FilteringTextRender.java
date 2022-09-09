@@ -16,9 +16,7 @@ public abstract class FilteringTextRender implements TextRender {
         return applyImageFilters(image);
     }
 
-    public BufferedImage doRender(String text) {
-        return null;
-    }
+    public abstract BufferedImage doRender(String text);
 
     public void addImageFilter(ImageFilter imageFilter) {
         this.imageFilters.add(imageFilter);
