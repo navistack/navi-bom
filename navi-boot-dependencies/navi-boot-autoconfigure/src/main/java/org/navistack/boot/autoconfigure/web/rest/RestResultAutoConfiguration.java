@@ -1,7 +1,7 @@
 package org.navistack.boot.autoconfigure.web.rest;
 
-import org.navistack.boot.autoconfigure.web.rest.exceptionhanders.ExceptionHandlingImpl;
-import org.navistack.boot.autoconfigure.web.rest.exceptionhanders.common.ExceptionHandlerTrait;
+import org.navistack.framework.web.rest.exceptionhanders.ExceptionHandlingImpl;
+import org.navistack.framework.web.rest.exceptionhanders.common.ExceptionHandlerTrait;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;

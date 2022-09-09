@@ -143,5 +143,10 @@
             <artifactId>navi-objectstorage</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-web</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

@@ -26,6 +26,7 @@
         <module>navi-boot-starter-ratelimit</module>
         <module>navi-boot-starter-objectstorage</module>
         <module>navi-boot-starter-objectstorage-minio</module>
+        <module>navi-boot-starter-web</module>
     </modules>
 
     <dependencies>

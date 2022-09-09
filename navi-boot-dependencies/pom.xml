@@ -109,6 +109,11 @@
                 <artifactId>navi-boot-starter-objectstorage-minio</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.navistack.boot</groupId>
+                <artifactId>navi-boot-starter-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

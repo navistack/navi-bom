@@ -48,6 +48,7 @@
         <module>navi-mybatisplusplus</module>
         <module>navi-security</module>
         <module>navi-objectstorage</module>
+        <module>navi-web</module>
     </modules>
 
     <dependencies>
@@ -346,6 +347,11 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-objectstorage</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
