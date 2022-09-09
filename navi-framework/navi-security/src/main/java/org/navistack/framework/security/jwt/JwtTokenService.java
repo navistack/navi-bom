@@ -266,7 +266,7 @@ public class JwtTokenService implements TokenService {
 
     private static byte[] generateRandomSecretKey() {
         SecureRandom random = new SecureRandom();
-        byte[] key = new byte[32];
+        byte[] key = new byte[64];
         random.nextBytes(key);
         return key;
     }
