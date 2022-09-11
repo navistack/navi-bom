@@ -2,7 +2,7 @@ package org.navistack.framework.utils;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 class ObjectsTest {
 
@@ -43,5 +43,19 @@ class ObjectsTest {
         assertThat(Objects.firstNonNull(null, "str")).isEqualTo("str");
         assertThat(Objects.firstNonNull(null, null, "str")).isEqualTo("str");
         assertThat(Objects.firstNonNull(null, "str1", null, null, "str2")).isEqualTo("str1");
+    }
+
+    @Test
+    void requireNull() {
+        assertThatCode(() -> Objects.requireNull(null)).doesNotThrowAnyException();
+        assertThatThrownBy(() -> Objects.requireNull(new Object())).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Objects.requireNull(new Object(), "Object must be null")).isInstanceOf(IllegalArgumentException.class).hasMessage("Object must be null");
+    }
+
+    @Test
+    void requireNonNull() {
+        assertThatCode(() -> Objects.requireNonNull(new Object())).doesNotThrowAnyException();
+        assertThatThrownBy(() -> Objects.requireNonNull(null)).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> Objects.requireNonNull(null, "Object must not be null")).isInstanceOf(NullPointerException.class);
     }
 }

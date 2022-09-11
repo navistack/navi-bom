@@ -30,4 +30,30 @@ public class Objects {
 
         return null;
     }
+
+    public <T> void requireNull(T o) {
+        if (o != null) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public <T> void requireNull(T o, String message) {
+        if (o != null) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    public <T> T requireNonNull(T o) {
+        if (o == null) {
+            throw new NullPointerException();
+        }
+        return o;
+    }
+
+    public <T> T requireNonNull(T o, String message) {
+        if (o == null) {
+            throw new NullPointerException(message);
+        }
+        return o;
+    }
 }
