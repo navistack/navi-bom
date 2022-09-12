@@ -1,11 +1,12 @@
 package org.navistack.framework.mybatisplusplus;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import org.navistack.framework.utils.ModelMappers;
-import org.navistack.framework.utils.GenericTypeResolvers;
-import org.navistack.framework.mybatisplusplus.utils.MyBatisPlusUtils;
 import org.navistack.framework.data.Page;
 import org.navistack.framework.data.Pageable;
+import org.navistack.framework.mybatisplusplus.utils.MyBatisPlusUtils;
+import org.navistack.framework.utils.Arrays;
+import org.navistack.framework.utils.ModelMappers;
+import org.springframework.core.GenericTypeResolver;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -20,10 +21,10 @@ public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DA
     protected final DAO dao;
 
     @SuppressWarnings("unchecked")
-    private final Class<T> entityClass = (Class<T>) GenericTypeResolvers.resolveTypeArgumentsOf(getClass(), AbstractCrudService.class, 1);
+    private final Class<T> entityClass = (Class<T>) Arrays.get(GenericTypeResolver.resolveTypeArguments(getClass(), AbstractCrudService.class), 1);
 
     @SuppressWarnings("unchecked")
-    private final Class<DTO> dtoClass = (Class<DTO>) GenericTypeResolvers.resolveTypeArgumentsOf(getClass(), AbstractCrudService.class, 2);
+    private final Class<DTO> dtoClass = (Class<DTO>) Arrays.get(GenericTypeResolver.resolveTypeArguments(getClass(), AbstractCrudService.class), 2);
 
     private final Collection<Consumer<DTO>> preCreateActions = new ArrayList<>();
 
