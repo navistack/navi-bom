@@ -27,11 +27,6 @@ public class DefaultFileUploadService implements FileUploadService {
     }
 
     @Override
-    public UploadedFileStat statFile(String bucket, String file) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public InputStream getFile(String bucket, String file) {
         Asserts.state(bucket, Strings::hasText, "bucket can not be empty");
         Asserts.state(file, Strings::hasText, "file can not be empty");

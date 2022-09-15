@@ -37,26 +37,6 @@ public interface FileUploadService {
     InputStream getFile(String bucket, String file);
 
     /**
-     * Get file stat of uploaded file
-     *
-     * @param file   name of file to get, having bucket name prefixed
-     * @return file stat
-     */
-    default UploadedFileStat statFile(String file) {
-        String[] parts = Strings.split(file, ":", 2);
-        return statFile(Arrays.get(parts, 0), Arrays.get(parts, 1));
-    }
-
-    /**
-     * Get file stat of uploaded file
-     *
-     * @param bucket which bucket to get file from
-     * @param file   name of file to get
-     * @return file stat
-     */
-    UploadedFileStat statFile(String bucket, String file);
-
-    /**
      * Upload file, with default upload policy
      *
      * @param bucket      bucket in where file is stored
