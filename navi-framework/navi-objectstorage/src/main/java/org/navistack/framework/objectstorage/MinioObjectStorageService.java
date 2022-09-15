@@ -43,6 +43,11 @@ public class MinioObjectStorageService implements ObjectStorageService {
     }
 
     @Override
+    public String getObjectUri(String bucket, String object) {
+        return getPresignedObjectUrl(bucket, object);
+    }
+
+    @Override
     public void uploadObject(String bucket, String object, String filename) {
         try {
             makeBucketIfNecessary(bucket);
@@ -111,6 +116,14 @@ public class MinioObjectStorageService implements ObjectStorageService {
     public String getPresignedObjectUrl(String object, Duration expiration, String method) {
         String[] parts = Strings.split(object, ":", 2);
         return getPresignedObjectUrl(Arrays.get(parts, 0), Arrays.get(parts, 1), expiration, method);
+    }
+
+    public String getPresignedObjectUrl(String bucket, String object) {
+        return getPresignedObjectUrl(bucket, object, "GET");
+    }
+
+    public String getPresignedObjectUrl(String bucket, String object, String method) {
+        return getPresignedObjectUrl(bucket, object, Duration.ofDays(7), method);
     }
 
     public String getPresignedObjectUrl(String bucket, String object, Duration expiration, String method) {

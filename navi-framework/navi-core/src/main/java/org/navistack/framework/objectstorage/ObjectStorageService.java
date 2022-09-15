@@ -33,6 +33,32 @@ public interface ObjectStorageService {
      */
     InputStream getObject(String bucket, String object);
 
+    /**
+     * Get public accessible uri of object from bucket.
+     *
+     * <p> Object name must have bucket name prefixed as part of its name in which the object is stored.
+     * Bucket name and object name is seperated by ":".
+     *
+     * <p> For example, getObjectUri("bucket:object") will return uri of object named "object"
+     * from bucket named "bucket".
+     *
+     * @param object name of object to get
+     * @return uri of object
+     */
+    default String getObjectUri(String object) {
+        String[] parts = object.split(":", 2);
+        return getObjectUri(Arrays.get(parts, 0), Arrays.get(parts, 1));
+    }
+
+    /**
+     * Get public accessible uri of object from bucket.
+     *
+     * @param bucket which bucket to get object from
+     * @param object name of object to get
+     * @return uri of object
+     */
+    String getObjectUri(String bucket, String object);
+
     void putObject(String bucket, String object, InputStream inputStream);
 
     void uploadObject(String bucket, String object, String filename);
