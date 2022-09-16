@@ -2,9 +2,11 @@ package org.navistack.framework.mybatisplusplus.query;
 
 import org.navistack.framework.core.convert.ConversionException;
 import org.navistack.framework.core.convert.Converter;
+import org.navistack.framework.utils.Arrays;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -78,59 +80,21 @@ public class QueryWrapperConverter<T> implements Converter<T, QueryWrapper<T>> {
                             .isNotNull(columnName)
                             .eq(columnName, fieldValue));
                     break;
-                case BETWEEN_IN:
-                    if (Object[].class.isAssignableFrom(propertyType)) {
-                        Object[] castedFieldValue = (Object[]) fieldValue;
-                        if (castedFieldValue.length == 2) {
-                            wrapper.between(columnName, castedFieldValue[0], castedFieldValue[1]);
-                        }
-                    } else if (Collection.class.isAssignableFrom(propertyType)) {
-                        Collection<?> castedFieldValue = (Collection<?>) fieldValue;
-                        if (castedFieldValue.size() == 2) {
-                            Iterator<?> iterator = castedFieldValue.iterator();
-                            Object val1 = iterator.next();
-                            Object val2 = iterator.next();
-                            wrapper.between(columnName, val1, val2);
-                        }
-                    }
-                    break;
-                case NOT_BETWEEN_IN:
-                    if (Object[].class.isAssignableFrom(propertyType)) {
-                        Object[] castedFieldValue = (Object[]) fieldValue;
-                        if (castedFieldValue.length == 2) {
-                            wrapper.notBetween(columnName, castedFieldValue[0], castedFieldValue[1]);
-                        }
-                    } else if (Collection.class.isAssignableFrom(propertyType)) {
-                        Collection<?> castedFieldValue = (Collection<?>) fieldValue;
-                        if (castedFieldValue.size() == 2) {
-                            Iterator<?> iterator = castedFieldValue.iterator();
-                            Object val1 = iterator.next();
-                            Object val2 = iterator.next();
-                            wrapper.notBetween(columnName, val1, val2);
-                        }
-                    }
-                    break;
+                case BETWEEN_IN: {
+                    Object[] fieldValues = extractElements(fieldValue);
+                    wrapper.between(columnName, Arrays.get(fieldValues, 0), Arrays.get(fieldValues, 1));
+                }
+                break;
+                case NOT_BETWEEN_IN: {
+                    Object[] fieldValues = extractElements(fieldValue);
+                    wrapper.notBetween(columnName, Arrays.get(fieldValues, 0), Arrays.get(fieldValues, 1));
+                }
+                break;
                 case IN:
-                    if (Object[].class.isAssignableFrom(propertyType)) {
-                        Object[] castedFieldValue = (Object[]) fieldValue;
-                        wrapper.in(columnName, castedFieldValue);
-                    } else if (Collection.class.isAssignableFrom(propertyType)) {
-                        Collection<?> castedFieldValue = (Collection<?>) fieldValue;
-                        wrapper.in(columnName, castedFieldValue);
-                    } else {
-                        wrapper.in(columnName, fieldValue);
-                    }
+                    wrapper.in(columnName, extractElements(fieldValue));
                     break;
                 case NOT_IN:
-                    if (Object[].class.isAssignableFrom(propertyType)) {
-                        Object[] castedFieldValue = (Object[]) fieldValue;
-                        wrapper.notIn(columnName, castedFieldValue);
-                    } else if (Collection.class.isAssignableFrom(propertyType)) {
-                        Collection<?> castedFieldValue = (Collection<?>) fieldValue;
-                        wrapper.notIn(columnName, castedFieldValue);
-                    } else {
-                        wrapper.notIn(columnName, fieldValue);
-                    }
+                    wrapper.notIn(columnName, extractElements(fieldValue));
                     break;
                 case LIKE:
                     wrapper.like(columnName, fieldValue);
@@ -142,16 +106,16 @@ public class QueryWrapperConverter<T> implements Converter<T, QueryWrapper<T>> {
                     wrapper.likeRight(columnName, fieldValue);
                     break;
                 case REGEXP:
-                    wrapper.apply("{0} REGEXP {1}".replace("{0}", columnName), null, fieldValue);
+                    applyExpression(wrapper, columnName, "{0} REGEXP {1}", fieldValue);
                     break;
                 case NOT_REGEXP:
-                    wrapper.apply("{0} NOT REGEXP {1}".replace("{0}", columnName), null, fieldValue);
+                    applyExpression(wrapper, columnName, "{0} NOT REGEXP {1}", fieldValue);
                     break;
                 case NOT_LIKE:
                     wrapper.notLike(columnName, fieldValue);
                     break;
                 case EXPRESSION:
-                    wrapper.apply(expression.replace("{0}", columnName), null, fieldValue);
+                    applyExpression(wrapper, columnName, expression, fieldValue);
                     break;
                 case EQUAL_TO:
                 default:
@@ -159,5 +123,34 @@ public class QueryWrapperConverter<T> implements Converter<T, QueryWrapper<T>> {
                     break;
             }
         }
+    }
+
+    protected static <T> void applyExpression(QueryWrapper<T> wrapper, String columnName, String expression, Object value) {
+        wrapper.apply(expression.replace("{0}", columnName), Arrays.shift(extractElements(value), 1));
+    }
+
+    protected static Object[] extractElements(Object value) {
+        if (value instanceof Collection<?>) {
+            return ((Collection<?>) value).toArray();
+        } else if (value instanceof Iterable<?>) {
+            return extractElementsFromIterator(((Iterable<?>) value).iterator());
+        } else if (value instanceof Iterator<?>) {
+            return extractElementsFromIterator((Iterator<?>) value);
+        } else if (value instanceof Object[]) {
+            return (Object[]) value;
+        } else {
+            return new Object[]{value};
+        }
+    }
+
+    protected static Object[] extractElementsFromIterator(Iterator<?> iterator) {
+        if (!iterator.hasNext()) {
+            return new Object[]{};
+        }
+        ArrayList<Object> arrayList = new ArrayList<>(10);
+        while (iterator.hasNext()) {
+            arrayList.add(iterator.next());
+        }
+        return arrayList.toArray();
     }
 }

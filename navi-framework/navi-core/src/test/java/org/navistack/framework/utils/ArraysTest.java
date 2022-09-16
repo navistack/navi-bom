@@ -3,6 +3,7 @@ package org.navistack.framework.utils;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ArraysTest {
     @Test
@@ -29,5 +30,14 @@ class ArraysTest {
         assertThat(Arrays.isNotEmpty((String[])null)).isFalse();
         assertThat(Arrays.isNotEmpty(new String[]{})).isFalse();
         assertThat(Arrays.isNotEmpty(new String[]{ "str1", "str2"})).isTrue();
+    }
+
+    @Test
+    void shift() {
+        assertThat(Arrays.shift(new String[]{"a", "b", "c"}, 1)).containsExactly(null, "a", "b", "c");
+        assertThat(Arrays.shift(new String[]{}, 1)).isEmpty();
+        assertThatThrownBy(() -> Arrays.shift(new String[]{"a", "b", "c"}, 0)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Arrays.shift(new String[]{"a", "b", "c"}, -1)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Arrays.shift(null, 1)).isInstanceOf(NullPointerException.class);
     }
 }
