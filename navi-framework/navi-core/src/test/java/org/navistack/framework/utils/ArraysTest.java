@@ -40,4 +40,14 @@ class ArraysTest {
         assertThatThrownBy(() -> Arrays.shift(new String[]{"a", "b", "c"}, -1)).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> Arrays.shift(null, 1)).isInstanceOf(NullPointerException.class);
     }
+
+    @Test
+    void prepend() {
+        assertThat(Arrays.prepend(new String[]{"a", "b", "c"}, null)).containsExactly("a", "b", "c");
+        assertThat(Arrays.prepend(new String[]{"a", "b", "c"}, new String[]{})).containsExactly("a", "b", "c");
+        assertThat(Arrays.prepend(new String[]{"a", "b", "c"})).containsExactly("a", "b", "c");
+        assertThat(Arrays.prepend(new String[]{"a", "b", "c"}, "1", "2")).containsExactly("1", "2", "a", "b", "c");
+        assertThat(Arrays.prepend(new String[]{}, "1", "2")).containsExactly("1", "2");
+        assertThat(Arrays.prepend(null, "1", "2")).containsExactly("1", "2");
+    }
 }

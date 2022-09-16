@@ -31,4 +31,22 @@ public class Arrays {
         System.arraycopy(arr, 0, newArray, length, arr.length);
         return newArray;
     }
+
+    @SuppressWarnings("unchecked")
+    public <T> T[] prepend(T[] arr, T... elems) {
+        if (arr == null) {
+            arr = (T[]) new Object[]{};
+        }
+        if (elems == null) {
+            elems = (T[]) new Object[]{};
+        }
+        int newLength = arr.length + elems.length;
+        if (newLength <= 0) {
+            return (T[]) new Object[]{};
+        }
+        T[] newArray = (T[]) new Object[newLength];
+        System.arraycopy(elems, 0, newArray, 0, elems.length);
+        System.arraycopy(arr, 0, newArray, elems.length, arr.length);
+        return newArray;
+    }
 }
