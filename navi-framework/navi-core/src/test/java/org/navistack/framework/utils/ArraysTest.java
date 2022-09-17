@@ -50,4 +50,11 @@ class ArraysTest {
         assertThat(Arrays.prepend(new String[]{}, "1", "2")).containsExactly("1", "2");
         assertThat(Arrays.prepend(null, "1", "2")).containsExactly("1", "2");
     }
+
+    @Test
+    void asArray() {
+        assertThat(Arrays.asArray(1)).isNotNull().containsExactly(1);
+        assertThat(Arrays.asArray(1, 2)).isNotNull().containsExactly(1, 2);
+        assertThat(Arrays.asArray(1, 2, 3)).isNotNull().containsExactly(1, 2, 3);
+    }
 }

@@ -49,4 +49,13 @@ public class Arrays {
         System.arraycopy(arr, 0, newArray, elems.length, arr.length);
         return newArray;
     }
+
+    @SuppressWarnings("unchecked")
+    public <T> T[] asArray(T...elems) {
+        if (elems == null) {
+            return (T[])new Object[]{};
+        } else {
+            return elems;
+        }
+    }
 }
