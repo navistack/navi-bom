@@ -1,9 +1,12 @@
 package org.navistack.framework.mybatisplusplus;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import org.navistack.framework.data.Page;
+import org.navistack.framework.data.PageImpl;
 import org.navistack.framework.data.Pageable;
-import org.navistack.framework.mybatisplusplus.utils.MyBatisPlusUtils;
+import org.navistack.framework.data.Sort;
 import org.navistack.framework.utils.Arrays;
 import org.navistack.framework.utils.ModelMappers;
 import org.springframework.core.GenericTypeResolver;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DAO extends CrudMapper<T>>
@@ -65,7 +69,7 @@ public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DA
     public void create(DTO dto) {
         preCreate(dto);
 
-        T entity = ModelMappers.map(dto, entityClass);
+        T entity = buildEntity(dto);
 
         dao.insert(entity);
 
@@ -83,7 +87,7 @@ public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DA
     public void modify(DTO dto) {
         preModify(dto);
 
-        T entity = ModelMappers.map(dto, entityClass);
+        T entity = buildEntity(dto);
 
         dao.updateById(entity);
     }
@@ -107,7 +111,7 @@ public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DA
         Wrapper<T> wrapper = buildWrapper(queryParams);
 
         return dao.selectList(wrapper).stream()
-                .map(e -> ModelMappers.map(e, dtoClass))
+                .map(this::buildDto)
                 .collect(Collectors.toList());
     }
 
@@ -115,17 +119,52 @@ public abstract class AbstractCrudService<T, ID extends Serializable, DTO, Q, DA
     public Page<DTO> paginate(Q queryParams, Pageable pageable) {
         Wrapper<T> wrapper = buildWrapper(queryParams);
 
-        return MyBatisPlusUtils.PageUtils.toPage(
-                dao.selectPage(
-                        MyBatisPlusUtils.PageUtils.fromPageable(pageable),
-                        wrapper
-                ),
-                e -> ModelMappers.map(e, dtoClass)
-        );
+        return buildPage(dao.selectPage(buildMyBatisPlusPage(pageable), wrapper), this::buildDto);
     }
 
     @Override
     public DTO queryById(ID id) {
         return ModelMappers.map(dao.selectById(id), dtoClass);
+    }
+
+    protected DTO buildDto(T entity) {
+        return ModelMappers.map(entity, dtoClass);
+    }
+
+    protected T buildEntity(DTO dto) {
+        return ModelMappers.map(dto, entityClass);
+    }
+
+    protected static <U> IPage<U> buildMyBatisPlusPage(Pageable pageable) {
+        int current = pageable.getPageNumber();
+        int size = pageable.getPageSize();
+        List<OrderItem> orders = pageable.getSort().getOrders().stream()
+                .filter(order -> order.getProperty() != null && order.getDirection() != null)
+                .map(order -> new OrderItem(
+                        order.getProperty(),
+                        Sort.Direction.ASC.equals(order.getDirection()))
+                )
+                .collect(Collectors.toList());
+
+        com.baomidou.mybatisplus.extension.plugins.pagination.Page<U> target =
+                new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(
+                        current,
+                        size
+                );
+        target.addOrder(orders);
+
+        return target;
+    }
+
+    protected static <U, V> Page<V> buildPage(IPage<U> page, Function<U, V> converter) {
+        List<V> listToReturn = page.getRecords().stream()
+                .map(converter)
+                .collect(Collectors.toList());
+
+        int pageNumber = (int) page.getCurrent();
+        int pageSize = (int) page.getSize();
+        long totalRecords = page.getTotal();
+
+        return new PageImpl<>(listToReturn, pageNumber, pageSize, totalRecords);
     }
 }
