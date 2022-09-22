@@ -1,4 +1,4 @@
-package org.navistack.framework.utils;
+package org.navistack.framework.http;
 
 import lombok.experimental.UtilityClass;
 
