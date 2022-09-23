@@ -4,7 +4,7 @@ import com.aliyuncs.IAcsClient;
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import org.navistack.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.navistack.boot.autoconfigure.cloudservice.aliyun.AliyunAfsProperties;
-import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.TencentCloudCaptchaProperties;
+import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.captcha.TencentCloudCaptchaProperties;
 import org.navistack.framework.cache.CacheService;
 import org.navistack.framework.captcha.CaptchaTestInterceptor;
 import org.navistack.framework.captcha.CaptchaTester;
@@ -52,7 +52,7 @@ public class CaptchaAutoConfiguration {
         @Bean
         @ConditionalOnBean({TencentCloudCaptchaProperties.class, CaptchaClient.class})
         public TccCaptchaTester tccCaptchaTester(TencentCloudCaptchaProperties properties, CaptchaClient captchaClient) {
-            return new TccCaptchaTester(properties.getAppId(), properties.getAppSecret(), captchaClient);
+            return new TccCaptchaTester(properties.getCaptchaAppId(), properties.getAppSecretKey(), captchaClient);
         }
     }
 

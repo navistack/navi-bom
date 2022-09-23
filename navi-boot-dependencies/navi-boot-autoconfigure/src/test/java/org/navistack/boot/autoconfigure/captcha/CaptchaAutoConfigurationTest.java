@@ -4,7 +4,7 @@ import com.aliyuncs.IAcsClient;
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import org.junit.jupiter.api.Test;
 import org.navistack.boot.autoconfigure.cloudservice.aliyun.AliyunAfsProperties;
-import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.TencentCloudCaptchaProperties;
+import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.captcha.TencentCloudCaptchaProperties;
 import org.navistack.framework.cache.CacheService;
 import org.navistack.framework.captcha.CaptchaTesterComposite;
 import org.navistack.framework.captcha.afs.AfsCaptchaTester;
