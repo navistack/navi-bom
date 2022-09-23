@@ -2,7 +2,7 @@ package org.navistack.framework.objectstorage.namebuilders;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.navistack.framework.utils.MediaTypes;
+import org.navistack.framework.http.MediaTypes;
 
 import java.security.SecureRandom;
 import java.time.Clock;

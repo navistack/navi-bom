@@ -2,7 +2,7 @@ package org.navistack.framework.objectstorage;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.navistack.framework.utils.MediaTypes;
+import org.navistack.framework.http.MediaTypes;
 
 import java.nio.file.FileSystems;
 

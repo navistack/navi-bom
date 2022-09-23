@@ -1,10 +1,9 @@
 package org.navistack.framework.objectstorage.namebuilders;
 
 import org.junit.jupiter.api.Test;
-import org.navistack.framework.utils.MediaTypes;
+import org.navistack.framework.http.MediaTypes;
 
 import java.nio.file.FileSystems;
-import java.nio.file.Path;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
