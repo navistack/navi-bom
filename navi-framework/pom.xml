@@ -50,6 +50,7 @@
         <module>navi-security</module>
         <module>navi-objectstorage</module>
         <module>navi-web</module>
+        <module>navi-sms</module>
     </modules>
 
     <dependencies>
@@ -171,6 +172,11 @@
             <dependency>
                 <groupId>com.tencentcloudapi</groupId>
                 <artifactId>tencentcloud-sdk-java-captcha</artifactId>
+                <version>${tencentcloud-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tencentcloudapi</groupId>
+                <artifactId>tencentcloud-sdk-java-sms</artifactId>
                 <version>${tencentcloud-sdk.version}</version>
             </dependency>
 
@@ -360,6 +366,11 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-sms</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

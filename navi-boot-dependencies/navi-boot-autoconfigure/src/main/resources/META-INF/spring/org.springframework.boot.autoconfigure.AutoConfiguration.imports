@@ -16,3 +16,4 @@ org.navistack.boot.autoconfigure.locking.LockingAutoConfiguration
 org.navistack.boot.autoconfigure.ratelimit.RateLimitAutoConfiguration
 org.navistack.boot.autoconfigure.redis.RedisAutoConfiguration
 org.navistack.boot.autoconfigure.objectstorage.ObjectStorageAutoConfiguration
+org.navistack.boot.autoconfigure.sms.ShortMessageAutoConfiguration

@@ -27,6 +27,7 @@
         <module>navi-boot-starter-objectstorage</module>
         <module>navi-boot-starter-objectstorage-minio</module>
         <module>navi-boot-starter-web</module>
+        <module>navi-boot-starter-sms-tencentcloud</module>
     </modules>
 
     <dependencies>

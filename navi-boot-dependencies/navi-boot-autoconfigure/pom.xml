@@ -74,6 +74,11 @@
             <artifactId>tencentcloud-sdk-java-captcha</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java-sms</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <!-- Jackson -->
         <dependency>
@@ -151,6 +156,11 @@
         <dependency>
             <groupId>org.navistack.framework</groupId>
             <artifactId>navi-web</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-sms</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>
