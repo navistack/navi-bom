@@ -4,6 +4,12 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Arrays {
+    /**
+     * Get element from array null-safely
+     * @param arr array
+     * @param idx index of element
+     * @return element at the index of array or null if index out of bound
+     */
     public <T> T get(T[] arr, int idx) {
         return idx < 0 || arr == null || arr.length <= idx ? null : arr[idx];
     }
