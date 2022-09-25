@@ -14,14 +14,29 @@ public class Arrays {
         return idx < 0 || arr == null || arr.length <= idx ? null : arr[idx];
     }
 
+    /**
+     * Check if array is empty
+     * @param arr array
+     * @return true if array is empty (length == 0) or false if array is null
+     */
     public <T> boolean isEmpty(T[] arr) {
         return arr == null || arr.length == 0;
     }
 
+    /**
+     * Check if array is not empty
+     * @param arr array
+     * @return true if array is not null and not empty (length > 0)
+     */
     public <T> boolean isNotEmpty(T[] arr) {
         return arr != null && arr.length > 0;
     }
 
+    /**
+     * Shift elements in array right
+     * @param arr array
+     * @param length length to shift
+     */
     @SuppressWarnings("unchecked")
     public <T> T[] shift(T[] arr, int length) {
         if (arr == null) {
@@ -38,6 +53,12 @@ public class Arrays {
         return newArray;
     }
 
+    /**
+     * Prepend elements to array.
+     * @param arr array
+     * @param elems elements to be prepended to array
+     * @return new array combines array and elements
+     */
     @SuppressWarnings("unchecked")
     public <T> T[] prepend(T[] arr, T... elems) {
         if (arr == null) {
@@ -56,6 +77,11 @@ public class Arrays {
         return newArray;
     }
 
+    /**
+     * return arguments as is
+     * @param elems elements of array
+     * @return array contains elems
+     */
     @SuppressWarnings("unchecked")
     public <T> T[] asArray(T...elems) {
         if (elems == null) {
