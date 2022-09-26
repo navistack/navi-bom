@@ -3,7 +3,7 @@ package org.navistack.boot.autoconfigure.captcha;
 import com.aliyuncs.IAcsClient;
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import org.navistack.boot.autoconfigure.cache.CacheAutoConfiguration;
-import org.navistack.boot.autoconfigure.cloudservice.aliyun.AliyunAfsProperties;
+import org.navistack.boot.autoconfigure.cloudservice.aliyun.afs.AliyunAfsProperties;
 import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.captcha.TencentCloudCaptchaProperties;
 import org.navistack.framework.cache.CacheService;
 import org.navistack.framework.captcha.CaptchaTestInterceptor;

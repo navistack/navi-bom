@@ -1,4 +1,4 @@
-package org.navistack.boot.autoconfigure.cloudservice.aliyun;
+package org.navistack.boot.autoconfigure.cloudservice.aliyun.afs;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,8 +1,10 @@
 package org.navistack.boot.autoconfigure.sms;
 
+import com.aliyuncs.IAcsClient;
 import com.tencentcloudapi.sms.v20210111.SmsClient;
 import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.captcha.TencentCloudCaptchaProperties;
 import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.sms.TencentCloudSmsProperties;
+import org.navistack.framework.sms.aliyun.AliyunShortMessageService;
 import org.navistack.framework.sms.tencentcloud.TencentCloudShortMessageService;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -19,6 +21,16 @@ public class ShortMessageAutoConfiguration {
         @ConditionalOnBean({TencentCloudCaptchaProperties.class, SmsClient.class})
         public TencentCloudShortMessageService tencentCloudShortMessageService(TencentCloudSmsProperties properties, SmsClient smsClient) {
             return new TencentCloudShortMessageService(properties.getSdkAppId(), properties.getAppKey(), smsClient);
+        }
+    }
+
+    @Configuration
+    @ConditionalOnClass(IAcsClient.class)
+    public static class AliyunShortMessageConfiguration {
+        @Bean
+        @ConditionalOnBean({IAcsClient.class})
+        public AliyunShortMessageService aliyunShortMessageService(IAcsClient acsClient) {
+            return new AliyunShortMessageService(acsClient);
         }
     }
 }
