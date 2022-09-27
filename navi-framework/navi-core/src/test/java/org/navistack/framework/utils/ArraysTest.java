@@ -34,25 +34,17 @@ class ArraysTest {
 
     @Test
     void shift() {
-        assertThat(Arrays.shift(new String[]{"a", "b", "c"}, 1)).containsExactly(null, "a", "b", "c");
-        assertThat(Arrays.shift(new String[]{}, 1)).isEmpty();
-        assertThatThrownBy(() -> Arrays.shift(new String[]{"a", "b", "c"}, 0)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Arrays.shift(new String[]{"a", "b", "c"}, -1)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Arrays.shift(null, 1)).isInstanceOf(NullPointerException.class);
-    }
-
-    @Test
-    void prepend() {
-        assertThat(Arrays.prepend(new String[]{"a", "b", "c"}, null)).containsExactly("a", "b", "c");
-        assertThat(Arrays.prepend(new String[]{"a", "b", "c"}, new String[]{})).containsExactly("a", "b", "c");
-        assertThat(Arrays.prepend(new String[]{"a", "b", "c"})).containsExactly("a", "b", "c");
-        assertThat(Arrays.prepend(new String[]{"a", "b", "c"}, "1", "2")).containsExactly("1", "2", "a", "b", "c");
-        assertThat(Arrays.prepend(new String[]{}, "1", "2")).containsExactly("1", "2");
-        assertThat(Arrays.prepend(null, "1", "2")).containsExactly("1", "2");
+        String[] result = Arrays.shift(new String[]{"a", "b", "c"}, 1, String[]::new);
+        assertThat(Arrays.shift(new String[]{"a", "b", "c"}, 1, String[]::new)).containsExactly(null, "a", "b", "c");
+        assertThat(Arrays.shift(new String[]{}, 1, String[]::new)).isEmpty();
+        assertThatThrownBy(() -> Arrays.shift(new String[]{"a", "b", "c"}, 0, String[]::new)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Arrays.shift(new String[]{"a", "b", "c"}, -1, String[]::new)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Arrays.shift(null, 1, String[]::new)).isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void asArray() {
+        Integer[] result = Arrays.asArray(1);
         assertThat(Arrays.asArray(1)).isNotNull().containsExactly(1);
         assertThat(Arrays.asArray(1, 2)).isNotNull().containsExactly(1, 2);
         assertThat(Arrays.asArray(1, 2, 3)).isNotNull().containsExactly(1, 2, 3);

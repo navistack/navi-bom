@@ -126,7 +126,7 @@ public class QueryWrapperConverter<T> implements Converter<T, QueryWrapper<T>> {
     }
 
     protected static <T> void applyExpression(QueryWrapper<T> wrapper, String columnName, String expression, Object value) {
-        wrapper.apply(expression.replace("{0}", columnName), Arrays.shift(extractElements(value), 1));
+        wrapper.apply(expression.replace("{0}", columnName), Arrays.shift(extractElements(value), 1, Object[]::new));
     }
 
     protected static Object[] extractElements(Object value) {
