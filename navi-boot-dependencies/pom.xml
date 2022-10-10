@@ -56,11 +56,6 @@
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
-                <artifactId>navi-boot-starter-validation</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-starter-mybatisplusplus</artifactId>
                 <version>${project.version}</version>
             </dependency>
