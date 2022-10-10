@@ -1,20 +1,31 @@
 package org.navistack.framework.ratelimit;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.navistack.framework.expression.MethodExpressionEvaluator;
+import org.navistack.framework.expression.ExpressionEvaluator;
 import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
 
 import java.lang.reflect.Method;
 
 @Aspect
 public class RateLimitAspect {
-    private final MethodExpressionEvaluatorFactory evaluatorFactory  = new MethodExpressionEvaluatorFactory();
-    private final RateLimiter rateLimiter;
+    @Getter
+    @Setter
+    @NonNull
+    private MethodExpressionEvaluatorFactory evaluatorFactory;
 
-    public RateLimitAspect(RateLimiter rateLimiter) {
+    @Getter
+    @Setter
+    @NonNull
+    private RateLimiter rateLimiter;
+
+    public RateLimitAspect(MethodExpressionEvaluatorFactory evaluatorFactory, RateLimiter rateLimiter) {
+        this.evaluatorFactory = evaluatorFactory;
         this.rateLimiter = rateLimiter;
     }
 
@@ -25,7 +36,7 @@ public class RateLimitAspect {
         Method method = signature.getMethod();
         String userKeyExpression = rateLimit.key();
         String message = rateLimit.message();
-        MethodExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
+        ExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
         String userKey = evaluator.evaluate(String.class, args);
         if (!rateLimiter.tryAcquire(userKey)) {
             throw new RateLimitExceededException(message);

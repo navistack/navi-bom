@@ -1,10 +1,13 @@
 package org.navistack.framework.ratelimit;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.navistack.framework.expression.MethodExpressionEvaluator;
+import org.navistack.framework.expression.ExpressionEvaluator;
 import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
 
 import java.lang.reflect.Method;
@@ -13,10 +16,18 @@ import java.time.temporal.TemporalUnit;
 
 @Aspect
 public class SlidingWindowRateLimitAspect {
-    private final MethodExpressionEvaluatorFactory evaluatorFactory  = new MethodExpressionEvaluatorFactory();
-    private final SlidingWindowRateLimiter rateLimiter;
+    @Getter
+    @Setter
+    @NonNull
+    private MethodExpressionEvaluatorFactory evaluatorFactory;
 
-    public SlidingWindowRateLimitAspect(SlidingWindowRateLimiter rateLimiter) {
+    @Getter
+    @Setter
+    @NonNull
+    private SlidingWindowRateLimiter rateLimiter;
+
+    public SlidingWindowRateLimitAspect(MethodExpressionEvaluatorFactory evaluatorFactory, SlidingWindowRateLimiter rateLimiter) {
+        this.evaluatorFactory = evaluatorFactory;
         this.rateLimiter = rateLimiter;
     }
 
@@ -30,7 +41,7 @@ public class SlidingWindowRateLimitAspect {
         long windowSize = rateLimit.windowSize();
         TemporalUnit sizeUnit = rateLimit.sizeUnit();
         String message = rateLimit.message();
-        MethodExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
+        ExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
         String userKey = evaluator.evaluate(String.class, args);
         if (!rateLimiter.tryAcquire(userKey, maxRequests, Duration.of(windowSize, sizeUnit))) {
             throw new RateLimitExceededException(message);

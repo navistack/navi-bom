@@ -1,11 +1,14 @@
 package org.navistack.framework.locking;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.navistack.framework.expression.MethodExpressionEvaluator;
+import org.navistack.framework.expression.ExpressionEvaluator;
 import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
 
 import java.lang.reflect.Method;
@@ -15,10 +18,18 @@ import java.time.temporal.TemporalUnit;
 @Slf4j
 @Aspect
 public class PessimisticLockAspect {
-    private final MethodExpressionEvaluatorFactory evaluatorFactory = new MethodExpressionEvaluatorFactory();
-    private final PessimisticLockService lockService;
+    @Getter
+    @Setter
+    @NonNull
+    private MethodExpressionEvaluatorFactory evaluatorFactory;
 
-    public PessimisticLockAspect(PessimisticLockService lockService) {
+    @Getter
+    @Setter
+    @NonNull
+    private PessimisticLockService lockService;
+
+    public PessimisticLockAspect(MethodExpressionEvaluatorFactory evaluatorFactory, PessimisticLockService lockService) {
+        this.evaluatorFactory = evaluatorFactory;
         this.lockService = lockService;
     }
 
@@ -31,7 +42,7 @@ public class PessimisticLockAspect {
         long timeout = pessimisticLock.timeout();
         TemporalUnit unit = pessimisticLock.unit();
         String message = pessimisticLock.message();
-        MethodExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
+        ExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
         String userKey = evaluator.evaluate(String.class, args);
         if (!lockService.tryLock(userKey, Duration.of(timeout, unit))) {
             throw new LockAcquisitionFailureException(message);

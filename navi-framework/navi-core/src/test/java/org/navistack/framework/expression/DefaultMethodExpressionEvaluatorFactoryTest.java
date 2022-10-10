@@ -6,13 +6,13 @@ import java.lang.reflect.Method;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MethodExpressionEvaluatorFactoryTest {
+class DefaultMethodExpressionEvaluatorFactoryTest {
 
     @Test
     void getObject() throws Exception {
-        MethodExpressionEvaluatorFactory factory = new MethodExpressionEvaluatorFactory();
+        MethodExpressionEvaluatorFactory factory = new DefaultMethodExpressionEvaluatorFactory();
         Method getObject = MethodExpressionEvaluatorFactory.class.getMethod("getObject", String.class, Method.class);
-        Method evaluate = MethodExpressionEvaluator.class.getMethod("evaluate", Class.class, Object[].class);
+        Method evaluate = DefaultExpressionEvaluator.class.getMethod("evaluate", Class.class, Object[].class);
         assertThat(factory.getObject("exp1", getObject))
                 .isNotNull()
                 .isSameAs(factory.getObject("exp1", getObject))
