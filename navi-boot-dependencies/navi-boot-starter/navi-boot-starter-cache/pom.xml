@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-core</artifactId>
+            <artifactId>navi-cache</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

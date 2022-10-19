@@ -55,5 +55,22 @@
             <artifactId>jackson-databind</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Navi Framework -->
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-ratelimit</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-captcha</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-locking</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

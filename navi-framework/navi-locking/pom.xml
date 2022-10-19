@@ -5,21 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.navistack.boot</groupId>
-        <artifactId>navi-boot-starter</artifactId>
+        <groupId>org.navistack.framework</groupId>
+        <artifactId>navi-framework</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>navi-boot-starter-logging</artifactId>
+    <artifactId>navi-locking</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-logging</artifactId>
+            <artifactId>navi-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-cache</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.LocaleResolver;
 
 import java.util.Map;
@@ -26,6 +27,11 @@ import java.util.Map;
 @ConditionalOnWebApplication
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
 @EnableConfigurationProperties(ExceptionHandlingProperties.class)
+@Import({
+        CaptchaExceptionHandlingConfiguration.class,
+        LockingExceptionHandlingConfiguration.class,
+        RateLimitExceptionHandlingConfiguration.class,
+})
 public class ExceptionHandlingAutoConfiguration implements ApplicationContextAware {
     @Setter
     private ApplicationContext applicationContext;

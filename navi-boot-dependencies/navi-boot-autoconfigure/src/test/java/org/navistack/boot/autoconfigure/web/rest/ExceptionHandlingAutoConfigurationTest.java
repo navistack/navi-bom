@@ -3,11 +3,12 @@ package org.navistack.boot.autoconfigure.web.rest;
 import org.junit.jupiter.api.Test;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionHandling;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslator;
+import org.navistack.framework.web.rest.exceptionhandling.translators.captcha.CaptchaTestFailureExceptionTranslator;
 import org.navistack.framework.web.rest.exceptionhandling.translators.core.CoreExceptionHandlingConfigurer;
 import org.navistack.framework.web.rest.exceptionhandling.translators.core.error.CodedExceptionTranslator;
 import org.navistack.framework.web.rest.exceptionhandling.translators.core.error.UserExceptionTranslator;
-import org.navistack.framework.web.rest.exceptionhandling.translators.core.locking.LockAcquisitionFailureExceptionTranslator;
-import org.navistack.framework.web.rest.exceptionhandling.translators.core.ratelimit.RateLimitExceededExceptionTranslator;
+import org.navistack.framework.web.rest.exceptionhandling.translators.locking.LockAcquisitionFailureExceptionTranslator;
+import org.navistack.framework.web.rest.exceptionhandling.translators.ratelimit.RateLimitExceededExceptionTranslator;
 import org.navistack.framework.web.rest.exceptionhandling.translators.security.SecurityExceptionHandlingConfigurer;
 import org.navistack.framework.web.rest.exceptionhandling.translators.security.access.AccessDeniedExceptionTranslator;
 import org.navistack.framework.web.rest.exceptionhandling.translators.security.core.AuthenticationExceptionTranslator;
@@ -39,6 +40,7 @@ class ExceptionHandlingAutoConfigurationTest {
             assertThat(exceptionHandling).extracting(ExceptionHandling::getTranslators).isNotNull();
             Collection<ExceptionTranslator> translators = exceptionHandling.getTranslators();
             assertThat(translators).hasExactlyElementsOfTypes(
+                    CaptchaTestFailureExceptionTranslator.class,
                     LockAcquisitionFailureExceptionTranslator.class,
                     RateLimitExceededExceptionTranslator.class,
                     UserExceptionTranslator.class,

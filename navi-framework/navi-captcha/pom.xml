@@ -13,18 +13,36 @@
     <artifactId>navi-captcha</artifactId>
 
     <dependencies>
+        <!-- Navi Framework -->
         <dependency>
             <groupId>org.navistack.framework</groupId>
             <artifactId>navi-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-web</artifactId>
+            <artifactId>navi-cache</artifactId>
         </dependency>
+
+        <!-- Spring Web -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.jhlabs</groupId>
             <artifactId>filters</artifactId>
         </dependency>
+
+        <!-- Alibaba Cloud -->
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
@@ -35,6 +53,8 @@
             <artifactId>aliyun-java-sdk-afs</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Tencent Cloud -->
         <dependency>
             <groupId>com.tencentcloudapi</groupId>
             <artifactId>tencentcloud-sdk-java-common</artifactId>

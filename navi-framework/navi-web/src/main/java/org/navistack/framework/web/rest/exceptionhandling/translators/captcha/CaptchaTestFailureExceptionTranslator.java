@@ -1,24 +1,24 @@
-package org.navistack.framework.web.rest.exceptionhandling.translators.core.ratelimit;
+package org.navistack.framework.web.rest.exceptionhandling.translators.captcha;
 
+import org.navistack.framework.captcha.CaptchaTestFailureException;
 import org.navistack.framework.core.error.UserErrorCodes;
-import org.navistack.framework.ratelimit.RateLimitExceededException;
 import org.navistack.framework.web.rest.RestResult;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslation;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslator;
 import org.springframework.http.HttpStatus;
 
-public class RateLimitExceededExceptionTranslator implements ExceptionTranslator {
+public class CaptchaTestFailureExceptionTranslator implements ExceptionTranslator {
     @Override
     public ExceptionTranslation translate(Throwable throwable) {
         RestResult.ParameterizedError error = RestResult.ParameterizedError.of(
-                UserErrorCodes.FREQUENT_REQUEST,
+                UserErrorCodes.CAPTCHA_TEST_FAILED,
                 throwable.getMessage()
         );
-        return ExceptionTranslation.of(error, HttpStatus.TOO_MANY_REQUESTS);
+        return ExceptionTranslation.of(error, HttpStatus.BAD_REQUEST);
     }
 
     @Override
     public boolean supports(Class<?> throwableType) {
-        return RateLimitExceededException.class.isAssignableFrom(throwableType);
+        return CaptchaTestFailureException.class.isAssignableFrom(throwableType);
     }
 }

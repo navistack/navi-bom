@@ -168,5 +168,25 @@
             <artifactId>navi-sms</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-ratelimit</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-locking</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-logging</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-cache</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

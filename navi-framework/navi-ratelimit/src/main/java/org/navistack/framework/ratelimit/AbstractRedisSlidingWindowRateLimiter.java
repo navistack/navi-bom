@@ -8,14 +8,13 @@ import org.navistack.framework.utils.Strings;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import java.time.Instant;
-import java.time.temporal.TemporalUnit;
+import java.time.Duration;
 
 @Getter
 @Setter
-public abstract class AbstractRedisFixedWindowRateLimiter extends AbstractFixedWindowRateLimiter {
+public abstract class AbstractRedisSlidingWindowRateLimiter extends AbstractSlidingWindowRateLimiter {
     private final static String DEFAULT_USER_KEY = "GLOBAL_RESOURCE";
-    private final static Resource DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("navi/scripts/fixedwindowratelimiter.lua");
+    private final static Resource DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("scripts/slidingwindowratelimiter.lua");
     private final static CacheKeyBuilder KEY_BUILDER = new PrefixedCacheKeyBuilder(".", "NAVI", "RATE_LIMITER");
 
     private Resource scriptResource = DEFAULT_SCRIPT_RESOURCE;
@@ -23,14 +22,13 @@ public abstract class AbstractRedisFixedWindowRateLimiter extends AbstractFixedW
 
     @Override
     public boolean tryAcquire(String key) {
-        return tryAcquire(key, getMaxRequests(), getTemporalUnit());
+        return tryAcquire(key, getMaxRequestsOfWindow(), getSizeOfWindow());
     }
 
     @Override
-    public boolean tryAcquire(String key, int maxRequests, TemporalUnit temporalUnit) {
+    public boolean tryAcquire(String key, int maxRequests, Duration windowSize) {
         key = Strings.hasText(key) ? key : DEFAULT_USER_KEY;
-        long epochMilli = Instant.now().truncatedTo(getTemporalUnit()).toEpochMilli();
-        return executeScript(scriptResource, keyBuilder.build(key, Long.toString(epochMilli)), maxRequests, temporalUnit);
+        return executeScript(scriptResource, keyBuilder.build(key), maxRequests, System.currentTimeMillis(), windowSize);
     }
 
     public void setKeyPrefix(String prefix) {
@@ -40,5 +38,5 @@ public abstract class AbstractRedisFixedWindowRateLimiter extends AbstractFixedW
         keyBuilder = new PrefixedCacheKeyBuilder(".", prefix);
     }
 
-    protected abstract boolean executeScript(Resource scriptResource, String key, int maxRequests, TemporalUnit temporalUnit);
+    protected abstract boolean executeScript(Resource scriptResource, String key, int maxRequests, long timestamp, Duration windowSize);
 }

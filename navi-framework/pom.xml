@@ -52,6 +52,10 @@
         <module>navi-objectstorage</module>
         <module>navi-web</module>
         <module>navi-sms</module>
+        <module>navi-ratelimit</module>
+        <module>navi-locking</module>
+        <module>navi-logging</module>
+        <module>navi-cache</module>
     </modules>
 
     <dependencies>
@@ -377,6 +381,26 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-sms</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-ratelimit</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-locking</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-logging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-cache</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

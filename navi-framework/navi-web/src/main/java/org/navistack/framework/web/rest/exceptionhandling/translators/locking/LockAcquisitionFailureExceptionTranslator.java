@@ -1,4 +1,4 @@
-package org.navistack.framework.web.rest.exceptionhandling.translators.core.locking;
+package org.navistack.framework.web.rest.exceptionhandling.translators.locking;
 
 import org.navistack.framework.core.error.UserErrorCodes;
 import org.navistack.framework.locking.LockAcquisitionFailureException;
