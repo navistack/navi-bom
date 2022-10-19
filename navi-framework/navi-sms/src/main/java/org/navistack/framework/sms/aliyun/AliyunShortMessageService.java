@@ -24,7 +24,7 @@ public class AliyunShortMessageService implements ShortMessageService {
         SendSmsRequest request = new SendSmsRequest();
         request.setPhoneNumbers(message.getPhoneNumber());
         request.setSignName(message.getSignature());
-        request.setTemplateCode(message.getMessage());
+        request.setTemplateCode(message.getTemplateCode());
         request.setTemplateParam(buildTemplateParam(message.getArguments()));
 
         Map<String, Object> attributes = message.getAttributes();

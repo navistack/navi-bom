@@ -9,10 +9,10 @@ import java.util.Map;
 
 @Data
 @Accessors(fluent = true)
-@NonNull
 public class ShortMessageBuilder {
     private String phoneNumber;
     private String signature;
+    private String templateCode;
     private String message;
     private final Map<String, Object> arguments = new HashMap<>();
     private final Map<String, Object> attributes = new HashMap<>();
@@ -59,6 +59,7 @@ public class ShortMessageBuilder {
         SimpleShortMessage shortMessage = new SimpleShortMessage();
         shortMessage.setPhoneNumber(phoneNumber);
         shortMessage.setSignature(signature);
+        shortMessage.setTemplateCode(templateCode);
         shortMessage.setMessage(message);
         shortMessage.setArguments(arguments);
         shortMessage.setAttributes(attributes);

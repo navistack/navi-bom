@@ -37,7 +37,7 @@ public class TencentCloudShortMessageService implements ShortMessageService {
             request.setSmsSdkAppId(sdkAppId);
             request.setPhoneNumberSet(new String[]{message.getPhoneNumber()});
             request.setSignName(message.getSignature());
-            request.setTemplateId(message.getMessage());
+            request.setTemplateId(message.getTemplateCode());
 
             String[] templateParamSet1 = prepareTemplateParamSet(message.getArguments());
             if (templateParamSet1 != null && templateParamSet1.length > 0) {
