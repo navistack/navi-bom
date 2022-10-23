@@ -30,6 +30,7 @@
         <module>navi-boot-autoconfigure</module>
         <module>navi-boot-starter</module>
         <module>navi-boot-starter-parent</module>
+        <module>navi-boot-smoke-test</module>
     </modules>
 
     <dependencyManagement>
