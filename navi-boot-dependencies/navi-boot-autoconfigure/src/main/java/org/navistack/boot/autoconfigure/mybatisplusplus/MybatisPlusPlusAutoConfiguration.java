@@ -6,10 +6,12 @@ import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import org.navistack.framework.mybatisplusplus.ExtendedSqlInjector;
 import org.navistack.framework.mybatisplusplus.typehandlers.EnumDelegatingTypeHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConditionalOnClass(ConfigurationCustomizer.class)
 @ConditionalOnBean(MybatisPlusAutoConfiguration.class)
 public class MybatisPlusPlusAutoConfiguration implements ConfigurationCustomizer {
     @Bean

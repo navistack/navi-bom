@@ -28,6 +28,7 @@ import org.springframework.web.servlet.handler.MappedInterceptor;
 import java.util.Collection;
 
 @Configuration
+@ConditionalOnClass(CaptchaTester.class)
 @EnableConfigurationProperties(CaptchaProperties.class)
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
 @AutoConfigureAfter(CacheAutoConfiguration.class)
