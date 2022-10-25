@@ -19,7 +19,8 @@ public class DefaultJwtTokenResolver implements JwtTokenResolver {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-        JwtClaims claims = new DefaultJwtClaims();
+        DefaultJwtClaims claims = new DefaultJwtClaims();
+        claims.putSubject(authentication.getPrincipal().toString());
         claims.put(AUTHORITIES_KEY, authorities);
         return claims;
     }
