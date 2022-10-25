@@ -1,0 +1,6 @@
+navi:
+  security:
+    sanitization:
+      url-patterns: /sanitized/*
+    jwt:
+      secret: 9UYTy4c2Nda1gj4WI9ocZQ1hALegU4zQlsli71lbKYu3dLCvRFXiRFbImWDLsn/1JXKNVOKCmGEKSQPJ6lWjag==
