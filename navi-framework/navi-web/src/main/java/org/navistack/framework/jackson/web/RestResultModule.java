@@ -9,7 +9,7 @@ public class RestResultModule extends SimpleModule {
     protected static final Version VERSION = VersionUtil.parseVersion(
             "0.0.1-SNAPSHOT",
             "org.navistack.framework",
-            "navi-core"
+            "navi-web"
     );
 
     public RestResultModule() {
