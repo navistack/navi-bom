@@ -7,15 +7,15 @@ import com.aliyuncs.exceptions.ClientException;
 import lombok.extern.slf4j.Slf4j;
 import org.navistack.framework.sms.ShortMessage;
 import org.navistack.framework.sms.ShortMessageException;
-import org.navistack.framework.sms.ShortMessageService;
+import org.navistack.framework.sms.ShortMessageServiceProvider;
 
 import java.util.Map;
 
 @Slf4j
-public class AliyunShortMessageService implements ShortMessageService {
+public class AliyunShortMessageServiceProvider implements ShortMessageServiceProvider {
     private final IAcsClient acsClient;
 
-    public AliyunShortMessageService(IAcsClient acsClient) {
+    public AliyunShortMessageServiceProvider(IAcsClient acsClient) {
         this.acsClient = acsClient;
     }
 

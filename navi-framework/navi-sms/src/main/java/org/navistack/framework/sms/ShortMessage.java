@@ -14,14 +14,13 @@ public interface ShortMessage {
      */
     String getSignature();
 
-
     /**
      * Message template code
      */
     String getTemplateCode();
 
     /**
-     * Plain Message content or message template
+     * Plain Message content
      */
     String getMessage();
 

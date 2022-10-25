@@ -9,12 +9,12 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.navistack.framework.sms.ShortMessage;
 import org.navistack.framework.sms.ShortMessageException;
-import org.navistack.framework.sms.ShortMessageService;
+import org.navistack.framework.sms.ShortMessageServiceProvider;
 
 import java.util.Map;
 
 @Slf4j
-public class TencentCloudShortMessageService implements ShortMessageService {
+public class TencentCloudShortMessageServiceProvider implements ShortMessageServiceProvider {
     @Getter
     private final String sdkAppId;
 
@@ -24,7 +24,7 @@ public class TencentCloudShortMessageService implements ShortMessageService {
     @Getter
     private final SmsClient smsClient;
 
-    public TencentCloudShortMessageService(String sdkAppId, String appKey, SmsClient smsClient) {
+    public TencentCloudShortMessageServiceProvider(String sdkAppId, String appKey, SmsClient smsClient) {
         this.sdkAppId = sdkAppId;
         this.appKey = appKey;
         this.smsClient = smsClient;

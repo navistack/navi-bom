@@ -1,7 +1,6 @@
 package org.navistack.framework.sms;
 
 import lombok.Data;
-import lombok.NonNull;
 import lombok.experimental.Accessors;
 
 import java.util.HashMap;
