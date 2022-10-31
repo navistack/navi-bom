@@ -14,7 +14,7 @@ import java.time.Duration;
 @Setter
 public abstract class AbstractRedisSlidingWindowRateLimiter extends AbstractSlidingWindowRateLimiter {
     private final static String DEFAULT_USER_KEY = "GLOBAL_RESOURCE";
-    private final static Resource DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("scripts/slidingwindowratelimiter.lua");
+    private final static Resource DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("navi/scripts/slidingwindowratelimiter.lua");
     private final static CacheKeyBuilder KEY_BUILDER = new PrefixedCacheKeyBuilder(".", "NAVI", "RATE_LIMITER");
 
     private Resource scriptResource = DEFAULT_SCRIPT_RESOURCE;
