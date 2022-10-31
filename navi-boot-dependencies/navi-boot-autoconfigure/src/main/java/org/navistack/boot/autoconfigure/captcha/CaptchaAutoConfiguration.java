@@ -43,8 +43,7 @@ public class CaptchaAutoConfiguration {
     @ConditionalOnBean(CaptchaTesterComposite.class)
     public MappedInterceptor captchaTestInterceptor(CaptchaTesterComposite captchaTesterComposite, CaptchaProperties properties) {
         CaptchaTestInterceptor interceptor = new CaptchaTestInterceptor(captchaTesterComposite);
-        interceptor.setCheckForAnnotation(properties.isCheckForAnnotation());
-        return new MappedInterceptor(null, interceptor);
+        return new MappedInterceptor(properties.getUrlPatterns().stream().toArray(String[]::new), interceptor);
     }
 
     @Configuration

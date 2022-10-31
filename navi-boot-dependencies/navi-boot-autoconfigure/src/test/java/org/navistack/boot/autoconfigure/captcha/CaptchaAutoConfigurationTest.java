@@ -14,6 +14,7 @@ import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaTester;
 import org.navistack.framework.captcha.tcc.TccCaptchaTester;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
+import org.springframework.web.servlet.handler.MappedInterceptor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -21,6 +22,18 @@ import static org.mockito.Mockito.mock;
 class CaptchaAutoConfigurationTest {
     private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
             .withConfiguration(AutoConfigurations.of(CaptchaAutoConfiguration.class));
+
+    @Test
+    void testWithProperties() {
+        contextRunner.withBean(CacheService.class, () -> mock(CacheService.class))
+                .withPropertyValues(CaptchaProperties.PROPERTIES_PREFIX+".url-patterns=/login")
+                .run(context -> {
+                    assertThat(context).hasBean("captchaTestInterceptor");
+                    MappedInterceptor interceptor = context.getBean("captchaTestInterceptor", MappedInterceptor.class);
+                    String[] urlPatterns = interceptor.getPathPatterns();
+                    assertThat(urlPatterns).containsExactly("/login");
+                });
+    }
 
     @Test
     void testSimpleCaptchaTester() {
