@@ -6,10 +6,11 @@ import com.jhlabs.image.TransformFilter;
 import lombok.Getter;
 import lombok.Setter;
 import org.navistack.framework.captcha.simplecaptcha.ImageFilter;
+import org.navistack.framework.random.RandomGenerator;
+import org.navistack.framework.random.UnsecureRandomGenerator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 /**
  * Adds shadow to the text on the image and two noises.
@@ -19,7 +20,7 @@ import java.util.Random;
 public class ShadowImageFilter implements ImageFilter {
     @Getter
     @Setter
-    private Random rand = new Random();
+    private RandomGenerator rand = new UnsecureRandomGenerator();
 
     /**
      * Applies distortion by adding shadow to the text and also two noises.

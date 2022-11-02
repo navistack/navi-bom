@@ -3,12 +3,13 @@ package org.navistack.framework.captcha.simplecaptcha;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.navistack.framework.random.RandomGenerator;
+import org.navistack.framework.random.UnsecureRandomGenerator;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 /**
  * Creates an image with text rendered on it.
@@ -54,7 +55,7 @@ public class DefaultTextRender extends FilteringTextRender implements TextRender
     @Getter
     @Setter
     @NonNull
-    private Random random = new Random();
+    private RandomGenerator random = new UnsecureRandomGenerator();
 
     /**
      * Renders a text to an image.

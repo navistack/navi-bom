@@ -3,12 +3,13 @@ package org.navistack.framework.objectstorage.namebuilders;
 import lombok.Getter;
 import lombok.Setter;
 import org.navistack.framework.objectstorage.FilenameBuilder;
+import org.navistack.framework.random.RandomGenerator;
+import org.navistack.framework.random.SecureRandomGenerator;
 import org.navistack.framework.utils.Asserts;
 import org.navistack.framework.utils.Strings;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.security.SecureRandom;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -20,7 +21,7 @@ public class DateBasedFilenameBuilder implements FilenameBuilder {
 
     @Getter
     @Setter
-    private SecureRandom random = new SecureRandom();
+    private RandomGenerator random = new SecureRandomGenerator();
 
     @Getter
     @Setter
