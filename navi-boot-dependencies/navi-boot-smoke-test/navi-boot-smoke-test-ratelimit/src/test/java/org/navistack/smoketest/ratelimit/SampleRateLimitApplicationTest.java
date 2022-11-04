@@ -1,6 +1,7 @@
 package org.navistack.smoketest.ratelimit;
 
 import org.junit.jupiter.api.Test;
+import org.navistack.boot.testsupport.testcontainers.RedisContainer;
 import org.navistack.framework.core.error.UserErrorCodes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -8,7 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -16,8 +21,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@Testcontainers(disabledWithoutDocker = true)
 class SampleRateLimitApplicationTest {
+    @Container
+    static RedisContainer redis = new RedisContainer();
+
     private final MockMvc mockMvc;
+
+    @DynamicPropertySource
+    static void applicationProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.redis.host", redis::getHost);
+        registry.add("spring.redis.port", redis::getFirstMappedPort);
+    }
 
     @Autowired
     SampleRateLimitApplicationTest(MockMvc mockMvc) {

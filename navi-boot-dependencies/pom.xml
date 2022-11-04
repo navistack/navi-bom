@@ -28,6 +28,7 @@
 
     <modules>
         <module>navi-boot-autoconfigure</module>
+        <module>navi-boot-testsupport</module>
         <module>navi-boot-starter</module>
         <module>navi-boot-starter-parent</module>
         <module>navi-boot-smoke-test</module>
@@ -46,6 +47,11 @@
             <dependency>
                 <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.boot</groupId>
+                <artifactId>navi-boot-testsupport</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
