@@ -20,4 +20,9 @@ public class PageRequest implements Pageable {
     public void setPageSize(int pageSize) {
         this.pageSize =  Maths.clamp(pageSize, MIN_PAGE_SIZE, MAX_PAGE_SIZE);
     }
+
+    @Override
+    public long getOffset() {
+        return (long) (pageNumber - 1) * (long) pageSize;
+    }
 }

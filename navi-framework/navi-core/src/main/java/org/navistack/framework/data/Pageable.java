@@ -13,6 +13,12 @@ public interface Pageable {
      */
     int getPageSize();
 
+    /**
+     * Returns the offset to be taken according to the underlying page and page size.
+     *
+     */
+    long getOffset();
+
 
 
     /**
