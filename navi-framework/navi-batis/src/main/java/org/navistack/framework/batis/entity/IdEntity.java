@@ -1,4 +1,4 @@
-package org.navistack.framework.mybatisplusplus.entity;
+package org.navistack.framework.batis.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

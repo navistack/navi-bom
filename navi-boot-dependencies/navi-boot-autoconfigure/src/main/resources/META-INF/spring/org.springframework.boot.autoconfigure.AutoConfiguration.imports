@@ -3,7 +3,6 @@ org.navistack.boot.autoconfigure.cache.CacheAutoConfiguration
 org.navistack.boot.autoconfigure.cloudservice.aliyun.AliyunAutoConfiguration
 org.navistack.boot.autoconfigure.cloudservice.tencentcloud.TencentCloudAutoConfiguration
 org.navistack.boot.autoconfigure.captcha.CaptchaAutoConfiguration
-org.navistack.boot.autoconfigure.mybatisplusplus.MybatisPlusPlusAutoConfiguration
 org.navistack.boot.autoconfigure.security.SanitizationAutoConfiguration
 org.navistack.boot.autoconfigure.security.TokenAutoConfiguration
 org.navistack.boot.autoconfigure.validation.ValidationAutoConfiguration

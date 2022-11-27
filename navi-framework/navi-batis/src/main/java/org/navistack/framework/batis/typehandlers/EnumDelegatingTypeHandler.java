@@ -1,4 +1,4 @@
-package org.navistack.framework.mybatisplusplus.typehandlers;
+package org.navistack.framework.batis.typehandlers;
 
 import org.apache.ibatis.type.EnumTypeHandler;
 import org.apache.ibatis.type.JdbcType;

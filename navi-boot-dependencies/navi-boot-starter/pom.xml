@@ -14,7 +14,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>navi-boot-starter-mybatisplusplus</module>
         <module>navi-boot-starter-security</module>
         <module>navi-boot-starter-cache</module>
         <module>navi-boot-starter-captcha</module>
@@ -28,6 +27,7 @@
         <module>navi-boot-starter-web</module>
         <module>navi-boot-starter-sms-tencentcloud</module>
         <module>navi-boot-starter-sms-aliyun</module>
+        <module>navi-boot-starter-batis</module>
     </modules>
 
     <dependencies>

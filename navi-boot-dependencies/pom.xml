@@ -63,11 +63,6 @@
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
-                <artifactId>navi-boot-starter-mybatisplusplus</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-starter-cache</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -124,6 +119,11 @@
             <dependency>
                 <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-starter-sms-aliyun</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.boot</groupId>
+                <artifactId>navi-boot-starter-batis</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

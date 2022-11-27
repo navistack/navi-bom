@@ -28,7 +28,6 @@
         <aliyun-sdk-core.version>4.6.0</aliyun-sdk-core.version>
         <aliyun-sdk-afs.version>1.0.1</aliyun-sdk-afs.version>
         <tencentcloud-sdk.version>3.1.526</tencentcloud-sdk.version>
-        <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <mapstruct.version>1.5.1.Final</mapstruct.version>
         <swagger-v3.version>2.2.0</swagger-v3.version>
         <servlet-api.version>4.0.1</servlet-api.version>
@@ -43,12 +42,13 @@
         <antisamy.version>1.7.1</antisamy.version>
         <aliyun-sdk-dysmsapi.version>2.2.1</aliyun-sdk-dysmsapi.version>
         <testcontainers.version>1.17.5</testcontainers.version>
+        <mybatis.version>3.5.11</mybatis.version>
+        <mybatis-spring-boot.version>2.2.2</mybatis-spring-boot.version>
     </properties>
 
     <modules>
         <module>navi-core</module>
         <module>navi-captcha</module>
-        <module>navi-mybatisplusplus</module>
         <module>navi-security</module>
         <module>navi-objectstorage</module>
         <module>navi-web</module>
@@ -57,6 +57,7 @@
         <module>navi-locking</module>
         <module>navi-logging</module>
         <module>navi-cache</module>
+        <module>navi-batis</module>
     </modules>
 
     <dependencies>
@@ -221,23 +222,6 @@
                 <version>${tencentcloud-sdk.version}</version>
             </dependency>
 
-            <!-- Mybatis -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-core</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-extension</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-
             <!-- mapstruct -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
@@ -378,6 +362,18 @@
                 <version>${antisamy.version}</version>
             </dependency>
 
+            <!-- MyBatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot.version}</version>
+            </dependency>
+
             <!-- submodules -->
             <dependency>
                 <groupId>org.navistack.framework</groupId>
@@ -387,11 +383,6 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-captcha</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.framework</groupId>
-                <artifactId>navi-mybatisplusplus</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -432,6 +423,11 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-batis</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
