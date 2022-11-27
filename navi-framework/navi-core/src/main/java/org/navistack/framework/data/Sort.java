@@ -43,10 +43,26 @@ public class Sort {
     public static class Order {
         Direction direction;
         String property;
+
+        public boolean isAscending() {
+            return this.direction.isAscending();
+        }
+
+        public boolean isDescending() {
+            return this.direction.isDescending();
+        }
     }
 
     public enum Direction {
         ASC,
-        DESC
+        DESC;
+
+        public boolean isAscending() {
+            return this.equals(ASC);
+        }
+
+        public boolean isDescending() {
+            return this.equals(DESC);
+        }
     }
 }
