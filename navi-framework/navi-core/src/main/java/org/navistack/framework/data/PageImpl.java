@@ -43,6 +43,11 @@ public class PageImpl<T> implements Page<T> {
     }
 
     @Override
+    public int getCurrentRecords() {
+        return this.records != null ? this.records.size() : 0;
+    }
+
+    @Override
     public long getTotalPages() {
         long totalRecords = getTotalRecords();
         int pageSize = getPageSize();

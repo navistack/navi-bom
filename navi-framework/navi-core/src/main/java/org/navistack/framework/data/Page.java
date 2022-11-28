@@ -32,6 +32,13 @@ public interface Page<T> {
     Collection<T> getRecords();
 
     /**
+     * Returns the current amount of records.
+     *
+     * @return the current amount of records
+     */
+    int getCurrentRecords();
+
+    /**
      * Returns the total amount of records.
      *
      * @return the total amount of records
