@@ -28,6 +28,7 @@
         <module>navi-boot-starter-sms-tencentcloud</module>
         <module>navi-boot-starter-sms-aliyun</module>
         <module>navi-boot-starter-batis</module>
+        <module>navi-boot-starter-test</module>
     </modules>
 
     <dependencies>

@@ -130,6 +130,11 @@
                 <artifactId>navi-boot-starter-batis</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.navistack.boot</groupId>
+                <artifactId>navi-boot-starter-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
