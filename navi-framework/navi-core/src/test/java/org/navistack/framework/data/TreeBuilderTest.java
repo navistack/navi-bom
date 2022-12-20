@@ -4,10 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class TreeUtilsTest {
+class TreeBuilderTest {
     /**
      * Data Source: <a href="https://www.countrycallingcodes.com/iso-country-codes/">countrycallingcodes.com</a>
      */
@@ -161,7 +165,7 @@ class TreeUtilsTest {
             GeoDivision.of("IE", "Ireland", "Country/Region", "EU"),
             GeoDivision.of("IM", "Isle of Man", "Country/Region", "EU"),
             GeoDivision.of("IT", "Italy", "Country/Region", "EU"),
-            GeoDivision.of("RS	", "Kosovo", "Country/Region", "EU"),
+            GeoDivision.of("RS", "Kosovo", "Country/Region", "EU"),
             GeoDivision.of("LV", "Latvia", "Country/Region", "EU"),
             GeoDivision.of("LI", "Liechtenstein", "Country/Region", "EU"),
             GeoDivision.of("LT", "Lithuania", "Country/Region", "EU"),
@@ -446,7 +450,7 @@ class TreeUtilsTest {
                             HierarchicalGeoDivision.of("IE", "Ireland", "Country/Region", "EU"),
                             HierarchicalGeoDivision.of("IM", "Isle of Man", "Country/Region", "EU"),
                             HierarchicalGeoDivision.of("IT", "Italy", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("RS	", "Kosovo", "Country/Region", "EU"),
+                            HierarchicalGeoDivision.of("RS", "Kosovo", "Country/Region", "EU"),
                             HierarchicalGeoDivision.of("LV", "Latvia", "Country/Region", "EU"),
                             HierarchicalGeoDivision.of("LI", "Liechtenstein", "Country/Region", "EU"),
                             HierarchicalGeoDivision.of("LT", "Lithuania", "Country/Region", "EU"),
@@ -587,11 +591,80 @@ class TreeUtilsTest {
     );
 
     @Test
-    void testTreeize() {
-        Collection<HierarchicalGeoDivision> actualCollection = TreeUtils.treeize(
-                ORIGINAL_COLLECTION,
-                HierarchicalGeoDivision::of
+    void shouldBuildSuccessfully() {
+        Collection<HierarchicalGeoDivision> actualCollection = TreeBuilder.<HierarchicalGeoDivision>of()
+                .build(
+                        ORIGINAL_COLLECTION.stream()
+                                .map(HierarchicalGeoDivision::of)
+                                .collect(Collectors.toList())
+                );
+        assertThat(actualCollection).containsExactlyInAnyOrderElementsOf(EXPECTED_COLLECTION);
+    }
+
+    @Test
+    void shouldCollectSuccessfully() {
+        Collection<HierarchicalGeoDivision> actualCollection = ORIGINAL_COLLECTION.stream()
+                .map(HierarchicalGeoDivision::of)
+                .collect(TreeBuilder.collector());
+        assertThat(actualCollection).containsExactlyInAnyOrderElementsOf(EXPECTED_COLLECTION);
+    }
+
+    @Test
+    void shouldReturnEmptyCollectionWhenNullOrEmptyCollectionPassedIn() {
+        assertThat(TreeBuilder.of().build(null)).isNotNull().isEmpty();
+        assertThat(TreeBuilder.of().build(Collections.emptyList())).isNotNull().isEmpty();
+    }
+
+    @Test
+    void shouldThrowNullPointerExceptionWhenPropertyNotSet() {
+        List<HierarchicalGeoDivision> continents = Arrays.asList(
+                HierarchicalGeoDivision.of("AF", "Africa", "Continent"),
+                HierarchicalGeoDivision.of("AN", "Antarctica", "Continent"),
+                HierarchicalGeoDivision.of("AS", "Asia", "Continent"),
+                HierarchicalGeoDivision.of("EU", "Europe", "Continent"),
+                HierarchicalGeoDivision.of("NA", "North america", "Continent"),
+                HierarchicalGeoDivision.of("OC", "Oceania", "Continent"),
+                HierarchicalGeoDivision.of("SA", "South america", "Continent")
         );
-        assertEquals(EXPECTED_COLLECTION, actualCollection);
+        assertThatThrownBy(() -> {
+            new TreeBuilder<HierarchicalGeoDivision>()
+                    .parentIdentifier(HierarchicalGeoDivision::getParentId)
+                    .childCollectionFactory(HierarchicalGeoDivision::getChildren)
+                    .build(continents);
+        })
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("identifier must not be null");
+        assertThatThrownBy(() -> {
+            new TreeBuilder<HierarchicalGeoDivision>()
+                    .identifier(HierarchicalGeoDivision::getId)
+                    .childCollectionFactory(HierarchicalGeoDivision::getChildren)
+                    .build(continents);
+        })
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("parentIdentifier must not be null");
+        assertThatThrownBy(() -> {
+            new TreeBuilder<HierarchicalGeoDivision>()
+                    .identifier(HierarchicalGeoDivision::getId)
+                    .parentIdentifier(HierarchicalGeoDivision::getParentId)
+                    .build(continents);
+        })
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("childCollectionFactory must not be null");
+    }
+
+    @Test
+    void shouldThrowIllegalStateExceptionWhenDuplicateKeyDetected() {
+        assertThatThrownBy(() -> {
+            Collection<HierarchicalGeoDivision> actualCollection = ORIGINAL_COLLECTION.stream()
+                    .map(HierarchicalGeoDivision::of)
+                    .collect(
+                            TreeBuilder.<HierarchicalGeoDivision>of()
+                                    .ignoreDuplicate(false)
+                                    .toCollector()
+                    );
+            assertThat(actualCollection).isEqualTo(EXPECTED_COLLECTION);
+        })
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("Duplicate key");
     }
 }
