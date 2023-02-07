@@ -1,8 +1,7 @@
 package org.navistack.framework.captcha.simplecaptcha;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.navistack.framework.captcha.CaptchaTester;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class SimpleCaptchaTester implements CaptchaTester {
     private final SimpleCaptchaService simpleCaptchaService;

@@ -4,14 +4,14 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import org.navistack.framework.captcha.simplecaptcha.ImageFilter;
-import org.navistack.framework.random.RandomGenerator;
-import org.navistack.framework.random.UnsecureRandomGenerator;
 
 import java.awt.*;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.Random;
+import java.util.random.RandomGenerator;
 
 /**
  * Adds a noise on an image.
@@ -44,7 +44,7 @@ public class NoiseImageFilter implements ImageFilter {
     @Setter
     @NonNull
 
-    private RandomGenerator rand = new UnsecureRandomGenerator();
+    private RandomGenerator rand = new Random();
 
     /**
      * Draws a noise on the image. The noise curve depends on the factor values.

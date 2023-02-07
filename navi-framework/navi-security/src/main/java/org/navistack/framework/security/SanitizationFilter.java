@@ -1,15 +1,15 @@
 package org.navistack.framework.security;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.Setter;
 import org.navistack.framework.servlet.HttpServletRequestWrapperBuilder;
 import org.springframework.web.filter.GenericFilterBean;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class SanitizationFilter extends GenericFilterBean {
@@ -23,8 +23,8 @@ public class SanitizationFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (request instanceof HttpServletRequest) {
-            chain.doFilter(httpServletRequestWrapperBuilder.build((HttpServletRequest) request), response);
+        if (request instanceof HttpServletRequest httpRequest) {
+            chain.doFilter(httpServletRequestWrapperBuilder.build(httpRequest), response);
         } else {
             chain.doFilter(request, response);
         }

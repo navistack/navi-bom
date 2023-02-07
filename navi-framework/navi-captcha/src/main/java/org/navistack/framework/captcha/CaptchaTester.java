@@ -1,6 +1,6 @@
 package org.navistack.framework.captcha;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 @FunctionalInterface
 public interface CaptchaTester {

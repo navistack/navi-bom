@@ -4,10 +4,9 @@ import com.aliyuncs.IAcsClient;
 import com.aliyuncs.afs.model.v20180112.AuthenticateSigRequest;
 import com.aliyuncs.afs.model.v20180112.AuthenticateSigResponse;
 import com.aliyuncs.exceptions.ClientException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.navistack.framework.captcha.CaptchaTester;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 public class AfsCaptchaTester implements CaptchaTester {

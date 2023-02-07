@@ -1,9 +1,8 @@
 package org.navistack.framework.captcha;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class CaptchaTestInterceptor implements HandlerInterceptor {
     private final CaptchaTester captchaTester;

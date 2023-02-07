@@ -3,11 +3,11 @@ package org.navistack.framework.objectstorage.namebuilders;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.navistack.framework.http.MediaTypes;
-import org.navistack.framework.random.RandomGenerator;
 
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.random.RandomGenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

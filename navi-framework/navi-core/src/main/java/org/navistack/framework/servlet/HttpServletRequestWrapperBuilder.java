@@ -1,7 +1,7 @@
 package org.navistack.framework.servlet;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 
 public interface HttpServletRequestWrapperBuilder<T extends HttpServletRequestWrapper> {
     T build(HttpServletRequest request);

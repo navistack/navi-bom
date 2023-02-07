@@ -4,10 +4,9 @@ import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import com.tencentcloudapi.captcha.v20190722.models.DescribeCaptchaResultRequest;
 import com.tencentcloudapi.captcha.v20190722.models.DescribeCaptchaResultResponse;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.navistack.framework.captcha.CaptchaTester;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 public class TccCaptchaTester implements CaptchaTester {

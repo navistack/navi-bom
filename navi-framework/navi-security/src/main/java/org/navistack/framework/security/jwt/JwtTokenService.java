@@ -6,8 +6,6 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.extern.slf4j.Slf4j;
-import org.navistack.framework.random.RandomGenerator;
-import org.navistack.framework.random.SecureRandomGenerator;
 import org.navistack.framework.security.TokenService;
 import org.navistack.framework.security.TokenServiceAuthenticationException;
 import org.navistack.framework.security.TokenServiceException;
@@ -16,6 +14,7 @@ import org.springframework.security.core.Authentication;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.sql.Date;
 import java.text.ParseException;
 import java.time.Instant;
@@ -23,6 +22,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import java.util.random.RandomGenerator;
 
 /**
  * JSON Web Token Generator
@@ -266,7 +266,7 @@ public class JwtTokenService implements TokenService {
     }
 
     private static byte[] generateRandomSecretKey() {
-        RandomGenerator random = new SecureRandomGenerator();
+        RandomGenerator random = new SecureRandom();
         byte[] key = new byte[64];
         random.nextBytes(key);
         return key;

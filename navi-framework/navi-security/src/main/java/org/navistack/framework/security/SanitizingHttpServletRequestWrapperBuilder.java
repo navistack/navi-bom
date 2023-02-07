@@ -1,11 +1,11 @@
 package org.navistack.framework.security;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.navistack.framework.servlet.HttpServletRequestWrapperBuilder;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 @Getter

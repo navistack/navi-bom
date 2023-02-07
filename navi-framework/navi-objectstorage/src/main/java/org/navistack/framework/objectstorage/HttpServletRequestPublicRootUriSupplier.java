@@ -1,5 +1,6 @@
 package org.navistack.framework.objectstorage;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -9,7 +10,6 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 
 public class HttpServletRequestPublicRootUriSupplier implements PublicRootUriSupplier {
@@ -21,10 +21,9 @@ public class HttpServletRequestPublicRootUriSupplier implements PublicRootUriSup
     @Override
     public URI get() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if (!(requestAttributes instanceof ServletRequestAttributes)) {
+        if (!(requestAttributes instanceof ServletRequestAttributes servletRequestAttributes)) {
             return null;
         }
-        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
         HttpServletRequest request = servletRequestAttributes.getRequest();
         return rootResolver.resolve(request);
     }

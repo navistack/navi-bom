@@ -72,21 +72,21 @@ public class ExceptionalEntityBuilder {
 
         for (StackTraceElement frame : trace) {
             StringBuilder frameInfoBuilder = new StringBuilder();
-//            String classLoaderName = frame.getClassLoaderName();
-//            if (classLoaderName != null && !classLoaderName.isEmpty()) {
-//                frameInfoBuilder.append(classLoaderName).append("/");
-//            }
-//            String moduleName = frame.getModuleName();
-//            if (moduleName != null && !moduleName.isEmpty()) {
-//                frameInfoBuilder.append(moduleName);
-//                String moduleVersion = frame.getModuleVersion();
-//                if (moduleVersion != null && !moduleVersion.isEmpty()) {
-//                    frameInfoBuilder.append("@").append(moduleVersion);
-//                }
-//            }
-//            if (frameInfoBuilder.length() > 0) {
-//                frameInfoBuilder.append("/");
-//            }
+            String classLoaderName = frame.getClassLoaderName();
+            if (classLoaderName != null && !classLoaderName.isEmpty()) {
+                frameInfoBuilder.append(classLoaderName).append("/");
+            }
+            String moduleName = frame.getModuleName();
+            if (moduleName != null && !moduleName.isEmpty()) {
+                frameInfoBuilder.append(moduleName);
+                String moduleVersion = frame.getModuleVersion();
+                if (moduleVersion != null && !moduleVersion.isEmpty()) {
+                    frameInfoBuilder.append("@").append(moduleVersion);
+                }
+            }
+            if (frameInfoBuilder.length() > 0) {
+                frameInfoBuilder.append("/");
+            }
             frameInfoBuilder.append(frame.getClassName());
             frameInfoBuilder.append(".").append(frame.getMethodName());
             frameInfoBuilder.append("(");

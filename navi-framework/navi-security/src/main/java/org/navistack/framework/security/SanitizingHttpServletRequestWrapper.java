@@ -1,10 +1,10 @@
 package org.navistack.framework.security;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.*;
 
 public class SanitizingHttpServletRequestWrapper extends HttpServletRequestWrapper {

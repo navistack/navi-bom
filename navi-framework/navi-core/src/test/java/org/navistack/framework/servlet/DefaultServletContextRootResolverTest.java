@@ -1,10 +1,10 @@
 package org.navistack.framework.servlet;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -4,8 +4,9 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import org.navistack.framework.captcha.simplecaptcha.TextGenerator;
-import org.navistack.framework.random.RandomGenerator;
-import org.navistack.framework.random.UnsecureRandomGenerator;
+
+import java.util.Random;
+import java.util.random.RandomGenerator;
 
 public class AlphanumericTextGenerator implements TextGenerator {
     private static final String DEFAULT_CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -22,7 +23,7 @@ public class AlphanumericTextGenerator implements TextGenerator {
     @Getter
     @Setter
     @NonNull
-    private RandomGenerator random = new UnsecureRandomGenerator();
+    private RandomGenerator random = new Random();
 
     @Override
     public String generate() {

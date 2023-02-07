@@ -1,8 +1,8 @@
 package org.navistack.framework.captcha;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 

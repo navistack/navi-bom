@@ -73,18 +73,18 @@ public class DefaultJwtClaims extends HashMap<String, Object> implements JwtClai
     @Override
     public Object put(String key, Object value) {
         switch (key) {
-            case JwtClaimNames.EXPIRATION:
-            case JwtClaimNames.NOT_BEFORE:
-            case JwtClaimNames.ISSUED_AT:
-                if (value instanceof Instant) {
-                    return super.put(key, ((Instant) value).getEpochSecond());
-                } else if (value instanceof Date) {
-                    return super.put(key, ((Date) value).getTime() / 1000);
+            case JwtClaimNames.EXPIRATION, JwtClaimNames.NOT_BEFORE, JwtClaimNames.ISSUED_AT -> {
+                if (value instanceof Instant instant) {
+                    return super.put(key, (instant).getEpochSecond());
+                } else if (value instanceof Date date) {
+                    return super.put(key, date.getTime() / 1000);
                 } else {
                     return super.put(key, value);
                 }
-            default:
+            }
+            default -> {
                 return super.put(key, value);
+            }
         }
     }
 

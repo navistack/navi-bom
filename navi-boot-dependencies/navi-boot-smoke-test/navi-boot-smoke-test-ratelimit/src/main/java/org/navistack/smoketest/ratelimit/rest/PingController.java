@@ -1,12 +1,11 @@
 package org.navistack.smoketest.ratelimit.rest;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.navistack.framework.ratelimit.FixedWindowRateLimit;
 import org.navistack.framework.ratelimit.SlidingWindowRateLimit;
 import org.navistack.framework.web.rest.RestResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class PingController {

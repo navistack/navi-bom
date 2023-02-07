@@ -1,7 +1,7 @@
 package org.navistack.framework.http.client;
 
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.StreamUtils;
 
@@ -20,7 +20,7 @@ public final class BufferingClientHttpResponseWrapper implements ClientHttpRespo
     }
 
     @Override
-    public HttpStatus getStatusCode() throws IOException {
+    public HttpStatusCode getStatusCode() throws IOException {
         return response.getStatusCode();
     }
 
