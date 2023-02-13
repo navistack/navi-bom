@@ -1,23 +1,25 @@
 package org.navistack.framework.core.error;
 
-public class EntityDuplicationException extends ConstraintViolationException {
+public class EntityDuplicationException extends DomainException {
+    private static final int ERROR_CODE = DomainErrorCodes.ENTITY_DUPLICATION;
+
     public EntityDuplicationException() {
-        super(DomainErrorCodes.ENTITY_DUPLICATION);
+        super(ERROR_CODE);
     }
 
     public EntityDuplicationException(String message) {
-        super(DomainErrorCodes.ENTITY_DUPLICATION, message);
+        super(ERROR_CODE, message);
     }
 
     public EntityDuplicationException(String message, Throwable cause) {
-        super(DomainErrorCodes.ENTITY_DUPLICATION, message, cause);
+        super(ERROR_CODE, message, cause);
     }
 
     public EntityDuplicationException(Throwable cause) {
-        super(DomainErrorCodes.ENTITY_DUPLICATION, cause);
+        super(ERROR_CODE, cause);
     }
 
     protected EntityDuplicationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(DomainErrorCodes.ENTITY_DUPLICATION, message, cause, enableSuppression, writableStackTrace);
+        super(ERROR_CODE, message, cause, enableSuppression, writableStackTrace);
     }
 }
