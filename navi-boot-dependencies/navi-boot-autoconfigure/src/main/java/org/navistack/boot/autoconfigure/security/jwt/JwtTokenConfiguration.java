@@ -1,8 +1,8 @@
 package org.navistack.boot.autoconfigure.security.jwt;
 
 import org.navistack.framework.security.TokenService;
-import org.navistack.framework.security.jwt.DefaultJwtTokenResolver;
-import org.navistack.framework.security.jwt.JwtTokenResolver;
+import org.navistack.framework.security.jwt.DefaultJwtPayloadResolver;
+import org.navistack.framework.security.jwt.JwtPayloadResolver;
 import org.navistack.framework.security.jwt.JwtTokenService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -17,13 +17,13 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 public class JwtTokenConfiguration {
     @Bean
     @ConditionalOnMissingBean
-    public JwtTokenResolver jwtTokenResolver() {
-        return new DefaultJwtTokenResolver();
+    public JwtPayloadResolver jwtPayloadResolver() {
+        return new DefaultJwtPayloadResolver();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public TokenService tokenService(JwtTokenProperties properties, JwtTokenResolver tokenResolver) {
+    public TokenService tokenService(JwtTokenProperties properties, JwtPayloadResolver payloadResolver) {
         JwtTokenService jsonWebTokenService;
         String secret = properties.getSecret();
         int validity = properties.getValidity();
@@ -32,7 +32,7 @@ public class JwtTokenConfiguration {
         } else {
             jsonWebTokenService = new JwtTokenService(secret, validity);
         }
-        jsonWebTokenService.setTokenResolver(tokenResolver);
+        jsonWebTokenService.setPayloadResolver(payloadResolver);
         return jsonWebTokenService;
     }
 }

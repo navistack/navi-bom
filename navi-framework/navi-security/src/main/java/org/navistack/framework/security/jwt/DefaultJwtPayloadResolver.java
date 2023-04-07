@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class DefaultJwtTokenResolver implements JwtTokenResolver {
+public class DefaultJwtPayloadResolver implements JwtPayloadResolver {
     private static final String AUTHORITIES_KEY = "auth";
 
     @Override

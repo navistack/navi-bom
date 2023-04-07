@@ -31,7 +31,7 @@ import java.util.random.RandomGenerator;
 public class JwtTokenService implements TokenService {
     private final static int DEFAULT_VALIDITY = 2 * 60 * 60 * 1000;
 
-    private JwtTokenResolver tokenResolver;
+    private JwtPayloadResolver payloadResolver;
 
     /**
      * validity in milliseconds
@@ -83,17 +83,17 @@ public class JwtTokenService implements TokenService {
         }
     }
 
-    public JwtTokenResolver getTokenResolver() {
-        return tokenResolver;
+    public JwtPayloadResolver getPayloadResolver() {
+        return payloadResolver;
     }
 
-    public void setTokenResolver(JwtTokenResolver tokenResolver) {
-        this.tokenResolver = tokenResolver;
+    public void setPayloadResolver(JwtPayloadResolver payloadResolver) {
+        this.payloadResolver = payloadResolver;
     }
 
     @Override
     public String issue(Authentication authentication) throws TokenServiceIssueException {
-        JwtClaims claims = tokenResolver.getClaims(authentication);
+        JwtClaims claims = payloadResolver.getClaims(authentication);
         claims.putExpiration(Instant.now().plus(validity, ChronoUnit.MILLIS));
         JWTClaimsSet jwtClaimsSet = convert(claims);
         SignedJWT signedJWT = new SignedJWT(
@@ -126,7 +126,7 @@ public class JwtTokenService implements TokenService {
             throw new TokenServiceAuthenticationException("Ineffective token");
         }
 
-        return tokenResolver.getAuthentication(claims);
+        return payloadResolver.getAuthentication(claims);
     }
 
     @Override
