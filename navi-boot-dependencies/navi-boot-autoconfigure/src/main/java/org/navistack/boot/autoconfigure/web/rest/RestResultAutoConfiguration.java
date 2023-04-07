@@ -2,6 +2,7 @@ package org.navistack.boot.autoconfigure.web.rest;
 
 import lombok.Setter;
 import org.navistack.framework.utils.ApplicationContexts;
+import org.navistack.framework.web.rest.RestResultResponseBodyAdvice;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionHandling;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionHandlingBuilder;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionHandlingConfigurer;
@@ -26,19 +27,19 @@ import java.util.Map;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
-@EnableConfigurationProperties(ExceptionHandlingProperties.class)
+@EnableConfigurationProperties(RestResultProperties.class)
 @Import({
         CaptchaExceptionHandlingConfiguration.class,
         LockingExceptionHandlingConfiguration.class,
         RateLimitExceptionHandlingConfiguration.class,
 })
-public class ExceptionHandlingAutoConfiguration implements ApplicationContextAware {
+public class RestResultAutoConfiguration implements ApplicationContextAware {
     @Setter
     private ApplicationContext applicationContext;
 
     @Bean
     @ConditionalOnMissingBean
-    public ExceptionHandling exceptionHandling(ExceptionHandlingProperties properties) {
+    public ExceptionHandling exceptionHandling(RestResultProperties properties) {
         ExceptionHandlingBuilder builder = new ExceptionHandlingBuilder();
         builder.setIncludeStackTrace(properties.isIncludeStackTrace());
 
@@ -58,6 +59,12 @@ public class ExceptionHandlingAutoConfiguration implements ApplicationContextAwa
         }
 
         return builder.build();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RestResultResponseBodyAdvice restResultResponseBodyAdvice() {
+        return new RestResultResponseBodyAdvice();
     }
 
     @Bean

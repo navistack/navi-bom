@@ -22,9 +22,9 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 @ConditionalOnWebApplication
 @ConditionalOnClass(WebSecurityConfigurer.class)
 @ConditionalOnBean(WebSecurityConfiguration.class)
-@AutoConfigureBefore(ExceptionHandlingAutoConfiguration.class)
+@AutoConfigureBefore(RestResultAutoConfiguration.class)
 @AutoConfigureAfter(SecurityAutoConfiguration.class)
-public class ExceptionHandlingSecurityAutoConfiguration {
+public class RestResultSecurityAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean

@@ -1,6 +1,7 @@
 package org.navistack.boot.autoconfigure.web.rest;
 
 import org.junit.jupiter.api.Test;
+import org.navistack.framework.web.rest.RestResultResponseBodyAdvice;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionHandling;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslator;
 import org.navistack.framework.web.rest.exceptionhandling.translators.captcha.CaptchaTestFailureExceptionTranslator;
@@ -25,14 +26,15 @@ import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ExceptionHandlingAutoConfigurationTest {
+class RestResultAutoConfigurationTest {
     private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
-            .withConfiguration(AutoConfigurations.of(ExceptionHandlingAutoConfiguration.class));
+            .withConfiguration(AutoConfigurations.of(RestResultAutoConfiguration.class));
 
     @Test
     void testDefault() {
         contextRunner.run(context -> {
             assertThat(context).hasSingleBean(ExceptionHandling.class);
+            assertThat(context).hasSingleBean(RestResultResponseBodyAdvice.class);
             assertThat(context).hasSingleBean(CoreExceptionHandlingConfigurer.class);
             assertThat(context).hasSingleBean(ValidationExceptionHandlingConfigurer.class);
             assertThat(context).hasSingleBean(WebExceptionHandlingConfigurer.class);
@@ -55,7 +57,7 @@ class ExceptionHandlingAutoConfigurationTest {
 
     @Test
     void testWithProperties() {
-        contextRunner.withPropertyValues(ExceptionHandlingProperties.PROPERTIES_PREFIX + ".include-stack-trace=true")
+        contextRunner.withPropertyValues(RestResultProperties.PROPERTIES_PREFIX + ".include-stack-trace=true")
                 .run(context -> {
                     assertThat(context).hasSingleBean(ExceptionHandling.class);
                     ExceptionHandling exceptionHandling = context.getBean(ExceptionHandling.class);
