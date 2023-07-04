@@ -1,9 +1,6 @@
 package org.navistack.framework.web.rest;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,8 +14,8 @@ public interface RestResult<T, E> {
 
     E getError();
 
-    static None ok() {
-        return None.instance();
+    static Ok<Void> ok() {
+        return Ok.EMPTY;
     }
 
     static <U> Ok<U> ok(U result) {
@@ -43,8 +40,11 @@ public interface RestResult<T, E> {
     }
 
     @Data
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @AllArgsConstructor(staticName = "of")
     class Ok<T> implements RestResult<T, Void> {
+        private static final Ok<Void> EMPTY = new Ok<>();
+
         private T result;
 
         @Override
@@ -55,18 +55,6 @@ public interface RestResult<T, E> {
         @Override
         public Void getError() {
             return null;
-        }
-    }
-
-    final class None extends RestResult.Ok<Void> {
-        private static final None INSTANCE = new None();
-
-        private None() {
-            super(null);
-        }
-
-        public static None instance() {
-            return INSTANCE;
         }
     }
 
