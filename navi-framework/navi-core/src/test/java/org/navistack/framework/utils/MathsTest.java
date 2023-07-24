@@ -46,4 +46,22 @@ class MathsTest {
         Assertions.assertThat(Maths.clamp(10.0f, 5.0f, 15.0f)).isEqualTo(10.0f);
         Assertions.assertThat(Maths.clamp(20.0f, 5.0f, 15.0f)).isEqualTo(15.0f);
     }
+
+    @Test
+    void ceilDivInt() {
+        Assertions.assertThat(Maths.ceilDiv(2, 1)).isEqualTo(2);
+        Assertions.assertThat(Maths.ceilDiv(3, 2)).isEqualTo(2);
+    }
+
+    @Test
+    void ceilDivLongInt() {
+        Assertions.assertThat(Maths.ceilDiv(2L, 1)).isEqualTo(2L);
+        Assertions.assertThat(Maths.ceilDiv(3L, 2)).isEqualTo(2L);
+    }
+
+    @Test
+    void ceilDivLong() {
+        Assertions.assertThat(Maths.ceilDiv(2L, 1L)).isEqualTo(2L);
+        Assertions.assertThat(Maths.ceilDiv(3L, 2L)).isEqualTo(2L);
+    }
 }

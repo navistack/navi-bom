@@ -26,6 +26,13 @@ public class PageImpl<T> implements Page<T> {
         setTotalRecords(totalRecords);
     }
 
+    public PageImpl(Collection<T> records) {
+        setRecords(records);
+        setPageNumber(1);
+        setPageSize(records.size());
+        setTotalRecords(records.size());
+    }
+
     public void setRecords(Collection<T> records) {
         this.records = records != null ? records : Collections.emptyList();
     }
