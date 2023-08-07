@@ -4,9 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
 
 class ResultsTest {
     enum Error {
@@ -376,5 +379,29 @@ class ResultsTest {
                 .isFalse();
         assertThat(result.isOk(1011))
                 .isTrue();
+    }
+
+    @Test
+    void inspect_shouldCallInspectOnOk() {
+        @SuppressWarnings("unchecked")
+        Consumer<Integer> inspector = mock(Consumer.class);
+        Result<Integer, Error> result = parseInteger("1011")
+                .inspect(inspector);
+        assertThat(result)
+                .isNotNull();
+        verify(inspector)
+                .accept(anyInt());
+    }
+
+    @Test
+    void inspect_shouldNotCallInspectOnErr() {
+        @SuppressWarnings("unchecked")
+        Consumer<Integer> inspector = mock(Consumer.class);
+        Result<Integer, Error> result = parseInteger("101,1")
+                .inspect(inspector);
+        assertThat(result)
+                .isNotNull();
+        verify(inspector, never())
+                .accept(anyInt());
     }
 }

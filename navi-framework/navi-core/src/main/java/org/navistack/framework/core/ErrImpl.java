@@ -6,6 +6,7 @@ import lombok.Lombok;
 import lombok.experimental.Accessors;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -109,5 +110,10 @@ public class ErrImpl<T, E> implements Err<T, E> {
     @Override
     public <F> Err<T, F> mapErr(Function<E, F> mapper) {
         return new ErrImpl<>(mapper.apply(err));
+    }
+
+    @Override
+    public Result<T, E> inspect(Consumer<T> inspector) {
+        return this;
     }
 }

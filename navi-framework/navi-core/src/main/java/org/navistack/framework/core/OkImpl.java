@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -102,5 +103,11 @@ public class OkImpl<T, E> implements Ok<T, E> {
     @Override
     public <F> Ok<T, F> mapErr(Function<E, F> mapper) {
         return new OkImpl<>(value);
+    }
+
+    @Override
+    public Result<T, E> inspect(Consumer<T> inspector) {
+        inspector.accept(value);
+        return this;
     }
 }
