@@ -44,4 +44,12 @@ public interface Result<T, E> {
     <F> Result<T, F> mapErr(Function<E, F> mapper);
 
     Result<T, E> inspect(Consumer<T> inspector);
+
+    <U> Result<U, E> and(Result<U, E> other);
+
+    <U> Result<U, E> and(Function<T, Result<U, E>> fn);
+
+    <F> Result<T, F> or(Result<T, F> other);
+
+    <F> Result<T, F> or(Function<E, Result<T, F>> fn);
 }

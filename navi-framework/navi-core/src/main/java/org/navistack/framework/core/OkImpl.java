@@ -2,6 +2,7 @@ package org.navistack.framework.core;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.util.Optional;
@@ -12,6 +13,7 @@ import java.util.function.Supplier;
 
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Accessors(fluent = true)
+@EqualsAndHashCode
 public class OkImpl<T, E> implements Ok<T, E> {
     protected T value;
 
@@ -109,5 +111,25 @@ public class OkImpl<T, E> implements Ok<T, E> {
     public Result<T, E> inspect(Consumer<T> inspector) {
         inspector.accept(value);
         return this;
+    }
+
+    @Override
+    public <U> Result<U, E> and(Result<U, E> other) {
+        return other;
+    }
+
+    @Override
+    public <U> Result<U, E> and(Function<T, Result<U, E>> fn) {
+        return fn.apply(value);
+    }
+
+    @Override
+    public <F> Result<T, F> or(Result<T, F> other) {
+        return new OkImpl<>(value);
+    }
+
+    @Override
+    public <F> Result<T, F> or(Function<E, Result<T, F>> fn) {
+        return new OkImpl<>(value);
     }
 }

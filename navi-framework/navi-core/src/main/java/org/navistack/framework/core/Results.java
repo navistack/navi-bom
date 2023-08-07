@@ -33,4 +33,12 @@ public class Results {
         }
         return new ErrImpl<>(err);
     }
+
+    public <T, U, E> Result<U, E> and(Result<T, E> left, Result<U, E> right) {
+        return left.and(right);
+    }
+
+    public <T, E, F> Result<T, F> or(Result<T, E> left, Result<T, F> right) {
+        return left.or(right);
+    }
 }

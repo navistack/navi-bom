@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -403,5 +404,98 @@ class ResultsTest {
                 .isNotNull();
         verify(inspector, never())
                 .accept(anyInt());
+    }
+
+    @Test
+    void and_shouldReturnOtherOnOk() {
+        Result<Integer, Error> left = parseInteger("1011");
+        Result<Integer, Error> right = parseInteger("101,1");
+        Result<Integer, Error> result = left.and(right);
+        assertThat(result)
+                .isNotNull();
+        assertThat(result)
+                .isEqualTo(right);
+    }
+
+    @Test
+    void and_shouldReturnSelfOnErr() {
+        Result<Integer, Error> left = parseInteger("101,1");
+        Result<Integer, Error> right = parseInteger("1011");
+        Result<Integer, Error> result = left.and(right);
+        assertThat(result)
+                .isNotNull();
+        assertThat(result)
+                .isEqualTo(left);
+    }
+
+    @Test
+    void and_shouldCallFnOnOk() {
+        Result<Integer, Error> left = parseInteger("1011");
+        Function<Integer, Result<String, Error>> right = i -> Results.ok(Integer.toString(i, 2));
+        Result<String, Error> result = left.and(right);
+        assertThat(result)
+                .isNotNull();
+        assertThat(result.isOk("1111110011"))
+                .isTrue();
+    }
+
+    @Test
+    void and_shouldNotCallFnOnErr() {
+        Result<Integer, Error> left = parseInteger("101,1");
+        Function<Integer, Result<String, Error>> right = i -> Results.ok(Integer.toString(i, 2));
+        Result<String, Error> result = left.and(right);
+        assertThat(result)
+                .isNotNull();
+        assertThat(result.isErr(Error.MALFORMAT_STRING_ERROR))
+                .isTrue();
+
+    }
+
+    @Test
+    void or_shouldReturnOtherOnErr() {
+        Result<Integer, Error> left = parseInteger("101,1");
+        Result<Integer, String> right = Results.err(ERROR_MESSAGES.get(Error.MALFORMAT_STRING_ERROR));
+        Result<Integer, String> result = left.or(right);
+        assertThat(result)
+                .isNotNull();
+        assertThat(result.isErr(ERROR_MESSAGES.get(Error.MALFORMAT_STRING_ERROR)))
+                .isTrue();
+    }
+
+    @Test
+    void or_shouldReturnSelfOnOk() {
+        Result<Integer, Error> left = parseInteger("1011");
+        Result<Integer, String> right = Results.err(ERROR_MESSAGES.get(Error.MALFORMAT_STRING_ERROR));
+        Result<Integer, String> result = left.or(right);
+        assertThat(result)
+                .isNotNull();
+        assertThat(result.isOk(1011))
+                .isTrue();
+        assertThat(result.isErr(ERROR_MESSAGES.get(Error.MALFORMAT_STRING_ERROR)))
+                .isFalse();
+    }
+
+    @Test
+    void or_shouldCallFnOnErr() {
+        Result<Integer, Error> left = parseInteger("101,1");
+        Function<Error, Result<Integer, String>> right = e -> Results.err(ERROR_MESSAGES.get(e));
+        Result<Integer, String> result = left.or(right);
+        assertThat(result)
+                .isNotNull();
+        assertThat(result.isErr(ERROR_MESSAGES.get(Error.MALFORMAT_STRING_ERROR)))
+                .isTrue();
+    }
+
+    @Test
+    void or_shouldNotCallFnOnOk() {
+        Result<Integer, Error> left = parseInteger("1011");
+        Function<Error, Result<Integer, String>> right = e -> Results.err(ERROR_MESSAGES.get(e));
+        Result<Integer, String> result = left.or(right);
+        assertThat(result)
+                .isNotNull();
+        assertThat(result.isOk(1011))
+                .isTrue();
+        assertThat(result.isErr(ERROR_MESSAGES.get(Error.MALFORMAT_STRING_ERROR)))
+                .isFalse();
     }
 }

@@ -2,6 +2,7 @@ package org.navistack.framework.core;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Lombok;
 import lombok.experimental.Accessors;
 
@@ -13,6 +14,7 @@ import java.util.function.Supplier;
 
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Accessors(fluent = true)
+@EqualsAndHashCode
 public class ErrImpl<T, E> implements Err<T, E> {
     protected E err;
 
@@ -115,5 +117,25 @@ public class ErrImpl<T, E> implements Err<T, E> {
     @Override
     public Result<T, E> inspect(Consumer<T> inspector) {
         return this;
+    }
+
+    @Override
+    public <U> Result<U, E> and(Result<U, E> other) {
+        return new ErrImpl<>(err);
+    }
+
+    @Override
+    public <U> Result<U, E> and(Function<T, Result<U, E>> fn) {
+        return new ErrImpl<>(err);
+    }
+
+    @Override
+    public <F> Result<T, F> or(Result<T, F> other) {
+        return other;
+    }
+
+    @Override
+    public <F> Result<T, F> or(Function<E, Result<T, F>> fn) {
+        return fn.apply(err);
     }
 }
