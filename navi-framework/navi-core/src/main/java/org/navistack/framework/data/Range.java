@@ -1,37 +1,81 @@
 package org.navistack.framework.data;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
+@Getter
+@EqualsAndHashCode
 public class Range<T extends Comparable<? super T>> {
-    private T left;
-    private T right;
+    private final T left;
+    private final T right;
 
     public Range(T left, T right) {
-        this.left = left;
-        this.right = right;
-        compareAndSwap();
-    }
-
-    public void setLeft(T left) {
-        this.left = left;
-        compareAndSwap();
-    }
-
-    public void setRight(T right) {
-        this.right = right;
-        compareAndSwap();
-    }
-
-    private void compareAndSwap() {
-        if (left == null || right == null) {
-            return;
-        }
-
-        if (left.compareTo(right) > 0) {
+        if (left != null && right != null && left.compareTo(right) > 0) {
             T t = left;
             left = right;
             right = t;
         }
+        this.left = left;
+        this.right = right;
+    }
+
+    public Range<T> withLeft(T left) {
+        return new Range<>(left, right);
+    }
+
+    public Range<T> withRight(T right) {
+        return new Range<>(left, right);
+    }
+
+    public boolean overlaps(Range<T> other) {
+        if (other == null) {
+            return false;
+        }
+
+        T left = other.getLeft();
+        T right = other.getRight();
+
+        if (this.left == null && this.right == null) {
+            return true;
+        }
+
+        if (left == null && right == null) {
+            return true;
+        }
+
+        if (this.left == null && left == null) {
+            return true;
+        }
+
+        if (this.right == null && right == null) {
+            return true;
+        }
+
+        if (this.left == null || right == null) {
+            return this.right.compareTo(left) >= 0;
+        }
+
+        if (this.right == null || left == null) {
+            return this.left.compareTo(right) <= 0;
+        }
+
+        return this.left.compareTo(right) <= 0
+                && this.right.compareTo(left) >= 0;
+    }
+
+    public static <T extends Comparable<? super T>> Range<T> of(T left, T right) {
+        return new Range<>(left, right);
+    }
+
+    public static <T extends Comparable<? super T>> Range<T> leftUnbounded(T right) {
+        return new Range<>(null, right);
+    }
+
+    public static <T extends Comparable<? super T>> Range<T> rightUnbounded(T left) {
+        return new Range<>(left, null);
+    }
+
+    public static <T extends Comparable<? super T>> Range<T> unbounded() {
+        return new Range<>(null, null);
     }
 }
