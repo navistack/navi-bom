@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.apache.ibatis.type.JdbcType;
 import org.junit.jupiter.api.Test;
-import org.navistack.framework.core.NumericEnum;
+import org.navistack.framework.core.Numeric;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class EnumNumericTypeHandlerTest extends BaseTypeHandlerTest {
-    private final EnumNumericTypeHandler<State> typeHandler = new EnumNumericTypeHandler<>(State.class);
+public class IntegerEnumTypeHandlerTest extends BaseTypeHandlerTest {
+    private final IntegerEnumTypeHandler<State> typeHandler = new IntegerEnumTypeHandler<>(State.class);
 
     @Override
     @Test
@@ -75,11 +75,15 @@ public class EnumNumericTypeHandlerTest extends BaseTypeHandlerTest {
     }
 
     @AllArgsConstructor
+    @Getter
     @Accessors(fluent = true)
-    public enum State implements NumericEnum {
-        R(1001), D(1002), S(1003), T(1004), Z(1005);
+    public enum State implements Numeric<Integer> {
+        R(1001),
+        D(1002),
+        S(1003),
+        T(1004),
+        Z(1005);
 
-        @Getter
-        private final Integer number;
+        private final Integer numeral;
     }
 }
