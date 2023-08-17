@@ -1,63 +1,77 @@
 package org.navistack.framework.data;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Collection;
 
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Data
-@AllArgsConstructor
 public class HierarchicalGeoDivision
         extends AbstractTreeNode<String, HierarchicalGeoDivision>
         implements TreeNode<String, HierarchicalGeoDivision> {
-    private String code;
+    private String id;
     private String name;
     private String type;
-    private String parent;
+    private String parentId;
 
-    public HierarchicalGeoDivision(String code, String name, String type, String parent, Collection<HierarchicalGeoDivision> children) {
+    public HierarchicalGeoDivision(String id, String name, String type, String parentId, Collection<HierarchicalGeoDivision> children) {
         super(children);
 
-        this.code = code;
+        this.id = id;
         this.name = name;
         this.type = type;
-        this.parent = parent;
+        this.parentId = parentId;
     }
 
-    @Override
-    public String getId() {
-        return code;
+    public HierarchicalGeoDivision(String id, String name, String type, String parentId) {
+        super();
+
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.parentId = parentId;
     }
 
-    @Override
-    public String getParentId() {
-        return parent;
+    public HierarchicalGeoDivision(String id, String name, String type, Collection<HierarchicalGeoDivision> children) {
+        super(children);
+
+        this.id = id;
+        this.name = name;
+        this.type = type;
     }
 
-    public static HierarchicalGeoDivision of(String code, String name, String type, String parent) {
-        return new HierarchicalGeoDivision(code, name, type, parent);
+    public HierarchicalGeoDivision(String id, String name, String type) {
+        super();
+
+        this.id = id;
+        this.name = name;
+        this.type = type;
     }
 
-    public static HierarchicalGeoDivision of(String code, String name, String type, String parent, Collection<HierarchicalGeoDivision> children) {
-        return new HierarchicalGeoDivision(code, name, type, parent, children);
+    public static HierarchicalGeoDivision of(String id, String name, String type, String parentId) {
+        return new HierarchicalGeoDivision(id, name, type, parentId);
     }
 
-    public static HierarchicalGeoDivision of(String code, String name, String type) {
-        return of(code, name, type, (String) null);
+    public static HierarchicalGeoDivision of(String id, String name, String type, String parentId, Collection<HierarchicalGeoDivision> children) {
+        return new HierarchicalGeoDivision(id, name, type, parentId, children);
     }
 
-    public static HierarchicalGeoDivision of(String code, String name, String type, Collection<HierarchicalGeoDivision> children) {
-        return of(code, name, type, null, children);
+    public static HierarchicalGeoDivision of(String id, String name, String type) {
+        return new HierarchicalGeoDivision(id, name, type);
+    }
+
+    public static HierarchicalGeoDivision of(String id, String name, String type, Collection<HierarchicalGeoDivision> children) {
+        return new HierarchicalGeoDivision(id, name, type, children);
     }
 
     public static HierarchicalGeoDivision of(GeoDivision geoDivision) {
-        return of(
-                geoDivision.getCode(),
-                geoDivision.getName(),
-                geoDivision.getType(),
-                geoDivision.getParent()
-        );
+        String code = geoDivision.getId();
+        String name = geoDivision.getName();
+        String type = geoDivision.getType();
+        String parent = geoDivision.getParentId();
+        return new HierarchicalGeoDivision(code, name, type, parent);
     }
 }

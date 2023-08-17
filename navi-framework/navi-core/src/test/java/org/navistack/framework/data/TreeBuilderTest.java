@@ -6,420 +6,49 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Function;
+import java.util.stream.Collector;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class TreeBuilderTest {
-    /**
-     * Data Source: <a href="https://www.countrycallingcodes.com/iso-country-codes/">countrycallingcodes.com</a>
-     */
     private final Collection<GeoDivision> ORIGINAL_COLLECTION = Arrays.asList(
-            GeoDivision.of("AF", "Africa", "Continent"),
-            GeoDivision.of("AN", "Antarctica", "Continent"),
-            GeoDivision.of("AS", "Asia", "Continent"),
-            GeoDivision.of("EU", "Europe", "Continent"),
-            GeoDivision.of("NA", "North america", "Continent"),
-            GeoDivision.of("OC", "Oceania", "Continent"),
-            GeoDivision.of("SA", "South america", "Continent"),
-            // Africa
-            GeoDivision.of("DZ", "Algeria", "Country/Region", "AF"),
-            GeoDivision.of("AO", "Angola", "Country/Region", "AF"),
-            GeoDivision.of("SH", "Ascension", "Country/Region", "AF"),
-            GeoDivision.of("BJ", "Benin", "Country/Region", "AF"),
-            GeoDivision.of("BW", "Botswana", "Country/Region", "AF"),
-            GeoDivision.of("BF", "Burkina Faso", "Country/Region", "AF"),
-            GeoDivision.of("BI", "Burundi", "Country/Region", "AF"),
-            GeoDivision.of("CM", "Cameroon", "Country/Region", "AF"),
-            GeoDivision.of("CV", "Cape Verde Islands", "Country/Region", "AF"),
-            GeoDivision.of("CF", "Central African Republic", "Country/Region", "AF"),
-            GeoDivision.of("TD", "Chad Republic", "Country/Region", "AF"),
-            GeoDivision.of("KM", "Comoros", "Country/Region", "AF"),
-            GeoDivision.of("CG", "Congo", "Country/Region", "AF"),
-            GeoDivision.of("CD", "Dem. Republic of the Congo", "Country/Region", "AF"),
-            GeoDivision.of("DJ", "Djibouti", "Country/Region", "AF"),
-            GeoDivision.of("EG", "Egypt", "Country/Region", "AF"),
-            GeoDivision.of("GQ", "Equatorial Guinea", "Country/Region", "AF"),
-            GeoDivision.of("ER", "Eritrea", "Country/Region", "AF"),
-            GeoDivision.of("SZ", "eSwatini", "Country/Region", "AF"),
-            GeoDivision.of("ET", "Ethiopia", "Country/Region", "AF"),
-            GeoDivision.of("GA", "Gabon Republic", "Country/Region", "AF"),
-            GeoDivision.of("GM", "Gambia", "Country/Region", "AF"),
-            GeoDivision.of("GH", "Ghana", "Country/Region", "AF"),
-            GeoDivision.of("GN", "Guinea", "Country/Region", "AF"),
-            GeoDivision.of("GW", "Guinea-Bissau", "Country/Region", "AF"),
-            GeoDivision.of("CI", "Ivory Coast", "Country/Region", "AF"),
-            GeoDivision.of("KE", "Kenya", "Country/Region", "AF"),
-            GeoDivision.of("LS", "Lesotho", "Country/Region", "AF"),
-            GeoDivision.of("LR", "Liberia", "Country/Region", "AF"),
-            GeoDivision.of("LY", "Libya", "Country/Region", "AF"),
-            GeoDivision.of("MG", "Madagascar", "Country/Region", "AF"),
-            GeoDivision.of("MW", "Malawi", "Country/Region", "AF"),
-            GeoDivision.of("ML", "Mali Republic", "Country/Region", "AF"),
-            GeoDivision.of("MR", "Mauritania", "Country/Region", "AF"),
-            GeoDivision.of("MU", "Mauritius", "Country/Region", "AF"),
-            GeoDivision.of("YT", "Mayotte Island", "Country/Region", "AF"),
-            GeoDivision.of("MA", "Morocco", "Country/Region", "AF"),
-            GeoDivision.of("MZ", "Mozambique", "Country/Region", "AF"),
-            GeoDivision.of("NA", "Namibia", "Country/Region", "AF"),
-            GeoDivision.of("NE", "Niger Republic", "Country/Region", "AF"),
-            GeoDivision.of("NG", "Nigeria", "Country/Region", "AF"),
-            GeoDivision.of("ST", "Principe", "Country/Region", "AF"),
-            GeoDivision.of("RE", "Reunion Island", "Country/Region", "AF"),
-            GeoDivision.of("RW", "Rwanda", "Country/Region", "AF"),
-            GeoDivision.of("ST", "Sao Tome", "Country/Region", "AF"),
-            GeoDivision.of("SN", "Senegal Republic", "Country/Region", "AF"),
-            GeoDivision.of("SC", "Seychelles", "Country/Region", "AF"),
-            GeoDivision.of("SL", "Sierra Leone", "Country/Region", "AF"),
-            GeoDivision.of("SO", "Somalia Republic", "Country/Region", "AF"),
-            GeoDivision.of("ZA", "South Africa", "Country/Region", "AF"),
-            GeoDivision.of("SS", "South Sudan", "Country/Region", "AF"),
-            GeoDivision.of("SH", "St. Helena", "Country/Region", "AF"),
-            GeoDivision.of("SD", "Sudan", "Country/Region", "AF"),
-            GeoDivision.of("SZ", "Swaziland", "Country/Region", "AF"),
-            GeoDivision.of("TZ", "Tanzania", "Country/Region", "AF"),
-            GeoDivision.of("TG", "Togo", "Country/Region", "AF"),
-            GeoDivision.of("TN", "Tunisia", "Country/Region", "AF"),
-            GeoDivision.of("UG", "Uganda", "Country/Region", "AF"),
-            GeoDivision.of("CD", "Zaire", "Country/Region", "AF"),
-            GeoDivision.of("ZM", "Zambia", "Country/Region", "AF"),
-            GeoDivision.of("TZ", "Zanzibar", "Country/Region", "AF"),
-            GeoDivision.of("ZW", "Zimbabwe", "Country/Region", "AF"),
-            // Antarctica
-            GeoDivision.of("AQ", "Antarctica", "Country/Region", "AN"),
             // Asia
-            GeoDivision.of("AF", "Afghanistan", "Country/Region", "AS"),
-            GeoDivision.of("AM", "Armenia", "Country/Region", "AS"),
-            GeoDivision.of("AZ", "Azerbaijan", "Country/Region", "AS"),
-            GeoDivision.of("BH", "Bahrain", "Country/Region", "AS"),
-            GeoDivision.of("BD", "Bangladesh", "Country/Region", "AS"),
-            GeoDivision.of("BT", "Bhutan", "Country/Region", "AS"),
-            GeoDivision.of("BN", "Brunei", "Country/Region", "AS"),
-            GeoDivision.of("KH", "Cambodia", "Country/Region", "AS"),
+            GeoDivision.of("CN-11", "Beijing", "Municipality", "CN"),
+            GeoDivision.of("CN-12", "Tianjin", "Municipality", "CN"),
+            GeoDivision.of("CN-31", "Shanghai", "Municipality", "CN"),
+            GeoDivision.of("CN-50", "Chongqing", "Municipality", "CN"),
             GeoDivision.of("CN", "China", "Country/Region", "AS"),
-            GeoDivision.of("CX", "Christmas Island", "Country/Region", "AS"),
-            GeoDivision.of("CC", "Cocos Islands", "Country/Region", "AS"),
-            GeoDivision.of("IO", "Diego Garcia", "Country/Region", "AS"),
-            GeoDivision.of("GE", "Georgia", "Country/Region", "AS"),
-            GeoDivision.of("HK", "Hong Kong", "Country/Region", "AS"),
-            GeoDivision.of("IN", "India", "Country/Region", "AS"),
-            GeoDivision.of("ID", "Indonesia", "Country/Region", "AS"),
-            GeoDivision.of("IR", "Iran", "Country/Region", "AS"),
-            GeoDivision.of("IQ", "Iraq", "Country/Region", "AS"),
-            GeoDivision.of("IL", "Israel", "Country/Region", "AS"),
-            GeoDivision.of("JP", "Japan", "Country/Region", "AS"),
-            GeoDivision.of("JO", "Jordan", "Country/Region", "AS"),
-            GeoDivision.of("KZ", "Kazakhstan", "Country/Region", "AS"),
-            GeoDivision.of("KW", "Kuwait", "Country/Region", "AS"),
-            GeoDivision.of("KG", "Kyrgyzstan", "Country/Region", "AS"),
-            GeoDivision.of("LA", "Laos", "Country/Region", "AS"),
-            GeoDivision.of("LB", "Lebanon", "Country/Region", "AS"),
-            GeoDivision.of("MO", "Macau", "Country/Region", "AS"),
-            GeoDivision.of("MY", "Malaysia", "Country/Region", "AS"),
-            GeoDivision.of("MV", "Maldives", "Country/Region", "AS"),
-            GeoDivision.of("MN", "Mongolia", "Country/Region", "AS"),
-            GeoDivision.of("MM", "Myanmar", "Country/Region", "AS"),
-            GeoDivision.of("NP", "Nepal", "Country/Region", "AS"),
-            GeoDivision.of("KP", "North Korea", "Country/Region", "AS"),
-            GeoDivision.of("OM", "Oman", "Country/Region", "AS"),
-            GeoDivision.of("PK", "Pakistan", "Country/Region", "AS"),
-            GeoDivision.of("PS", "Palestine", "Country/Region", "AS"),
-            GeoDivision.of("PH", "Philippines", "Country/Region", "AS"),
-            GeoDivision.of("QA", "Qatar", "Country/Region", "AS"),
-            GeoDivision.of("SA", "Saudi Arabia", "Country/Region", "AS"),
-            GeoDivision.of("SG", "Singapore", "Country/Region", "AS"),
-            GeoDivision.of("KR", "South Korea", "Country/Region", "AS"),
-            GeoDivision.of("LK", "Sri Lanka", "Country/Region", "AS"),
-            GeoDivision.of("SY", "Syria", "Country/Region", "AS"),
-            GeoDivision.of("TW", "Taiwan", "Country/Region", "AS"),
-            GeoDivision.of("TJ", "Tajikistan", "Country/Region", "AS"),
-            GeoDivision.of("TH", "Thailand", "Country/Region", "AS"),
-            GeoDivision.of("TR", "Turkey", "Country/Region", "AS"),
-            GeoDivision.of("TM", "Turkmenistan", "Country/Region", "AS"),
-            GeoDivision.of("AE", "United Arab Emirates", "Country/Region", "AS"),
-            GeoDivision.of("UZ", "Uzbekistan", "Country/Region", "AS"),
-            GeoDivision.of("VN", "Vietnam", "Country/Region", "AS"),
-            GeoDivision.of("YE", "Yemen", "Country/Region", "AS"),
+            GeoDivision.of("AS", "Asia", "Continent"),
             // Europe
-            GeoDivision.of("AL", "Albania", "Country/Region", "EU"),
-            GeoDivision.of("AD", "Andorra", "Country/Region", "EU"),
-            GeoDivision.of("AT", "Austria", "Country/Region", "EU"),
-            GeoDivision.of("BY", "Belarus", "Country/Region", "EU"),
-            GeoDivision.of("BE", "Belgium", "Country/Region", "EU"),
-            GeoDivision.of("BA", "Bosnia and Herzegovina", "Country/Region", "EU"),
-            GeoDivision.of("BG", "Bulgaria", "Country/Region", "EU"),
-            GeoDivision.of("HR", "Croatia", "Country/Region", "EU"),
-            GeoDivision.of("CY", "Cyprus", "Country/Region", "EU"),
-            GeoDivision.of("CZ", "Czech Republic", "Country/Region", "EU"),
-            GeoDivision.of("DK", "Denmark", "Country/Region", "EU"),
-            GeoDivision.of("EE", "Estonia", "Country/Region", "EU"),
-            GeoDivision.of("FO", "Faroe Islands", "Country/Region", "EU"),
-            GeoDivision.of("FI", "Finland", "Country/Region", "EU"),
             GeoDivision.of("FR", "France", "Country/Region", "EU"),
-            GeoDivision.of("DE", "Germany", "Country/Region", "EU"),
-            GeoDivision.of("GI", "Gibraltar", "Country/Region", "EU"),
-            GeoDivision.of("GR", "Greece", "Country/Region", "EU"),
-            GeoDivision.of("HU", "Hungary", "Country/Region", "EU"),
-            GeoDivision.of("IS", "Iceland", "Country/Region", "EU"),
-            GeoDivision.of("IE", "Ireland", "Country/Region", "EU"),
-            GeoDivision.of("IM", "Isle of Man", "Country/Region", "EU"),
-            GeoDivision.of("IT", "Italy", "Country/Region", "EU"),
-            GeoDivision.of("RS", "Kosovo", "Country/Region", "EU"),
-            GeoDivision.of("LV", "Latvia", "Country/Region", "EU"),
-            GeoDivision.of("LI", "Liechtenstein", "Country/Region", "EU"),
-            GeoDivision.of("LT", "Lithuania", "Country/Region", "EU"),
-            GeoDivision.of("LU", "Luxembourg", "Country/Region", "EU"),
-            GeoDivision.of("MK", "Macedonia", "Country/Region", "EU"),
-            GeoDivision.of("MT", "Malta", "Country/Region", "EU"),
-            GeoDivision.of("MD", "Moldova", "Country/Region", "EU"),
-            GeoDivision.of("MC", "Monaco", "Country/Region", "EU"),
-            GeoDivision.of("ME", "Montenegro", "Country/Region", "EU"),
-            GeoDivision.of("NL", "Netherlands", "Country/Region", "EU"),
-            GeoDivision.of("NO", "Norway", "Country/Region", "EU"),
-            GeoDivision.of("PL", "Poland", "Country/Region", "EU"),
-            GeoDivision.of("PT", "Portugal", "Country/Region", "EU"),
-            GeoDivision.of("RO", "Romania", "Country/Region", "EU"),
             GeoDivision.of("RU", "Russia", "Country/Region", "EU"),
-            GeoDivision.of("SM", "San Marino", "Country/Region", "EU"),
-            GeoDivision.of("RS", "Serbia", "Country/Region", "EU"),
-            GeoDivision.of("SK", "Slovakia", "Country/Region", "EU"),
-            GeoDivision.of("SI", "Slovenia", "Country/Region", "EU"),
-            GeoDivision.of("ES", "Spain", "Country/Region", "EU"),
-            GeoDivision.of("SE", "Sweden", "Country/Region", "EU"),
-            GeoDivision.of("CH", "Switzerland", "Country/Region", "EU"),
-            GeoDivision.of("UA", "Ukraine", "Country/Region", "EU"),
             GeoDivision.of("GB", "United Kingdom", "Country/Region", "EU"),
-            GeoDivision.of("VA", "Vatican city", "Country/Region", "EU"),
-            GeoDivision.of("RS", "Yugoslavia", "Country/Region", "EU"),
-            // North america
-            GeoDivision.of("AI", "Anguilla", "Country/Region", "NA"),
-            GeoDivision.of("AG", "Antigua and Barbuda", "Country/Region", "NA"),
-            GeoDivision.of("AW", "Aruba", "Country/Region", "NA"),
-            GeoDivision.of("BS", "Bahamas", "Country/Region", "NA"),
-            GeoDivision.of("BB", "Barbados", "Country/Region", "NA"),
-            GeoDivision.of("BZ", "Belize", "Country/Region", "NA"),
-            GeoDivision.of("BM", "Bermuda", "Country/Region", "NA"),
-            GeoDivision.of("BQ", "Bonaire", "Country/Region", "NA"),
-            GeoDivision.of("VG", "British Virgin Islands", "Country/Region", "NA"),
-            GeoDivision.of("CA", "Canada", "Country/Region", "NA"),
-            GeoDivision.of("KY", "Cayman Islands", "Country/Region", "NA"),
-            GeoDivision.of("CR", "Costa Rica", "Country/Region", "NA"),
-            GeoDivision.of("CU", "Cuba", "Country/Region", "NA"),
-            GeoDivision.of("CW", "Curacao", "Country/Region", "NA"),
-            GeoDivision.of("DM", "Dominica", "Country/Region", "NA"),
-            GeoDivision.of("DO", "Dominican Republic", "Country/Region", "NA"),
-            GeoDivision.of("SV", "El Salvador", "Country/Region", "NA"),
-            GeoDivision.of("GL", "Greenland", "Country/Region", "NA"),
-            GeoDivision.of("GD", "Grenada and Carriacuou", "Country/Region", "NA"),
-            GeoDivision.of("GP", "Guadeloupe", "Country/Region", "NA"),
-            GeoDivision.of("GT", "Guatemala", "Country/Region", "NA"),
-            GeoDivision.of("HT", "Haiti", "Country/Region", "NA"),
-            GeoDivision.of("HN", "Honduras", "Country/Region", "NA"),
-            GeoDivision.of("JM", "Jamaica", "Country/Region", "NA"),
-            GeoDivision.of("MQ", "Martinique", "Country/Region", "NA"),
-            GeoDivision.of("MX", "Mexico", "Country/Region", "NA"),
-            GeoDivision.of("PM", "Miquelon", "Country/Region", "NA"),
-            GeoDivision.of("MS", "Montserrat", "Country/Region", "NA"),
-            GeoDivision.of("CW", "Netherlands Antilles", "Country/Region", "NA"),
-            GeoDivision.of("KN", "Nevis", "Country/Region", "NA"),
-            GeoDivision.of("NI", "Nicaragua", "Country/Region", "NA"),
-            GeoDivision.of("PA", "Panama", "Country/Region", "NA"),
-            GeoDivision.of("PR", "Puerto Rico", "Country/Region", "NA"),
-            GeoDivision.of("BQ", "Saba", "Country/Region", "NA"),
-            GeoDivision.of("BQ", "Sint Eustatius", "Country/Region", "NA"),
-            GeoDivision.of("SX", "Sint Maarten", "Country/Region", "NA"),
-            GeoDivision.of("KN", "St. Kitts", "Country/Region", "NA"),
-            GeoDivision.of("LC", "St. Lucia", "Country/Region", "NA"),
-            GeoDivision.of("PM", "St. Pierre and Miquelon", "Country/Region", "NA"),
-            GeoDivision.of("VC", "St. Vincent", "Country/Region", "NA"),
-            GeoDivision.of("TT", "Trinidad and Tobago", "Country/Region", "NA"),
-            GeoDivision.of("TC", "Turks and Caicos Islands", "Country/Region", "NA"),
+            GeoDivision.of("EU", "Europe", "Continent"),
+            // North America
             GeoDivision.of("US", "United States", "Country/Region", "NA"),
-            GeoDivision.of("VI", "US Virgin Islands", "Country/Region", "NA"),
-            // Oceania
-            GeoDivision.of("AS", "American Samoa", "Country/Region", "OC"),
-            GeoDivision.of("AU", "Australia", "Country/Region", "OC"),
-            GeoDivision.of("NZ", "Chatham Island, NZ", "Country/Region", "OC"),
-            GeoDivision.of("CK", "Cook Islands", "Country/Region", "OC"),
-            GeoDivision.of("TL", "East Timor", "Country/Region", "OC"),
-            GeoDivision.of("FM", "Federated States of Micronesia", "Country/Region", "OC"),
-            GeoDivision.of("FJ", "Fiji Islands", "Country/Region", "OC"),
-            GeoDivision.of("PF", "French Polynesia", "Country/Region", "OC"),
-            GeoDivision.of("GU", "Guam", "Country/Region", "OC"),
-            GeoDivision.of("KI", "Kiribati", "Country/Region", "OC"),
-            GeoDivision.of("MP", "Mariana Islands", "Country/Region", "OC"),
-            GeoDivision.of("MH", "Marshall Islands", "Country/Region", "OC"),
-            GeoDivision.of("UM", "Midway Islands", "Country/Region", "OC"),
-            GeoDivision.of("NR", "Nauru", "Country/Region", "OC"),
-            GeoDivision.of("NC", "New Caledonia", "Country/Region", "OC"),
-            GeoDivision.of("NZ", "New Zealand", "Country/Region", "OC"),
-            GeoDivision.of("NU", "Niue", "Country/Region", "OC"),
-            GeoDivision.of("NF", "Norfolk Island", "Country/Region", "OC"),
-            GeoDivision.of("PW", "Palau", "Country/Region", "OC"),
-            GeoDivision.of("PG", "Papua New Guinea", "Country/Region", "OC"),
-            GeoDivision.of("MP", "Saipan", "Country/Region", "OC"),
-            GeoDivision.of("WS", "Samoa", "Country/Region", "OC"),
-            GeoDivision.of("SB", "Solomon Islands", "Country/Region", "OC"),
-            GeoDivision.of("TK", "Tokelau", "Country/Region", "OC"),
-            GeoDivision.of("TO", "Tonga", "Country/Region", "OC"),
-            GeoDivision.of("TV", "Tuvalu", "Country/Region", "OC"),
-            GeoDivision.of("VU", "Vanuatu", "Country/Region", "OC"),
-            GeoDivision.of("UM", "Wake Island", "Country/Region", "OC"),
-            GeoDivision.of("WF", "Wallis and Futuna Islands", "Country/Region", "OC"),
-            // South america
-            GeoDivision.of("AR", "Argentina", "Country/Region", "SA"),
-            GeoDivision.of("BO", "Bolivia", "Country/Region", "SA"),
-            GeoDivision.of("BR", "Brazil", "Country/Region", "SA"),
-            GeoDivision.of("CL", "Chile", "Country/Region", "SA"),
-            GeoDivision.of("CO", "Colombia", "Country/Region", "SA"),
-            GeoDivision.of("EC", "Ecuador", "Country/Region", "SA"),
-            GeoDivision.of("FK", "Falkland Islands", "Country/Region", "SA"),
-            GeoDivision.of("GF", "French Guiana", "Country/Region", "SA"),
-            GeoDivision.of("GY", "Guiana", "Country/Region", "SA"),
-            GeoDivision.of("GY", "Guyana", "Country/Region", "SA"),
-            GeoDivision.of("PY", "Paraguay", "Country/Region", "SA"),
-            GeoDivision.of("PE", "Peru", "Country/Region", "SA"),
-            GeoDivision.of("SR", "Suriname", "Country/Region", "SA"),
-            GeoDivision.of("UY", "Uruguay", "Country/Region", "SA"),
-            GeoDivision.of("VE", "Venezuela", "Country/Region", "SA")
+            GeoDivision.of("NA", "North America", "Continent")
     );
 
     private final Collection<HierarchicalGeoDivision> EXPECTED_COLLECTION = Arrays.asList(
-            HierarchicalGeoDivision.of(
-                    "AF",
-                    "Africa",
-                    "Continent",
-                    Arrays.asList(
-                            HierarchicalGeoDivision.of("DZ", "Algeria", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("AO", "Angola", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("SH", "Ascension", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("BJ", "Benin", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("BW", "Botswana", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("BF", "Burkina Faso", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("BI", "Burundi", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("CM", "Cameroon", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("CV", "Cape Verde Islands", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("CF", "Central African Republic", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("TD", "Chad Republic", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("KM", "Comoros", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("CG", "Congo", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("CD", "Dem. Republic of the Congo", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("DJ", "Djibouti", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("EG", "Egypt", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("GQ", "Equatorial Guinea", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("ER", "Eritrea", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("SZ", "eSwatini", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("ET", "Ethiopia", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("GA", "Gabon Republic", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("GM", "Gambia", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("GH", "Ghana", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("GN", "Guinea", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("GW", "Guinea-Bissau", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("CI", "Ivory Coast", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("KE", "Kenya", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("LS", "Lesotho", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("LR", "Liberia", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("LY", "Libya", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("MG", "Madagascar", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("MW", "Malawi", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("ML", "Mali Republic", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("MR", "Mauritania", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("MU", "Mauritius", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("YT", "Mayotte Island", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("MA", "Morocco", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("MZ", "Mozambique", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("NA", "Namibia", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("NE", "Niger Republic", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("NG", "Nigeria", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("ST", "Principe", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("RE", "Reunion Island", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("RW", "Rwanda", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("ST", "Sao Tome", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("SN", "Senegal Republic", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("SC", "Seychelles", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("SL", "Sierra Leone", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("SO", "Somalia Republic", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("ZA", "South Africa", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("SS", "South Sudan", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("SH", "St. Helena", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("SD", "Sudan", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("SZ", "Swaziland", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("TZ", "Tanzania", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("TG", "Togo", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("TN", "Tunisia", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("UG", "Uganda", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("CD", "Zaire", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("ZM", "Zambia", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("TZ", "Zanzibar", "Country/Region", "AF"),
-                            HierarchicalGeoDivision.of("ZW", "Zimbabwe", "Country/Region", "AF")
-                    )
-            ),
-            HierarchicalGeoDivision.of(
-                    "AN",
-                    "Antarctica",
-                    "Continent",
-                    Arrays.asList(
-                            HierarchicalGeoDivision.of("AQ", "Antarctica", "Country/Region", "AN")
-                    )
-            ),
             HierarchicalGeoDivision.of(
                     "AS",
                     "Asia",
                     "Continent",
                     Arrays.asList(
-                            HierarchicalGeoDivision.of("AF", "Afghanistan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("AM", "Armenia", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("AZ", "Azerbaijan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("BH", "Bahrain", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("BD", "Bangladesh", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("BT", "Bhutan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("BN", "Brunei", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("KH", "Cambodia", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("CN", "China", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("CX", "Christmas Island", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("CC", "Cocos Islands", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("IO", "Diego Garcia", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("GE", "Georgia", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("HK", "Hong Kong", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("IN", "India", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("ID", "Indonesia", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("IR", "Iran", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("IQ", "Iraq", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("IL", "Israel", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("JP", "Japan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("JO", "Jordan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("KZ", "Kazakhstan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("KW", "Kuwait", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("KG", "Kyrgyzstan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("LA", "Laos", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("LB", "Lebanon", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("MO", "Macau", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("MY", "Malaysia", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("MV", "Maldives", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("MN", "Mongolia", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("MM", "Myanmar", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("NP", "Nepal", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("KP", "North Korea", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("OM", "Oman", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("PK", "Pakistan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("PS", "Palestine", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("PH", "Philippines", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("QA", "Qatar", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("SA", "Saudi Arabia", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("SG", "Singapore", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("KR", "South Korea", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("LK", "Sri Lanka", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("SY", "Syria", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("TW", "Taiwan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("TJ", "Tajikistan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("TH", "Thailand", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("TR", "Turkey", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("TM", "Turkmenistan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("AE", "United Arab Emirates", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("UZ", "Uzbekistan", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("VN", "Vietnam", "Country/Region", "AS"),
-                            HierarchicalGeoDivision.of("YE", "Yemen", "Country/Region", "AS")
+                            HierarchicalGeoDivision.of(
+                                    "CN",
+                                    "China",
+                                    "Country/Region",
+                                    "AS",
+                                    Arrays.asList(
+                                            HierarchicalGeoDivision.of("CN-11", "Beijing", "Municipality", "CN"),
+                                            HierarchicalGeoDivision.of("CN-12", "Tianjin", "Municipality", "CN"),
+                                            HierarchicalGeoDivision.of("CN-31", "Shanghai", "Municipality", "CN"),
+                                            HierarchicalGeoDivision.of("CN-50", "Chongqing", "Municipality", "CN")
+                                    )
+                            )
                     )
             ),
             HierarchicalGeoDivision.of(
@@ -427,192 +56,62 @@ class TreeBuilderTest {
                     "Europe",
                     "Continent",
                     Arrays.asList(
-                            HierarchicalGeoDivision.of("AL", "Albania", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("AD", "Andorra", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("AT", "Austria", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("BY", "Belarus", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("BE", "Belgium", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("BA", "Bosnia and Herzegovina", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("BG", "Bulgaria", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("HR", "Croatia", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("CY", "Cyprus", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("CZ", "Czech Republic", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("DK", "Denmark", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("EE", "Estonia", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("FO", "Faroe Islands", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("FI", "Finland", "Country/Region", "EU"),
                             HierarchicalGeoDivision.of("FR", "France", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("DE", "Germany", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("GI", "Gibraltar", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("GR", "Greece", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("HU", "Hungary", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("IS", "Iceland", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("IE", "Ireland", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("IM", "Isle of Man", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("IT", "Italy", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("RS", "Kosovo", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("LV", "Latvia", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("LI", "Liechtenstein", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("LT", "Lithuania", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("LU", "Luxembourg", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("MK", "Macedonia", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("MT", "Malta", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("MD", "Moldova", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("MC", "Monaco", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("ME", "Montenegro", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("NL", "Netherlands", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("NO", "Norway", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("PL", "Poland", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("PT", "Portugal", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("RO", "Romania", "Country/Region", "EU"),
                             HierarchicalGeoDivision.of("RU", "Russia", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("SM", "San Marino", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("RS", "Serbia", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("SK", "Slovakia", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("SI", "Slovenia", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("ES", "Spain", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("SE", "Sweden", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("CH", "Switzerland", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("UA", "Ukraine", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("GB", "United Kingdom", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("VA", "Vatican city", "Country/Region", "EU"),
-                            HierarchicalGeoDivision.of("RS", "Yugoslavia", "Country/Region", "EU")
+                            HierarchicalGeoDivision.of("GB", "United Kingdom", "Country/Region", "EU")
                     )
             ),
             HierarchicalGeoDivision.of(
                     "NA",
-                    "North america",
+                    "North America",
                     "Continent",
                     Arrays.asList(
-                            HierarchicalGeoDivision.of("AI", "Anguilla", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("AG", "Antigua and Barbuda", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("AW", "Aruba", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("BS", "Bahamas", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("BB", "Barbados", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("BZ", "Belize", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("BM", "Bermuda", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("BQ", "Bonaire", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("VG", "British Virgin Islands", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("CA", "Canada", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("KY", "Cayman Islands", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("CR", "Costa Rica", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("CU", "Cuba", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("CW", "Curacao", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("DM", "Dominica", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("DO", "Dominican Republic", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("SV", "El Salvador", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("GL", "Greenland", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("GD", "Grenada and Carriacuou", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("GP", "Guadeloupe", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("GT", "Guatemala", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("HT", "Haiti", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("HN", "Honduras", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("JM", "Jamaica", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("MQ", "Martinique", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("MX", "Mexico", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("PM", "Miquelon", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("MS", "Montserrat", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("CW", "Netherlands Antilles", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("KN", "Nevis", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("NI", "Nicaragua", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("PA", "Panama", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("PR", "Puerto Rico", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("BQ", "Saba", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("BQ", "Sint Eustatius", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("SX", "Sint Maarten", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("KN", "St. Kitts", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("LC", "St. Lucia", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("PM", "St. Pierre and Miquelon", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("VC", "St. Vincent", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("TT", "Trinidad and Tobago", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("TC", "Turks and Caicos Islands", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("US", "United States", "Country/Region", "NA"),
-                            HierarchicalGeoDivision.of("VI", "US Virgin Islands", "Country/Region", "NA")
-                    )
-            ),
-            HierarchicalGeoDivision.of(
-                    "OC",
-                    "Oceania",
-                    "Continent",
-                    Arrays.asList(
-                            HierarchicalGeoDivision.of("AS", "American Samoa", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("AU", "Australia", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("NZ", "Chatham Island, NZ", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("CK", "Cook Islands", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("TL", "East Timor", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("FM", "Federated States of Micronesia", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("FJ", "Fiji Islands", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("PF", "French Polynesia", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("GU", "Guam", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("KI", "Kiribati", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("MP", "Mariana Islands", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("MH", "Marshall Islands", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("UM", "Midway Islands", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("NR", "Nauru", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("NC", "New Caledonia", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("NZ", "New Zealand", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("NU", "Niue", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("NF", "Norfolk Island", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("PW", "Palau", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("PG", "Papua New Guinea", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("MP", "Saipan", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("WS", "Samoa", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("SB", "Solomon Islands", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("TK", "Tokelau", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("TO", "Tonga", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("TV", "Tuvalu", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("VU", "Vanuatu", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("UM", "Wake Island", "Country/Region", "OC"),
-                            HierarchicalGeoDivision.of("WF", "Wallis and Futuna Islands", "Country/Region", "OC")
-                    )
-            ),
-            HierarchicalGeoDivision.of(
-                    "SA",
-                    "South america",
-                    "Continent",
-                    Arrays.asList(
-                            HierarchicalGeoDivision.of("AR", "Argentina", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("BO", "Bolivia", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("BR", "Brazil", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("CL", "Chile", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("CO", "Colombia", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("EC", "Ecuador", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("FK", "Falkland Islands", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("GF", "French Guiana", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("GY", "Guiana", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("GY", "Guyana", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("PY", "Paraguay", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("PE", "Peru", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("SR", "Suriname", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("UY", "Uruguay", "Country/Region", "SA"),
-                            HierarchicalGeoDivision.of("VE", "Venezuela", "Country/Region", "SA")
+                            HierarchicalGeoDivision.of("US", "United States", "Country/Region", "NA")
                     )
             )
     );
 
     @Test
     void shouldBuildSuccessfully() {
-        Collection<HierarchicalGeoDivision> actualCollection = TreeBuilder.<HierarchicalGeoDivision>of()
-                .build(
-                        ORIGINAL_COLLECTION.stream()
-                                .map(HierarchicalGeoDivision::of)
-                                .collect(Collectors.toList())
-                );
-        assertThat(actualCollection).containsExactlyInAnyOrderElementsOf(EXPECTED_COLLECTION);
+        Collection<HierarchicalGeoDivision> actualCollection = new TreeBuilder<GeoDivision, HierarchicalGeoDivision>()
+                .idMapper(GeoDivision::getId)
+                .parentIdMapper(GeoDivision::getParentId)
+                .mapper(HierarchicalGeoDivision::of)
+                .childPicker(HierarchicalGeoDivision::addChild)
+                .build(ORIGINAL_COLLECTION);
+        assertThat(actualCollection)
+                .usingRecursiveComparison()
+                .ignoringCollectionOrder()
+                .isEqualTo(EXPECTED_COLLECTION);
     }
 
     @Test
     void shouldCollectSuccessfully() {
+        Collector<GeoDivision, ?, Collection<HierarchicalGeoDivision>> collector = new TreeBuilder<GeoDivision, HierarchicalGeoDivision>()
+                .idMapper(GeoDivision::getId)
+                .parentIdMapper(GeoDivision::getParentId)
+                .mapper(HierarchicalGeoDivision::of)
+                .childPicker(HierarchicalGeoDivision::addChild)
+                .toCollector();
         Collection<HierarchicalGeoDivision> actualCollection = ORIGINAL_COLLECTION.stream()
-                .map(HierarchicalGeoDivision::of)
-                .collect(TreeBuilder.collector());
-        assertThat(actualCollection).containsExactlyInAnyOrderElementsOf(EXPECTED_COLLECTION);
+                .collect(collector);
+        assertThat(actualCollection)
+                .usingRecursiveComparison()
+                .ignoringCollectionOrder()
+                .isEqualTo(EXPECTED_COLLECTION);
     }
 
     @Test
-    void shouldReturnEmptyCollectionWhenNullOrEmptyCollectionPassedIn() {
-        assertThat(TreeBuilder.of().build(null)).isNotNull().isEmpty();
-        assertThat(TreeBuilder.of().build(Collections.emptyList())).isNotNull().isEmpty();
+    void shouldThrowNullPointerExceptionWhenCollectionIsNull() {
+        assertThatThrownBy(() -> TreeBuilder.of().build(null))
+                .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void shouldReturnEmptyCollectionWhenCollectionIsEmpty() {
+        assertThat(TreeBuilder.of().build(Collections.emptyList()))
+                .isNotNull()
+                .isEmpty();
     }
 
     @Test
@@ -622,49 +121,57 @@ class TreeBuilderTest {
                 HierarchicalGeoDivision.of("AN", "Antarctica", "Continent"),
                 HierarchicalGeoDivision.of("AS", "Asia", "Continent"),
                 HierarchicalGeoDivision.of("EU", "Europe", "Continent"),
-                HierarchicalGeoDivision.of("NA", "North america", "Continent"),
+                HierarchicalGeoDivision.of("NA", "North America", "Continent"),
                 HierarchicalGeoDivision.of("OC", "Oceania", "Continent"),
                 HierarchicalGeoDivision.of("SA", "South america", "Continent")
         );
         assertThatThrownBy(() -> {
-            new TreeBuilder<HierarchicalGeoDivision>()
-                    .parentIdentifier(HierarchicalGeoDivision::getParentId)
-                    .childCollectionFactory(HierarchicalGeoDivision::getChildren)
+            new TreeBuilder<HierarchicalGeoDivision, HierarchicalGeoDivision>()
+                    .parentIdMapper(HierarchicalGeoDivision::getParentId)
+                    .childPicker(HierarchicalGeoDivision::addChild)
+                    .mapper(Function.identity())
                     .build(continents);
         })
                 .isInstanceOf(NullPointerException.class)
-                .hasMessage("identifier must not be null");
+                .hasMessage("idMapper must not be null");
         assertThatThrownBy(() -> {
-            new TreeBuilder<HierarchicalGeoDivision>()
-                    .identifier(HierarchicalGeoDivision::getId)
-                    .childCollectionFactory(HierarchicalGeoDivision::getChildren)
+            new TreeBuilder<HierarchicalGeoDivision, HierarchicalGeoDivision>()
+                    .idMapper(HierarchicalGeoDivision::getId)
+                    .childPicker(HierarchicalGeoDivision::addChild)
+                    .mapper(Function.identity())
                     .build(continents);
         })
                 .isInstanceOf(NullPointerException.class)
-                .hasMessage("parentIdentifier must not be null");
+                .hasMessage("parentIdMapper must not be null");
         assertThatThrownBy(() -> {
-            new TreeBuilder<HierarchicalGeoDivision>()
-                    .identifier(HierarchicalGeoDivision::getId)
-                    .parentIdentifier(HierarchicalGeoDivision::getParentId)
+            new TreeBuilder<HierarchicalGeoDivision, HierarchicalGeoDivision>()
+                    .idMapper(HierarchicalGeoDivision::getId)
+                    .parentIdMapper(HierarchicalGeoDivision::getParentId)
+                    .childPicker(HierarchicalGeoDivision::addChild)
                     .build(continents);
         })
                 .isInstanceOf(NullPointerException.class)
-                .hasMessage("childCollectionFactory must not be null");
+                .hasMessage("mapper must not be null");
+        assertThatThrownBy(() -> {
+            new TreeBuilder<HierarchicalGeoDivision, HierarchicalGeoDivision>()
+                    .idMapper(HierarchicalGeoDivision::getId)
+                    .parentIdMapper(HierarchicalGeoDivision::getParentId)
+                    .mapper(Function.identity())
+                    .build(continents);
+        })
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("childPicker must not be null");
     }
 
     @Test
     void shouldThrowIllegalStateExceptionWhenDuplicateKeyDetected() {
-        assertThatThrownBy(() -> {
-            Collection<HierarchicalGeoDivision> actualCollection = ORIGINAL_COLLECTION.stream()
-                    .map(HierarchicalGeoDivision::of)
-                    .collect(
-                            TreeBuilder.<HierarchicalGeoDivision>of()
-                                    .ignoreDuplicate(false)
-                                    .toCollector()
-                    );
-            assertThat(actualCollection).isEqualTo(EXPECTED_COLLECTION);
-        })
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("Duplicate key");
+        List<HierarchicalGeoDivision> continents = Arrays.asList(
+                HierarchicalGeoDivision.of("AS", "Asia", "Continent"),
+                HierarchicalGeoDivision.of("CN", "China", "Country/Region", "AS"),
+                HierarchicalGeoDivision.of("AS", "Asia", "Continent"),
+                HierarchicalGeoDivision.of("CN", "China", "Country/Region", "AS")
+        );
+        assertThatThrownBy(() -> continents.stream().collect(TreeBuilder.collector()))
+                .isInstanceOf(IllegalStateException.class);
     }
 }

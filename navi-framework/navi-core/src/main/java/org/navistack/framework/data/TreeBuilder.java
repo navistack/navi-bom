@@ -1,122 +1,126 @@
 package org.navistack.framework.data;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Collector;
 
 /**
  * Build a tree from a flat collection.
  * Requires identifier to be unique across any level.
  */
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 @Accessors(fluent = true)
-public class TreeBuilder<T> {
+public class TreeBuilder<S, T> {
+    private Function<S, ?> idMapper;
 
-    @Getter
-    @Setter
-    private Function<T, ?> identifier;
+    private Function<S, ?> parentIdMapper;
 
-    @Getter
-    @Setter
-    private Function<T, ?> parentIdentifier;
+    private Function<S, T> mapper;
 
-    @Getter
-    @Setter
-    private Function<T, Collection<T>> childCollectionFactory;
+    private BiConsumer<T, T> childPicker;
 
-    @Getter
-    @Setter
-    private boolean ignoreDuplicate = true;
-
-    @Getter
-    @Setter
-    private boolean orphanAsRoot = false;
-
-    private final BiConsumer<T, T> childConsumer = (parent, child) -> {
-        Collection<T> siblings = childCollectionFactory.apply(parent);
-        if (siblings == null) {
-            throw new NullPointerException("childCollectionFactory returned null");
-        }
-        siblings.add(child);
+    private Consumer<T> orphanAdopter = t -> {
     };
 
-    private final Map<Object, T> objectMap = new HashMap<>();
+    private Predicate<S> rootPredicate = it -> parentIdMapper != null && Objects.isNull(parentIdMapper.apply(it));
 
-    public Collection<T> build(Collection<T> collection) {
-        if (collection == null || collection.isEmpty()) {
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private final Map<Object, T> nodeMap = new HashMap<>();
+
+    public Collection<T> build(Collection<? extends S> collection) {
+        if (collection == null) {
+            throw new NullPointerException("collection must not be null");
+        }
+
+        if (collection.isEmpty()) {
             return Collections.emptyList();
         }
 
-        if (this.identifier == null) {
-            throw new NullPointerException("identifier must not be null");
+        if (this.idMapper == null) {
+            throw new NullPointerException("idMapper must not be null");
         }
 
-        if (this.parentIdentifier == null) {
-            throw new NullPointerException("parentIdentifier must not be null");
+        if (this.parentIdMapper == null) {
+            throw new NullPointerException("parentIdMapper must not be null");
         }
 
-        if (this.childCollectionFactory == null) {
-            throw new NullPointerException("childCollectionFactory must not be null");
+        if (this.mapper == null) {
+            throw new NullPointerException("mapper must not be null");
+        }
+
+        if (this.childPicker == null) {
+            throw new NullPointerException("childPicker must not be null");
         }
 
         Collection<T> forest = new ArrayList<>();
-        Collection<T> orphans = new ArrayList<>();
-        for (T item : collection) {
-            Object id = identifier.apply(item);
-            T previous = objectMap.putIfAbsent(id, item);
-            if (previous != null && !ignoreDuplicate) {
-                throw new IllegalStateException("Duplicate key");
+
+        Collection<S> orphans = new ArrayList<>();
+        for (S item : collection) {
+            T mappedItem = mapper.apply(item);
+
+            Object id = idMapper.apply(item);
+            T prevNode = nodeMap.putIfAbsent(id, mappedItem);
+            if (prevNode != null) {
+                throw new IllegalStateException(
+                        String.format(
+                                "Duplicate id %s (attempted merging values %s and %s)",
+                                id,
+                                prevNode,
+                                item
+                        )
+                );
             }
-            Object parentId = parentIdentifier.apply(item);
-            if (parentId != null) {
-                T parent = objectMap.get(parentId);
-                if (parent != null) {
-                    childConsumer.accept(parent, item);
+
+            if (rootPredicate.test(item)) {
+                forest.add(mappedItem);
+            } else {
+                Object parentId = parentIdMapper.apply(item);
+                if (nodeMap.containsKey(parentId)) {
+                    T parent = nodeMap.get(parentId);
+                    childPicker.accept(parent, mappedItem);
                 } else {
                     orphans.add(item);
                 }
-            } else {
-                forest.add(item);
             }
         }
 
-        for (T orphan : orphans) {
-            Object parentId = parentIdentifier.apply(orphan);
-            T parent = objectMap.get(parentId);
-            if (parent != null) {
-                childConsumer.accept(parent, orphan);
-            } else if (orphanAsRoot) {
-                forest.add(orphan);
+        for (S orphan : orphans) {
+            Object id = idMapper.apply(orphan);
+            Object parentId = parentIdMapper.apply(orphan);
+            if (nodeMap.containsKey(parentId)) {
+                T mappedOrphan = nodeMap.get(id);
+                T parent = nodeMap.get(parentId);
+                childPicker.accept(parent, mappedOrphan);
+            } else {
+                T mappedOrphan = nodeMap.get(id);
+                orphanAdopter.accept(mappedOrphan);
             }
         }
 
         return forest;
     }
 
-    public Collector<T, ?, Collection<T>> toCollector() {
-        return new Collector<T, Collection<T>, Collection<T>>() {
+    public Collector<S, ?, Collection<T>> toCollector() {
+        return new Collector<S, Collection<S>, Collection<T>>() {
             @Override
-            public Supplier<Collection<T>> supplier() {
+            public Supplier<Collection<S>> supplier() {
                 return ArrayList::new;
             }
 
             @Override
-            public BiConsumer<Collection<T>, T> accumulator() {
+            public BiConsumer<Collection<S>, S> accumulator() {
                 return Collection::add;
             }
 
             @Override
-            public BinaryOperator<Collection<T>> combiner() {
+            public BinaryOperator<Collection<S>> combiner() {
                 return (left, right) -> {
                     left.addAll(right);
                     return left;
@@ -124,9 +128,10 @@ public class TreeBuilder<T> {
             }
 
             @Override
-            public Function<Collection<T>, Collection<T>> finisher() {
+            public Function<Collection<S>, Collection<T>> finisher() {
                 return TreeBuilder.this::build;
             }
+
 
             @Override
             public Set<Characteristics> characteristics() {
@@ -137,37 +142,87 @@ public class TreeBuilder<T> {
         };
     }
 
-    public static <T> TreeBuilder<T> of(
-            Function<T, ?> identifier,
-            Function<T, ?> parentIdentifier,
-            Function<T, Collection<T>> childCollectionFactory
+    public static <S, T> TreeBuilder<S, T> of(
+            Function<S, ?> idMapper,
+            Function<S, ?> parentIdMapper,
+            Function<S, T> mapper,
+            BiConsumer<T, T> childPicker
     ) {
-        return new TreeBuilder<T>()
-                .identifier(identifier)
-                .parentIdentifier(parentIdentifier)
-                .childCollectionFactory(childCollectionFactory)
-                ;
+        return new TreeBuilder<S, T>()
+                .idMapper(idMapper)
+                .parentIdMapper(parentIdMapper)
+                .mapper(mapper)
+                .childPicker(childPicker);
     }
 
-    public static <T extends TreeNode<?, T>> TreeBuilder<T> of() {
-        return new TreeBuilder<T>()
-                .identifier(TreeNode::getId)
-                .parentIdentifier(TreeNode::getParentId)
-                .childCollectionFactory(TreeNode::getChildren)
-                ;
+    public static <S, T extends TreeNode<?, T>> TreeBuilder<S, T> of(
+            Function<S, ?> idMapper,
+            Function<S, ?> parentIdMapper,
+            Function<S, T> mapper
+    ) {
+        return new TreeBuilder<S, T>()
+                .idMapper(idMapper)
+                .parentIdMapper(parentIdMapper)
+                .mapper(mapper)
+                .childPicker(TreeNode::addChild);
     }
 
-    public static <T> Collector<T, ?, Collection<T>> collector(
-            Function<T, ?> identifier,
-            Function<T, ?> parentIdentifier,
-            Function<T, Collection<T>> childCollectionFactory
+    public static <S, T extends TreeNode<?, T>> TreeBuilder<S, T> of(
+            Function<S, ?> idMapper,
+            Function<S, ?> parentIdMapper,
+            Function<S, T> mapper,
+            Predicate<S> rootPredicate
+
     ) {
-        return TreeBuilder.of(identifier, parentIdentifier, childCollectionFactory)
+        return new TreeBuilder<S, T>()
+                .idMapper(idMapper)
+                .parentIdMapper(parentIdMapper)
+                .mapper(mapper)
+                .childPicker(TreeNode::addChild)
+                .rootPredicate(rootPredicate);
+    }
+
+    public static <T extends TreeNode<?, T>> TreeBuilder<T, T> of(
+            Predicate<T> rootPredicate
+    ) {
+        return new TreeBuilder<T, T>()
+                .idMapper(TreeNode::getId)
+                .parentIdMapper(TreeNode::getParentId)
+                .mapper(Function.identity())
+                .rootPredicate(rootPredicate)
+                .childPicker(TreeNode::addChild);
+    }
+
+    public static <T extends TreeNode<?, T>> TreeBuilder<T, T> of() {
+        return new TreeBuilder<T, T>()
+                .idMapper(TreeNode::getId)
+                .parentIdMapper(TreeNode::getParentId)
+                .mapper(Function.identity())
+                .rootPredicate(n -> Objects.isNull(n.getParentId()))
+                .childPicker(TreeNode::addChild);
+    }
+
+    public static <S, T> Collector<S, ?, Collection<T>> collector(
+            Function<S, ?> idMapper,
+            Function<S, ?> parentIdMapper,
+            Function<S, T> mapper,
+            BiConsumer<T, T> childPicker
+    ) {
+        return new TreeBuilder<S, T>()
+                .idMapper(idMapper)
+                .parentIdMapper(parentIdMapper)
+                .mapper(mapper)
+                .childPicker(childPicker)
                 .toCollector();
     }
 
     public static <T extends TreeNode<?, T>> Collector<T, ?, Collection<T>> collector() {
-        TreeBuilder<T> builder = of();
-        return builder.toCollector();
+        return new TreeBuilder<T, T>()
+                .idMapper(TreeNode::getId)
+                .parentIdMapper(TreeNode::getParentId)
+                .mapper(Function.identity())
+                .rootPredicate(n -> Objects.isNull(n.getParentId()))
+                .childPicker(TreeNode::addChild)
+                .toCollector();
     }
 }

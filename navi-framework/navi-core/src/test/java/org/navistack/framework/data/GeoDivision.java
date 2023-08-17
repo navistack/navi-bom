@@ -1,21 +1,32 @@
 package org.navistack.framework.data;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class GeoDivision {
-    private String code;
+    private String id;
     private String name;
     private String type;
-    private String parent;
+    private String parentId;
 
-    public static GeoDivision of(String code, String name, String type) {
-        return of(code, name, type, null);
+    public GeoDivision(String id, String name, String type, String parentId) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.parentId = parentId;
     }
 
-    public static GeoDivision of(String code, String name, String type, String parent) {
-        return new GeoDivision(code, name, type, parent);
+    public GeoDivision(String id, String name, String type) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+    }
+
+    public static GeoDivision of(String id, String name, String type) {
+        return new GeoDivision(id, name, type);
+    }
+
+    public static GeoDivision of(String id, String name, String type, String parentId) {
+        return new GeoDivision(id, name, type, parentId);
     }
 }
