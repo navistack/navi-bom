@@ -100,4 +100,12 @@ class StringsTest {
         assertThat(Strings.split("a:b:", ":", 2)).containsExactly("a", "b:");
         assertThat(Strings.split(":b:c", ":", 2)).containsExactly("", "b:c");
     }
+
+    @Test
+    void join() {
+        assertThat(Strings.join(".", "a", "b")).isEqualTo("a.b");
+        assertThat(Strings.join(".", "a", null)).isEqualTo("a.null");
+        assertThat(Strings.join(".")).isEqualTo("");
+        assertThatThrownBy(() -> Strings.join(null, "a", "b", "c")).isInstanceOf(NullPointerException.class);
+    }
 }

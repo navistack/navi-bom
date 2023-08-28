@@ -5,7 +5,7 @@ import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import org.junit.jupiter.api.Test;
 import org.navistack.boot.autoconfigure.cloudservice.aliyun.afs.AliyunAfsProperties;
 import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.captcha.TencentCloudCaptchaProperties;
-import org.navistack.framework.cache.CacheService;
+import org.navistack.framework.cache.ScopedCacheServiceBuilder;
 import org.navistack.framework.captcha.CaptchaTesterComposite;
 import org.navistack.framework.captcha.afs.AfsCaptchaTester;
 import org.navistack.framework.captcha.simplecaptcha.DefaultSimpleCaptchaService;
@@ -25,8 +25,8 @@ class CaptchaAutoConfigurationTest {
 
     @Test
     void testWithProperties() {
-        contextRunner.withBean(CacheService.class, () -> mock(CacheService.class))
-                .withPropertyValues(CaptchaProperties.PROPERTIES_PREFIX+".url-patterns=/login")
+        contextRunner.withBean(ScopedCacheServiceBuilder.class, () -> mock(ScopedCacheServiceBuilder.class))
+                .withPropertyValues(CaptchaProperties.PROPERTIES_PREFIX + ".url-patterns=/login")
                 .run(context -> {
                     assertThat(context).hasBean("captchaTestInterceptor");
                     MappedInterceptor interceptor = context.getBean("captchaTestInterceptor", MappedInterceptor.class);
@@ -37,7 +37,7 @@ class CaptchaAutoConfigurationTest {
 
     @Test
     void testSimpleCaptchaTester() {
-        contextRunner.withBean(CacheService.class, () -> mock(CacheService.class))
+        contextRunner.withBean(ScopedCacheServiceBuilder.class, () -> mock(ScopedCacheServiceBuilder.class))
                 .run(context -> {
                     assertThat(context).hasSingleBean(SimpleCaptchaService.class);
                     assertThat(context.getBean(SimpleCaptchaService.class)).isInstanceOf(DefaultSimpleCaptchaService.class);
@@ -49,7 +49,7 @@ class CaptchaAutoConfigurationTest {
 
     @Test
     void testAfsCaptchaTester() {
-        contextRunner.withBean(CacheService.class, () -> mock(CacheService.class))
+        contextRunner.withBean(ScopedCacheServiceBuilder.class, () -> mock(ScopedCacheServiceBuilder.class))
                 .withBean(IAcsClient.class, () -> mock(IAcsClient.class))
                 .withBean(AliyunAfsProperties.class, () -> mock(AliyunAfsProperties.class))
                 .run(context -> {
@@ -61,7 +61,7 @@ class CaptchaAutoConfigurationTest {
 
     @Test
     void testTccCaptchaTester() {
-        contextRunner.withBean(CacheService.class, () -> mock(CacheService.class))
+        contextRunner.withBean(ScopedCacheServiceBuilder.class, () -> mock(ScopedCacheServiceBuilder.class))
                 .withBean(CaptchaClient.class, () -> mock(CaptchaClient.class))
                 .withBean(TencentCloudCaptchaProperties.class, () -> mock(TencentCloudCaptchaProperties.class))
                 .run(context -> {

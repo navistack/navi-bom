@@ -3,9 +3,8 @@ package org.navistack.framework.captcha.simplecaptcha;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.navistack.framework.cache.CacheKeyBuilder;
 import org.navistack.framework.cache.CacheService;
-import org.navistack.framework.cache.PrefixedCacheKeyBuilder;
+import org.navistack.framework.cache.ScopedCacheServiceBuilder;
 import org.navistack.framework.captcha.simplecaptcha.imagefilters.BorderImageFilter;
 import org.navistack.framework.captcha.simplecaptcha.imagefilters.GradientBackgroundImageFilter;
 import org.navistack.framework.captcha.simplecaptcha.imagefilters.NoiseImageFilter;
@@ -18,16 +17,6 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
-    @Getter
-    @Setter
-    @NonNull
-    private CacheKeyBuilder challengeKeyBuilder = new PrefixedCacheKeyBuilder(".", "NAVI", "SIMPLE_CAPTCHA", "CHALLENGE");
-
-    @Getter
-    @Setter
-    @NonNull
-    private CacheKeyBuilder ticketKeyBuilder = new PrefixedCacheKeyBuilder(".", "NAVI", "SIMPLE_CAPTCHA", "TICKET");
-
     @Getter
     @Setter
     @NonNull
@@ -57,8 +46,8 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
 
     private final CacheService cacheService;
 
-    public DefaultSimpleCaptchaService(CacheService cacheService) {
-        this.cacheService = cacheService;
+    public DefaultSimpleCaptchaService(ScopedCacheServiceBuilder cacheServiceBuilder) {
+        this.cacheService = cacheServiceBuilder.build("NAVI", "SIMPLE_CAPTCHA");
     }
 
     @Override
@@ -66,7 +55,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
         String challenge = UUID.randomUUID().toString();
 
         String expected = textGenerator.generate();
-        cacheService.set(challengeKeyBuilder.build(challenge), expected, challengeValidity, TimeUnit.MILLISECONDS);
+        cacheService.set("CHALLENGE_" + challenge, expected, challengeValidity, TimeUnit.MILLISECONDS);
 
         return challenge;
     }
@@ -76,7 +65,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
         String ticket = UUID.randomUUID().toString();
 
         boolean passed = Optional.ofNullable(
-                        cacheService.getAndDelete(challengeKeyBuilder.build(challenge), String.class)
+                        cacheService.getAndDelete("CHALLENGE_" + challenge, String.class)
                 ).map(expectedAnswer -> expectedAnswer.equals(answer))
                 .orElse(false);
 
@@ -84,7 +73,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
         userAttempt.setAnswer(answer);
         userAttempt.setValidated(passed);
 
-        cacheService.set(ticketKeyBuilder.build(ticket), userAttempt, ticketValidity, TimeUnit.MILLISECONDS);
+        cacheService.set("TICKET_" + ticket, userAttempt, ticketValidity, TimeUnit.MILLISECONDS);
 
         UserAttemptResult result = new UserAttemptResult();
         result.setValidated(passed);
@@ -96,7 +85,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
     @Override
     public boolean validate(String ticket) {
         return Optional.ofNullable(cacheService.getAndDelete(
-                        ticketKeyBuilder.build(ticket),
+                        "TICKET_" + ticket,
                         UserAttempt.class
                 ))
                 .map(UserAttempt::isValidated)
@@ -106,7 +95,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
     @Override
     public RenderedImage draw(String challenge) {
         String response = Optional.ofNullable(
-                        cacheService.get(challengeKeyBuilder.build(challenge), String.class)
+                        cacheService.get("CHALLENGE_" + challenge, String.class)
                 )
                 .orElse("");
         return textRender.render(response);

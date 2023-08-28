@@ -1,7 +1,9 @@
 package org.navistack.boot.autoconfigure.cache;
 
 import org.navistack.framework.cache.CacheService;
+import org.navistack.framework.cache.DefaultScopedCacheServiceBuilder;
 import org.navistack.framework.cache.RedisCacheService;
+import org.navistack.framework.cache.ScopedCacheServiceBuilder;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -21,5 +23,12 @@ public class CacheAutoConfiguration {
     @ConditionalOnMissingBean(CacheService.class)
     public CacheService cacheService(RedisOperations<String, Object> redisOperations) {
         return new RedisCacheService(redisOperations);
+    }
+
+    @Bean
+    @ConditionalOnBean(CacheService.class)
+    @ConditionalOnMissingBean(ScopedCacheServiceBuilder.class)
+    public ScopedCacheServiceBuilder scopedCacheServiceBuilder(CacheService cacheService) {
+        return new DefaultScopedCacheServiceBuilder(cacheService);
     }
 }

@@ -2,6 +2,8 @@ package org.navistack.framework.utils;
 
 import lombok.experimental.UtilityClass;
 
+import java.util.StringJoiner;
+
 @UtilityClass
 public class Strings {
     public String strip(String str) {
@@ -52,6 +54,14 @@ public class Strings {
 
     public String[] split(String str, String regex, int limit) {
         return hasLength(str) ? str.split(regex, limit) : new String[]{};
+    }
+
+    public String join(String delimiter, String... strings) {
+        StringJoiner joiner = new StringJoiner(delimiter);
+        for (String string : strings) {
+            joiner.add(string);
+        }
+        return joiner.toString();
     }
 
     private int indexOfNonWhitespace(String str) {
