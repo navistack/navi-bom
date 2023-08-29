@@ -30,7 +30,7 @@ public class RateLimitAutoConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public FixedWindowRateLimiter fixedWindowRateLimiter(RedisOperations<String, Long> redisOperations) {
-            return new RedisOperationFixedWindowRateLimiter(redisOperations);
+            return new RedisFixedWindowRateLimiter(redisOperations);
         }
 
         @Bean
@@ -53,7 +53,7 @@ public class RateLimitAutoConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public SlidingWindowRateLimiter slidingWindowRateLimiter(RedisOperations<String, Long> redisOperations) {
-            return new RedisOperationSlidingWindowRateLimiter(redisOperations);
+            return new RedisSlidingWindowRateLimiter(redisOperations);
         }
 
         @Bean
