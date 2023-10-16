@@ -1,22 +1,31 @@
 package org.navistack.framework.sms.aliyun;
 
-import com.aliyuncs.IAcsClient;
-import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
-import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
-import com.aliyuncs.exceptions.ClientException;
+import com.aliyun.dysmsapi20170525.Client;
+import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
+import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
+import com.aliyun.dysmsapi20170525.models.SendSmsResponseBody;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.navistack.framework.sms.ShortMessage;
 import org.navistack.framework.sms.ShortMessageException;
 import org.navistack.framework.sms.ShortMessageServiceProvider;
 
+import java.util.Collections;
 import java.util.Map;
 
 @Slf4j
 public class AliyunShortMessageServiceProvider implements ShortMessageServiceProvider {
-    private final IAcsClient acsClient;
+    private final Client client;
 
-    public AliyunShortMessageServiceProvider(IAcsClient acsClient) {
-        this.acsClient = acsClient;
+    @Setter
+    @Getter
+    private ObjectMapper objectMapper;
+
+    public AliyunShortMessageServiceProvider(Client client) {
+        this.client = client;
     }
 
     @Override
@@ -41,52 +50,37 @@ public class AliyunShortMessageServiceProvider implements ShortMessageServicePro
         }
 
         try {
-            SendSmsResponse response = acsClient.getAcsResponse(request);
+            SendSmsResponse response = client.sendSms(request);
+            SendSmsResponseBody responseBody = response.getBody();
             log.debug(
                     "Short Message Sending Response:"
                             + " code={}"
                             + " message={}"
                             + " requestId={}"
                             + " bizId={}",
-                    response.getCode(),
-                    response.getMessage(),
-                    response.getRequestId(),
-                    response.getBizId()
+                    responseBody.getCode(),
+                    responseBody.getMessage(),
+                    responseBody.getRequestId(),
+                    responseBody.getBizId()
             );
-            if (!"OK".equalsIgnoreCase(response.getCode())) {
+            if (!"OK".equalsIgnoreCase(responseBody.getCode())) {
                 throw new ShortMessageException(String.format(
                         "failed sending short message: %s(%s)",
-                        response.getMessage(),
-                        response.getCode()
+                        responseBody.getMessage(),
+                        responseBody.getCode()
                 ));
             }
-        } catch (ClientException e) {
+        } catch (Exception e) {
             throw new ShortMessageException(e);
         }
     }
 
-    protected static String buildTemplateParam(Map<String, Object> templateParam) {
+    @SneakyThrows
+    protected String buildTemplateParam(Map<String, Object> templateParam) {
         if (templateParam == null || templateParam.isEmpty()) {
-            return "{}";
+            objectMapper.writeValueAsString(Collections.emptyMap());
         }
 
-        StringBuilder stringBuilder = new StringBuilder("{");
-        for (Map.Entry<String, Object> entry : templateParam.entrySet()) {
-            Object value = entry.getValue();
-            if (value == null) {
-                stringBuilder
-                        .append('"').append(entry.getKey()).append('"')
-                        .append(':')
-                        .append("null");
-            } else {
-                stringBuilder
-                        .append('"').append(entry.getKey()).append('"')
-                        .append(':')
-                        .append('"').append(value.toString()).append('"');
-            }
-        }
-        stringBuilder.append("}");
-
-        return stringBuilder.toString();
+        return objectMapper.writeValueAsString(templateParam);
     }
 }

@@ -47,17 +47,12 @@
         <!-- Alibaba Cloud -->
         <dependency>
             <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-core</artifactId>
+            <artifactId>captcha20230305</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-afs</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <artifactId>dysmsapi20170525</artifactId>
             <optional>true</optional>
         </dependency>
 

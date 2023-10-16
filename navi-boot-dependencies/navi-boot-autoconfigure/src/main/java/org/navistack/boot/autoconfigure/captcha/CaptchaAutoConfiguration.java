@@ -1,19 +1,19 @@
 package org.navistack.boot.autoconfigure.captcha;
 
-import com.aliyuncs.IAcsClient;
+import com.aliyun.captcha20230305.Client;
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import org.navistack.boot.autoconfigure.cache.CacheAutoConfiguration;
-import org.navistack.boot.autoconfigure.cloudservice.aliyun.afs.AliyunAfsProperties;
+import org.navistack.boot.autoconfigure.cloudservice.aliyun.captcha.AliyunCaptchaProperties;
 import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.captcha.TencentCloudCaptchaProperties;
 import org.navistack.framework.cache.ScopedCacheServiceBuilder;
 import org.navistack.framework.captcha.CaptchaTestInterceptor;
 import org.navistack.framework.captcha.CaptchaTester;
 import org.navistack.framework.captcha.CaptchaTesterComposite;
-import org.navistack.framework.captcha.afs.AfsCaptchaTester;
+import org.navistack.framework.captcha.aliyun.AliyunCaptchaTester;
 import org.navistack.framework.captcha.simplecaptcha.DefaultSimpleCaptchaService;
 import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaService;
 import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaTester;
-import org.navistack.framework.captcha.tcc.TccCaptchaTester;
+import org.navistack.framework.captcha.tencentcloud.TencentCloudCaptchaTester;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -48,21 +48,21 @@ public class CaptchaAutoConfiguration {
 
     @Configuration
     @ConditionalOnClass(CaptchaClient.class)
-    public static class TccCaptchaTesterConfiguration {
+    public static class TencentCloudCaptchaTesterConfiguration {
         @Bean
         @ConditionalOnBean({TencentCloudCaptchaProperties.class, CaptchaClient.class})
-        public TccCaptchaTester tccCaptchaTester(TencentCloudCaptchaProperties properties, CaptchaClient captchaClient) {
-            return new TccCaptchaTester(properties.getCaptchaAppId(), properties.getAppSecretKey(), captchaClient);
+        public TencentCloudCaptchaTester tencentCloudCaptchaTester(TencentCloudCaptchaProperties properties, CaptchaClient captchaClient) {
+            return new TencentCloudCaptchaTester(properties.getCaptchaAppId(), properties.getAppSecretKey(), captchaClient);
         }
     }
 
     @Configuration
-    @ConditionalOnClass(IAcsClient.class)
-    public static class AfsCaptchaTesterConfiguration {
+    @ConditionalOnClass(Client.class)
+    public static class AliyunCaptchaTesterConfiguration {
         @Bean
-        @ConditionalOnBean({AliyunAfsProperties.class, IAcsClient.class})
-        public AfsCaptchaTester afsCaptchaTester(AliyunAfsProperties properties, IAcsClient acsClient) {
-            return new AfsCaptchaTester(properties.getAppKey(), properties.getScene(), acsClient);
+        @ConditionalOnBean({AliyunCaptchaProperties.class, Client.class})
+        public AliyunCaptchaTester aliyunCaptchaTester(Client client) {
+            return new AliyunCaptchaTester(client);
         }
     }
 

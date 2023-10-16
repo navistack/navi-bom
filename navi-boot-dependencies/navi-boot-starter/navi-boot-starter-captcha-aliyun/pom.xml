@@ -10,7 +10,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>navi-boot-starter-captcha-tcc</artifactId>
+    <artifactId>navi-boot-starter-captcha-aliyun</artifactId>
 
     <dependencies>
         <dependency>
@@ -18,12 +18,8 @@
             <artifactId>navi-boot-starter-captcha</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.tencentcloudapi</groupId>
-            <artifactId>tencentcloud-sdk-java-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.tencentcloudapi</groupId>
-            <artifactId>tencentcloud-sdk-java-captcha</artifactId>
+            <groupId>com.aliyun</groupId>
+            <artifactId>captcha20230305</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,17 +1,17 @@
 package org.navistack.boot.autoconfigure.captcha;
 
-import com.aliyuncs.IAcsClient;
+import com.aliyun.captcha20230305.Client;
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import org.junit.jupiter.api.Test;
-import org.navistack.boot.autoconfigure.cloudservice.aliyun.afs.AliyunAfsProperties;
+import org.navistack.boot.autoconfigure.cloudservice.aliyun.captcha.AliyunCaptchaProperties;
 import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.captcha.TencentCloudCaptchaProperties;
 import org.navistack.framework.cache.ScopedCacheServiceBuilder;
 import org.navistack.framework.captcha.CaptchaTesterComposite;
-import org.navistack.framework.captcha.afs.AfsCaptchaTester;
+import org.navistack.framework.captcha.aliyun.AliyunCaptchaTester;
 import org.navistack.framework.captcha.simplecaptcha.DefaultSimpleCaptchaService;
 import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaService;
 import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaTester;
-import org.navistack.framework.captcha.tcc.TccCaptchaTester;
+import org.navistack.framework.captcha.tencentcloud.TencentCloudCaptchaTester;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.web.servlet.handler.MappedInterceptor;
@@ -48,26 +48,26 @@ class CaptchaAutoConfigurationTest {
     }
 
     @Test
-    void testAfsCaptchaTester() {
+    void testAliyunCaptchaTester() {
         contextRunner.withBean(ScopedCacheServiceBuilder.class, () -> mock(ScopedCacheServiceBuilder.class))
-                .withBean(IAcsClient.class, () -> mock(IAcsClient.class))
-                .withBean(AliyunAfsProperties.class, () -> mock(AliyunAfsProperties.class))
+                .withBean(Client.class, () -> mock(Client.class))
+                .withBean(AliyunCaptchaProperties.class, () -> mock(AliyunCaptchaProperties.class))
                 .run(context -> {
-                    assertThat(context).hasSingleBean(AfsCaptchaTester.class);
+                    assertThat(context).hasSingleBean(AliyunCaptchaTester.class);
                     assertThat(context).hasSingleBean(CaptchaTesterComposite.class);
-                    assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asList().hasAtLeastOneElementOfType(AfsCaptchaTester.class);
+                    assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asList().hasAtLeastOneElementOfType(AliyunCaptchaTester.class);
                 });
     }
 
     @Test
-    void testTccCaptchaTester() {
+    void testTencentCloudCaptchaTester() {
         contextRunner.withBean(ScopedCacheServiceBuilder.class, () -> mock(ScopedCacheServiceBuilder.class))
                 .withBean(CaptchaClient.class, () -> mock(CaptchaClient.class))
                 .withBean(TencentCloudCaptchaProperties.class, () -> mock(TencentCloudCaptchaProperties.class))
                 .run(context -> {
-                    assertThat(context).hasSingleBean(TccCaptchaTester.class);
+                    assertThat(context).hasSingleBean(TencentCloudCaptchaTester.class);
                     assertThat(context).hasSingleBean(CaptchaTesterComposite.class);
-                    assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asList().hasAtLeastOneElementOfType(TccCaptchaTester.class);
+                    assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asList().hasAtLeastOneElementOfType(TencentCloudCaptchaTester.class);
                 });
     }
 }

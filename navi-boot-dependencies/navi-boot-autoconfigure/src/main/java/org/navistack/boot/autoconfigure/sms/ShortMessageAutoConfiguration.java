@@ -1,6 +1,6 @@
 package org.navistack.boot.autoconfigure.sms;
 
-import com.aliyuncs.IAcsClient;
+import com.aliyun.dysmsapi20170525.Client;
 import com.tencentcloudapi.sms.v20210111.SmsClient;
 import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.captcha.TencentCloudCaptchaProperties;
 import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.sms.TencentCloudSmsProperties;
@@ -48,12 +48,12 @@ public class ShortMessageAutoConfiguration {
     }
 
     @Configuration
-    @ConditionalOnClass(IAcsClient.class)
+    @ConditionalOnClass(Client.class)
     public static class AliyunShortMessageConfiguration {
         @Bean
-        @ConditionalOnBean({IAcsClient.class})
-        public AliyunShortMessageServiceProvider aliyunShortMessageServiceProvider(IAcsClient acsClient) {
-            return new AliyunShortMessageServiceProvider(acsClient);
+        @ConditionalOnBean(Client.class)
+        public AliyunShortMessageServiceProvider aliyunShortMessageServiceProvider(Client client) {
+            return new AliyunShortMessageServiceProvider(client);
         }
     }
 }

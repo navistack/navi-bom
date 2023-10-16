@@ -73,12 +73,12 @@
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
-                <artifactId>navi-boot-starter-captcha-afs</artifactId>
+                <artifactId>navi-boot-starter-captcha-aliyun</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
-                <artifactId>navi-boot-starter-captcha-tcc</artifactId>
+                <artifactId>navi-boot-starter-captcha-tencentcloud</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

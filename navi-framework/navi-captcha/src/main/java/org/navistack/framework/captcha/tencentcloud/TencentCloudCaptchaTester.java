@@ -1,4 +1,4 @@
-package org.navistack.framework.captcha.tcc;
+package org.navistack.framework.captcha.tencentcloud;
 
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import com.tencentcloudapi.captcha.v20190722.models.DescribeCaptchaResultRequest;
@@ -9,12 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.navistack.framework.captcha.CaptchaTester;
 
 @Slf4j
-public class TccCaptchaTester implements CaptchaTester {
+public class TencentCloudCaptchaTester implements CaptchaTester {
     private final Long captchaAppId;
     private final String appSecretKey;
     private final CaptchaClient captchaClient;
 
-    public TccCaptchaTester(Long captchaAppId, String appSecretKey, CaptchaClient captchaClient) {
+    public TencentCloudCaptchaTester(Long captchaAppId, String appSecretKey, CaptchaClient captchaClient) {
         this.captchaAppId = captchaAppId;
         this.appSecretKey = appSecretKey;
         this.captchaClient = captchaClient;
@@ -29,7 +29,7 @@ public class TccCaptchaTester implements CaptchaTester {
             req.setRandstr(request.getParameter("randstr"));
             req.setTicket(request.getParameter("ticket"));
             DescribeCaptchaResultResponse resp = captchaClient.DescribeCaptchaResult(req);
-            if (TccCaptchaCodes.OK.equals(resp.getCaptchaCode())) {
+            if (TencentCloudCaptchaCodes.OK.equals(resp.getCaptchaCode())) {
                 return true;
             } else {
                 log.warn("Failed validating ticket: Response: {}", resp);

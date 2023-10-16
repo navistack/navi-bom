@@ -1,9 +1,9 @@
-package org.navistack.framework.captcha.tcc;
+package org.navistack.framework.captcha.tencentcloud;
 
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class TccCaptchaCodes {
+public class TencentCloudCaptchaCodes {
     /**
      * 验证通过
      */

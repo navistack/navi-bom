@@ -28,12 +28,14 @@
         <!-- Alibaba Cloud -->
         <dependency>
             <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-core</artifactId>
+            <artifactId>dysmsapi20170525</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Jackson -->
         <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
