@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -38,13 +37,6 @@ class ScopedCacheServiceTest {
     }
 
     @Test
-    void setWithTimeUnit() {
-        cacheService.set("key", "value", 0, TimeUnit.SECONDS);
-        verify(underlyingService).
-                set("test.key", "value", 0, TimeUnit.SECONDS);
-    }
-
-    @Test
     void setIfAbsent() {
         cacheService.setIfAbsent("key", "value");
         verify(underlyingService).
@@ -56,13 +48,6 @@ class ScopedCacheServiceTest {
         cacheService.setIfAbsent("key", "value", Duration.ZERO);
         verify(underlyingService).
                 setIfAbsent("test.key", "value", Duration.ZERO);
-    }
-
-    @Test
-    void setIfAbsentWithTimeUnit() {
-        cacheService.setIfAbsent("key", "value", 0, TimeUnit.SECONDS);
-        verify(underlyingService).
-                setIfAbsent("test.key", "value", 0, TimeUnit.SECONDS);
     }
 
     @Test

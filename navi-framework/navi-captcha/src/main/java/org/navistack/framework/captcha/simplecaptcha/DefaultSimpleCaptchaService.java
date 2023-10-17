@@ -12,9 +12,10 @@ import org.navistack.framework.captcha.simplecaptcha.imagefilters.WaterRippleIma
 import org.navistack.framework.captcha.simplecaptcha.textgenerators.AlphanumericTextGenerator;
 
 import java.awt.image.RenderedImage;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
     @Getter
@@ -55,7 +56,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
         String challenge = UUID.randomUUID().toString();
 
         String expected = textGenerator.generate();
-        cacheService.set("CHALLENGE_" + challenge, expected, challengeValidity, TimeUnit.MILLISECONDS);
+        cacheService.set("CHALLENGE_" + challenge, expected, Duration.of(challengeValidity, ChronoUnit.MILLIS));
 
         return challenge;
     }
@@ -73,7 +74,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
         userAttempt.setAnswer(answer);
         userAttempt.setValidated(passed);
 
-        cacheService.set("TICKET_" + ticket, userAttempt, ticketValidity, TimeUnit.MILLISECONDS);
+        cacheService.set("TICKET_" + ticket, userAttempt, Duration.of(ticketValidity, ChronoUnit.MILLIS));
 
         UserAttemptResult result = new UserAttemptResult();
         result.setValidated(passed);

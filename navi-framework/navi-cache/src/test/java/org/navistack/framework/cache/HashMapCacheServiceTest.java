@@ -7,7 +7,6 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,15 +28,6 @@ class HashMapCacheServiceTest {
     }
 
     @Test
-    void setWithTimeUnit() {
-        HashMapCacheService service = new HashMapCacheService();
-        service.setClock(Clock.fixed(Instant.parse("2011-12-03T10:15:30Z"), ZoneId.of("UTC")));
-        service.set("key", "value", 0, TimeUnit.SECONDS);
-        service.setClock(Clock.fixed(Instant.parse("2011-12-03T10:15:31Z"), ZoneId.of("UTC")));
-        assertThat(service.get("key", String.class)).isNull();
-    }
-
-    @Test
     void setIfAbsent() {
         HashMapCacheService service = new HashMapCacheService();
         service.setIfAbsent("key", "value");
@@ -52,16 +42,6 @@ class HashMapCacheServiceTest {
         HashMapCacheService service = new HashMapCacheService();
         service.setClock(Clock.fixed(Instant.parse("2011-12-03T10:15:30Z"), ZoneId.of("UTC")));
         assertThat(service.setIfAbsent("key", "value", Duration.ZERO)).isTrue();
-        service.setClock(Clock.fixed(Instant.parse("2011-12-03T10:15:31Z"), ZoneId.of("UTC")));
-        assertThat(service.setIfAbsent("key", "new value")).isTrue();
-        assertThat(service.get("key", String.class)).isEqualTo("new value");
-    }
-
-    @Test
-    void setIfAbsentWithTimeUnit() {
-        HashMapCacheService service = new HashMapCacheService();
-        service.setClock(Clock.fixed(Instant.parse("2011-12-03T10:15:30Z"), ZoneId.of("UTC")));
-        assertThat(service.setIfAbsent("key", "value", 0, TimeUnit.SECONDS)).isTrue();
         service.setClock(Clock.fixed(Instant.parse("2011-12-03T10:15:31Z"), ZoneId.of("UTC")));
         assertThat(service.setIfAbsent("key", "new value")).isTrue();
         assertThat(service.get("key", String.class)).isEqualTo("new value");

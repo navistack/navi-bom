@@ -7,10 +7,8 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class HashMapCacheService implements CacheService {
     private final Map<String, Object> objectMap = new HashMap<>();
@@ -33,13 +31,6 @@ public class HashMapCacheService implements CacheService {
     }
 
     @Override
-    public synchronized void set(String key, Object value, long timeout, TimeUnit unit) {
-        long expiration = Instant.now(clock).plus(unit.toMillis(timeout), ChronoUnit.MILLIS).toEpochMilli();
-        expirationMap.put(key, expiration);
-        objectMap.put(key, value);
-    }
-
-    @Override
     public synchronized boolean setIfAbsent(String key, Object value) {
         removeIfExpired(key, Instant.now(clock));
         if (objectMap.containsKey(key)) {
@@ -50,12 +41,12 @@ public class HashMapCacheService implements CacheService {
     }
 
     @Override
-    public synchronized boolean setIfAbsent(String key, Object value, long timeout, TimeUnit unit) {
+    public boolean setIfAbsent(String key, Object value, Duration timeout) {
         removeIfExpired(key, Instant.now(clock));
         if (objectMap.containsKey(key)) {
             return false;
         }
-        set(key, value, timeout, unit);
+        set(key, value, timeout);
         return true;
     }
 

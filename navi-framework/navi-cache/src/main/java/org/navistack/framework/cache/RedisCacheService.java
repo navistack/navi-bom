@@ -5,7 +5,6 @@ import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.SessionCallback;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 public class RedisCacheService implements CacheService {
     private final RedisOperations<String, Object> redisOperations;
@@ -25,17 +24,14 @@ public class RedisCacheService implements CacheService {
     }
 
     @Override
-    public void set(String key, Object value, long timeout, TimeUnit unit) {
-        redisOperations.opsForValue().set(key, value, timeout, unit);
-    }
-
     public boolean setIfAbsent(String key, Object value) {
         Boolean result = redisOperations.opsForValue().setIfAbsent(key, value);
         return result != null && result;
     }
 
-    public boolean setIfAbsent(String key, Object value, long timeout, TimeUnit unit) {
-        Boolean result = redisOperations.opsForValue().setIfAbsent(key, value, timeout, unit);
+    @Override
+    public boolean setIfAbsent(String key, Object value, Duration timeout) {
+        Boolean result = redisOperations.opsForValue().setIfAbsent(key, value, timeout);
         return result != null && result;
     }
 
@@ -51,7 +47,7 @@ public class RedisCacheService implements CacheService {
     }
 
     public <V> V getAndDelete(String key, Class<V> clazz) {
-        return clazz.cast(redisOperations.execute(new SessionCallback<Object>() {
+        return clazz.cast(redisOperations.execute(new SessionCallback<>() {
             @Override
             public <K, TV> Object execute(RedisOperations<K, TV> pOperations) throws DataAccessException {
                 @SuppressWarnings("unchecked")

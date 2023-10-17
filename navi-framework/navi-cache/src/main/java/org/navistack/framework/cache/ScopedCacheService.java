@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.navistack.framework.utils.Asserts;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 @Getter
 public class ScopedCacheService implements CacheService {
@@ -32,12 +31,6 @@ public class ScopedCacheService implements CacheService {
     }
 
     @Override
-    public void set(String key, Object value, long timeout, TimeUnit unit) {
-        String scopedKey = keyBuilder.build(key);
-        underlyingService.set(scopedKey, value, timeout, unit);
-    }
-
-    @Override
     public boolean setIfAbsent(String key, Object value) {
         String scopedKey = keyBuilder.build(key);
         return underlyingService.setIfAbsent(scopedKey, value);
@@ -47,12 +40,6 @@ public class ScopedCacheService implements CacheService {
     public boolean setIfAbsent(String key, Object value, Duration timeout) {
         String scopedKey = keyBuilder.build(key);
         return underlyingService.setIfAbsent(scopedKey, value, timeout);
-    }
-
-    @Override
-    public boolean setIfAbsent(String key, Object value, long timeout, TimeUnit unit) {
-        String scopedKey = keyBuilder.build(key);
-        return underlyingService.setIfAbsent(scopedKey, value, timeout, unit);
     }
 
     @Override
