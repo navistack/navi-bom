@@ -24,8 +24,13 @@ public class AliyunShortMessageServiceProvider implements ShortMessageServicePro
     @Getter
     private ObjectMapper objectMapper;
 
-    public AliyunShortMessageServiceProvider(Client client) {
+    public AliyunShortMessageServiceProvider(Client client, ObjectMapper objectMapper) {
         this.client = client;
+        this.objectMapper = objectMapper;
+    }
+
+    public AliyunShortMessageServiceProvider(Client client) {
+        this(client, new ObjectMapper());
     }
 
     @Override

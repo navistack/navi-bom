@@ -1,23 +1,21 @@
 package org.navistack.boot.autoconfigure.sms;
 
-import com.aliyun.dysmsapi20170525.Client;
-import com.tencentcloudapi.sms.v20210111.SmsClient;
-import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.captcha.TencentCloudCaptchaProperties;
-import org.navistack.boot.autoconfigure.cloudservice.tencentcloud.sms.TencentCloudSmsProperties;
 import org.navistack.framework.sms.*;
-import org.navistack.framework.sms.aliyun.AliyunShortMessageServiceProvider;
-import org.navistack.framework.sms.tencentcloud.TencentCloudShortMessageServiceProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @AutoConfiguration
 @ConditionalOnClass(ShortMessageService.class)
 @EnableConfigurationProperties(ShortMessageProperties.class)
+@Import({
+        AliyunShortMessageConfiguration.class,
+        TencentCloudShortMessageConfiguration.class
+})
 public class ShortMessageAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
@@ -37,23 +35,4 @@ public class ShortMessageAutoConfiguration {
         return new DefaultShortMessageService(templateRegistration, serviceProvider);
     }
 
-    @Configuration
-    @ConditionalOnClass(SmsClient.class)
-    public static class TencentCloudShortMessageConfiguration {
-        @Bean
-        @ConditionalOnBean({TencentCloudCaptchaProperties.class, SmsClient.class})
-        public TencentCloudShortMessageServiceProvider tencentCloudShortMessageServiceProvider(TencentCloudSmsProperties properties, SmsClient smsClient) {
-            return new TencentCloudShortMessageServiceProvider(properties.getSdkAppId(), properties.getAppKey(), smsClient);
-        }
-    }
-
-    @Configuration
-    @ConditionalOnClass(Client.class)
-    public static class AliyunShortMessageConfiguration {
-        @Bean
-        @ConditionalOnBean(Client.class)
-        public AliyunShortMessageServiceProvider aliyunShortMessageServiceProvider(Client client) {
-            return new AliyunShortMessageServiceProvider(client);
-        }
-    }
 }
