@@ -24,10 +24,13 @@ public class ExceptionHandlingHttpSecurityBeanPostProcessor implements BeanPostP
 
     private void register(final HttpSecurity http, final String beanName, final ExceptionHandlingHttpSecuritySupport support) {
         try {
-            http.exceptionHandling().authenticationEntryPoint(support).accessDeniedHandler(support);
+            http.exceptionHandling(configurer -> {
+                configurer.authenticationEntryPoint(support)
+                        .accessDeniedHandler(support);
+            });
         } catch (final Exception cause) {
             throw new BeanCreationException(beanName, cause);
         }
-        log.info("Register HttpSecurity's exceptionHandling");
+        log.trace("Register HttpSecurity's exceptionHandling");
     }
 }
