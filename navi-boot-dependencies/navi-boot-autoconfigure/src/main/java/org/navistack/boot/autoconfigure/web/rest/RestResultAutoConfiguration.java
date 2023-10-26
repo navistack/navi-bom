@@ -53,7 +53,8 @@ public class RestResultAutoConfiguration implements ApplicationContextAware {
             builder.setLocaleResolver(localeResolver);
         }
 
-        Map<String, ExceptionHandlingConfigurer> configurers = applicationContext.getBeansOfType(ExceptionHandlingConfigurer.class);
+        Map<String, ExceptionHandlingConfigurer> configurers;
+        configurers = applicationContext.getBeansOfType(ExceptionHandlingConfigurer.class);
         for (ExceptionHandlingConfigurer configurer : configurers.values()) {
             builder.applyConfigurer(configurer);
         }

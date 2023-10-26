@@ -7,7 +7,8 @@ import java.util.function.IntFunction;
 @UtilityClass
 public class Arrays {
     /**
-     * Get element from array null-safely
+     * Get element from array null-safely.
+     *
      * @param arr array
      * @param idx index of element
      * @return element at the index of array or null if index out of bound
@@ -17,7 +18,8 @@ public class Arrays {
     }
 
     /**
-     * Check if array is empty
+     * Check if array is empty.
+     *
      * @param arr array
      * @return true if array is empty (length == 0) or false if array is null
      */
@@ -26,7 +28,8 @@ public class Arrays {
     }
 
     /**
-     * Check if array is not empty
+     * Check if array is not empty.
+     *
      * @param arr array
      * @return true if array is not null and not empty (length > 0)
      */
@@ -35,7 +38,8 @@ public class Arrays {
     }
 
     /**
-     * Shift elements in array right
+     * Shift elements in array right.
+     *
      * @param arr array
      * @param length length to shift
      * @param generator a function which produces a new array of the desired type and the provided length
@@ -56,12 +60,13 @@ public class Arrays {
     }
 
     /**
-     * return arguments as is
+     * return arguments as is.
+     *
      * @param elems elements of array
      * @return array contains elems
      */
     @SafeVarargs
-    public <T> T[] asArray(T...elems) {
+    public <T> T[] asArray(T... elems) {
         return elems;
     }
 }

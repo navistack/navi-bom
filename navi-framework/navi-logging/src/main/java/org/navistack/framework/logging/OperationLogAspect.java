@@ -61,6 +61,7 @@ public class OperationLogAspect {
             case ERROR:
                 logService.error(declaringType, message);
                 return;
+            default:
         }
     }
 }

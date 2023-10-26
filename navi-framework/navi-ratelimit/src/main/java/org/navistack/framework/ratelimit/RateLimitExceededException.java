@@ -1,6 +1,6 @@
 package org.navistack.framework.ratelimit;
 
-public class RateLimitExceededException extends RuntimeException{
+public class RateLimitExceededException extends RuntimeException {
     public RateLimitExceededException() {
         super();
     }
@@ -17,7 +17,10 @@ public class RateLimitExceededException extends RuntimeException{
         super(cause);
     }
 
-    protected RateLimitExceededException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected RateLimitExceededException(String message,
+                                         Throwable cause,
+                                         boolean enableSuppression,
+                                         boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

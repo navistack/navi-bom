@@ -11,7 +11,8 @@ import java.util.Collection;
 @Getter
 @Setter
 @Accessors(fluent = true)
-public class SanitizingHttpServletRequestWrapperBuilder implements HttpServletRequestWrapperBuilder<SanitizingHttpServletRequestWrapper> {
+public class SanitizingHttpServletRequestWrapperBuilder
+        implements HttpServletRequestWrapperBuilder<SanitizingHttpServletRequestWrapper> {
 
     private ContentSanitizer contentSanitizer;
     private Collection<String> bypassedHeaders;

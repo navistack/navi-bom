@@ -17,7 +17,10 @@ public class ShortMessageException extends RuntimeException {
         super(cause);
     }
 
-    protected ShortMessageException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected ShortMessageException(String message,
+                                    Throwable cause,
+                                    boolean enableSuppression,
+                                    boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.image.BufferedImage;
@@ -13,8 +16,8 @@ import java.util.random.RandomGenerator;
 
 /**
  * Creates an image with text rendered on it.
- * <p>
- * Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
+ *
+ * <p>Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
  */
 public class DefaultTextRender extends FilteringTextRender implements TextRender {
     @Getter

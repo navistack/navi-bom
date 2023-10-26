@@ -14,7 +14,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnClass(CaptchaClient.class)
-@ConditionalOnProperty(prefix = TencentCloudCaptchaProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = TencentCloudCaptchaProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "true",
+        matchIfMissing = true)
 @EnableConfigurationProperties(TencentCloudCaptchaProperties.class)
 public class TencentCloudCaptchaConfiguration extends TencentCloudConfigurationSupport {
     @Bean

@@ -17,7 +17,10 @@ public class ObjectManipulationException extends RuntimeException {
         super(cause);
     }
 
-    protected ObjectManipulationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected ObjectManipulationException(String message,
+                                          Throwable cause,
+                                          boolean enableSuppression,
+                                          boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

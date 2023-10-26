@@ -26,7 +26,11 @@ public class CodedException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    protected CodedException(int errorCode, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected CodedException(int errorCode,
+                             String message,
+                             Throwable cause,
+                             boolean enableSuppression,
+                             boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.errorCode = errorCode;
     }

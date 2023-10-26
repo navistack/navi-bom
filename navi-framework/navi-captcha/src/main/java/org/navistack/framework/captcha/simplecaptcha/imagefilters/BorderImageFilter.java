@@ -5,14 +5,16 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.navistack.framework.captcha.simplecaptcha.ImageFilter;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 
 /**
  * Adds border to an image.
- * <p>
- * Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
+ *
+ * <p>Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
  */
 public class BorderImageFilter implements ImageFilter {
     @Getter
@@ -26,9 +28,6 @@ public class BorderImageFilter implements ImageFilter {
 
     @Override
     public BufferedImage apply(BufferedImage image) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
         Graphics2D graphics = (Graphics2D) image.getGraphics();
         graphics.setColor(borderColor);
 
@@ -36,6 +35,10 @@ public class BorderImageFilter implements ImageFilter {
             BasicStroke stroke = new BasicStroke((float) borderThickness);
             graphics.setStroke(stroke);
         }
+
+
+        int width = image.getWidth();
+        int height = image.getHeight();
 
         Line2D line1 = new Line2D.Double(0, 0, 0, width);
         graphics.draw(line1);

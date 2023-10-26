@@ -33,7 +33,8 @@ public class PessimisticLockConfiguration implements ApplicationContextAware {
     @Bean
     @ConditionalOnMissingBean(PessimisticLockAspect.class)
     public PessimisticLockAspect pessimisticLockAspect(PessimisticLockService lockService) {
-        MethodExpressionEvaluatorFactory evaluatorFactory = ApplicationContexts.getBean(applicationContext, MethodExpressionEvaluatorFactory.class);
+        MethodExpressionEvaluatorFactory evaluatorFactory;
+        evaluatorFactory = ApplicationContexts.getBean(applicationContext, MethodExpressionEvaluatorFactory.class);
         if (evaluatorFactory == null) {
             evaluatorFactory = new DefaultMethodExpressionEvaluatorFactory();
         }

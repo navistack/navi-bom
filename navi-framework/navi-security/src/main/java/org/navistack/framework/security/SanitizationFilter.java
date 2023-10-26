@@ -22,7 +22,8 @@ public class SanitizationFilter extends GenericFilterBean {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
         if (request instanceof HttpServletRequest httpRequest) {
             chain.doFilter(httpServletRequestWrapperBuilder.build(httpRequest), response);
         } else {

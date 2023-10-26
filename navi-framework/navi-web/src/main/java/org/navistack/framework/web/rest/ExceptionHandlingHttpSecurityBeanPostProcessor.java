@@ -15,14 +15,17 @@ public class ExceptionHandlingHttpSecurityBeanPostProcessor implements BeanPostP
     private final ObjectProvider<ExceptionHandlingHttpSecuritySupport> httpSecuritySupport;
 
     @Override
-    public Object postProcessAfterInitialization(final Object bean, final String beanName) throws BeansException {
+    public Object postProcessAfterInitialization(final Object bean, final String beanName)
+            throws BeansException {
         if (ClassUtils.isAssignableValue(HttpSecurity.class, bean)) {
             httpSecuritySupport.ifAvailable(support -> register((HttpSecurity) bean, beanName, support));
         }
         return bean;
     }
 
-    private void register(final HttpSecurity http, final String beanName, final ExceptionHandlingHttpSecuritySupport support) {
+    private void register(final HttpSecurity http,
+                          final String beanName,
+                          final ExceptionHandlingHttpSecuritySupport support) {
         try {
             http.exceptionHandling(configurer -> {
                 configurer.authenticationEntryPoint(support)

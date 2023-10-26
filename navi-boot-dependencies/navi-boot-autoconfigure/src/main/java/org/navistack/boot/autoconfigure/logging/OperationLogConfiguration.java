@@ -32,7 +32,8 @@ public class OperationLogConfiguration implements ApplicationContextAware {
     @Bean
     @ConditionalOnMissingBean(OperationLogAspect.class)
     public OperationLogAspect operationLogAspect(OperationLogService logService) {
-        MethodExpressionEvaluatorFactory evaluatorFactory = ApplicationContexts.getBean(applicationContext, MethodExpressionEvaluatorFactory.class);
+        MethodExpressionEvaluatorFactory evaluatorFactory;
+        evaluatorFactory = ApplicationContexts.getBean(applicationContext, MethodExpressionEvaluatorFactory.class);
         if (evaluatorFactory == null) {
             evaluatorFactory = new DefaultMethodExpressionEvaluatorFactory();
         }

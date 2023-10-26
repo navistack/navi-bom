@@ -1,7 +1,7 @@
 package org.navistack.framework.core.error;
 
 public class ExternalException extends CodedException {
-    private final static int GENERAL_ERROR = 0x000;
+    private static final int GENERAL_ERROR = 0x000;
 
     public ExternalException() {
         super(ErrorCodeBuilder.externalError(GENERAL_ERROR));
@@ -35,11 +35,18 @@ public class ExternalException extends CodedException {
         super(ErrorCodeBuilder.externalError(errorCode), cause);
     }
 
-    protected ExternalException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected ExternalException(String message,
+                                Throwable cause,
+                                boolean enableSuppression,
+                                boolean writableStackTrace) {
         super(ErrorCodeBuilder.externalError(GENERAL_ERROR), message, cause, enableSuppression, writableStackTrace);
     }
 
-    protected ExternalException(int errorCode, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected ExternalException(int errorCode,
+                                String message,
+                                Throwable cause,
+                                boolean enableSuppression,
+                                boolean writableStackTrace) {
         super(ErrorCodeBuilder.externalError(errorCode), message, cause, enableSuppression, writableStackTrace);
     }
 }

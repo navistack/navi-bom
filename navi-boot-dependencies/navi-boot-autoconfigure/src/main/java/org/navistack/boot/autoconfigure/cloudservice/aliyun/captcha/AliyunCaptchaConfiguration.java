@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnClass(Client.class)
-@ConditionalOnProperty(prefix = AliyunCaptchaProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = AliyunCaptchaProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "true",
+        matchIfMissing = true)
 @EnableConfigurationProperties(AliyunCaptchaProperties.class)
 public class AliyunCaptchaConfiguration {
     @Bean

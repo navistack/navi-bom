@@ -28,13 +28,15 @@ public class PessimisticLockAspect {
     @NonNull
     private PessimisticLockService lockService;
 
-    public PessimisticLockAspect(MethodExpressionEvaluatorFactory evaluatorFactory, PessimisticLockService lockService) {
+    public PessimisticLockAspect(MethodExpressionEvaluatorFactory evaluatorFactory,
+                                 PessimisticLockService lockService) {
         this.evaluatorFactory = evaluatorFactory;
         this.lockService = lockService;
     }
 
     @Around("@annotation(pessimisticLock)")
-    public Object around(ProceedingJoinPoint joinPoint, PessimisticLock pessimisticLock) throws Throwable {
+    public Object around(ProceedingJoinPoint joinPoint, PessimisticLock pessimisticLock)
+            throws Throwable {
         Object[] args = joinPoint.getArgs();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();

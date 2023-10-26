@@ -67,14 +67,14 @@ public class TencentCloudShortMessageServiceProvider implements ShortMessageServ
             SendStatus[] sendStatusSet = response.getSendStatusSet();
             for (SendStatus sendStatus : sendStatusSet) {
                 log.debug(
-                        "Short message sending status ({}):" +
-                                " SerialNo={};" +
-                                " PhoneNumber={};" +
-                                " Fee={};" +
-                                " SessionContext={};" +
-                                " Code={};" +
-                                " Message={};" +
-                                " IsoCode={};",
+                        "Short message sending status ({}):"
+                                + " SerialNo={};"
+                                + " PhoneNumber={};"
+                                + " Fee={};"
+                                + " SessionContext={};"
+                                + " Code={};"
+                                + " Message={};"
+                                + " IsoCode={};",
                         response.getRequestId(),
                         sendStatus.getSerialNo(),
                         sendStatus.getPhoneNumber(),

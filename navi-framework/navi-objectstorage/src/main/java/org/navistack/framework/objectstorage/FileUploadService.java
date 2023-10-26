@@ -12,10 +12,10 @@ public interface FileUploadService {
      * Gets data from bucket of file.
      * Returned InputStream must be closed after use to release network resources.
      *
-     * <p> Object name must have bucket name prefixed as part of its name in which the file is stored.
+     * <p>Object name must have bucket name prefixed as part of its name in which the file is stored.
      * Bucket name and file name is seperated by ":".
      *
-     * <p> For example, getObject("bucket:file") will return data from bucket named "bucket"
+     * <p>For example, getObject("bucket:file") will return data from bucket named "bucket"
      * of file named "file".
      *
      * @param file name of file to get, having bucket name prefixed
@@ -37,7 +37,7 @@ public interface FileUploadService {
     InputStream getFile(String bucket, String file);
 
     /**
-     * Upload file, with default upload policy
+     * Upload file, with default upload policy.
      *
      * @param bucket      bucket in where file is stored
      * @param file        filename
@@ -59,7 +59,7 @@ public interface FileUploadService {
     UploadedFileStat uploadFile(String bucket, String file, Path filePath, String contentType, FileUploadPolicy policy);
 
     /**
-     * Upload local file
+     * Upload local file.
      *
      * @param bucket      bucket in where file is stored
      * @param file        filename
@@ -67,12 +67,16 @@ public interface FileUploadService {
      * @param contentType Content type of file on failing probing
      * @param policy      upload policy
      */
-    default UploadedFileStat uploadFile(String bucket, String file, String filename, String contentType, FileUploadPolicy policy) {
+    default UploadedFileStat uploadFile(String bucket,
+                                        String file,
+                                        String filename,
+                                        String contentType,
+                                        FileUploadPolicy policy) {
         return uploadFile(bucket, file, FileSystems.getDefault().getPath(filename), contentType, policy);
     }
 
     /**
-     * Upload local file, with default upload policy
+     * Upload local file, with default upload policy.
      *
      * @param bucket      bucket in where file is stored
      * @param file        filename
@@ -84,7 +88,7 @@ public interface FileUploadService {
     }
 
     /**
-     * Remove file
+     * Remove file.
      *
      * @param file name of file to be deleted, having bucket name prefixed
      */
@@ -94,7 +98,7 @@ public interface FileUploadService {
     }
 
     /**
-     * Remove file
+     * Remove file.
      *
      * @param bucket bucket in where file is stored
      * @param file   name of file to be deleted

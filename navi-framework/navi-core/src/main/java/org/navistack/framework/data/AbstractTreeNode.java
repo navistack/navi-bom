@@ -4,10 +4,9 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 
 @Data
-public abstract class AbstractTreeNode<ID, T extends TreeNode<ID, T>> implements TreeNode<ID, T> {
+public abstract class AbstractTreeNode<IdT, T extends TreeNode<IdT, T>> implements TreeNode<IdT, T> {
     private Collection<T> children;
 
     public AbstractTreeNode() {

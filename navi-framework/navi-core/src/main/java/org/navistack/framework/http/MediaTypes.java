@@ -2,13 +2,17 @@ package org.navistack.framework.http;
 
 import lombok.experimental.UtilityClass;
 
-import java.util.*;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * MIME Types
+ * MIME Types.
  *
  * @see <a href="http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types">http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types</a>
  */
@@ -66,7 +70,8 @@ public class MediaTypes {
     public final MediaType APPLICATION_MP4 = of("application", "mp4", "mp4s");
     public final MediaType APPLICATION_MSWORD = of("application", "msword", "doc", "dot");
     public final MediaType APPLICATION_MXF = of("application", "mxf", "mxf");
-    public final MediaType APPLICATION_OCTET_STREAM = of("application", "octet-stream", "bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc", "deploy");
+    public final MediaType APPLICATION_OCTET_STREAM = of("application", "octet-stream",
+            "bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc", "deploy");
     public final MediaType APPLICATION_ODA = of("application", "oda", "oda");
     public final MediaType APPLICATION_OEBPS_PACKAGE_XML = of("application", "oebps-package+xml", "opf");
     public final MediaType APPLICATION_OGG = of("application", "ogg", "ogx");
@@ -104,8 +109,10 @@ public class MediaTypes {
     public final MediaType APPLICATION_SCVP_VP_REQUEST = of("application", "scvp-vp-request", "spq");
     public final MediaType APPLICATION_SCVP_VP_RESPONSE = of("application", "scvp-vp-response", "spp");
     public final MediaType APPLICATION_SDP = of("application", "sdp", "sdp");
-    public final MediaType APPLICATION_SET_PAYMENT_INITIATION = of("application", "set-payment-initiation", "setpay");
-    public final MediaType APPLICATION_SET_REGISTRATION_INITIATION = of("application", "set-registration-initiation", "setreg");
+    public final MediaType APPLICATION_SET_PAYMENT_INITIATION = of("application", "set-payment-initiation",
+            "setpay");
+    public final MediaType APPLICATION_SET_REGISTRATION_INITIATION = of("application", "set-registration-initiation",
+            "setreg");
     public final MediaType APPLICATION_SHF_XML = of("application", "shf+xml", "shf");
     public final MediaType APPLICATION_SMIL_XML = of("application", "smil+xml", "smi", "smil");
     public final MediaType APPLICATION_SPARQL_QUERY = of("application", "sparql-query", "rq");
@@ -229,12 +236,12 @@ public class MediaTypes {
         return TYPES_POOL.get(fullType);
     }
 
-    public Optional<MediaType> optionalValueOf(String fullType) {
-        return Optional.ofNullable(valueOf(fullType));
-    }
-
     public MediaType valueOf(String type, String subType) {
         return valueOf(type + "/" + subType);
+    }
+
+    public Optional<MediaType> optionalValueOf(String fullType) {
+        return Optional.ofNullable(valueOf(fullType));
     }
 
     public Optional<MediaType> optionalValueOf(String type, String subType) {

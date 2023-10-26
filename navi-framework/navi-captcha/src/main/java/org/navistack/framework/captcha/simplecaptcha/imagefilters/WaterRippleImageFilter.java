@@ -5,13 +5,13 @@ import com.jhlabs.image.TransformFilter;
 import com.jhlabs.image.WaterFilter;
 import org.navistack.framework.captcha.simplecaptcha.ImageFilter;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 /**
  * Adds water ripple effect to an image.
- * <p>
- * Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
+ *
+ * <p>Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
  */
 public class WaterRippleImageFilter implements ImageFilter {
     /**
@@ -22,11 +22,6 @@ public class WaterRippleImageFilter implements ImageFilter {
      */
     @Override
     public BufferedImage apply(BufferedImage image) {
-        BufferedImage distortedImage = new BufferedImage(image.getWidth(),
-                image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D graphics = (Graphics2D) distortedImage.getGraphics();
-
         RippleFilter rippleFilter = new RippleFilter();
         rippleFilter.setWaveType(RippleFilter.SINE);
         rippleFilter.setXAmplitude(2.6f);
@@ -42,6 +37,11 @@ public class WaterRippleImageFilter implements ImageFilter {
 
         BufferedImage effectImage = waterFilter.filter(image, null);
         effectImage = rippleFilter.filter(effectImage, null);
+
+        BufferedImage distortedImage = new BufferedImage(image.getWidth(),
+                image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D graphics = (Graphics2D) distortedImage.getGraphics();
 
         graphics.drawImage(effectImage, 0, 0, null, null);
 

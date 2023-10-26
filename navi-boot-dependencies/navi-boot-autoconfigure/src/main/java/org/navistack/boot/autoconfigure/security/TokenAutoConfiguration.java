@@ -1,7 +1,11 @@
 package org.navistack.boot.autoconfigure.security;
 
 import org.navistack.boot.autoconfigure.security.jwt.JwtTokenConfiguration;
-import org.navistack.framework.security.*;
+import org.navistack.framework.security.TokenAuthenticationProvider;
+import org.navistack.framework.security.TokenConfigurer;
+import org.navistack.framework.security.TokenFilter;
+import org.navistack.framework.security.TokenHttpSecurityBeanPostProcessor;
+import org.navistack.framework.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -27,7 +31,8 @@ public class TokenAutoConfiguration {
     @ConditionalOnMissingBean
     public TokenConfigurer tokenConfigurer() {
         TokenFilter tokenFilter = getBeanOrNull(applicationContext, TokenFilter.class);
-        TokenAuthenticationProvider tokenAuthenticationProvider = getBeanOrNull(applicationContext, TokenAuthenticationProvider.class);
+        TokenAuthenticationProvider tokenAuthenticationProvider;
+        tokenAuthenticationProvider = getBeanOrNull(applicationContext, TokenAuthenticationProvider.class);
         if (tokenAuthenticationProvider == null) {
             TokenService tokenService = getBeanOrNull(applicationContext, TokenService.class);
             if (tokenService != null) {

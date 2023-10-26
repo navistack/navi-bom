@@ -1,6 +1,6 @@
 package org.navistack.framework.captcha;
 
-public class CaptchaTestFailureException extends RuntimeException{
+public class CaptchaTestFailureException extends RuntimeException {
     public CaptchaTestFailureException() {
         super();
     }
@@ -17,7 +17,10 @@ public class CaptchaTestFailureException extends RuntimeException{
         super(cause);
     }
 
-    protected CaptchaTestFailureException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected CaptchaTestFailureException(String message,
+                                          Throwable cause,
+                                          boolean enableSuppression,
+                                          boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

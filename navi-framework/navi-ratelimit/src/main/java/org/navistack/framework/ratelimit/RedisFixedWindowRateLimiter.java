@@ -19,8 +19,10 @@ import java.util.Collections;
 @Setter
 public class RedisFixedWindowRateLimiter implements FixedWindowRateLimiter {
     private static final String DEFAULT_USER_KEY = "GLOBAL_RESOURCE";
-    private static final Resource DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("navi/scripts/fixedwindowratelimiter.lua");
-    private static final CacheKeyBuilder KEY_BUILDER = new PrefixedCacheKeyBuilder(".", "NAVI", "FIXED_WINDOW_RATE_LIMITER");
+    private static final Resource
+            DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("navi/scripts/fixedwindowratelimiter.lua");
+    private static final CacheKeyBuilder
+            KEY_BUILDER = new PrefixedCacheKeyBuilder(".", "NAVI", "FIXED_WINDOW_RATE_LIMITER");
     private static final int DEFAULT_MAX_REQUESTS = 1000;
     private static final TemporalUnit DEFAULT_TEMPORAL_UNIT = ChronoUnit.MINUTES;
 
@@ -44,7 +46,8 @@ public class RedisFixedWindowRateLimiter implements FixedWindowRateLimiter {
     public boolean tryAcquire(String key, int maxRequests, TemporalUnit temporalUnit) {
         key = Strings.hasText(key) ? key : DEFAULT_USER_KEY;
         long epochMilli = Instant.now().truncatedTo(getTemporalUnit()).toEpochMilli();
-        return executeScript(scriptResource, keyBuilder.build(key, Long.toString(epochMilli)), maxRequests, temporalUnit);
+        String scopedKey = keyBuilder.build(key, Long.toString(epochMilli));
+        return executeScript(scriptResource, scopedKey, maxRequests, temporalUnit);
     }
 
     public void setKeyPrefix(String prefix) {
@@ -54,7 +57,10 @@ public class RedisFixedWindowRateLimiter implements FixedWindowRateLimiter {
         keyBuilder = new PrefixedCacheKeyBuilder(".", prefix);
     }
 
-    private boolean executeScript(Resource scriptResource, String key, int maxRequests, TemporalUnit temporalUnit) {
+    private boolean executeScript(Resource scriptResource,
+                                  String key,
+                                  int maxRequests,
+                                  TemporalUnit temporalUnit) {
         long expiration = temporalUnit.getDuration().getSeconds();
         Boolean result = redisOperations.execute(
                 RedisScript.of(scriptResource, Boolean.class),

@@ -7,15 +7,15 @@ import lombok.Getter;
 import lombok.Setter;
 import org.navistack.framework.captcha.simplecaptcha.ImageFilter;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 import java.util.random.RandomGenerator;
 
 /**
  * Adds shadow to the text on the image and two noises.
- * <p>
- * Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
+ *
+ * <p>Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
  */
 public class ShadowImageFilter implements ImageFilter {
     @Getter
@@ -30,11 +30,6 @@ public class ShadowImageFilter implements ImageFilter {
      */
     @Override
     public BufferedImage apply(BufferedImage image) {
-        BufferedImage distortedImage = new BufferedImage(image.getWidth(),
-                image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D graph = (Graphics2D) distortedImage.getGraphics();
-
         ShadowFilter shadowFilter = new ShadowFilter();
         shadowFilter.setRadius(10);
         shadowFilter.setDistance(5);
@@ -50,6 +45,11 @@ public class ShadowImageFilter implements ImageFilter {
 
         BufferedImage effectImage = rippleFilter.filter(image, null);
         effectImage = shadowFilter.filter(effectImage, null);
+
+        BufferedImage distortedImage = new BufferedImage(image.getWidth(),
+                image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D graph = (Graphics2D) distortedImage.getGraphics();
 
         graph.drawImage(effectImage, 0, 0, null, null);
         graph.dispose();

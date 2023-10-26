@@ -35,13 +35,14 @@ import java.util.Collection;
 public class CaptchaAutoConfiguration {
     @Bean
     @ConditionalOnBean(CaptchaTester.class)
-    public CaptchaTesterComposite CaptchaTesterComposite(Collection<CaptchaTester> captchaTesters) {
+    public CaptchaTesterComposite captchaTesterComposite(Collection<CaptchaTester> captchaTesters) {
         return new CaptchaTesterComposite(captchaTesters);
     }
 
     @Bean
     @ConditionalOnBean(CaptchaTesterComposite.class)
-    public MappedInterceptor captchaTestInterceptor(CaptchaTesterComposite captchaTesterComposite, CaptchaProperties properties) {
+    public MappedInterceptor captchaTestInterceptor(CaptchaTesterComposite captchaTesterComposite,
+                                                    CaptchaProperties properties) {
         CaptchaTestInterceptor interceptor = new CaptchaTestInterceptor(captchaTesterComposite);
         return new MappedInterceptor(properties.getUrlPatterns().stream().toArray(String[]::new), interceptor);
     }
@@ -51,8 +52,11 @@ public class CaptchaAutoConfiguration {
     public static class TencentCloudCaptchaTesterConfiguration {
         @Bean
         @ConditionalOnBean({TencentCloudCaptchaProperties.class, CaptchaClient.class})
-        public TencentCloudCaptchaTester tencentCloudCaptchaTester(TencentCloudCaptchaProperties properties, CaptchaClient captchaClient) {
-            return new TencentCloudCaptchaTester(properties.getCaptchaAppId(), properties.getAppSecretKey(), captchaClient);
+        public TencentCloudCaptchaTester tencentCloudCaptchaTester(TencentCloudCaptchaProperties properties,
+                                                                   CaptchaClient captchaClient) {
+            Long captchaAppId = properties.getCaptchaAppId();
+            String appSecretKey = properties.getAppSecretKey();
+            return new TencentCloudCaptchaTester(captchaAppId, appSecretKey, captchaClient);
         }
     }
 

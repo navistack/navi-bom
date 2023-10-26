@@ -8,7 +8,12 @@ import org.navistack.framework.utils.InputOutputStreams;
 import org.navistack.framework.utils.Objects;
 import org.navistack.framework.utils.Strings;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,7 +27,8 @@ public class FilesystemObjectStorageService implements ObjectStorageService {
     private PublicRootUriSupplier publicRootUriSupplier = new HttpServletRequestPublicRootUriSupplier();
 
     public FilesystemObjectStorageService(File dataDir) {
-        Asserts.state(dataDir.isDirectory() && dataDir.exists() && dataDir.canWrite(), "dataDir must be existing, writable directory");
+        Asserts.state(dataDir.isDirectory() && dataDir.exists() && dataDir.canWrite(),
+                "dataDir must be existing, writable directory");
         this.dataDir = dataDir;
     }
 

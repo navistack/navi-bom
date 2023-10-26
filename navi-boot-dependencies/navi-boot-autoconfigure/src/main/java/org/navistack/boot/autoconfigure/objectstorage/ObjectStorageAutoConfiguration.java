@@ -20,7 +20,7 @@ public class ObjectStorageAutoConfiguration {
         @Bean
         @ConditionalOnBean(MinioClient.class)
         @ConditionalOnMissingBean
-        public ObjectStorageService MinioObjectStorageService(MinioClient minioClient) {
+        public ObjectStorageService minioObjectStorageService(MinioClient minioClient) {
             return new MinioObjectStorageService(minioClient);
         }
     }
@@ -30,7 +30,7 @@ public class ObjectStorageAutoConfiguration {
     public static class FilesystemObjectStorageConfiguration {
         @Bean
         @ConditionalOnMissingBean
-        public ObjectStorageService MinioObjectStorageService(FilesystemProperties properties) {
+        public ObjectStorageService filesystemObjectStorageService(FilesystemProperties properties) {
             return new FilesystemObjectStorageService(properties.getDataDir());
         }
     }

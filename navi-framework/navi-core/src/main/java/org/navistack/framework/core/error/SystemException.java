@@ -1,7 +1,7 @@
 package org.navistack.framework.core.error;
 
 public class SystemException extends CodedException {
-    private final static int GENERAL_ERROR = 0x000;
+    private static final int GENERAL_ERROR = 0x000;
 
     public SystemException() {
         super(ErrorCodeBuilder.systemError(GENERAL_ERROR));
@@ -39,7 +39,11 @@ public class SystemException extends CodedException {
         super(ErrorCodeBuilder.systemError(GENERAL_ERROR), message, cause, enableSuppression, writableStackTrace);
     }
 
-    protected SystemException(int errorCode, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected SystemException(int errorCode,
+                              String message,
+                              Throwable cause,
+                              boolean enableSuppression,
+                              boolean writableStackTrace) {
         super(ErrorCodeBuilder.systemError(errorCode), message, cause, enableSuppression, writableStackTrace);
     }
 }

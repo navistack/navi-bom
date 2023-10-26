@@ -17,7 +17,10 @@ public class ObjectStorageException extends RuntimeException {
         super(cause);
     }
 
-    protected ObjectStorageException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected ObjectStorageException(String message,
+                                     Throwable cause,
+                                     boolean enableSuppression,
+                                     boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

@@ -17,7 +17,10 @@ public class TokenServiceAuthenticationException extends RuntimeException {
         super(cause);
     }
 
-    protected TokenServiceAuthenticationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected TokenServiceAuthenticationException(String message,
+                                                  Throwable cause,
+                                                  boolean enableSuppression,
+                                                  boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

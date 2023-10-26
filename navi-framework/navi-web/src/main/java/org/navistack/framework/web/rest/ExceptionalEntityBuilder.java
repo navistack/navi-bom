@@ -3,7 +3,10 @@ package org.navistack.framework.web.rest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor(staticName = "of")

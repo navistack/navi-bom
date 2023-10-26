@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 @UtilityClass
 public class Asserts {
     /**
-     * Assert a boolean expression, throwing an {@link RuntimeException}
+     * Assert a boolean expression, throwing an {@link RuntimeException}.
      *
      * @param expression a boolean expression
      * @param exceptionSupplier a supplier for the exception to use if the assertion fails
@@ -24,7 +24,7 @@ public class Asserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link IllegalArgumentException}
+     * Assert a boolean expression, throwing an {@link IllegalArgumentException}.
      *
      * @param expression a boolean expression
      * @param message a message to be attached to exception thrown
@@ -34,7 +34,7 @@ public class Asserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link RuntimeException}
+     * Assert a boolean expression, throwing an {@link RuntimeException}.
      *
      * @param expression a boolean expression supplier
      * @param exceptionSupplier a supplier for the exception to use if the assertion fails
@@ -44,7 +44,7 @@ public class Asserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link IllegalArgumentException}
+     * Assert a boolean expression, throwing an {@link IllegalArgumentException}.
      *
      * @param expression a boolean expression supplier
      * @param message a message to be attached to exception thrown
@@ -54,7 +54,7 @@ public class Asserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link RuntimeException}
+     * Assert a boolean expression, throwing an {@link RuntimeException}.
      *
      * @param object the object to test with
      * @param predicate the predicate to execute
@@ -65,7 +65,7 @@ public class Asserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link IllegalArgumentException}
+     * Assert a boolean expression, throwing an {@link IllegalArgumentException}.
      *
      * @param object the object to test with
      * @param predicate the predicate to execute
@@ -76,19 +76,21 @@ public class Asserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link RuntimeException}
+     * Assert a boolean expression, throwing an {@link RuntimeException}.
      *
      * @param left the object to test with
      * @param right the other object to test with
      * @param predicate the predicate to execute
      * @param exceptionSupplier a supplier for the exception to use if the assertion fails
      */
-    public <T, U> void state(T left, U right, BiPredicate<T, U> predicate, Supplier<RuntimeException> exceptionSupplier) {
+    public <T, U> void state(T left,
+                             U right, BiPredicate<T, U> predicate,
+                             Supplier<RuntimeException> exceptionSupplier) {
         state(predicate.test(left, right), exceptionSupplier);
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link IllegalArgumentException}
+     * Assert a boolean expression, throwing an {@link IllegalArgumentException}.
      *
      * @param left the object to test with
      * @param right the other object to test with
@@ -120,7 +122,7 @@ public class Asserts {
     }
 
     /**
-     * Assert that an object is not null, throwing an {@link NullPointerException}
+     * Assert that an object is not null, throwing an {@link NullPointerException}.
      *
      * @param object the object to check
      * @param message a message to be attached to exception thrown

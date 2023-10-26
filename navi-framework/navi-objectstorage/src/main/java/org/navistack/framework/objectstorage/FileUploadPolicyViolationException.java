@@ -17,7 +17,10 @@ public class FileUploadPolicyViolationException extends FileUploadException {
         super(cause);
     }
 
-    protected FileUploadPolicyViolationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected FileUploadPolicyViolationException(String message,
+                                                 Throwable cause,
+                                                 boolean enableSuppression,
+                                                 boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

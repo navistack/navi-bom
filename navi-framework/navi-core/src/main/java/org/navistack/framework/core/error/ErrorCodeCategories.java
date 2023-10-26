@@ -5,12 +5,12 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ErrorCodeCategories {
     /**
-     * System failure
+     * System failure.
      */
     public final int SYSTEM_ERROR = 0x1;
 
     /**
-     * Error occurred in domain
+     * Error occurred in domain.
      */
     public final int DOMAIN_ERROR = 0x2;
 
@@ -20,12 +20,12 @@ public class ErrorCodeCategories {
     public final int EXTERNAL_ERROR = 0x3;
 
     /**
-     * User input error / user call error
+     * User input error / user call error.
      */
     public final int USER_ERROR = 0x4;
 
     /**
-     * Uncategorized error / unknown error
+     * Uncategorized error / unknown error.
      */
     public final int UNCATEGORIZED_ERROR = 0xF;
 }

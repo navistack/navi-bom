@@ -10,15 +10,15 @@ import org.springframework.util.Assert;
 public class JwtTokenProperties implements InitializingBean {
     public static final String PROPERTIES_PREFIX = "navi.security.jwt";
 
-    private final static int DEFAULT_VALIDITY = 2 * 60 * 60 * 1000;
+    private static final int DEFAULT_VALIDITY = 2 * 60 * 60 * 1000;
 
     /**
-     * Validity in milliseconds
+     * Validity in milliseconds.
      */
     private int validity = DEFAULT_VALIDITY;
 
     /**
-     * Secret encoded in Base64
+     * Secret encoded in Base64.
      */
     private String secret;
 

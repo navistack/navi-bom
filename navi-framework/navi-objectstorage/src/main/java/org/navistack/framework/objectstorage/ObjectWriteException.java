@@ -17,7 +17,10 @@ public class ObjectWriteException extends ObjectManipulationException {
         super(cause);
     }
 
-    protected ObjectWriteException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected ObjectWriteException(String message,
+                                   Throwable cause,
+                                   boolean enableSuppression,
+                                   boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

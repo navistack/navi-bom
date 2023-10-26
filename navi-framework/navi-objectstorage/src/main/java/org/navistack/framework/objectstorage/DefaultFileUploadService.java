@@ -49,7 +49,11 @@ public class DefaultFileUploadService implements FileUploadService {
     }
 
     @Override
-    public UploadedFileStat uploadFile(String bucket, String file, Path filePath, String contentType, FileUploadPolicy policy) {
+    public UploadedFileStat uploadFile(String bucket,
+                                       String file,
+                                       Path filePath,
+                                       String contentType,
+                                       FileUploadPolicy policy) {
         Asserts.state(bucket, Strings::hasText, "bucket can not be empty");
         Asserts.state(file, Strings::hasText, "file can not be empty");
         Asserts.notNull(filePath, "filePath can not be null");

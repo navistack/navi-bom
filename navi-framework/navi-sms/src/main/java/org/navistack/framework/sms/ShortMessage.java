@@ -5,27 +5,27 @@ import java.util.Map;
 
 public interface ShortMessage {
     /**
-     * Phone number to which the message will be sent
+     * Phone number to which the message will be sent.
      */
     String getPhoneNumber();
 
     /**
-     * Entity that sent the message
+     * Entity that sent the message.
      */
     String getSignature();
 
     /**
-     * Message template code
+     * Message template code.
      */
     String getTemplateCode();
 
     /**
-     * Plain Message content
+     * Plain Message content.
      */
     String getMessage();
 
     /**
-     * Arguments for use by message template
+     * Arguments for use by message template.
      */
     default Map<String, Object> getArguments() {
         return Collections.emptyMap();

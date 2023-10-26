@@ -19,7 +19,10 @@ public class DomainValidationException extends DomainException {
         super(ERROR_CODE, cause);
     }
 
-    protected DomainValidationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected DomainValidationException(String message,
+                                        Throwable cause,
+                                        boolean enableSuppression,
+                                        boolean writableStackTrace) {
         super(ERROR_CODE, message, cause, enableSuppression, writableStackTrace);
     }
 }

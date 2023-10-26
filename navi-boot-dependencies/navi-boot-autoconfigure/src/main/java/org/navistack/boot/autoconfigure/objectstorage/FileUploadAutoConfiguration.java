@@ -1,6 +1,10 @@
 package org.navistack.boot.autoconfigure.objectstorage;
 
-import org.navistack.framework.objectstorage.*;
+import org.navistack.framework.objectstorage.DefaultFileUploadPolicyEnforcer;
+import org.navistack.framework.objectstorage.DefaultFileUploadService;
+import org.navistack.framework.objectstorage.FileUploadPolicy;
+import org.navistack.framework.objectstorage.FileUploadService;
+import org.navistack.framework.objectstorage.ObjectStorageService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -17,10 +21,12 @@ public class FileUploadAutoConfiguration {
         policy.setContentTypeLimit(properties.getUploadPolicy().getContentTypeLimit());
         return policy;
     }
+
     @Bean
     @ConditionalOnBean(ObjectStorageService.class)
     @ConditionalOnMissingBean
-    public FileUploadService fileUploadService(ObjectStorageService objectStorageService, FileUploadPolicy defaultFileUploadPolicy) {
+    public FileUploadService fileUploadService(ObjectStorageService objectStorageService,
+                                               FileUploadPolicy defaultFileUploadPolicy) {
         DefaultFileUploadService service = new DefaultFileUploadService(objectStorageService);
         service.setUploadPolicyEnforcer(new DefaultFileUploadPolicyEnforcer(defaultFileUploadPolicy));
         return service;

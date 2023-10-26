@@ -25,7 +25,8 @@ public class Slf4jLoggingRequestInterceptor implements ClientHttpRequestIntercep
     private Charset defaultCharset = StandardCharsets.UTF_8;
 
     @Override
-    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+            throws IOException {
         logRequest(request, body);
         ClientHttpResponse response = execution.execute(request, body);
         logResponse(response);

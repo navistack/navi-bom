@@ -1,6 +1,6 @@
 package org.navistack.framework.objectstorage;
 
-public class FileSizeLimitExceededException extends FileUploadPolicyViolationException{
+public class FileSizeLimitExceededException extends FileUploadPolicyViolationException {
     public FileSizeLimitExceededException() {
         super();
     }
@@ -17,7 +17,10 @@ public class FileSizeLimitExceededException extends FileUploadPolicyViolationExc
         super(cause);
     }
 
-    protected FileSizeLimitExceededException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected FileSizeLimitExceededException(String message,
+                                             Throwable cause,
+                                             boolean enableSuppression,
+                                             boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

@@ -41,7 +41,8 @@ public class RestResultSecurityAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ExceptionHandlingHttpSecurityBeanPostProcessor exceptionHandlingHttpSecurityBeanPostProcessor(final ObjectProvider<ExceptionHandlingHttpSecuritySupport> securityRestResultSupport) {
+    public ExceptionHandlingHttpSecurityBeanPostProcessor exceptionHandlingHttpSecurityBeanPostProcessor(
+            final ObjectProvider<ExceptionHandlingHttpSecuritySupport> securityRestResultSupport) {
         return new ExceptionHandlingHttpSecurityBeanPostProcessor(securityRestResultSupport);
     }
 }

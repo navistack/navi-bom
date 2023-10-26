@@ -6,8 +6,10 @@ import org.navistack.framework.utils.Objects;
 import org.navistack.framework.utils.Strings;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 public final class MediaType {

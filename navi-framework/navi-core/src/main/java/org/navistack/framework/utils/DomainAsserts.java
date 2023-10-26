@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 @UtilityClass
 public class DomainAsserts {
     /**
-     * Assert a boolean expression, throwing an {@link DomainException}
+     * Assert a boolean expression, throwing an {@link DomainException}.
      */
     public void state(boolean expression, Supplier<? extends DomainException> supplier) {
         if (!expression) {
@@ -20,7 +20,7 @@ public class DomainAsserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link DomainException()}
+     * Assert a boolean expression, throwing an {@link DomainException}.
      */
     public void state(boolean expression, int errorCode) {
         if (!expression) {
@@ -29,7 +29,7 @@ public class DomainAsserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link DomainException}
+     * Assert a boolean expression, throwing an {@link DomainException}.
      */
     public void state(BooleanSupplier expression, Supplier<? extends DomainException> supplier) {
         if (!expression.getAsBoolean()) {
@@ -38,7 +38,7 @@ public class DomainAsserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link DomainException()}
+     * Assert a boolean expression, throwing an {@link DomainException}.
      */
     public void state(BooleanSupplier expression, int errorCode) {
         if (!expression.getAsBoolean()) {
@@ -47,7 +47,7 @@ public class DomainAsserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link DomainException}
+     * Assert a boolean expression, throwing an {@link DomainException}.
      */
     public <T> void state(T object, Predicate<T> predicate, Supplier<? extends DomainException> supplier) {
         if (!predicate.test(object)) {
@@ -56,7 +56,7 @@ public class DomainAsserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link DomainException()}
+     * Assert a boolean expression, throwing an {@link DomainException}.
      */
     public <T> void state(T object, Predicate<T> predicate, int errorCode) {
         if (!predicate.test(object)) {
@@ -65,16 +65,19 @@ public class DomainAsserts {
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link DomainException}
+     * Assert a boolean expression, throwing an {@link DomainException}.
      */
-    public <T, U> void state(T left, U right, BiPredicate<T, U> predicate, Supplier<? extends DomainException> supplier) {
+    public <T, U> void state(T left,
+                             U right,
+                             BiPredicate<T, U> predicate,
+                             Supplier<? extends DomainException> supplier) {
         if (!predicate.test(left, right)) {
             throw supplier.get();
         }
     }
 
     /**
-     * Assert a boolean expression, throwing an {@link DomainException()}
+     * Assert a boolean expression, throwing an {@link DomainException}.
      */
     public <T, U> void state(T left, U right, BiPredicate<T, U> predicate, int errorCode) {
         if (!predicate.test(left, right)) {

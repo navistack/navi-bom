@@ -24,7 +24,8 @@ public class FixedWindowRateLimitAspect {
     @NonNull
     private FixedWindowRateLimiter rateLimiter;
 
-    public FixedWindowRateLimitAspect(MethodExpressionEvaluatorFactory evaluatorFactory, FixedWindowRateLimiter rateLimiter) {
+    public FixedWindowRateLimitAspect(MethodExpressionEvaluatorFactory evaluatorFactory,
+                                      FixedWindowRateLimiter rateLimiter) {
         this.evaluatorFactory = evaluatorFactory;
         this.rateLimiter = rateLimiter;
     }

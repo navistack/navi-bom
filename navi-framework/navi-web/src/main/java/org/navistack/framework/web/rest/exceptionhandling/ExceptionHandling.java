@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.LocaleResolver;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -79,8 +83,7 @@ public class ExceptionHandling {
         );
     }
 
-    protected <E extends RestResult.ParameterizedError>
-    ResponseEntity<RestResult.Err<? super E>> buildResponseEntity(
+    protected <E extends RestResult.ParameterizedError> ResponseEntity<RestResult.Err<? super E>> buildResponseEntity(
             Throwable throwable,
             HttpServletRequest request,
             E error,

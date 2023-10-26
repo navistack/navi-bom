@@ -2,18 +2,18 @@ package org.navistack.framework.captcha.simplecaptcha.imagefilters;
 
 import org.navistack.framework.captcha.simplecaptcha.ImageFilter;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 /**
  * Adds fish eye effect with vertical and horizontal lines.
- * <p>
- * Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
+ *
+ * <p>Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
  */
 public class FisheyeImageFilter implements ImageFilter {
     /**
-     * Applies distortion by adding fish eye effect and horizontal vertical
-     * lines.
+     * Applies distortion by adding fish eye effect and horizontal vertical lines.
      *
      * @param image the base image
      * @return the distorted image
@@ -95,14 +95,15 @@ public class FisheyeImageFilter implements ImageFilter {
     }
 
     /**
-     * implementation of: g(s) = - (3/4)s3 + (3/2)s2 + (1/4)s, with s from 0 to 1
+     * implementation of: g(s) = - (3/4)s3 + (3/2)s2 + (1/4)s, with s from 0 to 1.
      */
     private static double fishEyeFormula(double s) {
-        if (s < 0.0D)
+        if (s < 0.0D) {
             return 0.0D;
-        if (s > 1.0D)
+        } else if (s > 1.0D) {
             return s;
-        else
+        } else {
             return -0.75D * s * s * s + 1.5D * s * s + 0.25D * s;
+        }
     }
 }

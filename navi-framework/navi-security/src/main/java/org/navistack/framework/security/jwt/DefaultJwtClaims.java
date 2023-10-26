@@ -105,6 +105,7 @@ public class DefaultJwtClaims extends HashMap<String, Object> implements JwtClai
                         value = new Date((long) value * 1000);
                     }
                 }
+                break;
             default:
                 if (value instanceof Number) {
                     if (Long.class.equals(targetType)) {

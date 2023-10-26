@@ -2,14 +2,14 @@ package org.navistack.framework.data;
 
 import java.util.Collection;
 
-public interface TreeNode<ID, T extends TreeNode<ID, T>> {
-    ID getId();
+public interface TreeNode<IdT, T extends TreeNode<IdT, T>> {
+    IdT getId();
 
-    void setId(ID id);
+    void setId(IdT idT);
 
-    ID getParentId();
+    IdT getParentId();
 
-    void setParentId(ID parentId);
+    void setParentId(IdT parentId);
 
     Collection<T> getChildren();
 

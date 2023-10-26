@@ -36,7 +36,9 @@ public class TokenFilter extends GenericFilterBean implements InitializingBean {
             throws IOException, ServletException {
         try {
             String token = tokenResolver.resolveToken((HttpServletRequest) servletRequest);
-            Authentication authentication = authenticationManager.authenticate(TokenAuthentication.unauthenticated(token, token));
+            Authentication authentication = authenticationManager.authenticate(
+                    TokenAuthentication.unauthenticated(token, token)
+            );
             if (authentication == null) {
                 return;
             }

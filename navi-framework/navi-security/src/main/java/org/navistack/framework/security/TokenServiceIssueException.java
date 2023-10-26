@@ -17,7 +17,10 @@ public class TokenServiceIssueException extends RuntimeException {
         super(cause);
     }
 
-    protected TokenServiceIssueException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected TokenServiceIssueException(String message,
+                                         Throwable cause,
+                                         boolean enableSuppression,
+                                         boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

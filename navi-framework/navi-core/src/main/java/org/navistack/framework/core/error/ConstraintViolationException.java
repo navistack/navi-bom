@@ -19,7 +19,10 @@ public class ConstraintViolationException extends DomainException {
         super(ERROR_CODE, cause);
     }
 
-    protected ConstraintViolationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected ConstraintViolationException(String message,
+                                           Throwable cause,
+                                           boolean enableSuppression,
+                                           boolean writableStackTrace) {
         super(ERROR_CODE, message, cause, enableSuppression, writableStackTrace);
     }
 }

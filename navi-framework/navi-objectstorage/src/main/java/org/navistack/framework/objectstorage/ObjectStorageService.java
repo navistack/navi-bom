@@ -9,10 +9,10 @@ public interface ObjectStorageService {
      * Gets data from bucket of object.
      * Returned InputStream must be closed after use to release network resources.
      *
-     * <p> Object name must have bucket name prefixed as part of its name in which the object is stored.
+     * <p>Object name must have bucket name prefixed as part of its name in which the object is stored.
      * Bucket name and object name is seperated by ":".
      *
-     * <p> For example, getObject("bucket:object") will return data from bucket named "bucket"
+     * <p>For example, getObject("bucket:object") will return data from bucket named "bucket"
      * of object named "object".
      *
      * @param object name of object to get
@@ -36,10 +36,10 @@ public interface ObjectStorageService {
     /**
      * Get public accessible uri of object from bucket.
      *
-     * <p> Object name must have bucket name prefixed as part of its name in which the object is stored.
+     * <p>Object name must have bucket name prefixed as part of its name in which the object is stored.
      * Bucket name and object name is seperated by ":".
      *
-     * <p> For example, getObjectUri("bucket:object") will return uri of object named "object"
+     * <p>For example, getObjectUri("bucket:object") will return uri of object named "object"
      * from bucket named "bucket".
      *
      * @param object name of object to get

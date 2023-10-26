@@ -14,7 +14,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnClass(SmsClient.class)
-@ConditionalOnProperty(prefix = TencentCloudSmsProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = TencentCloudSmsProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "true",
+        matchIfMissing = true)
 @EnableConfigurationProperties(TencentCloudSmsProperties.class)
 public class TencentCloudSmsConfiguration extends TencentCloudConfigurationSupport {
     @Bean

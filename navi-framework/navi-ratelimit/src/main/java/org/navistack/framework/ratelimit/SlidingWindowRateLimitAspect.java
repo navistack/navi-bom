@@ -26,13 +26,15 @@ public class SlidingWindowRateLimitAspect {
     @NonNull
     private SlidingWindowRateLimiter rateLimiter;
 
-    public SlidingWindowRateLimitAspect(MethodExpressionEvaluatorFactory evaluatorFactory, SlidingWindowRateLimiter rateLimiter) {
+    public SlidingWindowRateLimitAspect(MethodExpressionEvaluatorFactory evaluatorFactory,
+                                        SlidingWindowRateLimiter rateLimiter) {
         this.evaluatorFactory = evaluatorFactory;
         this.rateLimiter = rateLimiter;
     }
 
     @Around("@annotation(rateLimit)")
-    public Object around(ProceedingJoinPoint joinPoint, SlidingWindowRateLimit rateLimit) throws Throwable {
+    public Object around(ProceedingJoinPoint joinPoint, SlidingWindowRateLimit rateLimit)
+            throws Throwable {
         Object[] args = joinPoint.getArgs();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();

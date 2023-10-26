@@ -1,6 +1,10 @@
 package org.navistack.framework.web.rest;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -107,7 +111,9 @@ public interface RestResult<T, E> {
         }
 
         @SafeVarargs
-        public static ParameterizedError of(int error, String message, Map.Entry<String, ? super Object>... parameters) {
+        public static ParameterizedError of(int error,
+                                            String message,
+                                            Map.Entry<String, ? super Object>... parameters) {
             Map<String, ? super Object> parametersMap = Arrays.stream(parameters)
                     .collect(
                             Collectors.toMap(

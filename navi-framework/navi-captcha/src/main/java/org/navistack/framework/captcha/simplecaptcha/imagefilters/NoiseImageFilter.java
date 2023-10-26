@@ -5,7 +5,10 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.navistack.framework.captcha.simplecaptcha.ImageFilter;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
@@ -15,8 +18,8 @@ import java.util.random.RandomGenerator;
 
 /**
  * Adds a noise on an image.
- * <p>
- * Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
+ *
+ * <p>Originally authored by <a href="https://code.google.com/archive/p/kaptcha/">kaptcha</a>
  */
 public class NoiseImageFilter implements ImageFilter {
     @Getter
@@ -76,10 +79,9 @@ public class NoiseImageFilter implements ImageFilter {
         // while pi is iterating the curve, adds points to tmp array
         while (!pi.isDone()) {
             float[] coords = new float[6];
-            switch (pi.currentSegment(coords)) {
-                case PathIterator.SEG_MOVETO:
-                case PathIterator.SEG_LINETO:
-                    tmp[i] = new Point2D.Float(coords[0], coords[1]);
+            int segment = pi.currentSegment(coords);
+            if (segment == PathIterator.SEG_MOVETO || segment == PathIterator.SEG_LINETO) {
+                tmp[i] = new Point2D.Float(coords[0], coords[1]);
             }
             i++;
             pi.next();
@@ -97,8 +99,9 @@ public class NoiseImageFilter implements ImageFilter {
 
         // for the maximum 3 point change the stroke and direction
         for (i = 0; i < pts.length - 1; i++) {
-            if (i < 3)
+            if (i < 3) {
                 graph.setStroke(new BasicStroke(0.9f * (4 - i)));
+            }
             graph.drawLine((int) pts[i].getX(), (int) pts[i].getY(),
                     (int) pts[i + 1].getX(), (int) pts[i + 1].getY());
         }

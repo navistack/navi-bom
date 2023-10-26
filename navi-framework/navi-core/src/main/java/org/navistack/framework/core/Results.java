@@ -4,7 +4,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Results {
-    private final static Result<?, ?> EMPTY_OK = new OkImpl<>(null);
+    private static final Result<?, ?> EMPTY_OK = new OkImpl<>(null);
 
     public <T, E> Result<T, E> ok() {
         @SuppressWarnings("unchecked")
@@ -19,7 +19,7 @@ public class Results {
         return new OkImpl<>(value);
     }
 
-    private final static Result<?, ?> EMPTY_ERR = new ErrImpl<>(null);
+    private static final Result<?, ?> EMPTY_ERR = new ErrImpl<>(null);
 
     public <T, E> Result<T, E> err() {
         @SuppressWarnings("unchecked")

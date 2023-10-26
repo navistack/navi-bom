@@ -39,13 +39,13 @@ public class ErrImpl<T, E> implements Err<T, E> {
     }
 
     @Override
-    public E unwrapErr() {
-        return err;
+    public T unwrap(Supplier<? extends T> valueSupplier) {
+        return valueSupplier.get();
     }
 
     @Override
-    public T unwrap(Supplier<? extends T> valueSupplier) {
-        return valueSupplier.get();
+    public E unwrapErr() {
+        return err;
     }
 
     @Override

@@ -17,7 +17,10 @@ public class ObjectReadException extends ObjectManipulationException {
         super(cause);
     }
 
-    protected ObjectReadException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected ObjectReadException(String message,
+                                  Throwable cause,
+                                  boolean enableSuppression,
+                                  boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

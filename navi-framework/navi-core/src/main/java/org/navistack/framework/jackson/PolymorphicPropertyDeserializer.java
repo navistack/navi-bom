@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class PolymorphicPropertyDeserializer<T> extends JsonDeserializer<T> {
-    private final static String DEFAULT_PROPERTY = "type";
+    private static final String DEFAULT_PROPERTY = "type";
 
     private final Map<String, Class<? extends T>> subTypes = new LinkedHashMap<>();
 
@@ -48,7 +48,8 @@ public class PolymorphicPropertyDeserializer<T> extends JsonDeserializer<T> {
     }
 
     @Override
-    public T deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public T deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+            throws IOException, JacksonException {
         TreeNode treeNode = jsonParser.readValueAsTree();
         TextNode providerNode = (TextNode) treeNode.get(property);
         String provider = providerNode.asText();

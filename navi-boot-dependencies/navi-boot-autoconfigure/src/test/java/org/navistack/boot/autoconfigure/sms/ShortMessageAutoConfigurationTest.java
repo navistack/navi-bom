@@ -1,7 +1,11 @@
 package org.navistack.boot.autoconfigure.sms;
 
 import org.junit.jupiter.api.Test;
-import org.navistack.framework.sms.*;
+import org.navistack.framework.sms.ConfigurableShortMessageTemplateRegistration;
+import org.navistack.framework.sms.ShortMessageService;
+import org.navistack.framework.sms.ShortMessageServiceProvider;
+import org.navistack.framework.sms.ShortMessageTemplateRegistration;
+import org.navistack.framework.sms.SimpleShortMessageTemplate;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 

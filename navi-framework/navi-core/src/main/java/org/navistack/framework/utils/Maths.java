@@ -29,7 +29,7 @@ public class Maths {
     }
 
     public long ceilDiv(long x, int y) {
-        return ceilDiv(x, (long)y);
+        return ceilDiv(x, (long) y);
     }
 
     public long ceilDiv(long x, long y) {

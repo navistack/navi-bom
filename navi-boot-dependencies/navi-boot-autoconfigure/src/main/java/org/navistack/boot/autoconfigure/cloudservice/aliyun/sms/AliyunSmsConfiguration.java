@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConditionalOnClass(Client.class)
-@ConditionalOnProperty(prefix = AliyunSmsProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = AliyunSmsProperties.PROPERTY_PREFIX, name = "enabled", havingValue = "true",
+        matchIfMissing = true)
 @EnableConfigurationProperties(AliyunSmsProperties.class)
 public class AliyunSmsConfiguration {
     @Bean

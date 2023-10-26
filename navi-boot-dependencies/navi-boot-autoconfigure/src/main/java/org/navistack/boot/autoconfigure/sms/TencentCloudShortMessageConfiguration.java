@@ -16,7 +16,8 @@ public class TencentCloudShortMessageConfiguration {
     @Bean
     @ConditionalOnBean({TencentCloudSmsProperties.class, SmsClient.class})
     @ConditionalOnMissingBean({ShortMessageServiceProvider.class, TencentCloudShortMessageServiceProvider.class})
-    public TencentCloudShortMessageServiceProvider tencentCloudShortMessageServiceProvider(TencentCloudSmsProperties properties, SmsClient smsClient) {
+    public TencentCloudShortMessageServiceProvider tencentCloudShortMessageServiceProvider(
+            TencentCloudSmsProperties properties, SmsClient smsClient) {
         return new TencentCloudShortMessageServiceProvider(properties.getSdkAppId(), properties.getAppKey(), smsClient);
     }
 }

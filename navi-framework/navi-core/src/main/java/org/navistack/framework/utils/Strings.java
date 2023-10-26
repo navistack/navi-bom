@@ -65,7 +65,8 @@ public class Strings {
     }
 
     private int indexOfNonWhitespace(String str) {
-        int i = 0, len = str.length();
+        int i = 0;
+        int len = str.length();
         while (i < len) {
             char ch = str.charAt(i);
             if (ch != ' ' && ch != '\t' && !Character.isWhitespace(ch)) {

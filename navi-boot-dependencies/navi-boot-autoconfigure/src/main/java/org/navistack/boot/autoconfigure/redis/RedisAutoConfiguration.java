@@ -25,7 +25,7 @@ public class RedisAutoConfiguration {
     @Bean
     @Conditional(MissingStringObjectRedisOperations.class)
     @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
-    public RedisOperations<String, Object> StringObjectRedisOperations(RedisConnectionFactory redisConnectionFactory) {
+    public RedisOperations<String, Object> stringObjectRedisOperations(RedisConnectionFactory redisConnectionFactory) {
         RedisSerializer<String> stringRedisSerializer = RedisSerializer.string();
         RedisSerializer<Object> jsonRedisSerializer = RedisSerializer.json();
         RedisTemplate<String, Object> stringObjectRedisTemplate = new RedisTemplate<>();
@@ -41,7 +41,8 @@ public class RedisAutoConfiguration {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
-            ResolvableType generics = ResolvableType.forClassWithGenerics(RedisOperations.class, String.class, Object.class);
+            ResolvableType generics;
+            generics = ResolvableType.forClassWithGenerics(RedisOperations.class, String.class, Object.class);
             String[] names = beanFactory.getBeanNamesForType(generics);
             return names.length == 0;
         }
@@ -66,7 +67,8 @@ public class RedisAutoConfiguration {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
-            ResolvableType generics = ResolvableType.forClassWithGenerics(RedisOperations.class, String.class, Long.class);
+            ResolvableType generics;
+            generics = ResolvableType.forClassWithGenerics(RedisOperations.class, String.class, Long.class);
             String[] names = beanFactory.getBeanNamesForType(generics);
             return names.length == 0;
         }

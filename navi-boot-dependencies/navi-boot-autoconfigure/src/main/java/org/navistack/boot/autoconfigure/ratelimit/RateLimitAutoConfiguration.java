@@ -5,7 +5,14 @@ import lombok.Setter;
 import org.navistack.boot.autoconfigure.redis.RedisAutoConfiguration;
 import org.navistack.framework.expression.DefaultMethodExpressionEvaluatorFactory;
 import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
-import org.navistack.framework.ratelimit.*;
+import org.navistack.framework.ratelimit.FixedWindowRateLimit;
+import org.navistack.framework.ratelimit.FixedWindowRateLimitAspect;
+import org.navistack.framework.ratelimit.FixedWindowRateLimiter;
+import org.navistack.framework.ratelimit.RedisFixedWindowRateLimiter;
+import org.navistack.framework.ratelimit.RedisSlidingWindowRateLimiter;
+import org.navistack.framework.ratelimit.SlidingWindowRateLimit;
+import org.navistack.framework.ratelimit.SlidingWindowRateLimitAspect;
+import org.navistack.framework.ratelimit.SlidingWindowRateLimiter;
 import org.navistack.framework.utils.ApplicationContexts;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -35,7 +42,8 @@ public class RateLimitAutoConfiguration {
 
         @Bean
         public FixedWindowRateLimitAspect fixedWindowRateLimitAspect(FixedWindowRateLimiter rateLimiter) {
-            MethodExpressionEvaluatorFactory evaluatorFactory = ApplicationContexts.getBean(applicationContext, MethodExpressionEvaluatorFactory.class);
+            MethodExpressionEvaluatorFactory evaluatorFactory;
+            evaluatorFactory = ApplicationContexts.getBean(applicationContext, MethodExpressionEvaluatorFactory.class);
             if (evaluatorFactory == null) {
                 evaluatorFactory = new DefaultMethodExpressionEvaluatorFactory();
             }
@@ -58,7 +66,8 @@ public class RateLimitAutoConfiguration {
 
         @Bean
         public SlidingWindowRateLimitAspect slidingWindowRateLimitAspect(SlidingWindowRateLimiter rateLimiter) {
-            MethodExpressionEvaluatorFactory evaluatorFactory = ApplicationContexts.getBean(applicationContext, MethodExpressionEvaluatorFactory.class);
+            MethodExpressionEvaluatorFactory evaluatorFactory;
+            evaluatorFactory = ApplicationContexts.getBean(applicationContext, MethodExpressionEvaluatorFactory.class);
             if (evaluatorFactory == null) {
                 evaluatorFactory = new DefaultMethodExpressionEvaluatorFactory();
             }

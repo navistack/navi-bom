@@ -18,8 +18,10 @@ import java.util.Collections;
 @Setter
 public class RedisSlidingWindowRateLimiter implements SlidingWindowRateLimiter {
     private static final String DEFAULT_USER_KEY = "GLOBAL_RESOURCE";
-    private static final Resource DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("navi/scripts/slidingwindowratelimiter.lua");
-    private static final CacheKeyBuilder KEY_BUILDER = new PrefixedCacheKeyBuilder(".", "NAVI", "SLIDING_WINDOW_RATE_LIMITER");
+    private static final Resource
+            DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("navi/scripts/slidingwindowratelimiter.lua");
+    private static final CacheKeyBuilder
+            KEY_BUILDER = new PrefixedCacheKeyBuilder(".", "NAVI", "SLIDING_WINDOW_RATE_LIMITER");
     private static final int DEFAULT_MAX_REQUESTS_OF_WINDOW = 1000;
     private static final int DEFAULT_SIZE_OF_WINDOW = 1000 /* ms */;
 
@@ -42,7 +44,8 @@ public class RedisSlidingWindowRateLimiter implements SlidingWindowRateLimiter {
     @Override
     public boolean tryAcquire(String key, int maxRequests, Duration windowSize) {
         key = Strings.hasText(key) ? key : DEFAULT_USER_KEY;
-        return executeScript(scriptResource, keyBuilder.build(key), maxRequests, System.currentTimeMillis(), windowSize);
+        String scopedKey = keyBuilder.build(key);
+        return executeScript(scriptResource, scopedKey, maxRequests, System.currentTimeMillis(), windowSize);
     }
 
     public void setKeyPrefix(String prefix) {
@@ -52,7 +55,11 @@ public class RedisSlidingWindowRateLimiter implements SlidingWindowRateLimiter {
         keyBuilder = new PrefixedCacheKeyBuilder(".", prefix);
     }
 
-    private boolean executeScript(Resource scriptResource, String key, int maxRequests, long timestamp, Duration windowSize) {
+    private boolean executeScript(Resource scriptResource,
+                                  String key,
+                                  int maxRequests,
+                                  long timestamp,
+                                  Duration windowSize) {
         long windowSizeInMillis = windowSize.toMillis();
         Boolean result = redisOperations.execute(
                 RedisScript.of(scriptResource, Boolean.class),

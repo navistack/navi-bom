@@ -1,6 +1,10 @@
 package org.navistack.framework.security.jwt;
 
-import com.nimbusds.jose.*;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.JWSSigner;
+import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
@@ -12,7 +16,6 @@ import org.navistack.framework.security.TokenServiceException;
 import org.navistack.framework.security.TokenServiceIssueException;
 import org.springframework.security.core.Authentication;
 
-import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.sql.Date;
@@ -23,18 +26,19 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.random.RandomGenerator;
+import javax.crypto.SecretKey;
 
 /**
- * JSON Web Token Generator
+ * JSON Web Token Generator.
  */
 @Slf4j
 public class JwtTokenService implements TokenService {
-    private final static int DEFAULT_VALIDITY = 2 * 60 * 60 * 1000;
+    private static final int DEFAULT_VALIDITY = 2 * 60 * 60 * 1000;
 
     private JwtPayloadResolver payloadResolver;
 
     /**
-     * validity in milliseconds
+     * validity in milliseconds.
      */
     private final int validity;
 
@@ -96,16 +100,16 @@ public class JwtTokenService implements TokenService {
         JwtClaims claims = payloadResolver.getClaims(authentication);
         claims.putExpiration(Instant.now().plus(validity, ChronoUnit.MILLIS));
         JWTClaimsSet jwtClaimsSet = convert(claims);
-        SignedJWT signedJWT = new SignedJWT(
+        SignedJWT signedJwt = new SignedJWT(
                 new JWSHeader(JWSAlgorithm.HS512),
                 jwtClaimsSet
         );
         try {
-            signedJWT.sign(jwsSigner);
+            signedJwt.sign(jwsSigner);
         } catch (JOSEException e) {
             throw new TokenServiceIssueException("Failed to sign token", e);
         }
-        return signedJWT.serialize();
+        return signedJwt.serialize();
     }
 
     @Override

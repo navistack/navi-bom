@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class JacksonJsonTypeHandlerTest extends BaseTypeHandlerTest {
     private final JacksonJsonTypeHandler<JsonObject> typeHandler = new JacksonJsonTypeHandler<>(JsonObject.class);

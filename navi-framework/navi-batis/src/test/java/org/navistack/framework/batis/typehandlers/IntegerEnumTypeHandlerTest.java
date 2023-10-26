@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.navistack.framework.core.Numeric;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class IntegerEnumTypeHandlerTest extends BaseTypeHandlerTest {
     private final IntegerEnumTypeHandler<State> typeHandler = new IntegerEnumTypeHandler<>(State.class);

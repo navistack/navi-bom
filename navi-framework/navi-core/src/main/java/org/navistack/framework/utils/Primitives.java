@@ -115,6 +115,7 @@ public class Primitives {
     public boolean ge(Boolean left, Boolean right) {
         return left != null && right != null && left.compareTo(right) >= 0;
     }
+
     public boolean lt(Byte left, Byte right) {
         return left != null && right != null && left.compareTo(right) < 0;
     }
@@ -142,6 +143,7 @@ public class Primitives {
     public boolean lt(Boolean left, Boolean right) {
         return left != null && right != null && left.compareTo(right) < 0;
     }
+
     public boolean le(Byte left, Byte right) {
         return left != null && right != null && left.compareTo(right) <= 0;
     }

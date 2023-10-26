@@ -10,7 +10,10 @@ import java.util.Map;
 
 public class ParameterizedErrorJsonSerializer extends JsonSerializer<RestResult.ParameterizedError> {
     @Override
-    public void serialize(RestResult.ParameterizedError error, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(RestResult.ParameterizedError error,
+                          JsonGenerator jsonGenerator,
+                          SerializerProvider serializerProvider)
+            throws IOException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeNumberField("code", error.getError());
         jsonGenerator.writeStringField("message", error.getMessage());

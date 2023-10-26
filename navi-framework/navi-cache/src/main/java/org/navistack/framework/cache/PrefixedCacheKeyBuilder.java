@@ -7,8 +7,8 @@ import java.util.StringJoiner;
 
 @Getter
 public class PrefixedCacheKeyBuilder implements CacheKeyBuilder {
-    private final static String DEFAULT_PREFIX = "";
-    private final static String DEFAULT_DELIMITER = ".";
+    private static final String DEFAULT_PREFIX = "";
+    private static final String DEFAULT_DELIMITER = ".";
 
     private final String delimiter;
     private final String prefix;

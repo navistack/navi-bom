@@ -1,7 +1,7 @@
 package org.navistack.framework.core.error;
 
 public class DomainException extends CodedException {
-    private final static int GENERAL_ERROR = 0x000;
+    private static final int GENERAL_ERROR = 0x000;
 
     public DomainException() {
         super(ErrorCodeBuilder.domainError(GENERAL_ERROR));
@@ -39,7 +39,11 @@ public class DomainException extends CodedException {
         super(ErrorCodeBuilder.domainError(GENERAL_ERROR), message, cause, enableSuppression, writableStackTrace);
     }
 
-    protected DomainException(int errorCode, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected DomainException(int errorCode,
+                              String message,
+                              Throwable cause,
+                              boolean enableSuppression,
+                              boolean writableStackTrace) {
         super(ErrorCodeBuilder.domainError(errorCode), message, cause, enableSuppression, writableStackTrace);
     }
 }

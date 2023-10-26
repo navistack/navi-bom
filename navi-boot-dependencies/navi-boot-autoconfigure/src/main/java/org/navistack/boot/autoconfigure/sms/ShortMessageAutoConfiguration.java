@@ -1,6 +1,10 @@
 package org.navistack.boot.autoconfigure.sms;
 
-import org.navistack.framework.sms.*;
+import org.navistack.framework.sms.ConfigurableShortMessageTemplateRegistration;
+import org.navistack.framework.sms.DefaultShortMessageService;
+import org.navistack.framework.sms.ShortMessageService;
+import org.navistack.framework.sms.ShortMessageServiceProvider;
+import org.navistack.framework.sms.ShortMessageTemplateRegistration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

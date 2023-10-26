@@ -49,9 +49,9 @@ public class RedisCacheService implements CacheService {
     public <V> V getAndDelete(String key, Class<V> clazz) {
         return clazz.cast(redisOperations.execute(new SessionCallback<>() {
             @Override
-            public <K, TV> Object execute(RedisOperations<K, TV> pOperations) throws DataAccessException {
+            public <K, W> Object execute(RedisOperations<K, W> arOperations) throws DataAccessException {
                 @SuppressWarnings("unchecked")
-                RedisOperations<String, Object> operations = (RedisOperations<String, Object>) pOperations;
+                RedisOperations<String, Object> operations = (RedisOperations<String, Object>) arOperations;
                 Object value = operations.opsForValue().get(key);
                 operations.delete(key);
                 return value;

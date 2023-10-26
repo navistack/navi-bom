@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractErrCategory implements ErrCategory {
-    private final static String FALLBACK_MESSAGE = "Unknown error %d";
+    private static final String FALLBACK_MESSAGE = "Unknown error %d";
 
     private final Map<Integer, String> messages;
 

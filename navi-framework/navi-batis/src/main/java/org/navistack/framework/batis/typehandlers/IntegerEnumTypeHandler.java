@@ -57,7 +57,9 @@ public class IntegerEnumTypeHandler<E extends Enum<E> & Numeric<Integer>> extend
         try {
             return Enums.valueOf(type, n);
         } catch (Exception ex) {
-            throw new IllegalArgumentException("Cannot convert " + n + " to " + type.getSimpleName() + " by numeric value.", ex);
+            throw new IllegalArgumentException("Cannot convert " + n
+                    + " to " + type.getSimpleName()
+                    + " by numeric value.", ex);
         }
     }
 }

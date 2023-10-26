@@ -26,7 +26,8 @@ public class DefaultFileUploadPolicyEnforcer implements FileUploadPolicyEnforcer
     }
 
     @Override
-    public void enforce(Path filePath, String contentType, FileUploadPolicy policy) throws FileUploadPolicyViolationException {
+    public void enforce(Path filePath, String contentType, FileUploadPolicy policy)
+            throws FileUploadPolicyViolationException {
         if (policy == null) {
             if (defaultUploadPolicy == null) {
                 return;
