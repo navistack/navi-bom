@@ -43,10 +43,9 @@ public class Slf4jLoggingRequestInterceptor implements ClientHttpRequestIntercep
     private void logResponse(ClientHttpResponse response) throws IOException {
         String responseBody = StreamUtils.copyToString(response.getBody(), resolveCharset(response));
         log.debug("* Receiving response");
-        log.debug("< Status    : {}", response.getStatusCode());
-        log.debug("< Raw Status: {} {}", response.getRawStatusCode(), response.getStatusText());
-        log.debug("< Headers   : {}", response.getHeaders());
-        log.debug("< Body      : {}", responseBody);
+        log.debug("< Status  : {} {}", response.getStatusCode(), response.getStatusText());
+        log.debug("< Headers : {}", response.getHeaders());
+        log.debug("< Body    : {}", responseBody);
     }
 
     private Charset resolveCharset(HttpMessage message) {

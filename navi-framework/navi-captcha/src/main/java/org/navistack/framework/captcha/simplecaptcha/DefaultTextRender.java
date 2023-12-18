@@ -110,7 +110,7 @@ public class DefaultTextRender extends FilteringTextRender implements TextRender
                     wordChars[i]
             };
             g2D.drawChars(charToDraw, 0, charToDraw.length, startPosX, startPosY);
-            startPosX = startPosX + (int) charWidths[i] + charSpace;
+            startPosX = startPosX + charWidths[i] + charSpace;
         }
 
         return image;

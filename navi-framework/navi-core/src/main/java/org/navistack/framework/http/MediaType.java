@@ -46,7 +46,7 @@ public final class MediaType {
     }
 
     public boolean containsAnyExtension(String... extensions) {
-        if (extensions == null || extensions.length == 0) {
+        if (extensions == null) {
             return false;
         }
         for (String extension : extensions) {

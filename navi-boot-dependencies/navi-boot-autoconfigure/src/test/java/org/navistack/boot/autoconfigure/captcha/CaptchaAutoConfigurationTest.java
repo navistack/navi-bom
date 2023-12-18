@@ -30,7 +30,7 @@ class CaptchaAutoConfigurationTest {
                 .run(context -> {
                     assertThat(context).hasBean("captchaTestInterceptor");
                     MappedInterceptor interceptor = context.getBean("captchaTestInterceptor", MappedInterceptor.class);
-                    String[] urlPatterns = interceptor.getPathPatterns();
+                    String[] urlPatterns = interceptor.getIncludePathPatterns();
                     assertThat(urlPatterns).containsExactly("/login");
                 });
     }

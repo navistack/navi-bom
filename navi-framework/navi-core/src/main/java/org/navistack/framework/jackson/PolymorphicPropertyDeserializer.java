@@ -1,6 +1,5 @@
 package org.navistack.framework.jackson;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -49,7 +48,7 @@ public class PolymorphicPropertyDeserializer<T> extends JsonDeserializer<T> {
 
     @Override
     public T deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
-            throws IOException, JacksonException {
+            throws IOException {
         TreeNode treeNode = jsonParser.readValueAsTree();
         TextNode providerNode = (TextNode) treeNode.get(property);
         String provider = providerNode.asText();

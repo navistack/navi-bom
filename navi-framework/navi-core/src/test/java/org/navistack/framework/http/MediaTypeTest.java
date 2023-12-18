@@ -58,6 +58,6 @@ class MediaTypeTest {
         assertThat(mediaType.containsAnyExtension("mp4", "mp4v", "mpg4", "mpeg")).isTrue();
         assertThat(mediaType.containsAnyExtension("mp4", "mp4v", "mpg4")).isFalse();
         assertThat(mediaType.containsAnyExtension((String[]) null)).isFalse();
-        assertThat(mediaType.containsAnyExtension(new String[]{})).isFalse();
+        assertThat(mediaType.containsAnyExtension()).isFalse();
     }
 }

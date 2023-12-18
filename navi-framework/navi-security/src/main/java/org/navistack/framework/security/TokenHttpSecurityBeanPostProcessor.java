@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.util.ClassUtils;
 
@@ -23,7 +24,7 @@ public class TokenHttpSecurityBeanPostProcessor implements BeanPostProcessor {
 
     private void register(final HttpSecurity http, final String beanName, final TokenConfigurer configurer) {
         try {
-            http.apply(configurer);
+            http.with(configurer, Customizer.withDefaults());
         } catch (final Exception cause) {
             throw new BeanCreationException(beanName, cause);
         }

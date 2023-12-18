@@ -21,7 +21,7 @@ import java.io.IOException;
 
 @Slf4j
 public class TokenFilter extends GenericFilterBean implements InitializingBean {
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     @Getter
     @Setter

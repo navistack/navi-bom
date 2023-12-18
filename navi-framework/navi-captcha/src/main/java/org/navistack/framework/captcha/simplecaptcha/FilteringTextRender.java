@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public abstract class FilteringTextRender implements TextRender {
     @Getter
@@ -23,10 +24,8 @@ public abstract class FilteringTextRender implements TextRender {
     }
 
     public void addImageFilter(ImageFilter... imageFilters) {
-        if (imageFilters != null && imageFilters.length > 0) {
-            for (ImageFilter imageFilter : imageFilters) {
-                this.imageFilters.add(imageFilter);
-            }
+        if (imageFilters != null) {
+            Collections.addAll(this.imageFilters, imageFilters);
         }
     }
 

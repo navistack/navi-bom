@@ -36,7 +36,7 @@ class TreeBuilderTest {
                     "AS",
                     "Asia",
                     "Continent",
-                    Arrays.asList(
+                    List.of(
                             HierarchicalGeoDivision.of(
                                     "CN",
                                     "China",
@@ -65,7 +65,7 @@ class TreeBuilderTest {
                     "NA",
                     "North America",
                     "Continent",
-                    Arrays.asList(
+                    List.of(
                             HierarchicalGeoDivision.of("US", "United States", "Country/Region", "NA")
                     )
             )

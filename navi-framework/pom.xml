@@ -22,33 +22,35 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <spring-framework.version>6.0.12</spring-framework.version>
-        <spring-data-bom.version>2023.0.4</spring-data-bom.version>
-        <spring-security.version>6.1.4</spring-security.version>
-        <jackson-bom.version>2.15.2</jackson-bom.version>
-        <junit-jupiter.version>5.9.3</junit-jupiter.version>
+        <spring-framework.version>6.1.1</spring-framework.version>
+        <spring-data-bom.version>2023.1.0</spring-data-bom.version>
+        <spring-security.version>6.2.0</spring-security.version>
+        <jackson-bom.version>2.15.3</jackson-bom.version>
+        <junit-jupiter.version>5.10.1</junit-jupiter.version>
         <lombok.version>1.18.30</lombok.version>
         <modelmapper.version>3.2.0</modelmapper.version>
         <junit.version>4.13.2</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <aliyun-captcha20230305.version>1.1.0</aliyun-captcha20230305.version>
+        <aliyun-captcha20230305.version>1.1.1</aliyun-captcha20230305.version>
         <aliyun-dysmsapi20170525.version>2.0.24</aliyun-dysmsapi20170525.version>
-        <tencentcloud-sdk.version>3.1.878</tencentcloud-sdk.version>
+        <tencentcloud-common.version>3.1.927</tencentcloud-common.version>
+        <tencentcloud-captcha.version>3.1.918</tencentcloud-captcha.version>
+        <tencentcloud-sms.version>3.1.893</tencentcloud-sms.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <swagger-v3.version>2.2.17</swagger-v3.version>
+        <swagger-v3.version>2.2.19</swagger-v3.version>
         <jakarta-servlet.version>6.0.0</jakarta-servlet.version>
         <slf4j.version>2.0.9</slf4j.version>
-        <aspectj.version>1.9.20</aspectj.version>
-        <nimbus-jose-jwt.version>9.36</nimbus-jose-jwt.version>
+        <aspectj.version>1.9.20.1</aspectj.version>
+        <nimbus-jose-jwt.version>9.37.3</nimbus-jose-jwt.version>
         <assertj.version>3.24.2</assertj.version>
-        <minio.version>8.5.6</minio.version>
-        <commons-codec.version>1.15</commons-codec.version>
-        <mockito.version>5.3.1</mockito.version>
+        <minio.version>8.5.7</minio.version>
+        <commons-codec.version>1.16.0</commons-codec.version>
+        <mockito.version>5.7.0</mockito.version>
         <jhlabs-filters.version>2.0.235-1</jhlabs-filters.version>
         <antisamy.version>1.7.4</antisamy.version>
-        <testcontainers.version>1.19.1</testcontainers.version>
-        <mybatis.version>3.5.13</mybatis.version>
-        <mybatis-spring-boot.version>3.0.2</mybatis-spring-boot.version>
+        <testcontainers.version>1.19.3</testcontainers.version>
+        <mybatis.version>3.5.15</mybatis.version>
+        <mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
     </properties>
 
     <modules>
@@ -83,13 +85,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- AssertJ -->
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Mockito -->
         <dependency>
             <groupId>org.mockito</groupId>
@@ -99,6 +94,13 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- AssertJ -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -214,17 +216,17 @@
             <dependency>
                 <groupId>com.tencentcloudapi</groupId>
                 <artifactId>tencentcloud-sdk-java-common</artifactId>
-                <version>${tencentcloud-sdk.version}</version>
+                <version>${tencentcloud-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.tencentcloudapi</groupId>
                 <artifactId>tencentcloud-sdk-java-captcha</artifactId>
-                <version>${tencentcloud-sdk.version}</version>
+                <version>${tencentcloud-captcha.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.tencentcloudapi</groupId>
                 <artifactId>tencentcloud-sdk-java-sms</artifactId>
-                <version>${tencentcloud-sdk.version}</version>
+                <version>${tencentcloud-sms.version}</version>
             </dependency>
 
             <!-- mapstruct -->

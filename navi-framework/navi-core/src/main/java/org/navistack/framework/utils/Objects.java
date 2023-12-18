@@ -18,7 +18,7 @@ public class Objects {
 
     @SafeVarargs
     public <T> T firstNonNull(T... objects) {
-        if (objects == null || objects.length == 0) {
+        if (objects == null) {
             return null;
         }
 

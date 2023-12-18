@@ -25,11 +25,6 @@ public final class BufferingClientHttpResponseWrapper implements ClientHttpRespo
     }
 
     @Override
-    public int getRawStatusCode() throws IOException {
-        return response.getRawStatusCode();
-    }
-
-    @Override
     public String getStatusText() throws IOException {
         return response.getStatusText();
     }

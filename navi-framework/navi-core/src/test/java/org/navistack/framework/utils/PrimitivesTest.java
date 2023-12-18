@@ -13,7 +13,7 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.eq((byte) 0, null))
                 .isFalse();
-        assertThat(Primitives.eq((Byte) null, (Byte) null))
+        assertThat(Primitives.eq(null, (Byte) null))
                 .isFalse();
         assertThat(Primitives.eq((short) 0, (short) 0))
                 .isTrue();
@@ -21,15 +21,15 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.eq((short) 0, null))
                 .isFalse();
-        assertThat(Primitives.eq((Short) null, (Short) null))
+        assertThat(Primitives.eq(null, (Short) null))
                 .isFalse();
-        assertThat(Primitives.eq((int) 0, (int) 0))
+        assertThat(Primitives.eq(0, 0))
                 .isTrue();
-        assertThat(Primitives.eq(null, (int) 0))
+        assertThat(Primitives.eq(null, 0))
                 .isFalse();
-        assertThat(Primitives.eq((int) 0, null))
+        assertThat(Primitives.eq(0, null))
                 .isFalse();
-        assertThat(Primitives.eq((Integer) null, (Integer) null))
+        assertThat(Primitives.eq(null, (Integer) null))
                 .isFalse();
         assertThat(Primitives.eq((long) 0, (long) 0))
                 .isTrue();
@@ -37,7 +37,7 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.eq((long) 0, null))
                 .isFalse();
-        assertThat(Primitives.eq((Long) null, (Long) null))
+        assertThat(Primitives.eq(null, (Long) null))
                 .isFalse();
         assertThat(Primitives.eq((float) 0.0, (float) 0.0))
                 .isTrue();
@@ -45,25 +45,25 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.eq((float) 0.0, null))
                 .isFalse();
-        assertThat(Primitives.eq((Float) null, (Float) null))
+        assertThat(Primitives.eq(null, (Float) null))
                 .isFalse();
-        assertThat(Primitives.eq((double) 0.0, (double) 0.0))
+        assertThat(Primitives.eq(0.0, 0.0))
                 .isTrue();
-        assertThat(Primitives.eq(null, (double) 0.0))
+        assertThat(Primitives.eq(null, 0.0))
                 .isFalse();
-        assertThat(Primitives.eq((double) 0.0, null))
+        assertThat(Primitives.eq(0.0, null))
                 .isFalse();
-        assertThat(Primitives.eq((Double) null, (Double) null))
+        assertThat(Primitives.eq(null, (Double) null))
                 .isFalse();
-        assertThat(Primitives.eq((boolean) true, (boolean) true))
+        assertThat(Primitives.eq(true, true))
                 .isTrue();
-        assertThat(Primitives.eq((boolean) false, (boolean) false))
+        assertThat(Primitives.eq(false, false))
                 .isTrue();
-        assertThat(Primitives.eq(null, (boolean) true))
+        assertThat(Primitives.eq(null, true))
                 .isFalse();
-        assertThat(Primitives.eq((boolean) true, null))
+        assertThat(Primitives.eq(true, null))
                 .isFalse();
-        assertThat(Primitives.eq((Boolean) null, (Boolean) null))
+        assertThat(Primitives.eq(null, (Boolean) null))
                 .isFalse();
     }
 
@@ -75,7 +75,7 @@ class PrimitivesTest {
                 .isTrue();
         assertThat(Primitives.neq((byte) 0, null))
                 .isTrue();
-        assertThat(Primitives.neq((Byte) null, (Byte) null))
+        assertThat(Primitives.neq(null, (Byte) null))
                 .isTrue();
         assertThat(Primitives.neq((short) 0, (short) 0))
                 .isFalse();
@@ -83,15 +83,15 @@ class PrimitivesTest {
                 .isTrue();
         assertThat(Primitives.neq((short) 0, null))
                 .isTrue();
-        assertThat(Primitives.neq((Short) null, (Short) null))
+        assertThat(Primitives.neq(null, (Short) null))
                 .isTrue();
-        assertThat(Primitives.neq((int) 0, (int) 0))
+        assertThat(Primitives.neq(0, 0))
                 .isFalse();
-        assertThat(Primitives.neq(null, (int) 0))
+        assertThat(Primitives.neq(null, 0))
                 .isTrue();
-        assertThat(Primitives.neq((int) 0, null))
+        assertThat(Primitives.neq(0, null))
                 .isTrue();
-        assertThat(Primitives.neq((Integer) null, (Integer) null))
+        assertThat(Primitives.neq(null, (Integer) null))
                 .isTrue();
         assertThat(Primitives.neq((long) 0, (long) 0))
                 .isFalse();
@@ -99,7 +99,7 @@ class PrimitivesTest {
                 .isTrue();
         assertThat(Primitives.neq((long) 0, null))
                 .isTrue();
-        assertThat(Primitives.neq((Long) null, (Long) null))
+        assertThat(Primitives.neq(null, (Long) null))
                 .isTrue();
         assertThat(Primitives.neq((float) 0.0, (float) 0.0))
                 .isFalse();
@@ -107,25 +107,25 @@ class PrimitivesTest {
                 .isTrue();
         assertThat(Primitives.neq((float) 0.0, null))
                 .isTrue();
-        assertThat(Primitives.neq((Float) null, (Float) null))
+        assertThat(Primitives.neq(null, (Float) null))
                 .isTrue();
-        assertThat(Primitives.neq((double) 0.0, (double) 0.0))
+        assertThat(Primitives.neq(0.0, 0.0))
                 .isFalse();
-        assertThat(Primitives.neq(null, (double) 0.0))
+        assertThat(Primitives.neq(null, 0.0))
                 .isTrue();
-        assertThat(Primitives.neq((double) 0.0, null))
+        assertThat(Primitives.neq(0.0, null))
                 .isTrue();
-        assertThat(Primitives.neq((Double) null, (Double) null))
+        assertThat(Primitives.neq(null, (Double) null))
                 .isTrue();
-        assertThat(Primitives.neq((boolean) true, (boolean) true))
+        assertThat(Primitives.neq(true, true))
                 .isFalse();
-        assertThat(Primitives.neq((boolean) false, (boolean) false))
+        assertThat(Primitives.neq(false, false))
                 .isFalse();
-        assertThat(Primitives.neq(null, (boolean) true))
+        assertThat(Primitives.neq(null, true))
                 .isTrue();
-        assertThat(Primitives.neq((boolean) true, null))
+        assertThat(Primitives.neq(true, null))
                 .isTrue();
-        assertThat(Primitives.neq((Boolean) null, (Boolean) null))
+        assertThat(Primitives.neq(null, (Boolean) null))
                 .isTrue();
     }
 
@@ -137,7 +137,7 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.gt((byte) 0, null))
                 .isFalse();
-        assertThat(Primitives.gt((Byte) null, (Byte) null))
+        assertThat(Primitives.gt(null, (Byte) null))
                 .isFalse();
         assertThat(Primitives.gt((short) 1, (short) 0))
                 .isTrue();
@@ -145,15 +145,15 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.gt((short) 0, null))
                 .isFalse();
-        assertThat(Primitives.gt((Short) null, (Short) null))
+        assertThat(Primitives.gt(null, (Short) null))
                 .isFalse();
-        assertThat(Primitives.gt((int) 1, (int) 0))
+        assertThat(Primitives.gt(1, 0))
                 .isTrue();
-        assertThat(Primitives.gt(null, (int) 0))
+        assertThat(Primitives.gt(null, 0))
                 .isFalse();
-        assertThat(Primitives.gt((int) 0, null))
+        assertThat(Primitives.gt(0, null))
                 .isFalse();
-        assertThat(Primitives.gt((Integer) null, (Integer) null))
+        assertThat(Primitives.gt(null, (Integer) null))
                 .isFalse();
         assertThat(Primitives.gt((long) 1, (long) 0))
                 .isTrue();
@@ -161,7 +161,7 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.gt((long) 0, null))
                 .isFalse();
-        assertThat(Primitives.gt((Long) null, (Long) null))
+        assertThat(Primitives.gt(null, (Long) null))
                 .isFalse();
         assertThat(Primitives.gt((float) 1.0, (float) 0.0))
                 .isTrue();
@@ -169,25 +169,25 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.gt((float) 0.0, null))
                 .isFalse();
-        assertThat(Primitives.gt((Float) null, (Float) null))
+        assertThat(Primitives.gt(null, (Float) null))
                 .isFalse();
-        assertThat(Primitives.gt((double) 1.0, (double) 0.0))
+        assertThat(Primitives.gt(1.0, 0.0))
                 .isTrue();
-        assertThat(Primitives.gt(null, (double) 0.0))
+        assertThat(Primitives.gt(null, 0.0))
                 .isFalse();
-        assertThat(Primitives.gt((double) 0.0, null))
+        assertThat(Primitives.gt(0.0, null))
                 .isFalse();
-        assertThat(Primitives.gt((Double) null, (Double) null))
+        assertThat(Primitives.gt(null, (Double) null))
                 .isFalse();
-        assertThat(Primitives.gt((boolean) true, (boolean) false))
+        assertThat(Primitives.gt(true, false))
                 .isTrue();
-        assertThat(Primitives.gt((boolean) false, (boolean) false))
+        assertThat(Primitives.gt(false, false))
                 .isFalse();
-        assertThat(Primitives.gt(null, (boolean) true))
+        assertThat(Primitives.gt(null, true))
                 .isFalse();
-        assertThat(Primitives.gt((boolean) true, null))
+        assertThat(Primitives.gt(true, null))
                 .isFalse();
-        assertThat(Primitives.gt((Boolean) null, (Boolean) null))
+        assertThat(Primitives.gt(null, (Boolean) null))
                 .isFalse();
     }
 
@@ -199,7 +199,7 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.ge((byte) 0, null))
                 .isFalse();
-        assertThat(Primitives.ge((Byte) null, (Byte) null))
+        assertThat(Primitives.ge(null, (Byte) null))
                 .isFalse();
         assertThat(Primitives.ge((short) 1, (short) 0))
                 .isTrue();
@@ -207,15 +207,15 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.ge((short) 0, null))
                 .isFalse();
-        assertThat(Primitives.ge((Short) null, (Short) null))
+        assertThat(Primitives.ge(null, (Short) null))
                 .isFalse();
-        assertThat(Primitives.ge((int) 1, (int) 0))
+        assertThat(Primitives.ge(1, 0))
                 .isTrue();
-        assertThat(Primitives.ge(null, (int) 0))
+        assertThat(Primitives.ge(null, 0))
                 .isFalse();
-        assertThat(Primitives.ge((int) 0, null))
+        assertThat(Primitives.ge(0, null))
                 .isFalse();
-        assertThat(Primitives.ge((Integer) null, (Integer) null))
+        assertThat(Primitives.ge(null, (Integer) null))
                 .isFalse();
         assertThat(Primitives.ge((long) 1, (long) 0))
                 .isTrue();
@@ -223,7 +223,7 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.ge((long) 0, null))
                 .isFalse();
-        assertThat(Primitives.ge((Long) null, (Long) null))
+        assertThat(Primitives.ge(null, (Long) null))
                 .isFalse();
         assertThat(Primitives.ge((float) 1.0, (float) 0.0))
                 .isTrue();
@@ -231,25 +231,25 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.ge((float) 0.0, null))
                 .isFalse();
-        assertThat(Primitives.ge((Float) null, (Float) null))
+        assertThat(Primitives.ge(null, (Float) null))
                 .isFalse();
-        assertThat(Primitives.ge((double) 1.0, (double) 0.0))
+        assertThat(Primitives.ge(1.0, 0.0))
                 .isTrue();
-        assertThat(Primitives.ge(null, (double) 0.0))
+        assertThat(Primitives.ge(null, 0.0))
                 .isFalse();
-        assertThat(Primitives.ge((double) 0.0, null))
+        assertThat(Primitives.ge(0.0, null))
                 .isFalse();
-        assertThat(Primitives.ge((Double) null, (Double) null))
+        assertThat(Primitives.ge(null, (Double) null))
                 .isFalse();
-        assertThat(Primitives.ge((boolean) true, (boolean) true))
+        assertThat(Primitives.ge(true, true))
                 .isTrue();
-        assertThat(Primitives.ge((boolean) false, (boolean) false))
+        assertThat(Primitives.ge(false, false))
                 .isTrue();
-        assertThat(Primitives.ge(null, (boolean) true))
+        assertThat(Primitives.ge(null, true))
                 .isFalse();
-        assertThat(Primitives.ge((boolean) true, null))
+        assertThat(Primitives.ge(true, null))
                 .isFalse();
-        assertThat(Primitives.ge((Boolean) null, (Boolean) null))
+        assertThat(Primitives.ge(null, (Boolean) null))
                 .isFalse();
     }
 
@@ -261,7 +261,7 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.lt((byte) 0, null))
                 .isFalse();
-        assertThat(Primitives.lt((Byte) null, (Byte) null))
+        assertThat(Primitives.lt(null, (Byte) null))
                 .isFalse();
         assertThat(Primitives.lt((short) 0, (short) 1))
                 .isTrue();
@@ -269,15 +269,15 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.lt((short) 0, null))
                 .isFalse();
-        assertThat(Primitives.lt((Short) null, (Short) null))
+        assertThat(Primitives.lt(null, (Short) null))
                 .isFalse();
-        assertThat(Primitives.lt((int) 0, (int) 1))
+        assertThat(Primitives.lt(0, 1))
                 .isTrue();
-        assertThat(Primitives.lt(null, (int) 0))
+        assertThat(Primitives.lt(null, 0))
                 .isFalse();
-        assertThat(Primitives.lt((int) 0, null))
+        assertThat(Primitives.lt(0, null))
                 .isFalse();
-        assertThat(Primitives.lt((Integer) null, (Integer) null))
+        assertThat(Primitives.lt(null, (Integer) null))
                 .isFalse();
         assertThat(Primitives.lt((long) 0, (long) 1))
                 .isTrue();
@@ -285,7 +285,7 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.lt((long) 0, null))
                 .isFalse();
-        assertThat(Primitives.lt((Long) null, (Long) null))
+        assertThat(Primitives.lt(null, (Long) null))
                 .isFalse();
         assertThat(Primitives.lt((float) 0.0, (float) 1.0))
                 .isTrue();
@@ -293,25 +293,25 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.lt((float) 0.0, null))
                 .isFalse();
-        assertThat(Primitives.lt((Float) null, (Float) null))
+        assertThat(Primitives.lt(null, (Float) null))
                 .isFalse();
-        assertThat(Primitives.lt((double) 0.0, (double) 1.0))
+        assertThat(Primitives.lt(0.0, 1.0))
                 .isTrue();
-        assertThat(Primitives.lt(null, (double) 0.0))
+        assertThat(Primitives.lt(null, 0.0))
                 .isFalse();
-        assertThat(Primitives.lt((double) 0.0, null))
+        assertThat(Primitives.lt(0.0, null))
                 .isFalse();
-        assertThat(Primitives.lt((Double) null, (Double) null))
+        assertThat(Primitives.lt(null, (Double) null))
                 .isFalse();
-        assertThat(Primitives.lt((boolean) false, (boolean) true))
+        assertThat(Primitives.lt(false, true))
                 .isTrue();
-        assertThat(Primitives.lt((boolean) true, (boolean) true))
+        assertThat(Primitives.lt(true, true))
                 .isFalse();
-        assertThat(Primitives.lt(null, (boolean) true))
+        assertThat(Primitives.lt(null, true))
                 .isFalse();
-        assertThat(Primitives.lt((boolean) true, null))
+        assertThat(Primitives.lt(true, null))
                 .isFalse();
-        assertThat(Primitives.lt((Boolean) null, (Boolean) null))
+        assertThat(Primitives.lt(null, (Boolean) null))
                 .isFalse();
     }
 
@@ -323,7 +323,7 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.le((byte) 0, null))
                 .isFalse();
-        assertThat(Primitives.le((Byte) null, (Byte) null))
+        assertThat(Primitives.le(null, (Byte) null))
                 .isFalse();
         assertThat(Primitives.le((short) 0, (short) 1))
                 .isTrue();
@@ -331,15 +331,15 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.le((short) 0, null))
                 .isFalse();
-        assertThat(Primitives.le((Short) null, (Short) null))
+        assertThat(Primitives.le(null, (Short) null))
                 .isFalse();
-        assertThat(Primitives.le((int) 0, (int) 1))
+        assertThat(Primitives.le(0, 1))
                 .isTrue();
-        assertThat(Primitives.le(null, (int) 0))
+        assertThat(Primitives.le(null, 0))
                 .isFalse();
-        assertThat(Primitives.le((int) 0, null))
+        assertThat(Primitives.le(0, null))
                 .isFalse();
-        assertThat(Primitives.le((Integer) null, (Integer) null))
+        assertThat(Primitives.le(null, (Integer) null))
                 .isFalse();
         assertThat(Primitives.le((long) 0, (long) 1))
                 .isTrue();
@@ -347,7 +347,7 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.le((long) 0, null))
                 .isFalse();
-        assertThat(Primitives.le((Long) null, (Long) null))
+        assertThat(Primitives.le(null, (Long) null))
                 .isFalse();
         assertThat(Primitives.le((float) 0.0, (float) 1.0))
                 .isTrue();
@@ -355,25 +355,25 @@ class PrimitivesTest {
                 .isFalse();
         assertThat(Primitives.le((float) 0.0, null))
                 .isFalse();
-        assertThat(Primitives.le((Float) null, (Float) null))
+        assertThat(Primitives.le(null, (Float) null))
                 .isFalse();
-        assertThat(Primitives.le((double) 0.0, (double) 1.0))
+        assertThat(Primitives.le(0.0, 1.0))
                 .isTrue();
-        assertThat(Primitives.le(null, (double) 0.0))
+        assertThat(Primitives.le(null, 0.0))
                 .isFalse();
-        assertThat(Primitives.le((double) 0.0, null))
+        assertThat(Primitives.le(0.0, null))
                 .isFalse();
-        assertThat(Primitives.le((Double) null, (Double) null))
+        assertThat(Primitives.le(null, (Double) null))
                 .isFalse();
-        assertThat(Primitives.le((boolean) true, (boolean) true))
+        assertThat(Primitives.le(true, true))
                 .isTrue();
-        assertThat(Primitives.le((boolean) false, (boolean) false))
+        assertThat(Primitives.le(false, false))
                 .isTrue();
-        assertThat(Primitives.le(null, (boolean) true))
+        assertThat(Primitives.le(null, true))
                 .isFalse();
-        assertThat(Primitives.le((boolean) true, null))
+        assertThat(Primitives.le(true, null))
                 .isFalse();
-        assertThat(Primitives.le((Boolean) null, (Boolean) null))
+        assertThat(Primitives.le(null, (Boolean) null))
                 .isFalse();
     }
 }
