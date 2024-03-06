@@ -3,7 +3,7 @@ package org.navistack.framework.core.error;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class ErrorCodeBuilder {
+public class ErrorCodes {
     private final int ERROR_BITS = 3 * 4;
     private final int ERROR_MASK = ~(-1 << ERROR_BITS);
 
@@ -21,23 +21,27 @@ public class ErrorCodeBuilder {
                 ;
     }
 
-    public int systemError(int error) {
-        return error(ErrorCodeCategories.SYSTEM_ERROR, error);
+    public int appError(int error) {
+        return error(ErrorCodeCategories.APP_ERROR, error);
     }
 
-    public int domainError(int error) {
-        return error(ErrorCodeCategories.DOMAIN_ERROR, error);
-    }
-
-    public int externalError(int error) {
-        return error(ErrorCodeCategories.EXTERNAL_ERROR, error);
+    public int infraError(int error) {
+        return error(ErrorCodeCategories.INFRA_ERROR, error);
     }
 
     public int userError(int error) {
         return error(ErrorCodeCategories.USER_ERROR, error);
     }
 
-    public int uncategorizedError() {
-        return error(ErrorCodeCategories.UNCATEGORIZED_ERROR, 0xFFF);
+    public int globalAppError(int error) {
+        return error(ErrorCodeCategories.GLOBAL_APP_ERROR, error);
+    }
+
+    public int globalInfraError(int error) {
+        return error(ErrorCodeCategories.GLOBAL_INFRA_ERROR, error);
+    }
+
+    public int globalUserError(int error) {
+        return error(ErrorCodeCategories.GLOBAL_USER_ERROR, error);
     }
 }

@@ -1,8 +1,8 @@
 package org.navistack.framework.web.rest.exceptionhandling.translators.validation;
 
-import org.navistack.framework.core.error.UserErrorCodes;
-import org.navistack.framework.web.rest.RestResult;
-import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslation;
+import org.navistack.framework.core.error.UserErrors;
+import org.navistack.framework.web.rest.RestErrResult;
+import org.navistack.framework.web.rest.RestResults;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslator;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -11,27 +11,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BindExceptionTranslator implements ExceptionTranslator {
-    @Override
-    public ExceptionTranslation translate(Throwable throwable) {
-        BindException exception = (BindException) throwable;
-        RestResult.ParameterizedError error = RestResult.ParameterizedError.of(
-                UserErrorCodes.INVALID_PARAMETER,
-                "Invalid Parameters",
-                Collections.singletonMap("invalidParams", fromBindingResult(exception))
-        );
-        return ExceptionTranslation.of(error, HttpStatus.BAD_REQUEST);
-    }
-
-    @Override
-    public boolean supports(Class<?> throwableType) {
-        return BindException.class.isAssignableFrom(throwableType);
-    }
-
     protected static InvalidParam fromFieldError(FieldError fieldError) {
         return InvalidParam.of(fieldError.getField(), fieldError.getDefaultMessage());
     }
@@ -51,5 +34,20 @@ public class BindExceptionTranslator implements ExceptionTranslator {
                         .stream()
                         .map(BindExceptionTranslator::fromObjectError)
         ).collect(Collectors.toList());
+    }
+
+    @Override
+    public RestErrResult translate(Throwable throwable) {
+        BindException exception = (BindException) throwable;
+        return RestResults.err(throwable)
+                .setError(UserErrors.INVALID_PARAMETER)
+                .setMessage("Invalid Parameters")
+                .setStatus(HttpStatus.BAD_REQUEST)
+                .putParameter("invalidParams", fromBindingResult(exception));
+    }
+
+    @Override
+    public boolean supports(Class<?> throwableType) {
+        return BindException.class.isAssignableFrom(throwableType);
     }
 }

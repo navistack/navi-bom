@@ -1,7 +1,9 @@
 package org.navistack.framework.web.rest.exceptionhandling;
 
+import org.navistack.framework.web.rest.RestErrResult;
+
 public interface ExceptionTranslator {
-    ExceptionTranslation translate(Throwable throwable);
+    RestErrResult translate(Throwable throwable);
 
     boolean supports(Class<?> throwableType);
 }

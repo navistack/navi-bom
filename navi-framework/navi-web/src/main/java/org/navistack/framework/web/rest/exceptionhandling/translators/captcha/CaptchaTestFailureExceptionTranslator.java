@@ -1,20 +1,18 @@
 package org.navistack.framework.web.rest.exceptionhandling.translators.captcha;
 
 import org.navistack.framework.captcha.CaptchaTestFailureException;
-import org.navistack.framework.core.error.UserErrorCodes;
-import org.navistack.framework.web.rest.RestResult;
-import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslation;
+import org.navistack.framework.core.error.UserErrors;
+import org.navistack.framework.web.rest.RestErrResult;
+import org.navistack.framework.web.rest.RestResults;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslator;
 import org.springframework.http.HttpStatus;
 
 public class CaptchaTestFailureExceptionTranslator implements ExceptionTranslator {
     @Override
-    public ExceptionTranslation translate(Throwable throwable) {
-        RestResult.ParameterizedError error = RestResult.ParameterizedError.of(
-                UserErrorCodes.CAPTCHA_TEST_FAILED,
-                throwable.getMessage()
-        );
-        return ExceptionTranslation.of(error, HttpStatus.BAD_REQUEST);
+    public RestErrResult translate(Throwable throwable) {
+        return RestResults.err(throwable)
+                .setError(UserErrors.CAPTCHA_TEST_FAILED)
+                .setStatus(HttpStatus.BAD_REQUEST);
     }
 
     @Override

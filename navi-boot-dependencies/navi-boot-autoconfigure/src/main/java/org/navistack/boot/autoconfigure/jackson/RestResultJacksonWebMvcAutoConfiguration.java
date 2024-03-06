@@ -1,7 +1,8 @@
 package org.navistack.boot.autoconfigure.jackson;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.navistack.framework.jackson.web.ParameterizedErrorJsonSerializer;
+import org.navistack.framework.jackson.web.RestErrResultJsonSerializer;
+import org.navistack.framework.jackson.web.RestOkResultJsonSerializer;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -25,7 +26,8 @@ public class RestResultJacksonWebMvcAutoConfiguration implements WebMvcConfigure
     public void configureMessageConverters(final List<HttpMessageConverter<?>> converters) {
         final ObjectMapper mapper = Jackson2ObjectMapperBuilder.json()
                 .serializers(
-                        new ParameterizedErrorJsonSerializer()
+                        new RestOkResultJsonSerializer(),
+                        new RestErrResultJsonSerializer()
                 )
                 .build();
 

@@ -5,27 +5,32 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ErrorCodeCategories {
     /**
+     * User failure.
+     */
+    public final int USER_ERROR = 0x1;
+
+    /**
      * System failure.
      */
-    public final int SYSTEM_ERROR = 0x1;
+    public final int APP_ERROR = 0x2;
 
     /**
-     * Error occurred in domain.
+     * Infrastructure failure.
      */
-    public final int DOMAIN_ERROR = 0x2;
+    public final int INFRA_ERROR = 0x3;
 
     /**
-     * External resource failure.
+     * Global user failure.
      */
-    public final int EXTERNAL_ERROR = 0x3;
+    public final int GLOBAL_USER_ERROR = 0x9;
 
     /**
-     * User input error / user call error.
+     * Global system failure.
      */
-    public final int USER_ERROR = 0x4;
+    public final int GLOBAL_APP_ERROR = 0xA;
 
     /**
-     * Uncategorized error / unknown error.
+     * Global infrastructure failure.
      */
-    public final int UNCATEGORIZED_ERROR = 0xF;
+    public final int GLOBAL_INFRA_ERROR = 0xB;
 }

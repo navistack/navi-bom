@@ -14,26 +14,21 @@ import java.util.LinkedList;
 @Accessors(chain = true)
 public class ExceptionHandlingBuilder {
     @Getter
+    private final Collection<ExceptionTranslator> translators = new LinkedList<>();
+    @Getter
+    private final Collection<ExceptionHandlingConfigurer> configurers = new LinkedList<>();
+    @Getter
     @Setter
     private boolean includeStackTrace = false;
-
     @Getter
     @Setter
     private MessageSource messageSource;
-
     @Getter
     @Setter
     private LocaleResolver localeResolver;
-
     @Getter
     @Setter
     private ExceptionTranslator fallbackTranslator;
-
-    @Getter
-    private final Collection<ExceptionTranslator> translators = new LinkedList<>();
-
-    @Getter
-    private final Collection<ExceptionHandlingConfigurer> configurers = new LinkedList<>();
 
     public ExceptionHandlingBuilder() {
     }

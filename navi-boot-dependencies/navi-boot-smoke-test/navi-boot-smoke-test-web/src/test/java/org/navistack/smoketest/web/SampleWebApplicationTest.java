@@ -1,7 +1,7 @@
 package org.navistack.smoketest.web;
 
 import org.junit.jupiter.api.Test;
-import org.navistack.framework.core.error.UserErrorCodes;
+import org.navistack.framework.core.error.UserErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,7 +50,8 @@ class SampleWebApplicationTest {
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.succeeded", is(false)))
-                .andExpect(jsonPath("$.error", is(UserErrorCodes.MISSING_PARAMETER)));
+                .andExpect(jsonPath("$.error", is(UserErrors.MISSING_PARAMETER)))
+                .andExpect(jsonPath("$.endpoint", is("/echo")));
     }
 
     @Test

@@ -29,7 +29,7 @@ public class RestResultResponseBodyAdvice implements ResponseBodyAdvice<Object> 
         } else if (RestResult.class.isAssignableFrom(parameterType)) {
             return body;
         } else {
-            return RestResult.ok(body);
+            return RestResults.ok(body);
         }
     }
 }

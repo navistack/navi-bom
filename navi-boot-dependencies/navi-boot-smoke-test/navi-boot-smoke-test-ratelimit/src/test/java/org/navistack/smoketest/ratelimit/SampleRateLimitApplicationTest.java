@@ -2,7 +2,7 @@ package org.navistack.smoketest.ratelimit;
 
 import org.junit.jupiter.api.Test;
 import org.navistack.boot.testsupport.testcontainers.RedisContainer;
-import org.navistack.framework.core.error.UserErrorCodes;
+import org.navistack.framework.core.error.UserErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -51,7 +51,7 @@ class SampleRateLimitApplicationTest {
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.TOO_MANY_REQUESTS.value()))
                 .andExpect(jsonPath("$.succeeded", is(false)))
-                .andExpect(jsonPath("$.error", is(UserErrorCodes.FREQUENT_REQUEST)));
+                .andExpect(jsonPath("$.error", is(UserErrors.FREQUENT_REQUEST)));
         Thread.sleep(2000);
         mockMvc.perform(get("/rate-limited/sliding-window/ping"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
@@ -69,7 +69,7 @@ class SampleRateLimitApplicationTest {
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.TOO_MANY_REQUESTS.value()))
                 .andExpect(jsonPath("$.succeeded", is(false)))
-                .andExpect(jsonPath("$.error", is(UserErrorCodes.FREQUENT_REQUEST)));
+                .andExpect(jsonPath("$.error", is(UserErrors.FREQUENT_REQUEST)));
         Thread.sleep(1000);
         mockMvc.perform(get("/rate-limited/fixed-window/ping"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))

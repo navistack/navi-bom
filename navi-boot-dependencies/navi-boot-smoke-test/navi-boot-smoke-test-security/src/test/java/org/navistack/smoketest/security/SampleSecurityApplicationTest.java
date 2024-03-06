@@ -1,7 +1,7 @@
 package org.navistack.smoketest.security;
 
 import org.junit.jupiter.api.Test;
-import org.navistack.framework.core.error.UserErrorCodes;
+import org.navistack.framework.core.error.UserErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,7 +41,7 @@ class SampleSecurityApplicationTest {
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.FORBIDDEN.value()))
                 .andExpect(jsonPath("$.succeeded", is(false)))
-                .andExpect(jsonPath("$.error", is(UserErrorCodes.AUTHORIZATION_FAILURE)));
+                .andExpect(jsonPath("$.error", is(UserErrors.AUTHORIZATION_FAILURE)));
     }
 
     @Test
@@ -59,7 +59,7 @@ class SampleSecurityApplicationTest {
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.FORBIDDEN.value()))
                 .andExpect(jsonPath("$.succeeded", is(false)))
-                .andExpect(jsonPath("$.error", is(UserErrorCodes.AUTHORIZATION_FAILURE)));
+                .andExpect(jsonPath("$.error", is(UserErrors.AUTHORIZATION_FAILURE)));
     }
 
     @Test

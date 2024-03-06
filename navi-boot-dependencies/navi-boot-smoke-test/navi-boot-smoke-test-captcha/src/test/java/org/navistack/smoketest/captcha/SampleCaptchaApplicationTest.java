@@ -3,7 +3,7 @@ package org.navistack.smoketest.captcha;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.navistack.boot.testsupport.testcontainers.RedisContainer;
-import org.navistack.framework.core.error.UserErrorCodes;
+import org.navistack.framework.core.error.UserErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -79,7 +79,7 @@ class SampleCaptchaApplicationTest {
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.succeeded", is(false)))
-                .andExpect(jsonPath("$.error", is(UserErrorCodes.CAPTCHA_TEST_FAILED)));
+                .andExpect(jsonPath("$.error", is(UserErrors.CAPTCHA_TEST_FAILED)));
     }
 
     @Test
@@ -88,6 +88,6 @@ class SampleCaptchaApplicationTest {
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.succeeded", is(false)))
-                .andExpect(jsonPath("$.error", is(UserErrorCodes.CAPTCHA_TEST_FAILED)));
+                .andExpect(jsonPath("$.error", is(UserErrors.CAPTCHA_TEST_FAILED)));
     }
 }

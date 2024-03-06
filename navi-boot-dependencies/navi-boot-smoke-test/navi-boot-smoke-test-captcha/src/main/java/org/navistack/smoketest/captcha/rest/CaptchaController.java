@@ -3,6 +3,7 @@ package org.navistack.smoketest.captcha.rest;
 import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaService;
 import org.navistack.framework.captcha.simplecaptcha.UserAttemptResult;
 import org.navistack.framework.web.rest.RestResult;
+import org.navistack.framework.web.rest.RestResults;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.CacheControl;
@@ -29,13 +30,13 @@ public class CaptchaController {
     }
 
     @PostMapping("/challenge")
-    public RestResult<String, ?> challenge() {
-        return RestResult.ok(simpleCaptchaService.challenge());
+    public RestResult<String> challenge() {
+        return RestResults.ok(simpleCaptchaService.challenge());
     }
 
     @PostMapping("/answer")
-    public RestResult<UserAttemptResult, ?> answer(String challengeId, String answer) {
-        return RestResult.ok(simpleCaptchaService.answer(challengeId, answer));
+    public RestResult<UserAttemptResult> answer(String challengeId, String answer) {
+        return RestResults.ok(simpleCaptchaService.answer(challengeId, answer));
     }
 
     @GetMapping("/image")
