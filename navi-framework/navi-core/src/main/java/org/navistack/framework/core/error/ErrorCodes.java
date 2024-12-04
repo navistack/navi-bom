@@ -4,44 +4,49 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class ErrorCodes {
-    private final int ERROR_BITS = 3 * 4;
-    private final int ERROR_MASK = ~(-1 << ERROR_BITS);
+    /**
+     * Authentication failed, for example invalid credentials.
+     */
+    public final int AUTHENTICATION_FAILURE = ErrorCategory.User.errorCode(0x101);
 
-    private final int CATEGORY_BITS = 4;
-    private final int CATEGORY_MASK = ~(-1 << CATEGORY_BITS);
-    private final int CATEGORY_OFFSET = CATEGORY_BITS;
+    /**
+     * No permission, unauthorized access, etc.
+     */
+    public final int AUTHORIZATION_FAILURE = ErrorCategory.User.errorCode(0x102);
 
-    public int nonError() {
-        return 0x0000;
-    }
+    /**
+     * Invalid parameters received.
+     * Like missing parameter, mismatched data type, illegal values, etc.
+     */
+    public final int INVALID_PARAMETER = ErrorCategory.User.errorCode(0x103);
 
-    public int error(int category, int error) {
-        return (category & CATEGORY_MASK) << CATEGORY_OFFSET
-                | (error & ERROR_MASK)
-                ;
-    }
+    /**
+     * Parameter missing.
+     */
+    public final int MISSING_PARAMETER = ErrorCategory.User.errorCode(0x104);
 
-    public int appError(int error) {
-        return error(ErrorCodeCategories.APP_ERROR, error);
-    }
+    /**
+     * User fails to pass CAPTCHA test.
+     */
+    public final int CAPTCHA_TEST_FAILED = ErrorCategory.User.errorCode(0x105);
 
-    public int infraError(int error) {
-        return error(ErrorCodeCategories.INFRA_ERROR, error);
-    }
+    /**
+     * Unknown endpoint.
+     */
+    public final int UNKNOWN_ENDPOINT = ErrorCategory.User.errorCode(0x106);
 
-    public int userError(int error) {
-        return error(ErrorCodeCategories.USER_ERROR, error);
-    }
+    /**
+     * Resource locked.
+     */
+    public final int RESOURCE_LOCKED = ErrorCategory.User.errorCode(0x107);
 
-    public int globalAppError(int error) {
-        return error(ErrorCodeCategories.GLOBAL_APP_ERROR, error);
-    }
+    /**
+     * Illegal request.
+     */
+    public final int ILLEGAL_REQUEST = ErrorCategory.User.errorCode(0x108);
 
-    public int globalInfraError(int error) {
-        return error(ErrorCodeCategories.GLOBAL_INFRA_ERROR, error);
-    }
-
-    public int globalUserError(int error) {
-        return error(ErrorCodeCategories.GLOBAL_USER_ERROR, error);
-    }
+    /**
+     * Frequent request.
+     */
+    public final int FREQUENT_REQUEST = ErrorCategory.User.errorCode(0x109);
 }

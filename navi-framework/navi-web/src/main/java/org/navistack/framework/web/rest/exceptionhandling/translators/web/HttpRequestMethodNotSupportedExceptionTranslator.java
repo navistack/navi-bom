@@ -1,6 +1,6 @@
 package org.navistack.framework.web.rest.exceptionhandling.translators.web;
 
-import org.navistack.framework.core.error.UserErrors;
+import org.navistack.framework.core.error.ErrorCodes;
 import org.navistack.framework.web.rest.RestErrResult;
 import org.navistack.framework.web.rest.RestResults;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslator;
@@ -11,7 +11,7 @@ public class HttpRequestMethodNotSupportedExceptionTranslator implements Excepti
     @Override
     public RestErrResult translate(Throwable throwable) {
         return RestResults.err(throwable)
-                .setError(UserErrors.ILLEGAL_REQUEST)
+                .setError(ErrorCodes.ILLEGAL_REQUEST)
                 .setStatus(HttpStatus.METHOD_NOT_ALLOWED);
     }
 

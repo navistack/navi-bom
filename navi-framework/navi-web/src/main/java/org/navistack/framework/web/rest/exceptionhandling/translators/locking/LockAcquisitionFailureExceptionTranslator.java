@@ -1,6 +1,6 @@
 package org.navistack.framework.web.rest.exceptionhandling.translators.locking;
 
-import org.navistack.framework.core.error.UserErrors;
+import org.navistack.framework.core.error.ErrorCodes;
 import org.navistack.framework.locking.LockAcquisitionFailureException;
 import org.navistack.framework.web.rest.RestErrResult;
 import org.navistack.framework.web.rest.RestResults;
@@ -11,7 +11,7 @@ public class LockAcquisitionFailureExceptionTranslator implements ExceptionTrans
     @Override
     public RestErrResult translate(Throwable throwable) {
         return RestResults.err(throwable)
-                .setError(UserErrors.RESOURCE_LOCKED)
+                .setError(ErrorCodes.RESOURCE_LOCKED)
                 .setStatus(HttpStatus.CONFLICT);
     }
 

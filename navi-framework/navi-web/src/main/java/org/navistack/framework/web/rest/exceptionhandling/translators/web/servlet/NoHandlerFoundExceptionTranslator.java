@@ -1,6 +1,6 @@
 package org.navistack.framework.web.rest.exceptionhandling.translators.web.servlet;
 
-import org.navistack.framework.core.error.UserErrors;
+import org.navistack.framework.core.error.ErrorCodes;
 import org.navistack.framework.web.rest.RestErrResult;
 import org.navistack.framework.web.rest.RestResults;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslator;
@@ -11,7 +11,7 @@ public class NoHandlerFoundExceptionTranslator implements ExceptionTranslator {
     @Override
     public RestErrResult translate(Throwable throwable) {
         return RestResults.err(throwable)
-                .setError(UserErrors.UNKNOWN_ENDPOINT)
+                .setError(ErrorCodes.UNKNOWN_ENDPOINT)
                 .setStatus(HttpStatus.NOT_FOUND);
     }
 

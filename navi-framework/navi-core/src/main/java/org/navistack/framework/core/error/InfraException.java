@@ -1,29 +1,44 @@
 package org.navistack.framework.core.error;
 
 public class InfraException extends CodedException {
-    @Override
-    public int getErrorCode() {
-        return super.getErrorCode();
+    public InfraException() {
+        super();
     }
 
-    public InfraException(int errorCode) {
-        super(errorCode);
+    public InfraException(int code) {
+        super(ErrorCategory.Infra.errorCode(code));
     }
 
-    public InfraException(int errorCode, String message) {
-        super(errorCode, message);
+    public InfraException(String message) {
+        super(message);
     }
 
-    public InfraException(int errorCode, String message, Throwable cause) {
-        super(errorCode, message, cause);
+    public InfraException(int code, String message) {
+        super(ErrorCategory.Infra.errorCode(code), message);
     }
 
-    public InfraException(int errorCode, Throwable cause) {
-        super(errorCode, cause);
+    public InfraException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    protected InfraException(int errorCode, String message, Throwable cause, boolean enableSuppression,
+    public InfraException(int code, String message, Throwable cause) {
+        super(ErrorCategory.Infra.errorCode(code), message, cause);
+    }
+
+    public InfraException(Throwable cause) {
+        super(cause);
+    }
+
+    public InfraException(int code, Throwable cause) {
+        super(ErrorCategory.Infra.errorCode(code), cause);
+    }
+
+    protected InfraException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    protected InfraException(int code, String message, Throwable cause, boolean enableSuppression,
                              boolean writableStackTrace) {
-        super(errorCode, message, cause, enableSuppression, writableStackTrace);
+        super(ErrorCategory.Infra.errorCode(code), message, cause, enableSuppression, writableStackTrace);
     }
 }

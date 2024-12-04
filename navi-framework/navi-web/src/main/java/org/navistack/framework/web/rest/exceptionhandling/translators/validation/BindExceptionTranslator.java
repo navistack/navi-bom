@@ -1,6 +1,6 @@
 package org.navistack.framework.web.rest.exceptionhandling.translators.validation;
 
-import org.navistack.framework.core.error.UserErrors;
+import org.navistack.framework.core.error.ErrorCodes;
 import org.navistack.framework.web.rest.RestErrResult;
 import org.navistack.framework.web.rest.RestResults;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslator;
@@ -40,7 +40,7 @@ public class BindExceptionTranslator implements ExceptionTranslator {
     public RestErrResult translate(Throwable throwable) {
         BindException exception = (BindException) throwable;
         return RestResults.err(throwable)
-                .setError(UserErrors.INVALID_PARAMETER)
+                .setError(ErrorCodes.INVALID_PARAMETER)
                 .setMessage("Invalid Parameters")
                 .setStatus(HttpStatus.BAD_REQUEST)
                 .putParameter("invalidParams", fromBindingResult(exception));

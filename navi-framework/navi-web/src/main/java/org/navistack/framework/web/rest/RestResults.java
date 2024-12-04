@@ -34,7 +34,7 @@ public class RestResults {
 
     public RestErrResult err(CodedException exception) {
         return new RestErrResultImpl()
-                .setError(exception.getErrorCode())
+                .setError(exception.getCode())
                 .setMessage(exception.getMessage())
                 .setThrowable(exception);
     }

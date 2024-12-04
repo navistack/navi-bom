@@ -1,6 +1,6 @@
 package org.navistack.framework.web.rest.exceptionhandling.translators.web.bind;
 
-import org.navistack.framework.core.error.UserErrors;
+import org.navistack.framework.core.error.ErrorCodes;
 import org.navistack.framework.web.rest.RestErrResult;
 import org.navistack.framework.web.rest.RestResults;
 import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslator;
@@ -11,7 +11,7 @@ public class MissingServletRequestParameterExceptionTranslator implements Except
     @Override
     public RestErrResult translate(Throwable throwable) {
         return RestResults.err(throwable)
-                .setError(UserErrors.MISSING_PARAMETER)
+                .setError(ErrorCodes.MISSING_PARAMETER)
                 .setStatus(HttpStatus.BAD_REQUEST);
     }
 
