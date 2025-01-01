@@ -14,8 +14,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.navistack.boot</groupId>
-            <artifactId>navi-boot-testsupport</artifactId>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-testcontainers</artifactId>
         </dependency>
 
         <!-- JUnit -->

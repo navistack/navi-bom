@@ -1,4 +1,4 @@
-package org.navistack.boot.testsupport.testcontainers;
+package org.navistack.framework.testcontainers.containers;
 
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;

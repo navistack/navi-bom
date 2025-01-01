@@ -1,4 +1,4 @@
-package org.navistack.boot.testsupport.testcontainers;
+package org.navistack.framework.testcontainers.containers;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
 
+@Setter
+@Getter
 public class MysqlContainer extends GenericContainer<MysqlContainer> {
     private static final DockerImageName DEFAULT_IMAGE_NAME = DockerImageName.parse("mysql");
 
@@ -21,23 +23,15 @@ public class MysqlContainer extends GenericContainer<MysqlContainer> {
 
     private static final String DEFAULT_ROOT_PASSWORD = "ad4vSPhV";
 
-    @Getter
-    @Setter
     @NonNull
     private String database = DEFAULT_DATABASE;
 
-    @Getter
-    @Setter
     @NonNull
     private String username = DEFAULT_USERNAME;
 
-    @Getter
-    @Setter
     @NonNull
     private String password = DEFAULT_PASSWORD;
 
-    @Getter
-    @Setter
     private String rootPassword = DEFAULT_ROOT_PASSWORD;
 
     public MysqlContainer() {

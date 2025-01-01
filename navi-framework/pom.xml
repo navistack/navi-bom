@@ -65,6 +65,7 @@
         <module>navi-logging</module>
         <module>navi-cache</module>
         <module>navi-batis</module>
+        <module>navi-testcontainers</module>
     </modules>
 
     <dependencies>
@@ -440,6 +441,11 @@
             <dependency>
                 <groupId>org.navistack.framework</groupId>
                 <artifactId>navi-batis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.navistack.framework</groupId>
+                <artifactId>navi-testcontainers</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
