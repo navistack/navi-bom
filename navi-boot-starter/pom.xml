@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.navistack</groupId>
+        <artifactId>navi-bom</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.navistack.boot</groupId>
+    <artifactId>navi-boot-starter</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>navi-boot-starter-batis</module>
+        <module>navi-boot-starter-cache</module>
+        <module>navi-boot-starter-captcha-aliyun</module>
+        <module>navi-boot-starter-captcha-tencentcloud</module>
+        <module>navi-boot-starter-captcha</module>
+        <module>navi-boot-starter-locking</module>
+        <module>navi-boot-starter-logging</module>
+        <module>navi-boot-starter-objectstorage-minio</module>
+        <module>navi-boot-starter-objectstorage</module>
+        <module>navi-boot-starter-ratelimit</module>
+        <module>navi-boot-starter-security</module>
+        <module>navi-boot-starter-sms-aliyun</module>
+        <module>navi-boot-starter-sms-tencentcloud</module>
+        <module>navi-boot-starter-test</module>
+        <module>navi-boot-starter-web</module>
+    </modules>
+</project>

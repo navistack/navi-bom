@@ -1,0 +1,2 @@
+org.navistack.boot.autoconfigure.context.MessageSourceAutoConfiguration
+org.navistack.boot.autoconfigure.validation.ValidationAutoConfiguration

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.navistack</groupId>
+        <artifactId>navi-bom</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.navistack.boot</groupId>
+    <artifactId>navi-boot</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>navi-boot-cache</module>
+        <module>navi-boot-captcha</module>
+        <module>navi-boot-cloudservice</module>
+        <module>navi-boot-core</module>
+        <module>navi-boot-locking</module>
+        <module>navi-boot-logging</module>
+        <module>navi-boot-objectstorage</module>
+        <module>navi-boot-ratelimit</module>
+        <module>navi-boot-redis</module>
+        <module>navi-boot-security</module>
+        <module>navi-boot-sms</module>
+        <module>navi-boot-web</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <!-- Spring Test -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring Boot Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test-autoconfigure</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,2 @@
+org.navistack.boot.autoconfigure.cloudservice.aliyun.AliyunAutoConfiguration
+org.navistack.boot.autoconfigure.cloudservice.tencentcloud.TencentCloudAutoConfiguration
