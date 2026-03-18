@@ -1,9 +1,9 @@
 package org.navistack.framework.batis.typehandlers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+import tools.jackson.databind.ObjectMapper;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

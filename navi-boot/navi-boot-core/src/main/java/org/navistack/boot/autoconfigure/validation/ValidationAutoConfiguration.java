@@ -12,7 +12,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
 @ConditionalOnClass(ExecutableValidator.class)
-@AutoConfigureBefore(org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration.class)
+@AutoConfigureBefore(org.springframework.boot.validation.autoconfigure.ValidationAutoConfiguration.class)
 public class ValidationAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean

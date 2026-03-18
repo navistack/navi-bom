@@ -1,10 +1,10 @@
 package org.navistack.framework.jackson.web;
 
-import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.core.util.VersionUtil;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.navistack.framework.web.rest.RestErrResult;
 import org.navistack.framework.web.rest.RestOkResult;
+import tools.jackson.core.Version;
+import tools.jackson.core.util.VersionUtil;
+import tools.jackson.databind.module.SimpleModule;
 
 public class RestResultModule extends SimpleModule {
     protected static final Version VERSION = VersionUtil.parseVersion(
@@ -18,5 +18,8 @@ public class RestResultModule extends SimpleModule {
 
         setMixInAnnotation(RestOkResult.class, RestOkResultMixIn.class);
         setMixInAnnotation(RestErrResult.class, RestErrResultMixIn.class);
+
+        addSerializer(new RestOkResultJsonSerializer());
+        addSerializer(new RestErrResultJsonSerializer());
     }
 }

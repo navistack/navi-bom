@@ -19,6 +19,13 @@
             <artifactId>navi-cache</artifactId>
         </dependency>
 
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-data-redis</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Spring Framework -->
         <dependency>
             <groupId>org.springframework.data</groupId>

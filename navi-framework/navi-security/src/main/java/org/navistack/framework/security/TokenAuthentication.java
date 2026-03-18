@@ -17,7 +17,7 @@ public class TokenAuthentication extends AbstractAuthenticationToken {
      * will return <code>false</code>.
      */
     public TokenAuthentication(Object principal, Object credentials) {
-        super(null);
+        super((Collection<? extends GrantedAuthority>) null);
         this.principal = principal;
         this.credentials = credentials;
         setAuthenticated(false);

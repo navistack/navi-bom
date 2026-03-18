@@ -1,20 +1,16 @@
 package org.navistack.boot.autoconfigure.jackson;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.navistack.framework.jackson.web.RestErrResultJsonSerializer;
-import org.navistack.framework.jackson.web.RestOkResultJsonSerializer;
+import org.navistack.framework.jackson.web.RestResultModule;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
+import org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverters;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
+import tools.jackson.databind.json.JsonMapper;
 
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication
@@ -23,15 +19,11 @@ import java.util.List;
 public class RestResultJacksonWebMvcAutoConfiguration implements WebMvcConfigurer {
 
     @Override
-    public void configureMessageConverters(final List<HttpMessageConverter<?>> converters) {
-        final ObjectMapper mapper = Jackson2ObjectMapperBuilder.json()
-                .serializers(
-                        new RestOkResultJsonSerializer(),
-                        new RestErrResultJsonSerializer()
-                )
+    public void configureMessageConverters(HttpMessageConverters.ServerBuilder builder) {
+        final JsonMapper mapper = JsonMapper.builder()
+                .addModule(new RestResultModule())
                 .build();
-
-        converters.add(new MappingJackson2HttpMessageConverter(mapper));
+        builder.addCustomConverter(new JacksonJsonHttpMessageConverter(mapper));
     }
 
 }

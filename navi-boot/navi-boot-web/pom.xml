@@ -13,6 +13,18 @@
     <artifactId>navi-boot-web</artifactId>
 
     <dependencies>
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-webmvc</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-security</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Navi Framework -->
         <dependency>
             <groupId>org.navistack.framework</groupId>
@@ -41,7 +53,7 @@
 
         <!-- Jackson -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
+            <groupId>tools.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
     </dependencies>

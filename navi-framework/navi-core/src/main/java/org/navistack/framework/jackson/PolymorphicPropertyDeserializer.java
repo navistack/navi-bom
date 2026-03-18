@@ -1,16 +1,15 @@
 package org.navistack.framework.jackson;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.TreeNode;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.node.TextNode;
+import tools.jackson.core.JsonParser;
+import tools.jackson.core.TreeNode;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
+import tools.jackson.databind.node.StringNode;
 
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class PolymorphicPropertyDeserializer<T> extends JsonDeserializer<T> {
+public class PolymorphicPropertyDeserializer<T> extends ValueDeserializer<T> {
     private static final String DEFAULT_PROPERTY = "type";
 
     private final Map<String, Class<? extends T>> subTypes = new LinkedHashMap<>();
@@ -47,11 +46,10 @@ public class PolymorphicPropertyDeserializer<T> extends JsonDeserializer<T> {
     }
 
     @Override
-    public T deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
-            throws IOException {
+    public T deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) {
         TreeNode treeNode = jsonParser.readValueAsTree();
-        TextNode providerNode = (TextNode) treeNode.get(property);
-        String provider = providerNode.asText();
+        StringNode providerNode = (StringNode) treeNode.get(property);
+        String provider = providerNode.asString();
         return jsonParser.readValueAs(subTypes.get(provider));
     }
 }

@@ -1,14 +1,14 @@
 package org.navistack.framework.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.annotation.JsonSerialize;
+import tools.jackson.databind.json.JsonMapper;
 
 class JsonStringSerializerTest {
     private final JsonObject object = JsonObject.builder()
@@ -36,7 +36,7 @@ class JsonStringSerializerTest {
 
     @Test
     void shouldSerializeAsJsonString() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
+        JsonMapper mapper = JsonMapper.shared();
 
         String expected = "{\"n\":0,\"s\":\"s0\",\"o\":{\"n\":1,\"s\":\"s1\",\"o\":null,\"a\":null},\"a\":\"[{\\\"n\\\":2,\\\"s\\\":\\\"s2\\\",\\\"o\\\":null,\\\"a\\\":null},{\\\"n\\\":3,\\\"s\\\":\\\"s3\\\",\\\"o\\\":null,\\\"a\\\":null}]\"}";
         String actual = mapper.writeValueAsString(object);
@@ -46,8 +46,10 @@ class JsonStringSerializerTest {
 
     @Test
     void shouldRespectJsonInclude() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        JsonMapper mapper = JsonMapper.builder()
+                .changeDefaultPropertyInclusion(incl -> incl.withValueInclusion(JsonInclude.Include.NON_NULL))
+                .changeDefaultPropertyInclusion(incl -> incl.withContentInclusion(JsonInclude.Include.NON_NULL))
+                .build();
 
         String expected = "{\"n\":0,\"s\":\"s0\",\"o\":{\"n\":1,\"s\":\"s1\"},\"a\":\"[{\\\"n\\\":2,\\\"s\\\":\\\"s2\\\"},{\\\"n\\\":3,\\\"s\\\":\\\"s3\\\"}]\"}";
         String actual = mapper.writeValueAsString(object);

@@ -1,25 +1,25 @@
 package org.navistack.framework.jackson.web;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import org.navistack.framework.web.rest.RestErrResult;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-import java.io.IOException;
 import java.util.Map;
 
-public class RestErrResultJsonSerializer extends JsonSerializer<RestErrResult> {
+public class RestErrResultJsonSerializer extends ValueSerializer<RestErrResult> {
     @Override
     public void serialize(RestErrResult err,
                           JsonGenerator jsonGenerator,
-                          SerializerProvider serializerProvider)
-            throws IOException {
+                          SerializationContext context)
+            throws JacksonException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeBooleanField("succeeded", err.isSucceeded());
-        jsonGenerator.writeNumberField("code", err.getError());
-        jsonGenerator.writeStringField("message", err.getMessage());
+        jsonGenerator.writeBooleanProperty("succeeded", err.isSucceeded());
+        jsonGenerator.writeNumberProperty("code", err.getError());
+        jsonGenerator.writeStringProperty("message", err.getMessage());
         for (Map.Entry<String, Object> entry : err.getParameters().entrySet()) {
-            jsonGenerator.writeObjectField(entry.getKey(), entry.getValue());
+            jsonGenerator.writePOJOProperty(entry.getKey(), entry.getValue());
         }
         jsonGenerator.writeEndObject();
     }

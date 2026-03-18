@@ -1,21 +1,20 @@
 package org.navistack.framework.jackson.web;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import org.navistack.framework.web.rest.RestOkResult;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-import java.io.IOException;
-
-public class RestOkResultJsonSerializer extends JsonSerializer<RestOkResult<?>> {
+public class RestOkResultJsonSerializer extends ValueSerializer<RestOkResult<?>> {
     @Override
     public void serialize(RestOkResult ok,
                           JsonGenerator jsonGenerator,
-                          SerializerProvider serializerProvider)
-            throws IOException {
+                          SerializationContext context)
+            throws JacksonException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeBooleanField("succeeded", ok.isSucceeded());
-        jsonGenerator.writeObjectField("result", ok.getResult());
+        jsonGenerator.writeBooleanProperty("succeeded", ok.isSucceeded());
+        jsonGenerator.writePOJOProperty("result", ok.getResult());
         jsonGenerator.writeEndObject();
     }
 }

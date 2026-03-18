@@ -4,7 +4,6 @@ import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponseBody;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -12,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.navistack.framework.sms.ShortMessage;
 import org.navistack.framework.sms.ShortMessageException;
 import org.navistack.framework.sms.ShortMessageServiceProvider;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.Collections;
 import java.util.Map;

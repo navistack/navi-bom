@@ -1,7 +1,6 @@
 package org.navistack.boot.autoconfigure.sms;
 
 import com.aliyun.dysmsapi20170525.Client;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
 import org.navistack.framework.sms.ShortMessageServiceProvider;
 import org.navistack.framework.sms.aliyun.AliyunShortMessageServiceProvider;
@@ -13,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tools.jackson.databind.ObjectMapper;
 
 @Configuration
 @ConditionalOnClass(Client.class)

@@ -1,7 +1,7 @@
 package org.navistack.boot.autoconfigure.sms;
 
 import com.aliyun.dysmsapi20170525.Client;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.navistack.framework.sms.ShortMessageServiceProvider;
 import org.navistack.framework.sms.aliyun.AliyunShortMessageServiceProvider;
