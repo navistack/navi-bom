@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 
 class StaticServletContextRootResolverTest {
     @Test
-    void testResolve() throws Exception {
+    void shouldResolveToStaticBaseUriWhenRequestGiven() throws Exception {
         ServletContext context = Mockito.mock(ServletContext.class);
         when(context.getContextPath()).thenReturn("/example");
 

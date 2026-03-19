@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 class DefaultServletContextRootResolverTest {
 
     @Test
-    void testResolve() {
+    void shouldResolveUriWhenRequestHasFullContext() {
         ServletContext context = Mockito.mock(ServletContext.class);
         when(context.getContextPath()).thenReturn("/example");
 
@@ -34,14 +34,14 @@ class DefaultServletContextRootResolverTest {
     }
 
     @Test
-    void testResolveWithNullRequest() {
+    void shouldReturnNullWhenRequestIsNull() {
         DefaultServletContextRootResolver resolver = new DefaultServletContextRootResolver();
         URI uri = resolver.resolve(null);
         assertThat(uri).isNull();
     }
 
     @Test
-    void testResolveWithoutSchema() {
+    void shouldResolveWhenSchemaIsMissing() {
         ServletContext context = Mockito.mock(ServletContext.class);
         when(context.getContextPath()).thenReturn("/example");
 
@@ -60,7 +60,7 @@ class DefaultServletContextRootResolverTest {
     }
 
     @Test
-    void testResolveWithoutHost() {
+    void shouldResolveWhenHostIsMissing() {
         ServletContext context = Mockito.mock(ServletContext.class);
         when(context.getContextPath()).thenReturn("/example");
 
@@ -78,7 +78,7 @@ class DefaultServletContextRootResolverTest {
     }
 
     @Test
-    void testResolveWithoutPort() {
+    void shouldResolveWhenPortIsMissing() {
         ServletContext context = Mockito.mock(ServletContext.class);
         when(context.getContextPath()).thenReturn("/example");
 
@@ -97,7 +97,7 @@ class DefaultServletContextRootResolverTest {
     }
 
     @Test
-    void testResolveWithoutContextPath() {
+    void shouldResolveWhenContextPathIsEmpty() {
         ServletContext context = Mockito.mock(ServletContext.class);
 
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
@@ -116,7 +116,7 @@ class DefaultServletContextRootResolverTest {
     }
 
     @Test
-    void testResolveWithoutContext() {
+    void shouldResolveWhenServletContextIsNull() {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         when(request.getScheme()).thenReturn("http");
         when(request.getServerName()).thenReturn("example.com");
