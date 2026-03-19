@@ -4,11 +4,15 @@ import org.navistack.framework.web.rest.RestOkResult;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonGenerator;
 import tools.jackson.databind.SerializationContext;
-import tools.jackson.databind.ValueSerializer;
+import tools.jackson.databind.ser.std.StdSerializer;
 
-public class RestOkResultJsonSerializer extends ValueSerializer<RestOkResult<?>> {
+public class RestOkResultJsonSerializer extends StdSerializer<RestOkResult<?>> {
+    public RestOkResultJsonSerializer() {
+        super(RestOkResult.class);
+    }
+
     @Override
-    public void serialize(RestOkResult ok,
+    public void serialize(RestOkResult<?> ok,
                           JsonGenerator jsonGenerator,
                           SerializationContext context)
             throws JacksonException {
