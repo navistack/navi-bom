@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 class DefaultBearerTokenResolverTest {
 
     @Test
-    void testResolveToken() {
+    void shouldResolveTokenWhenBearerHeaderPresent() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
@@ -19,14 +19,14 @@ class DefaultBearerTokenResolverTest {
     }
 
     @Test
-    void testResolveTokenWithoutTokenPresented() {
+    void shouldReturnNullWhenNoTokenPresented() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
         assertThat(tokenResolver.resolveToken(request)).isNull();
     }
 
     @Test
-    void testResolveTokenWithMultipleSpaces() {
+    void shouldReturnNullWhenBearerHasMultipleSpaces() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Bearer   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
@@ -34,7 +34,7 @@ class DefaultBearerTokenResolverTest {
     }
 
     @Test
-    void testResolveTokenWithBearInUppercase() {
+    void shouldReturnNullWhenBearerIsUppercase() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
@@ -42,7 +42,7 @@ class DefaultBearerTokenResolverTest {
     }
 
     @Test
-    void testResolveTokenWithoutBearerPrefix() {
+    void shouldReturnNullWhenNoBearerPrefix() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
@@ -50,7 +50,7 @@ class DefaultBearerTokenResolverTest {
     }
 
     @Test
-    void testResolveTokenWithIllegalCharacters() {
+    void shouldReturnNullWhenTokenHasIllegalCharacters() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9?eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0[Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A]");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
@@ -58,7 +58,7 @@ class DefaultBearerTokenResolverTest {
     }
 
     @Test
-    void testResolveTokenWithTokenInQuery() {
+    void shouldResolveTokenWhenTokenInQuery() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getParameter("access_token")).thenReturn("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
@@ -66,7 +66,7 @@ class DefaultBearerTokenResolverTest {
     }
 
     @Test
-    void testResolveTokenWithTokenPresentedInBothHeaderAndQuery() {
+    void shouldPreferHeaderWhenTokenPresentedInBothHeaderAndQuery() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.CXHdmqgD0hdzWrbyXVFLoJ60O1jnrDb2MxNpX1TsGLtpRS5igMwZTeM1PTW3PWKKMwMoBmolbU7AG-b0exj9Uw");
         when(request.getParameter("access_token")).thenReturn("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
