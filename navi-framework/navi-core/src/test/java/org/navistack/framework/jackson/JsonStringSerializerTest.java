@@ -35,7 +35,7 @@ class JsonStringSerializerTest {
             .build();
 
     @Test
-    void shouldSerializeAsJsonString() throws Exception {
+    void shouldSerializeAsJsonStringWhenUsingDefaultMapper() throws Exception {
         JsonMapper mapper = JsonMapper.shared();
 
         String expected = "{\"n\":0,\"s\":\"s0\",\"o\":{\"n\":1,\"s\":\"s1\",\"o\":null,\"a\":null},\"a\":\"[{\\\"n\\\":2,\\\"s\\\":\\\"s2\\\",\\\"o\\\":null,\\\"a\\\":null},{\\\"n\\\":3,\\\"s\\\":\\\"s3\\\",\\\"o\\\":null,\\\"a\\\":null}]\"}";
@@ -45,7 +45,7 @@ class JsonStringSerializerTest {
     }
 
     @Test
-    void shouldRespectJsonInclude() throws Exception {
+    void shouldRespectJsonIncludeWhenContentAndValueInclusionIsNonNull() throws Exception {
         JsonMapper mapper = JsonMapper.builder()
                 .changeDefaultPropertyInclusion(incl -> incl.withValueInclusion(JsonInclude.Include.NON_NULL))
                 .changeDefaultPropertyInclusion(incl -> incl.withContentInclusion(JsonInclude.Include.NON_NULL))
@@ -53,6 +53,36 @@ class JsonStringSerializerTest {
 
         String expected = "{\"n\":0,\"s\":\"s0\",\"o\":{\"n\":1,\"s\":\"s1\"},\"a\":\"[{\\\"n\\\":2,\\\"s\\\":\\\"s2\\\"},{\\\"n\\\":3,\\\"s\\\":\\\"s3\\\"}]\"}";
         String actual = mapper.writeValueAsString(object);
+        Assertions.assertThat(actual)
+                .isEqualTo(expected);
+    }
+
+    @Test
+    void shouldSerializeNullArrayAsNullWhenArrayIsNull() throws Exception {
+        JsonMapper mapper = JsonMapper.shared();
+        JsonObject objectWithNullArray = JsonObject.builder()
+                .n(10)
+                .s("s10")
+                .a(null)
+                .build();
+
+        String expected = "{\"n\":10,\"s\":\"s10\",\"o\":null,\"a\":null}";
+        String actual = mapper.writeValueAsString(objectWithNullArray);
+        Assertions.assertThat(actual)
+                .isEqualTo(expected);
+    }
+
+    @Test
+    void shouldSerializeEmptyArrayAsEmptyJsonArrayStringWhenArrayIsEmpty() throws Exception {
+        JsonMapper mapper = JsonMapper.shared();
+        JsonObject objectWithEmptyArray = JsonObject.builder()
+                .n(20)
+                .s("s20")
+                .a(new JsonObject[0])
+                .build();
+
+        String expected = "{\"n\":20,\"s\":\"s20\",\"o\":null,\"a\":\"[]\"}";
+        String actual = mapper.writeValueAsString(objectWithEmptyArray);
         Assertions.assertThat(actual)
                 .isEqualTo(expected);
     }
