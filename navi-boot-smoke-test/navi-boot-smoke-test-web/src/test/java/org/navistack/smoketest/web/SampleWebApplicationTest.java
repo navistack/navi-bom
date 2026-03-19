@@ -27,7 +27,7 @@ class SampleWebApplicationTest {
     }
 
     @Test
-    void testGetEcho() throws Exception {
+    void shouldReturnEchoResultWhenGetWithContent() throws Exception {
         mockMvc.perform(get("/echo?content={content}", "Hello world"))
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(200))
@@ -36,7 +36,7 @@ class SampleWebApplicationTest {
     }
 
     @Test
-    void testPostEcho() throws Exception {
+    void shouldReturnEchoResultWhenPostWithContent() throws Exception {
         mockMvc.perform(post("/echo").param("content", "Hello world"))
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(200))
@@ -45,7 +45,7 @@ class SampleWebApplicationTest {
     }
 
     @Test
-    void testEchoWithoutContent() throws Exception {
+    void shouldReturnBadRequestWhenEchoWithoutContent() throws Exception {
         mockMvc.perform(get("/echo"))
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
@@ -55,7 +55,7 @@ class SampleWebApplicationTest {
     }
 
     @Test
-    void testPing() throws Exception {
+    void shouldReturnOkWhenPing() throws Exception {
         mockMvc.perform(get("/ping"))
                 .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
