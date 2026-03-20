@@ -27,7 +27,7 @@ class SampleSecurityApplicationTest {
     }
 
     @Test
-    void testRole1EchoWithRole1Token() throws Exception {
+    void shouldReturnRole1EchoWhenRole1TokenIsUsed() throws Exception {
         mockMvc.perform(get("/authorized/role1/echo?content={content}", "Hello role1").header(HttpHeaders.AUTHORIZATION, "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImF1dGgiOiJST0xFX3JvbGUxIn0.ULpNYknkt9TEt24F-6ZXlfC0IKi0gftVqkJqJwbneSS4lQy1BD-Z4wEz5lttFi9Q-FpRpArH6qqxpqABoE-RUA"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
@@ -36,7 +36,7 @@ class SampleSecurityApplicationTest {
     }
 
     @Test
-    void testRole1EchoWithRole2Token() throws Exception {
+    void shouldReturnForbiddenWhenRole2TokenAccessesRole1Echo() throws Exception {
         mockMvc.perform(get("/authorized/role1/echo?content={content}", "Hello role1").header(HttpHeaders.AUTHORIZATION, "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImF1dGgiOiJST0xFX3JvbGUyIn0.rRC1XyaoaKln19xot-yErnRGxbWNc1vc78ZR2xbHMbKII4EQuL_1mkfNhTFFRWftydauzTdHAeaDpjMNfpaerA"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.FORBIDDEN.value()))
@@ -45,7 +45,7 @@ class SampleSecurityApplicationTest {
     }
 
     @Test
-    void testRole2EchoWithRole2Token() throws Exception {
+    void shouldReturnRole2EchoWhenRole2TokenIsUsed() throws Exception {
         mockMvc.perform(get("/authorized/role2/echo?content={content}", "Hello role2").header(HttpHeaders.AUTHORIZATION, "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImF1dGgiOiJST0xFX3JvbGUyIn0.rRC1XyaoaKln19xot-yErnRGxbWNc1vc78ZR2xbHMbKII4EQuL_1mkfNhTFFRWftydauzTdHAeaDpjMNfpaerA"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
@@ -54,7 +54,7 @@ class SampleSecurityApplicationTest {
     }
 
     @Test
-    void testRole2EchoWithRole1Token() throws Exception {
+    void shouldReturnForbiddenWhenRole1TokenAccessesRole2Echo() throws Exception {
         mockMvc.perform(get("/authorized/role2/echo?content={content}", "Hello role2").header(HttpHeaders.AUTHORIZATION, "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImF1dGgiOiJST0xFX3JvbGUxIn0.ULpNYknkt9TEt24F-6ZXlfC0IKi0gftVqkJqJwbneSS4lQy1BD-Z4wEz5lttFi9Q-FpRpArH6qqxpqABoE-RUA"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.FORBIDDEN.value()))
@@ -63,7 +63,7 @@ class SampleSecurityApplicationTest {
     }
 
     @Test
-    void testEcho() throws Exception {
+    void shouldReturnRawContentWhenCallingEcho() throws Exception {
         mockMvc.perform(get("/echo?content={content}", "<a href=\"javascript:location.href='//www.example.com'\">Hello There</a>").header(HttpHeaders.AUTHORIZATION, "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMyIsImF1dGgiOiIifQ.0pIpKQj8Qn7CyFTnJvJx6NkWTSSuzIQEYYoLrGbMCOMSRbn-HuKw6sDEI6-ww56dUMr3jfBYxpjyYTAGshkQnA"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
@@ -72,7 +72,7 @@ class SampleSecurityApplicationTest {
     }
 
     @Test
-    void testSanitizedEcho() throws Exception {
+    void shouldReturnSanitizedContentWhenCallingSanitizedEcho() throws Exception {
         mockMvc.perform(get("/sanitized/echo?content={content}", "<a href=\"javascript:location.href='//www.example.com'\">Hello There</a>").header(HttpHeaders.AUTHORIZATION, "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMyIsImF1dGgiOiIifQ.0pIpKQj8Qn7CyFTnJvJx6NkWTSSuzIQEYYoLrGbMCOMSRbn-HuKw6sDEI6-ww56dUMr3jfBYxpjyYTAGshkQnA"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
