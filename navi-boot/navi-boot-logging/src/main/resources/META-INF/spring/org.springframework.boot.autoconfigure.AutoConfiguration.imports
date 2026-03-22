@@ -1,1 +1,1 @@
-org.navistack.boot.autoconfigure.logging.LoggingAutoConfiguration
+org.navistack.boot.logging.autoconfigure.LoggingAutoConfiguration

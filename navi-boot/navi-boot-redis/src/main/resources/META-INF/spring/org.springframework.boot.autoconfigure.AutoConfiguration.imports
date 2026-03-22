@@ -1,1 +1,1 @@
-org.navistack.boot.autoconfigure.redis.RedisAutoConfiguration
+org.navistack.boot.redis.autoconfigure.RedisAutoConfiguration

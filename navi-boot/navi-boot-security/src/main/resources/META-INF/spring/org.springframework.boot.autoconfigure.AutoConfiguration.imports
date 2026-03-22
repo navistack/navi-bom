@@ -1,2 +1,2 @@
-org.navistack.boot.autoconfigure.security.SanitizationAutoConfiguration
-org.navistack.boot.autoconfigure.security.TokenAutoConfiguration
+org.navistack.boot.security.autoconfigure.SanitizationAutoConfiguration
+org.navistack.boot.security.autoconfigure.TokenAutoConfiguration

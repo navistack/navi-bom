@@ -1,1 +1,1 @@
-org.navistack.boot.autoconfigure.sms.ShortMessageAutoConfiguration
+org.navistack.boot.sms.autoconfigure.ShortMessageAutoConfiguration

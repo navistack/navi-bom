@@ -1,1 +1,1 @@
-org.navistack.boot.autoconfigure.cache.CacheAutoConfiguration
+org.navistack.boot.cache.autoconfigure.CacheAutoConfiguration
