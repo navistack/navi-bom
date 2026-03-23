@@ -3,6 +3,7 @@ package org.navistack.boot.cache.autoconfigure;
 import org.junit.jupiter.api.Test;
 import org.navistack.framework.cache.CacheService;
 import org.navistack.framework.cache.DefaultScopedCacheServiceBuilder;
+import org.navistack.framework.cache.HashMapCacheService;
 import org.navistack.framework.cache.RedisCacheService;
 import org.navistack.framework.cache.ScopedCacheServiceBuilder;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -33,9 +34,11 @@ class CacheAutoConfigurationTest {
     void testWithoutRedisOperations() {
         contextRunner.run(context -> {
             assertThat(context)
-                    .doesNotHaveBean(CacheService.class);
-            assertThat(context)
-                    .doesNotHaveBean(ScopedCacheServiceBuilder.class);
+                    .hasSingleBean(CacheService.class);
+            assertThat(context.getBean(CacheService.class))
+                    .isInstanceOf(HashMapCacheService.class);
+            assertThat(context.getBean(ScopedCacheServiceBuilder.class))
+                    .isInstanceOf(DefaultScopedCacheServiceBuilder.class);
         });
     }
 
