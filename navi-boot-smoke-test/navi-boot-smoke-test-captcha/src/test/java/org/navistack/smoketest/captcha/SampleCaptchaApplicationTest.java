@@ -30,7 +30,7 @@ class SampleCaptchaApplicationTest {
     }
 
     @Test
-    void testEcho() throws Exception {
+    void shouldReturnSuccessWhenValidCaptchaTicketIsProvided() throws Exception {
         MvcResult challengeResult = mockMvc.perform(post("/captcha/challenge"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
@@ -58,7 +58,7 @@ class SampleCaptchaApplicationTest {
     }
 
     @Test
-    void testEchoWithoutTicket() throws Exception {
+    void shouldReturnBadRequestWhenTicketIsMissing() throws Exception {
         mockMvc.perform(get("/ping"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
@@ -67,7 +67,7 @@ class SampleCaptchaApplicationTest {
     }
 
     @Test
-    void testEchoWithInvalidTicket() throws Exception {
+    void shouldReturnBadRequestWhenTicketIsInvalid() throws Exception {
         mockMvc.perform(get("/ping").param("ticket", "76e53192-ea43-4219-be41-d8d5b3798907"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
