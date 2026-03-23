@@ -2,8 +2,10 @@ package org.navistack.boot.redis.autoconfigure;
 
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
+import org.springframework.boot.data.redis.autoconfigure.DataRedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
@@ -20,6 +22,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.nio.charset.StandardCharsets;
 
 @AutoConfiguration
+@AutoConfigureAfter(DataRedisAutoConfiguration.class)
 @ConditionalOnClass(RedisOperations.class)
 public class RedisAutoConfiguration {
     @Bean
