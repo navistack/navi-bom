@@ -18,7 +18,7 @@ class CacheAutoConfigurationTest {
             .withConfiguration(AutoConfigurations.of(CacheAutoConfiguration.class));
 
     @Test
-    void testWithRedisOperations() {
+    void shouldUseRedisCacheServiceWhenRedisOperationsBeanExists() {
         contextRunner.withBean(RedisOperations.class, () -> mock(RedisOperations.class))
                 .run(context -> {
                     assertThat(context)
@@ -31,7 +31,7 @@ class CacheAutoConfigurationTest {
     }
 
     @Test
-    void testWithoutRedisOperations() {
+    void shouldUseHashMapCacheServiceWhenRedisOperationsBeanDoesNotExist() {
         contextRunner.run(context -> {
             assertThat(context)
                     .hasSingleBean(CacheService.class);
