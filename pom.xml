@@ -54,7 +54,7 @@
         <mybatis.version>3.5.19</mybatis.version>
         <mybatis-spring-boot.version>4.0.1</mybatis-spring-boot.version>
 
-        <checkstyle.version>10.20.2</checkstyle.version>
+        <checkstyle.version>13.3.0</checkstyle.version>
         <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
         <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
     </properties>
