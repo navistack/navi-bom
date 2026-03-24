@@ -1,6 +1,5 @@
 package org.navistack.smoketest.web.rest.vm;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

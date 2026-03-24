@@ -19,7 +19,6 @@ public interface RestErrResult extends RestResult<Void> {
 
     RestErrResult setMessage(String message);
 
-
     String getEndpoint();
 
     RestErrResult setEndpoint(String endpoint);

@@ -144,7 +144,6 @@ public class TreeBuilder<S, T> {
                 return TreeBuilder.this::build;
             }
 
-
             @Override
             public Set<Characteristics> characteristics() {
                 return Collections.unmodifiableSet(EnumSet.of(

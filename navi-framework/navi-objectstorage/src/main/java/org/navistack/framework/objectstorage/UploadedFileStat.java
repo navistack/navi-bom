@@ -9,7 +9,7 @@ import org.navistack.framework.utils.Strings;
 @Accessors(chain = true)
 public class UploadedFileStat {
     /**
-     * file hash, generally generated using MD5 algorithm.
+     * File hash, generally generated using MD5 algorithm.
      */
     private String etag;
 
@@ -19,7 +19,7 @@ public class UploadedFileStat {
     private String bucket;
 
     /**
-     * file name referenced to file stored in bucket.
+     * File name referenced to file stored in bucket.
      */
     private String fileName;
 
@@ -34,7 +34,7 @@ public class UploadedFileStat {
     private String contentType;
 
     /**
-     * public accessible uri to this file.
+     * Public accessible uri to this file.
      */
     private String publicUri;
 
@@ -47,7 +47,7 @@ public class UploadedFileStat {
     }
 
     /**
-     * a unique name combines bucket name and file name.
+     * A unique name combines bucket name and file name.
      * That name should be separated with a colon ":".
      */
     public String getUniqueObjectName() {

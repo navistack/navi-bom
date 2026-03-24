@@ -19,8 +19,6 @@ public interface Pageable {
      */
     long getOffset();
 
-
-
     /**
      * Returns the sorting parameters.
      *

@@ -46,7 +46,6 @@ public interface FileUploadService {
      */
     UploadedFileStat upload(String bucket, String file, InputStream inputStream, String contentType);
 
-
     /**
      * Upload local file.
      *

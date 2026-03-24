@@ -21,7 +21,6 @@ public class DefaultFileUploadService implements FileUploadService {
     @Setter
     private FileUploadPolicyEnforcer uploadPolicyEnforcer = new DefaultFileUploadPolicyEnforcer();
 
-
     public DefaultFileUploadService(ObjectStorageService objectStorageService) {
         this.objectStorageService = objectStorageService;
     }

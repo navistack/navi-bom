@@ -60,7 +60,7 @@ public class Arrays {
     }
 
     /**
-     * return arguments as is.
+     * Return arguments as is.
      *
      * @param elems elements of array
      * @return array contains elems

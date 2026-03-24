@@ -38,7 +38,7 @@ public class JwtTokenService implements TokenService {
     private JwtPayloadResolver payloadResolver;
 
     /**
-     * validity in milliseconds.
+     * Validity in milliseconds.
      */
     private final int validity;
 

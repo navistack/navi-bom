@@ -95,7 +95,7 @@ public class FisheyeImageFilter implements ImageFilter {
     }
 
     /**
-     * implementation of: g(s) = - (3/4)s3 + (3/2)s2 + (1/4)s, with s from 0 to 1.
+     * Implementation of: g(s) = - (3/4)s3 + (3/2)s2 + (1/4)s, with s from 0 to 1.
      */
     private static double fishEyeFormula(double s) {
         if (s < 0.0D) {
