@@ -3,8 +3,9 @@ package org.navistack.framework.captcha.simplecaptcha;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.navistack.framework.cache.CacheService;
-import org.navistack.framework.cache.ScopedCacheServiceBuilder;
+import org.navistack.framework.cache.CacheScope;
+import org.navistack.framework.cache.CacheStore;
+import org.navistack.framework.cache.ScopedCacheStoreBuilder;
 import org.navistack.framework.captcha.simplecaptcha.imagefilters.BorderImageFilter;
 import org.navistack.framework.captcha.simplecaptcha.imagefilters.GradientBackgroundImageFilter;
 import org.navistack.framework.captcha.simplecaptcha.imagefilters.NoiseImageFilter;
@@ -45,10 +46,10 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
     @Setter
     private int ticketValidity = 10 * 60 * 1000;
 
-    private final CacheService cacheService;
+    private final CacheStore cacheStore;
 
-    public DefaultSimpleCaptchaService(ScopedCacheServiceBuilder cacheServiceBuilder) {
-        this.cacheService = cacheServiceBuilder.build("NAVI", "SIMPLE_CAPTCHA");
+    public DefaultSimpleCaptchaService(ScopedCacheStoreBuilder cacheServiceBuilder) {
+        this.cacheStore = cacheServiceBuilder.build(CacheScope.of("NAVI").scope("SIMPLE_CAPTCHA"));
     }
 
     @Override
@@ -56,7 +57,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
         String challenge = UUID.randomUUID().toString();
 
         String expected = textGenerator.generate();
-        cacheService.set("CHALLENGE_" + challenge, expected, Duration.of(challengeValidity, ChronoUnit.MILLIS));
+        cacheStore.set("CHALLENGE_" + challenge, expected, Duration.of(challengeValidity, ChronoUnit.MILLIS));
 
         return challenge;
     }
@@ -66,7 +67,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
         String ticket = UUID.randomUUID().toString();
 
         boolean passed = Optional.ofNullable(
-                        cacheService.getAndDelete("CHALLENGE_" + challenge, String.class)
+                        cacheStore.getAndDelete("CHALLENGE_" + challenge, String.class)
                 ).map(expectedAnswer -> expectedAnswer.equals(answer))
                 .orElse(false);
 
@@ -74,7 +75,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
         userAttempt.setAnswer(answer);
         userAttempt.setValidated(passed);
 
-        cacheService.set("TICKET_" + ticket, userAttempt, Duration.of(ticketValidity, ChronoUnit.MILLIS));
+        cacheStore.set("TICKET_" + ticket, userAttempt, Duration.of(ticketValidity, ChronoUnit.MILLIS));
 
         UserAttemptResult result = new UserAttemptResult();
         result.setValidated(passed);
@@ -85,7 +86,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
 
     @Override
     public boolean validate(String ticket) {
-        return Optional.ofNullable(cacheService.getAndDelete(
+        return Optional.ofNullable(cacheStore.getAndDelete(
                         "TICKET_" + ticket,
                         UserAttempt.class
                 ))
@@ -96,7 +97,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
     @Override
     public RenderedImage draw(String challenge) {
         String response = Optional.ofNullable(
-                        cacheService.get("CHALLENGE_" + challenge, String.class)
+                        cacheStore.get("CHALLENGE_" + challenge, String.class)
                 )
                 .orElse("");
         return textRender.render(response);

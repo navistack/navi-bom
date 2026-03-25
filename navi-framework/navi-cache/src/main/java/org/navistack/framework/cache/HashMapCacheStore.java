@@ -10,7 +10,7 @@ import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HashMapCacheService implements CacheService {
+public class HashMapCacheStore implements CacheStore {
     private final Map<String, Object> objectMap = new HashMap<>();
     private final Map<String, Long> expirationMap = new HashMap<>();
 

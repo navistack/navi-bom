@@ -2,7 +2,7 @@ package org.navistack.framework.cache;
 
 import java.time.Duration;
 
-public interface CacheService {
+public interface CacheStore {
     void set(String key, Object value);
 
     void set(String key, Object value, Duration timeout);

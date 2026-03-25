@@ -2,8 +2,7 @@ package org.navistack.framework.ratelimit;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.navistack.framework.cache.CacheKeyBuilder;
-import org.navistack.framework.cache.PrefixedCacheKeyBuilder;
+import org.navistack.framework.cache.CacheScope;
 import org.navistack.framework.utils.Strings;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -20,15 +19,15 @@ public class RedisSlidingWindowRateLimiter implements SlidingWindowRateLimiter {
     private static final String DEFAULT_USER_KEY = "GLOBAL_RESOURCE";
     private static final Resource
             DEFAULT_SCRIPT_RESOURCE = new ClassPathResource("navi/scripts/slidingwindowratelimiter.lua");
-    private static final CacheKeyBuilder
-            KEY_BUILDER = new PrefixedCacheKeyBuilder(".", "NAVI", "SLIDING_WINDOW_RATE_LIMITER");
+    private static final CacheScope
+            DEFAULT_CACHE_SCOPE = new CacheScope("NAVI").scope("SLIDING_WINDOW_RATE_LIMITER");
     private static final int DEFAULT_MAX_REQUESTS_OF_WINDOW = 1000;
     private static final int DEFAULT_SIZE_OF_WINDOW = 1000 /* ms */;
 
     private final RedisOperations<String, Long> redisOperations;
 
     private Resource scriptResource = DEFAULT_SCRIPT_RESOURCE;
-    private CacheKeyBuilder keyBuilder = KEY_BUILDER;
+    private CacheScope cacheScope = DEFAULT_CACHE_SCOPE;
     private int maxRequestsOfWindow = DEFAULT_MAX_REQUESTS_OF_WINDOW;
     private Duration sizeOfWindow = Duration.of(DEFAULT_SIZE_OF_WINDOW, ChronoUnit.MILLIS);
 
@@ -44,15 +43,8 @@ public class RedisSlidingWindowRateLimiter implements SlidingWindowRateLimiter {
     @Override
     public boolean tryAcquire(String key, int maxRequests, Duration windowSize) {
         key = Strings.hasText(key) ? key : DEFAULT_USER_KEY;
-        String scopedKey = keyBuilder.build(key);
+        String scopedKey = cacheScope.key(key);
         return executeScript(scriptResource, scopedKey, maxRequests, System.currentTimeMillis(), windowSize);
-    }
-
-    public void setKeyPrefix(String prefix) {
-        if (!Strings.hasLength(prefix)) {
-            throw new IllegalArgumentException("prefix can not be null or empty");
-        }
-        keyBuilder = new PrefixedCacheKeyBuilder(".", prefix);
     }
 
     private boolean executeScript(Resource scriptResource,

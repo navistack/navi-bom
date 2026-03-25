@@ -1,6 +1,6 @@
 package org.navistack.smoketest.captcha;
 
-import org.navistack.framework.cache.ScopedCacheServiceBuilder;
+import org.navistack.framework.cache.ScopedCacheStoreBuilder;
 import org.navistack.framework.captcha.simplecaptcha.DefaultSimpleCaptchaService;
 import org.navistack.framework.captcha.simplecaptcha.SimpleCaptchaService;
 import org.springframework.boot.SpringApplication;
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 public class SampleCaptchaApplication {
 
     @Bean
-    public SimpleCaptchaService simpleCaptchaService(ScopedCacheServiceBuilder cacheServiceBuilder) {
+    public SimpleCaptchaService simpleCaptchaService(ScopedCacheStoreBuilder cacheServiceBuilder) {
         DefaultSimpleCaptchaService service = new DefaultSimpleCaptchaService(cacheServiceBuilder);
         service.setTextGenerator(() -> "FIXED");
         return service;
