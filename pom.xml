@@ -485,7 +485,7 @@
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
-                <artifactId>navi-boot-core</artifactId>
+                <artifactId>navi-boot-i18n</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
