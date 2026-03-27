@@ -15,17 +15,18 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>navi-core</module>
+        <module>navi-batis</module>
+        <module>navi-cache</module>
         <module>navi-captcha</module>
-        <module>navi-security</module>
-        <module>navi-objectstorage</module>
-        <module>navi-web</module>
-        <module>navi-sms</module>
-        <module>navi-ratelimit</module>
+        <module>navi-core</module>
+        <module>navi-jackson</module>
         <module>navi-locking</module>
         <module>navi-logging</module>
-        <module>navi-cache</module>
-        <module>navi-batis</module>
+        <module>navi-objectstorage</module>
+        <module>navi-ratelimit</module>
+        <module>navi-security</module>
+        <module>navi-sms</module>
         <module>navi-testcontainers</module>
+        <module>navi-web</module>
     </modules>
 </project>
