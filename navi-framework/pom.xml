@@ -25,6 +25,7 @@
         <module>navi-objectstorage</module>
         <module>navi-ratelimit</module>
         <module>navi-security</module>
+        <module>navi-servlet</module>
         <module>navi-sms</module>
         <module>navi-testcontainers</module>
         <module>navi-web</module>
