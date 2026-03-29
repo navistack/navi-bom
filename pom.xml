@@ -30,7 +30,6 @@
         <jackson-bom.version>3.0.4</jackson-bom.version>
         <junit-jupiter.version>6.0.3</junit-jupiter.version>
         <lombok.version>1.18.42</lombok.version>
-        <modelmapper.version>3.2.6</modelmapper.version>
         <junit.version>4.13.2</junit.version>
         <hamcrest.version>3.0</hamcrest.version>
         <aliyun-captcha20230305.version>1.2.0</aliyun-captcha20230305.version>
@@ -179,13 +178,6 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
-            </dependency>
-
-            <!-- Model Mapper -->
-            <dependency>
-                <groupId>org.modelmapper</groupId>
-                <artifactId>modelmapper</artifactId>
-                <version>${modelmapper.version}</version>
             </dependency>
 
             <!-- JUnit -->
