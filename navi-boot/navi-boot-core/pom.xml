@@ -11,4 +11,12 @@
     </parent>
 
     <artifactId>navi-boot-core</artifactId>
+
+    <dependencies>
+        <!-- Navi Framework -->
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>
