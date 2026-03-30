@@ -19,22 +19,33 @@
             <artifactId>navi-boot-core</artifactId>
         </dependency>
 
-        <!-- Spring Boot -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-webmvc</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-security</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <!-- Navi Framework -->
         <dependency>
             <groupId>org.navistack.framework</groupId>
             <artifactId>navi-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.navistack.framework</groupId>
+            <artifactId>navi-servlet</artifactId>
+        </dependency>
+
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-security</artifactId>
+        </dependency>
+
+        <!-- Servlet -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- nimbus jwt -->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
         </dependency>
     </dependencies>
 </project>

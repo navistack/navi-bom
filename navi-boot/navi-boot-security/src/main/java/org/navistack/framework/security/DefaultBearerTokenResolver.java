@@ -1,14 +1,12 @@
 package org.navistack.framework.security;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.util.StringUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DefaultBearerTokenResolver implements BearerTokenResolver {
-    public static final String AUTHORIZATION_HEADER = HttpHeaders.AUTHORIZATION;
+    public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String AUTHORIZATION_TOKEN = "access_token";
     private static final Pattern BEARER_TOKEN_PATTERN = Pattern.compile("^Bearer ([a-zA-Z0-9-._~+/]+=*)$");
 
@@ -24,7 +22,7 @@ public class DefaultBearerTokenResolver implements BearerTokenResolver {
         }
 
         String token = request.getParameter(AUTHORIZATION_TOKEN);
-        if (StringUtils.hasText(token)) {
+        if (token != null && !token.isBlank()) {
             return token;
         }
 

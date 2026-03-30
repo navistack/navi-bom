@@ -14,16 +14,17 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
+;
+
 @AutoConfiguration
 @ConditionalOnWebApplication
 @ConditionalOnClass(ContentSanitizer.class)
-@AutoConfigureBefore(WebMvcAutoConfiguration.class)
+@AutoConfigureBefore(name = "org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration")
 @EnableConfigurationProperties(SanitizationProperties.class)
 public class SanitizationAutoConfiguration implements ResourceLoaderAware {
     private SanitizationProperties properties;

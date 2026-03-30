@@ -2,7 +2,6 @@ package org.navistack.framework.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpHeaders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -13,7 +12,7 @@ class DefaultBearerTokenResolverTest {
     @Test
     void shouldResolveTokenWhenBearerHeaderPresent() {
         HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
+        when(request.getHeader("Authorization")).thenReturn("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
         assertThat(tokenResolver.resolveToken(request)).isEqualTo("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
     }
@@ -28,7 +27,7 @@ class DefaultBearerTokenResolverTest {
     @Test
     void shouldReturnNullWhenBearerHasMultipleSpaces() {
         HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Bearer   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
+        when(request.getHeader("Authorization")).thenReturn("Bearer   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
         assertThat(tokenResolver.resolveToken(request)).isNull();
     }
@@ -36,7 +35,7 @@ class DefaultBearerTokenResolverTest {
     @Test
     void shouldReturnNullWhenBearerIsUppercase() {
         HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
+        when(request.getHeader("Authorization")).thenReturn("BEARER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
         assertThat(tokenResolver.resolveToken(request)).isNull();
     }
@@ -44,7 +43,7 @@ class DefaultBearerTokenResolverTest {
     @Test
     void shouldReturnNullWhenNoBearerPrefix() {
         HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
+        when(request.getHeader("Authorization")).thenReturn("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
         assertThat(tokenResolver.resolveToken(request)).isNull();
     }
@@ -52,7 +51,7 @@ class DefaultBearerTokenResolverTest {
     @Test
     void shouldReturnNullWhenTokenHasIllegalCharacters() {
         HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9?eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0[Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A]");
+        when(request.getHeader("Authorization")).thenReturn("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9?eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0[Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A]");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
         assertThat(tokenResolver.resolveToken(request)).isNull();
     }
@@ -68,7 +67,7 @@ class DefaultBearerTokenResolverTest {
     @Test
     void shouldPreferHeaderWhenTokenPresentedInBothHeaderAndQuery() {
         HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.CXHdmqgD0hdzWrbyXVFLoJ60O1jnrDb2MxNpX1TsGLtpRS5igMwZTeM1PTW3PWKKMwMoBmolbU7AG-b0exj9Uw");
+        when(request.getHeader("Authorization")).thenReturn("Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.CXHdmqgD0hdzWrbyXVFLoJ60O1jnrDb2MxNpX1TsGLtpRS5igMwZTeM1PTW3PWKKMwMoBmolbU7AG-b0exj9Uw");
         when(request.getParameter("access_token")).thenReturn("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.Gfx6VO9tcxwk6xqx9yYzSfebfeakZp5JYIgP_edcw_A");
         DefaultBearerTokenResolver tokenResolver = new DefaultBearerTokenResolver();
         assertThat(tokenResolver.resolveToken(request)).isEqualTo("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.CXHdmqgD0hdzWrbyXVFLoJ60O1jnrDb2MxNpX1TsGLtpRS5igMwZTeM1PTW3PWKKMwMoBmolbU7AG-b0exj9Uw");
