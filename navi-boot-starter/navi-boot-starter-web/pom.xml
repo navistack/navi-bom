@@ -25,5 +25,9 @@
             <groupId>org.navistack.boot</groupId>
             <artifactId>navi-boot-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.navistack.boot</groupId>
+            <artifactId>navi-boot-jackson</artifactId>
+        </dependency>
     </dependencies>
 </project>

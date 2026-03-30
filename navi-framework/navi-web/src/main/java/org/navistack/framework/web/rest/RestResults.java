@@ -2,7 +2,6 @@ package org.navistack.framework.web.rest;
 
 import lombok.experimental.UtilityClass;
 import org.navistack.framework.core.error.CodedException;
-import org.springframework.http.HttpStatus;
 
 @UtilityClass
 public class RestResults {
@@ -14,7 +13,7 @@ public class RestResults {
         return new RestOkResultImpl<>(result);
     }
 
-    public RestErrResult err(int error, String message, HttpStatus status) {
+    public RestErrResult err(int error, String message, int status) {
         return new RestErrResultImpl()
                 .setError(error)
                 .setMessage(message)

@@ -1,7 +1,5 @@
 package org.navistack.framework.web.rest;
 
-import org.springframework.http.HttpStatus;
-
 import java.util.Map;
 
 public interface RestErrResult extends RestResult<Void> {
@@ -45,7 +43,7 @@ public interface RestErrResult extends RestResult<Void> {
 
     RestErrResult putParameters(Map<String, Object> parameters);
 
-    RestErrResult setStatus(HttpStatus status);
+    RestErrResult setStatus(int status);
 
     Throwable getThrowable();
 

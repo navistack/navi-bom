@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.http.HttpStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,8 +24,7 @@ public class RestErrResultImpl implements RestErrResult {
     @NonNull
     private Map<String, Object> parameters = new HashMap<>();
 
-    @NonNull
-    private HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+    private int status = 500;
 
     private Throwable throwable;
 

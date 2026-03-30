@@ -1,0 +1,2 @@
+org.navistack.boot.jackson.autoconfigure.RestResultJacksonAutoConfiguration
+org.navistack.boot.jackson.autoconfigure.RestResultJacksonWebMvcAutoConfiguration

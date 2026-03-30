@@ -1,0 +1,22 @@
+package org.navistack.framework.web.rest.exceptionhandling.translators.captcha;
+
+import org.navistack.framework.captcha.CaptchaTestFailureException;
+import org.navistack.framework.core.error.ErrorCodes;
+import org.navistack.framework.web.rest.RestErrResult;
+import org.navistack.framework.web.rest.RestResults;
+import org.navistack.framework.web.rest.exceptionhandling.ExceptionTranslator;
+import org.springframework.http.HttpStatus;
+
+public class CaptchaTestFailureExceptionTranslator implements ExceptionTranslator {
+    @Override
+    public RestErrResult translate(Throwable throwable) {
+        return RestResults.err(throwable)
+                .setError(ErrorCodes.CAPTCHA_TEST_FAILED)
+                .setStatus(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Override
+    public boolean supports(Class<?> throwableType) {
+        return CaptchaTestFailureException.class.isAssignableFrom(throwableType);
+    }
+}

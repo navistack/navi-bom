@@ -1,7 +1,5 @@
 package org.navistack.framework.web.rest;
 
-import org.springframework.http.HttpStatus;
-
 public interface RestOkResult<T> extends RestResult<T> {
 
     @Override
@@ -10,8 +8,8 @@ public interface RestOkResult<T> extends RestResult<T> {
     }
 
     @Override
-    default HttpStatus getStatus() {
-        return HttpStatus.OK;
+    default int getStatus() {
+        return 200;
     }
 
     T getResult();
