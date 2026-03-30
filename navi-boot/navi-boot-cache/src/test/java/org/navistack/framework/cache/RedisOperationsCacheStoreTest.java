@@ -12,7 +12,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class RedisCacheStoreTest {
+class RedisOperationsCacheStoreTest {
 
     @Test
     void shouldSetValueWhenSetCalled() {
@@ -21,7 +21,7 @@ class RedisCacheStoreTest {
         ValueOperations<String, Object> valueOperations = mock(ValueOperations.class);
         when(redisOperations.opsForValue()).thenReturn(valueOperations);
 
-        RedisCacheStore store = new RedisCacheStore(redisOperations);
+        RedisOperationsCacheStore store = new RedisOperationsCacheStore(redisOperations);
         store.set("key", "value");
 
         verify(valueOperations).set("key", "value");
@@ -34,7 +34,7 @@ class RedisCacheStoreTest {
         ValueOperations<String, Object> valueOperations = mock(ValueOperations.class);
         when(redisOperations.opsForValue()).thenReturn(valueOperations);
 
-        RedisCacheStore store = new RedisCacheStore(redisOperations);
+        RedisOperationsCacheStore store = new RedisOperationsCacheStore(redisOperations);
         store.set("key", "value", Duration.ofSeconds(1));
 
         verify(valueOperations).set("key", "value", Duration.ofSeconds(1));
@@ -48,7 +48,7 @@ class RedisCacheStoreTest {
         when(redisOperations.opsForValue()).thenReturn(valueOperations);
         when(valueOperations.setIfAbsent("key", "value")).thenReturn(null);
 
-        RedisCacheStore store = new RedisCacheStore(redisOperations);
+        RedisOperationsCacheStore store = new RedisOperationsCacheStore(redisOperations);
         assertThat(store.setIfAbsent("key", "value")).isFalse();
     }
 
@@ -57,14 +57,14 @@ class RedisCacheStoreTest {
         RedisOperations<String, Object> redisOperations = mock(RedisOperations.class);
         when(redisOperations.delete("key")).thenReturn(null);
 
-        RedisCacheStore store = new RedisCacheStore(redisOperations);
+        RedisOperationsCacheStore store = new RedisOperationsCacheStore(redisOperations);
         assertThat(store.delete("key")).isFalse();
     }
 
     @Test
     void shouldGetAndDeleteValueWhenGetAndDeleteCalled() {
         RedisOperations<String, Object> redisOperations = mock(RedisOperations.class);
-        RedisCacheStore store = new RedisCacheStore(redisOperations);
+        RedisOperationsCacheStore store = new RedisOperationsCacheStore(redisOperations);
 
         ArgumentCaptor<org.springframework.data.redis.core.SessionCallback<Object>> captor =
                 ArgumentCaptor.forClass(org.springframework.data.redis.core.SessionCallback.class);

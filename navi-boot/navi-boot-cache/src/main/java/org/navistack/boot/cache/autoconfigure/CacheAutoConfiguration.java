@@ -3,7 +3,7 @@ package org.navistack.boot.cache.autoconfigure;
 import org.navistack.framework.cache.CacheStore;
 import org.navistack.framework.cache.DefaultScopedCacheStoreBuilder;
 import org.navistack.framework.cache.HashMapCacheStore;
-import org.navistack.framework.cache.RedisCacheStore;
+import org.navistack.framework.cache.RedisOperationsCacheStore;
 import org.navistack.framework.cache.ScopedCacheStoreBuilder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -36,9 +36,9 @@ public class CacheAutoConfiguration {
         @Bean
         @ConditionalOnBean(RedisOperations.class)
         @ConditionalOnMissingBean(CacheStore.class)
-        RedisCacheStore redisCacheService(
+        RedisOperationsCacheStore redisOperationsCacheStore(
                 RedisOperations<String, Object> redisOperations) {
-            return new RedisCacheStore(redisOperations);
+            return new RedisOperationsCacheStore(redisOperations);
         }
     }
 }

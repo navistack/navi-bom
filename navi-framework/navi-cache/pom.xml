@@ -17,12 +17,5 @@
             <groupId>org.navistack.framework</groupId>
             <artifactId>navi-core</artifactId>
         </dependency>
-
-        <!-- Redis -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-            <optional>true</optional>
-        </dependency>
     </dependencies>
 </project>

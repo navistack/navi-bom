@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.navistack.framework.cache.CacheStore;
 import org.navistack.framework.cache.DefaultScopedCacheStoreBuilder;
 import org.navistack.framework.cache.HashMapCacheStore;
-import org.navistack.framework.cache.RedisCacheStore;
+import org.navistack.framework.cache.RedisOperationsCacheStore;
 import org.navistack.framework.cache.ScopedCacheStoreBuilder;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -24,7 +24,7 @@ class CacheAutoConfigurationTest {
                     assertThat(context)
                             .hasSingleBean(CacheStore.class);
                     assertThat(context.getBean(CacheStore.class))
-                            .isInstanceOf(RedisCacheStore.class);
+                            .isInstanceOf(RedisOperationsCacheStore.class);
                     assertThat(context.getBean(ScopedCacheStoreBuilder.class))
                             .isInstanceOf(DefaultScopedCacheStoreBuilder.class);
                 });
@@ -50,7 +50,7 @@ class CacheAutoConfigurationTest {
                     assertThat(context).hasSingleBean(CacheStore.class);
                     assertThat(context.getBean(CacheStore.class)).isSameAs(userCacheStore);
                     assertThat(context.getBeansOfType(HashMapCacheStore.class)).isEmpty();
-                    assertThat(context.getBeansOfType(RedisCacheStore.class)).isEmpty();
+                    assertThat(context.getBeansOfType(RedisOperationsCacheStore.class)).isEmpty();
                 });
     }
 

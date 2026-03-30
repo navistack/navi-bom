@@ -6,10 +6,10 @@ import org.springframework.data.redis.core.SessionCallback;
 
 import java.time.Duration;
 
-public class RedisCacheStore implements CacheStore {
+public class RedisOperationsCacheStore implements CacheStore {
     private final RedisOperations<String, Object> redisOperations;
 
-    public RedisCacheStore(RedisOperations<String, Object> redisOperations) {
+    public RedisOperationsCacheStore(RedisOperations<String, Object> redisOperations) {
         this.redisOperations = redisOperations;
     }
 
