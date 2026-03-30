@@ -15,6 +15,10 @@
     <dependencies>
         <!-- Navi Framework -->
         <dependency>
+            <groupId>org.navistack.boot</groupId>
+            <artifactId>navi-boot-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.navistack.framework</groupId>
             <artifactId>navi-cache</artifactId>
         </dependency>

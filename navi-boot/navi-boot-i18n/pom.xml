@@ -13,6 +13,12 @@
     <artifactId>navi-boot-i18n</artifactId>
 
     <dependencies>
+        <!-- Navi Boot -->
+        <dependency>
+            <groupId>org.navistack.boot</groupId>
+            <artifactId>navi-boot-core</artifactId>
+        </dependency>
+
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

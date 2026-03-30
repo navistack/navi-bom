@@ -10,19 +10,5 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>navi-boot-logging</artifactId>
-
-    <dependencies>
-        <!-- Navi Boot -->
-        <dependency>
-            <groupId>org.navistack.boot</groupId>
-            <artifactId>navi-boot-core</artifactId>
-        </dependency>
-
-        <!-- Navi Framework -->
-        <dependency>
-            <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-logging</artifactId>
-        </dependency>
-    </dependencies>
+    <artifactId>navi-boot-core</artifactId>
 </project>
