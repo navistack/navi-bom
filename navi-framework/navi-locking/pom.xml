@@ -13,6 +13,7 @@
     <artifactId>navi-locking</artifactId>
 
     <dependencies>
+        <!-- Navi Framework -->
         <dependency>
             <groupId>org.navistack.framework</groupId>
             <artifactId>navi-core</artifactId>
@@ -20,6 +21,12 @@
         <dependency>
             <groupId>org.navistack.framework</groupId>
             <artifactId>navi-cache</artifactId>
+        </dependency>
+
+        <!-- AspectJ -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
         </dependency>
     </dependencies>
 </project>

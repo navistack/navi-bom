@@ -13,9 +13,16 @@
     <artifactId>navi-logging</artifactId>
 
     <dependencies>
+        <!-- Navi Framework -->
         <dependency>
             <groupId>org.navistack.framework</groupId>
             <artifactId>navi-core</artifactId>
+        </dependency>
+
+        <!-- AspectJ -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
         </dependency>
     </dependencies>
 </project>
