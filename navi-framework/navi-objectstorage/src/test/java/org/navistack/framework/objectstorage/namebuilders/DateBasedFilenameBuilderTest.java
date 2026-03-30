@@ -2,7 +2,6 @@ package org.navistack.framework.objectstorage.namebuilders;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.navistack.framework.http.MediaTypes;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -24,7 +23,7 @@ class DateBasedFilenameBuilderTest {
         builder.setRandom(random);
         builder.setClock(clock);
 
-        String filename = builder.build("TwoHardThings.txt", MediaTypes.TEXT_PLAIN.getFullType());
+        String filename = builder.build("TwoHardThings.txt", "text/plain");
         assertThat(filename).isEqualTo("2011-12-03/20111203101530832_TwoHardThings.txt");
     }
 }
