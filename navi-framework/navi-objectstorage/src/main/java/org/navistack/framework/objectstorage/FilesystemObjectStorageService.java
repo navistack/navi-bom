@@ -24,7 +24,7 @@ public class FilesystemObjectStorageService implements ObjectStorageService {
     @Getter
     @Setter
     @NonNull
-    private PublicRootUriSupplier publicRootUriSupplier = new HttpServletRequestPublicRootUriSupplier();
+    private PublicRootUriSupplier publicRootUriSupplier;
 
     public FilesystemObjectStorageService(File dataDir) {
         Asserts.state(dataDir.isDirectory() && dataDir.exists() && dataDir.canWrite(),

@@ -2,6 +2,7 @@ package org.navistack.boot.objectstorage.autoconfigure;
 
 import io.minio.MinioClient;
 import org.navistack.framework.objectstorage.FilesystemObjectStorageService;
+import org.navistack.framework.objectstorage.HttpServletRequestPublicRootUriSupplier;
 import org.navistack.framework.objectstorage.MinioObjectStorageService;
 import org.navistack.framework.objectstorage.ObjectStorageService;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -31,7 +32,9 @@ public class ObjectStorageAutoConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public ObjectStorageService filesystemObjectStorageService(FilesystemProperties properties) {
-            return new FilesystemObjectStorageService(properties.getDataDir());
+            FilesystemObjectStorageService service = new FilesystemObjectStorageService(properties.getDataDir());
+            service.setPublicRootUriSupplier(new HttpServletRequestPublicRootUriSupplier());
+            return service;
         }
     }
 }
