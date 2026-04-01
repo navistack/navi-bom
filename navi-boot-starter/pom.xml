@@ -15,7 +15,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>navi-boot-starter-batis</module>
         <module>navi-boot-starter-cache</module>
         <module>navi-boot-starter-captcha-aliyun</module>
         <module>navi-boot-starter-captcha-tencentcloud</module>
