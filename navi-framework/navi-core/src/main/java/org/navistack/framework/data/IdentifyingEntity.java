@@ -1,8 +1,7 @@
-package org.navistack.framework.batis.entity;
+package org.navistack.framework.data;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.navistack.framework.data.IdentifyingProperties;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

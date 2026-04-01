@@ -1,7 +1,6 @@
-package org.navistack.framework.batis.entity;
+package org.navistack.framework.data;
 
 import lombok.Data;
-import org.navistack.framework.data.AuditingProperties;
 
 import java.time.Instant;
 
