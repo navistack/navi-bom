@@ -13,7 +13,7 @@ class TencentCloudCaptchaConfigurationTest {
             .withConfiguration(AutoConfigurations.of(TencentCloudCaptchaConfiguration.class));
 
     @Test
-    void testDisabled() {
+    void shouldNotRegisterTencentCloudCaptchaClientWhenEnabledPropertyIsFalse() {
         contextRunner
                 .withPropertyValues(TencentCloudCaptchaProperties.PROPERTY_PREFIX + ".enabled=false")
                 .run(context -> {
@@ -22,7 +22,7 @@ class TencentCloudCaptchaConfigurationTest {
     }
 
     @Test
-    void testProperties() {
+    void shouldRegisterTencentCloudCaptchaClientWithBoundCredentialsWhenClientPropertiesAreSet() {
         contextRunner
                 .withPropertyValues(
                         TencentCloudCaptchaProperties.PROPERTY_PREFIX + ".client.region=REGION",

@@ -12,7 +12,7 @@ class AliyunCaptchaConfigurationTest {
             .withConfiguration(AutoConfigurations.of(AliyunCaptchaConfiguration.class));
 
     @Test
-    void testDisabled() {
+    void shouldNotRegisterAliyunCaptchaClientWhenEnabledPropertyIsFalse() {
         contextRunner
                 .withPropertyValues(AliyunCaptchaProperties.PROPERTY_PREFIX + ".enabled=false")
                 .run(context -> {
@@ -21,7 +21,7 @@ class AliyunCaptchaConfigurationTest {
     }
 
     @Test
-    void testProperties() {
+    void shouldRegisterAliyunCaptchaClientWithBoundCredentialsWhenAccessKeyPropertiesAreSet() {
         contextRunner
                 .withPropertyValues(
                         AliyunCaptchaProperties.PROPERTY_PREFIX + ".accessKeyId=ACCESS-KEY-ID",

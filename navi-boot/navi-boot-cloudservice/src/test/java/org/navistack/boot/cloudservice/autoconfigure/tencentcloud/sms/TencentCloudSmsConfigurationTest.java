@@ -13,7 +13,7 @@ class TencentCloudSmsConfigurationTest {
             .withConfiguration(AutoConfigurations.of(TencentCloudSmsConfiguration.class));
 
     @Test
-    void testDisabled() {
+    void shouldNotRegisterTencentCloudSmsClientWhenEnabledPropertyIsFalse() {
         contextRunner
                 .withPropertyValues(TencentCloudSmsProperties.PROPERTY_PREFIX + ".enabled=false")
                 .run(context -> {
@@ -22,7 +22,7 @@ class TencentCloudSmsConfigurationTest {
     }
 
     @Test
-    void testProperties() {
+    void shouldRegisterTencentCloudSmsClientWithBoundCredentialsWhenClientPropertiesAreSet() {
         contextRunner
                 .withPropertyValues(
                         TencentCloudSmsProperties.PROPERTY_PREFIX + ".client.region=REGION",

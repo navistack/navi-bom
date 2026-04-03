@@ -12,7 +12,7 @@ class AliyunSmsConfigurationTest {
             .withConfiguration(AutoConfigurations.of(AliyunSmsConfiguration.class));
 
     @Test
-    void testDisabled() {
+    void shouldNotRegisterAliyunSmsClientWhenEnabledPropertyIsFalse() {
         contextRunner
                 .withPropertyValues(AliyunSmsProperties.PROPERTY_PREFIX + ".enabled=false")
                 .run(context -> {
@@ -21,7 +21,7 @@ class AliyunSmsConfigurationTest {
     }
 
     @Test
-    void testProperties() {
+    void shouldRegisterAliyunSmsClientWithBoundCredentialsWhenAccessKeyPropertiesAreSet() {
         contextRunner
                 .withPropertyValues(
                         AliyunSmsProperties.PROPERTY_PREFIX + ".accessKeyId=ACCESS-KEY-ID",
