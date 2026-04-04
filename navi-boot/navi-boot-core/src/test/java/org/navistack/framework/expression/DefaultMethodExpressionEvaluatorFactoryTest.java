@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DefaultMethodExpressionEvaluatorFactoryTest {
 
     @Test
-    void getObject() throws Exception {
+    void shouldCacheEvaluatorsPerExpressionAndMethodWhenGetObjectIsCalled() throws Exception {
         MethodExpressionEvaluatorFactory factory = new DefaultMethodExpressionEvaluatorFactory();
         Method getObject = MethodExpressionEvaluatorFactory.class.getMethod("getObject", String.class, Method.class);
         Method evaluate = DefaultExpressionEvaluator.class.getMethod("evaluate", Class.class, Object[].class);
