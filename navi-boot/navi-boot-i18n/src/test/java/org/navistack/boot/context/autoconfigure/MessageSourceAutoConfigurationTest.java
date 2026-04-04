@@ -13,7 +13,7 @@ class MessageSourceAutoConfigurationTest {
             .withConfiguration(AutoConfigurations.of(MessageSourceAutoConfiguration.class));
 
     @Test
-    void testDefault() {
+    void shouldRegisterMessageSourceWithDefaultBasenamesWhenAutoConfigured() {
         contextRunner.run(context -> {
             assertThat(context).hasSingleBean(MessageSource.class);
             assertThat(context.getBean(MessageSource.class)).isInstanceOf(ReloadableResourceBundleMessageSource.class);
