@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DefaultExpressionEvaluatorTest {
 
     @Test
-    void evaluate() throws Exception {
+    void shouldEvaluateTemplateWithBoundMethodParametersWhenArgumentsAreProvided() throws Exception {
         String expressionLiteral = "DefaultExpressionEvaluator.evaluate(valueType=#{#valueType.name},args=[#{#args}])";
         Method method = DefaultExpressionEvaluator.class.getMethod("evaluate", Class.class, Object[].class);
 
