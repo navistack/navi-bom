@@ -17,14 +17,14 @@ class TencentCloudShortMessageConfigurationTest {
             .withConfiguration(AutoConfigurations.of(TencentCloudShortMessageConfiguration.class));
 
     @Test
-    void testDefault() {
+    void shouldNotRegisterTencentProviderWhenClientIsMissing() {
         contextRunner.run(context -> {
             assertThat(context).doesNotHaveBean(TencentCloudShortMessageServiceProvider.class);
         });
     }
 
     @Test
-    void testWithServiceProvider() {
+    void shouldNotRegisterTencentProviderWhenGenericProviderExists() {
         contextRunner.withBean(SmsClient.class, () -> mock(SmsClient.class))
                 .withBean(TencentCloudSmsProperties.class, () -> mock(TencentCloudSmsProperties.class))
                 .withBean(ShortMessageServiceProvider.class, () -> mock(ShortMessageServiceProvider.class))
@@ -34,7 +34,7 @@ class TencentCloudShortMessageConfigurationTest {
     }
 
     @Test
-    void testWithTencentCloudShortMessageServiceProvider() {
+    void shouldReuseTencentProviderWhenTencentProviderBeanExists() {
         TencentCloudShortMessageServiceProvider serviceProvider = mock(TencentCloudShortMessageServiceProvider.class);
         contextRunner.withBean(SmsClient.class, () -> mock(SmsClient.class))
                 .withBean(TencentCloudSmsProperties.class, () -> mock(TencentCloudSmsProperties.class))
@@ -46,7 +46,7 @@ class TencentCloudShortMessageConfigurationTest {
     }
 
     @Test
-    void testWithSmsClient() {
+    void shouldRegisterTencentProviderWhenClientAndPropertiesExist() {
         contextRunner.withBean(SmsClient.class, () -> mock(SmsClient.class))
                 .withBean(TencentCloudSmsProperties.class, () -> mock(TencentCloudSmsProperties.class))
                 .run(context -> {
