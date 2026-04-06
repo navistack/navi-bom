@@ -17,14 +17,14 @@ class AliyunShortMessageConfigurationTest {
             .withConfiguration(AutoConfigurations.of(AliyunShortMessageConfiguration.class));
 
     @Test
-    void testDefault() {
+    void shouldNotRegisterAliyunProviderWhenClientIsMissing() {
         contextRunner.run(context -> {
             assertThat(context).doesNotHaveBean(AliyunShortMessageServiceProvider.class);
         });
     }
 
     @Test
-    void testWithServiceProvider() {
+    void shouldNotRegisterAliyunProviderWhenGenericProviderExists() {
         contextRunner.withBean(Client.class, () -> mock(Client.class))
                 .withBean(ShortMessageServiceProvider.class, () -> mock(ShortMessageServiceProvider.class))
                 .run(context -> {
@@ -33,7 +33,7 @@ class AliyunShortMessageConfigurationTest {
     }
 
     @Test
-    void testWithAliyunShortMessageServiceProvider() {
+    void shouldReuseAliyunProviderWhenAliyunProviderBeanExists() {
         AliyunShortMessageServiceProvider serviceProvider = mock(AliyunShortMessageServiceProvider.class);
         contextRunner.withBean(Client.class, () -> mock(Client.class))
                 .withBean(AliyunShortMessageServiceProvider.class, () -> serviceProvider)
@@ -44,7 +44,7 @@ class AliyunShortMessageConfigurationTest {
     }
 
     @Test
-    void testWithClient() {
+    void shouldRegisterAliyunProviderWhenClientExists() {
         contextRunner.withBean(Client.class, () -> mock(Client.class))
                 .run(context -> {
                     assertThat(context).hasSingleBean(AliyunShortMessageServiceProvider.class);
@@ -54,7 +54,7 @@ class AliyunShortMessageConfigurationTest {
     }
 
     @Test
-    void testWithObjectMapper() {
+    void shouldUseProvidedObjectMapperWhenObjectMapperBeanExists() {
         ObjectMapper objectMapper = mock(ObjectMapper.class);
         contextRunner.withBean(Client.class, () -> mock(Client.class))
                 .withBean(ObjectMapper.class, () -> objectMapper)
