@@ -18,7 +18,7 @@ class ShortMessageAutoConfigurationTest {
             .withConfiguration(AutoConfigurations.of(ShortMessageAutoConfiguration.class));
 
     @Test
-    void testDefault() {
+    void shouldRegisterTemplateRegistrationOnlyWhenNoProviderExists() {
         contextRunner.run(context -> {
             assertThat(context).doesNotHaveBean(ShortMessageService.class)
                     .hasSingleBean(ShortMessageTemplateRegistration.class)
@@ -27,7 +27,7 @@ class ShortMessageAutoConfigurationTest {
     }
 
     @Test
-    void testWithServiceProvider() {
+    void shouldRegisterShortMessageServiceWhenProviderExists() {
         contextRunner.withBean(ShortMessageServiceProvider.class, () -> mock(ShortMessageServiceProvider.class))
                 .run(context -> {
             assertThat(context).hasSingleBean(ShortMessageService.class);
@@ -35,7 +35,7 @@ class ShortMessageAutoConfigurationTest {
     }
 
     @Test
-    void testWithProperties() {
+    void shouldLoadTemplatesWhenTemplatePropertiesAreSet() {
         contextRunner.withPropertyValues(
                 ShortMessageProperties.PROPERTIES_PREFIX+".templates[0].code=CODE-1",
                 ShortMessageProperties.PROPERTIES_PREFIX+".templates[0].message=MESSAGE-1",
