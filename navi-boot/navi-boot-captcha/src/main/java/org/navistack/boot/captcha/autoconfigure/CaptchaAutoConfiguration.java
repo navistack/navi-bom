@@ -2,9 +2,9 @@ package org.navistack.boot.captcha.autoconfigure;
 
 import com.aliyun.captcha20230305.Client;
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
+import org.navistack.boot.alibaba.cloud.autoconfigure.captcha.AlibabaCloudCaptchaProperties;
 import org.navistack.boot.cache.autoconfigure.CacheAutoConfiguration;
-import org.navistack.boot.cloudservice.autoconfigure.aliyun.captcha.AliyunCaptchaProperties;
-import org.navistack.boot.cloudservice.autoconfigure.tencentcloud.captcha.TencentCloudCaptchaProperties;
+import org.navistack.boot.tencent.cloud.autoconfigure.captcha.TencentCloudCaptchaProperties;
 import org.navistack.framework.cache.ScopedCacheStoreBuilder;
 import org.navistack.framework.captcha.CaptchaTestInterceptor;
 import org.navistack.framework.captcha.CaptchaTester;
@@ -64,7 +64,7 @@ public class CaptchaAutoConfiguration {
     @ConditionalOnClass(Client.class)
     public static class AliyunCaptchaTesterConfiguration {
         @Bean
-        @ConditionalOnBean({AliyunCaptchaProperties.class, Client.class})
+        @ConditionalOnBean({AlibabaCloudCaptchaProperties.class, Client.class})
         public AliyunCaptchaTester aliyunCaptchaTester(Client client) {
             return new AliyunCaptchaTester(client);
         }

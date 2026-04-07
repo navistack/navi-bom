@@ -3,8 +3,8 @@ package org.navistack.boot.captcha.autoconfigure;
 import com.aliyun.captcha20230305.Client;
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import org.junit.jupiter.api.Test;
-import org.navistack.boot.cloudservice.autoconfigure.aliyun.captcha.AliyunCaptchaProperties;
-import org.navistack.boot.cloudservice.autoconfigure.tencentcloud.captcha.TencentCloudCaptchaProperties;
+import org.navistack.boot.alibaba.cloud.autoconfigure.captcha.AlibabaCloudCaptchaProperties;
+import org.navistack.boot.tencent.cloud.autoconfigure.captcha.TencentCloudCaptchaProperties;
 import org.navistack.framework.cache.ScopedCacheStoreBuilder;
 import org.navistack.framework.captcha.CaptchaTesterComposite;
 import org.navistack.framework.captcha.aliyun.AliyunCaptchaTester;
@@ -51,7 +51,7 @@ class CaptchaAutoConfigurationTest {
     void shouldRegisterAliyunCaptchaTesterWhenAliyunClientAndPropertiesArePresent() {
         contextRunner.withBean(ScopedCacheStoreBuilder.class, () -> mock(ScopedCacheStoreBuilder.class))
                 .withBean(Client.class, () -> mock(Client.class))
-                .withBean(AliyunCaptchaProperties.class, () -> mock(AliyunCaptchaProperties.class))
+                .withBean(AlibabaCloudCaptchaProperties.class, () -> mock(AlibabaCloudCaptchaProperties.class))
                 .run(context -> {
                     assertThat(context).hasSingleBean(AliyunCaptchaTester.class);
                     assertThat(context).hasSingleBean(CaptchaTesterComposite.class);

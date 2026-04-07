@@ -1,7 +1,7 @@
 package org.navistack.boot.sms.autoconfigure;
 
 import com.tencentcloudapi.sms.v20210111.SmsClient;
-import org.navistack.boot.cloudservice.autoconfigure.tencentcloud.sms.TencentCloudSmsProperties;
+import org.navistack.boot.tencent.cloud.autoconfigure.sms.TencentCloudSmsProperties;
 import org.navistack.framework.sms.ShortMessageServiceProvider;
 import org.navistack.framework.sms.tencentcloud.TencentCloudShortMessageServiceProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

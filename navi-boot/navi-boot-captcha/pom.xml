@@ -16,6 +16,11 @@
         <!-- Navi Boot -->
         <dependency>
             <groupId>org.navistack.boot</groupId>
+            <artifactId>navi-boot-alibaba-cloud</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.navistack.boot</groupId>
             <artifactId>navi-boot-core</artifactId>
         </dependency>
         <dependency>
@@ -25,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>org.navistack.boot</groupId>
-            <artifactId>navi-boot-cloudservice</artifactId>
+            <artifactId>navi-boot-tencent-cloud</artifactId>
             <optional>true</optional>
         </dependency>
 

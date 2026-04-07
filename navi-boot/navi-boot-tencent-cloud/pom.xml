@@ -10,48 +10,24 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>navi-boot-sms</artifactId>
+    <artifactId>navi-boot-tencent-cloud</artifactId>
 
     <dependencies>
         <!-- Navi Boot -->
         <dependency>
             <groupId>org.navistack.boot</groupId>
-            <artifactId>navi-boot-alibaba-cloud</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.navistack.boot</groupId>
             <artifactId>navi-boot-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.navistack.boot</groupId>
-            <artifactId>navi-boot-tencent-cloud</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Navi Framework -->
-        <dependency>
-            <groupId>org.navistack.framework</groupId>
-            <artifactId>navi-sms</artifactId>
-        </dependency>
-
-        <!-- Jackson -->
-        <dependency>
-            <groupId>tools.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-
-        <!-- Alibaba Cloud -->
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>dysmsapi20170525</artifactId>
-            <optional>true</optional>
         </dependency>
 
         <!-- Tencent Cloud -->
         <dependency>
             <groupId>com.tencentcloudapi</groupId>
             <artifactId>tencentcloud-sdk-java-common</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java-captcha</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>

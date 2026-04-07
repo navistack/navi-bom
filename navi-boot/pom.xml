@@ -15,9 +15,9 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>navi-boot-alibaba-cloud</module>
         <module>navi-boot-cache</module>
         <module>navi-boot-captcha</module>
-        <module>navi-boot-cloudservice</module>
         <module>navi-boot-core</module>
         <module>navi-boot-i18n</module>
         <module>navi-boot-jackson</module>
@@ -28,6 +28,7 @@
         <module>navi-boot-redis</module>
         <module>navi-boot-security</module>
         <module>navi-boot-sms</module>
+        <module>navi-boot-tencent-cloud</module>
         <module>navi-boot-web</module>
     </modules>
 
