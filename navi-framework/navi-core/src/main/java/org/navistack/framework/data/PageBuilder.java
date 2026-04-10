@@ -3,7 +3,6 @@ package org.navistack.framework.data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.navistack.framework.utils.Maths;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,10 +38,10 @@ public class PageBuilder<T> {
         int pageSize = Math.max(recordSize, this.pageSize);
 
         int maxPageNumber = pageSize > 0
-                ? (int) Maths.ceilDiv(totalRecords, pageSize)
+                ? (int) Math.ceilDiv(totalRecords, pageSize)
                 : Integer.MAX_VALUE;
         int pageNumber = recordSize > 0
-                ? Maths.clamp(this.pageNumber, 1, maxPageNumber)
+                ? Math.clamp(this.pageNumber, 1, maxPageNumber)
                 : Math.max(this.pageNumber, 1);
 
         return new PageImpl<>(records, pageNumber, pageSize, totalRecords);

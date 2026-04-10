@@ -1,7 +1,6 @@
 package org.navistack.framework.data;
 
 import lombok.Data;
-import org.navistack.framework.utils.Maths;
 
 @Data
 public class PageRequest implements Pageable {
@@ -18,7 +17,7 @@ public class PageRequest implements Pageable {
     }
 
     public void setPageSize(int pageSize) {
-        this.pageSize =  Maths.clamp(pageSize, MIN_PAGE_SIZE, MAX_PAGE_SIZE);
+        this.pageSize =  Math.clamp(pageSize, MIN_PAGE_SIZE, MAX_PAGE_SIZE);
     }
 
     @Override
