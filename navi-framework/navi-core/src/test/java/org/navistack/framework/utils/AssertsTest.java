@@ -4,10 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -98,53 +94,5 @@ class AssertsTest {
         Asserts.notNull("", "Assertion failure");
         Asserts.notNull(new Object(), "Assertion failure");
         assertThatThrownBy(() -> Asserts.notNull(null, "Assertion failure")).isInstanceOf(NullPointerException.class).hasMessage("Assertion failure");
-    }
-
-    @Test
-    void doesEqual() {
-        Object obj = new Object();
-        Asserts.doesEqual(obj, obj, IllegalArgumentException::new);
-        String str = "str";
-        Asserts.doesEqual(str, str, IllegalArgumentException::new);
-        assertThatThrownBy(() -> Asserts.doesEqual(null, null, IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Asserts.doesEqual(new Object(), null, IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Asserts.doesEqual(null, new Object(), IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Asserts.doesEqual(new Object(), new Object(), IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    void notEmptyString() {
-        Asserts.notEmpty("str", IllegalArgumentException::new);
-        Asserts.notEmpty(" ", IllegalArgumentException::new);
-        Asserts.notEmpty("\t", IllegalArgumentException::new);
-        Asserts.notEmpty("\r", IllegalArgumentException::new);
-        Asserts.notEmpty("\n", IllegalArgumentException::new);
-        Asserts.notEmpty("\r\n", IllegalArgumentException::new);
-        assertThatThrownBy(() -> Asserts.notEmpty((String) null, IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Asserts.notEmpty("", IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    void notEmptyCollection() {
-        Collection<String> coll = Arrays.asList("a", "b", "c");
-        Asserts.notEmpty(coll, IllegalArgumentException::new);
-        assertThatThrownBy(() -> Asserts.notEmpty((Collection<?>) null, IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Asserts.notEmpty(Collections.emptyList(), IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    void notEmptyMap() {
-        Map<String, String> map = Collections.singletonMap("key", "value");
-        Asserts.notEmpty(map, IllegalArgumentException::new);
-        assertThatThrownBy(() -> Asserts.notEmpty((Map<?, ?>) null, IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Asserts.notEmpty(Collections.emptyMap(), IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    void notEmptyArray() {
-        Object[] arr = new Object[]{new Object()};
-        Asserts.notEmpty(arr, IllegalArgumentException::new);
-        assertThatThrownBy(() -> Asserts.notEmpty((Object[]) null, IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> Asserts.notEmpty(new Object[]{}, IllegalArgumentException::new)).isInstanceOf(IllegalArgumentException.class);
     }
 }

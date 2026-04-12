@@ -2,8 +2,6 @@ package org.navistack.framework.utils;
 
 import lombok.experimental.UtilityClass;
 
-import java.util.Collection;
-import java.util.Map;
 import java.util.function.BiPredicate;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
@@ -129,61 +127,5 @@ public class Asserts {
      */
     public <T> void notNull(T object, String message) {
         state(object, Objects::isNotNull, () -> new NullPointerException(message));
-    }
-
-    /**
-     * Assert that an object equals to another one.
-     *
-     * @param left the object to check
-     * @param right the other object to check
-     * @param exceptionSupplier a supplier for the exception to use if the assertion fails
-     */
-    @Deprecated
-    public void doesEqual(Object left, Object right, Supplier<RuntimeException> exceptionSupplier) {
-        state(left, right, Objects::equals, exceptionSupplier);
-    }
-
-    /**
-     * Assert that a string is empty.
-     *
-     * @param string the object to check
-     * @param exceptionSupplier a supplier for the exception to use if the assertion fails
-     */
-    @Deprecated
-    public void notEmpty(String string, Supplier<RuntimeException> exceptionSupplier) {
-        state(string, Strings::hasLength, exceptionSupplier);
-    }
-
-    /**
-     * Assert that a collection is empty.
-     *
-     * @param collection the object to check
-     * @param exceptionSupplier a supplier for the exception to use if the assertion fails
-     */
-    @Deprecated
-    public void notEmpty(Collection<?> collection, Supplier<RuntimeException> exceptionSupplier) {
-        state(collection, Collections::isNotEmpty, exceptionSupplier);
-    }
-
-    /**
-     * Assert that a map is empty.
-     *
-     * @param map the object to check
-     * @param exceptionSupplier a supplier for the exception to use if the assertion fails
-     */
-    @Deprecated
-    public void notEmpty(Map<?, ?> map, Supplier<RuntimeException> exceptionSupplier) {
-        state(map, Maps::isNotEmpty, exceptionSupplier);
-    }
-
-    /**
-     * Assert that a array is empty.
-     *
-     * @param array the object to check
-     * @param exceptionSupplier a supplier for the exception to use if the assertion fails
-     */
-    @Deprecated
-    public void notEmpty(Object[] array, Supplier<RuntimeException> exceptionSupplier) {
-        state(array, Arrays::isNotEmpty, exceptionSupplier);
     }
 }
