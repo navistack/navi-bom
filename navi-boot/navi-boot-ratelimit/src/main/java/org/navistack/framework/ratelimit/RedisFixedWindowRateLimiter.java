@@ -44,7 +44,7 @@ public class RedisFixedWindowRateLimiter implements FixedWindowRateLimiter {
     @Override
     public boolean tryAcquire(String key, int maxRequests, TemporalUnit temporalUnit) {
         key = Strings.hasText(key) ? key : DEFAULT_USER_KEY;
-        long epochMilli = Instant.now().truncatedTo(getTemporalUnit()).toEpochMilli();
+        long epochMilli = Instant.now().truncatedTo(temporalUnit).toEpochMilli();
         String scopedKey = cacheScope.key(key, Long.toString(epochMilli));
         return executeScript(scriptResource, scopedKey, maxRequests, temporalUnit);
     }
