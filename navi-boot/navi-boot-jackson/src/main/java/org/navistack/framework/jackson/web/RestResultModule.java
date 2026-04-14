@@ -18,8 +18,5 @@ public class RestResultModule extends SimpleModule {
 
         setMixInAnnotation(RestOkResult.class, RestOkResultMixIn.class);
         setMixInAnnotation(RestErrResult.class, RestErrResultMixIn.class);
-
-        addSerializer(new RestOkResultJsonSerializer());
-        addSerializer(new RestErrResultJsonSerializer());
     }
 }
