@@ -492,11 +492,6 @@
             </dependency>
             <dependency>
                 <groupId>org.navistack.boot</groupId>
-                <artifactId>navi-boot-i18n</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.navistack.boot</groupId>
                 <artifactId>navi-boot-jackson</artifactId>
                 <version>${project.version}</version>
             </dependency>

@@ -19,7 +19,6 @@
         <module>navi-boot-cache</module>
         <module>navi-boot-captcha</module>
         <module>navi-boot-core</module>
-        <module>navi-boot-i18n</module>
         <module>navi-boot-jackson</module>
         <module>navi-boot-locking</module>
         <module>navi-boot-logging</module>
