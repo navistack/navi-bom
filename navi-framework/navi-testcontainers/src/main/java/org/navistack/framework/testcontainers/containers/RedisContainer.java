@@ -8,8 +8,16 @@ public class RedisContainer extends GenericContainer<RedisContainer> {
 
     private static final int DEFAULT_EXPOSED_PORT = 6379;
 
-    public RedisContainer() {
-        super(DEFAULT_IMAGE_NAME);
+    public RedisContainer(DockerImageName imageName) {
+        super(imageName);
         addExposedPorts(DEFAULT_EXPOSED_PORT);
+    }
+
+    public RedisContainer(String tag) {
+        this(DEFAULT_IMAGE_NAME.withTag(tag));
+    }
+
+    public RedisContainer() {
+        this(DEFAULT_IMAGE_NAME);
     }
 }

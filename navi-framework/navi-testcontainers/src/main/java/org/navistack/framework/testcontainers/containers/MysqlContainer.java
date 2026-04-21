@@ -34,9 +34,17 @@ public class MysqlContainer extends GenericContainer<MysqlContainer> {
 
     private String rootPassword = DEFAULT_ROOT_PASSWORD;
 
-    public MysqlContainer() {
-        super(DEFAULT_IMAGE_NAME);
+    public MysqlContainer(DockerImageName imageName) {
+        super(imageName);
         addExposedPorts(MYSQL_PORT);
+    }
+
+    public MysqlContainer(String tag) {
+        this(DEFAULT_IMAGE_NAME.withTag(tag));
+    }
+
+    public MysqlContainer() {
+        this(DEFAULT_IMAGE_NAME);
     }
 
     @Override
