@@ -19,9 +19,7 @@ public class MysqlContainer extends GenericContainer<MysqlContainer> {
 
     private static final String DEFAULT_USERNAME = "test";
 
-    private static final String DEFAULT_PASSWORD = "yK8UcRhm";
-
-    private static final String DEFAULT_ROOT_PASSWORD = "ad4vSPhV";
+    private static final String DEFAULT_PASSWORD = "test";
 
     @NonNull
     private String database = DEFAULT_DATABASE;
@@ -32,7 +30,7 @@ public class MysqlContainer extends GenericContainer<MysqlContainer> {
     @NonNull
     private String password = DEFAULT_PASSWORD;
 
-    private String rootPassword = DEFAULT_ROOT_PASSWORD;
+    private String rootPassword = DEFAULT_PASSWORD;
 
     public MysqlContainer(DockerImageName imageName) {
         super(imageName);

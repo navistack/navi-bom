@@ -19,6 +19,7 @@
         <module>navi-boot-smoke-test-security</module>
         <module>navi-boot-smoke-test-ratelimit</module>
         <module>navi-boot-smoke-test-captcha</module>
+        <module>navi-boot-smoke-test-testcontainers</module>
     </modules>
 
     <dependencies>
