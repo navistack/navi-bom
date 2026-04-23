@@ -1,10 +1,10 @@
 package org.navistack.boot.cache.autoconfigure;
 
 import org.navistack.framework.cache.CacheStore;
-import org.navistack.framework.cache.DefaultScopedCacheStoreBuilder;
+import org.navistack.framework.cache.DefaultHierarchicalCacheStoreBuilder;
 import org.navistack.framework.cache.HashMapCacheStore;
+import org.navistack.framework.cache.HierarchicalCacheStoreBuilder;
 import org.navistack.framework.cache.RedisOperationsCacheStore;
-import org.navistack.framework.cache.ScopedCacheStoreBuilder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -23,9 +23,9 @@ public class CacheAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(ScopedCacheStoreBuilder.class)
-    public ScopedCacheStoreBuilder scopedCacheServiceBuilder(CacheStore cacheStore) {
-        return new DefaultScopedCacheStoreBuilder()
+    @ConditionalOnMissingBean(HierarchicalCacheStoreBuilder.class)
+    public HierarchicalCacheStoreBuilder hierarchicalCacheStoreBuilder(CacheStore cacheStore) {
+        return new DefaultHierarchicalCacheStoreBuilder()
                 .cacheStore(cacheStore);
     }
 

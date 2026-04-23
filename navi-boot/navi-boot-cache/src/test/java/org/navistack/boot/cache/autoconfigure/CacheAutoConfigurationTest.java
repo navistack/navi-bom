@@ -2,10 +2,10 @@ package org.navistack.boot.cache.autoconfigure;
 
 import org.junit.jupiter.api.Test;
 import org.navistack.framework.cache.CacheStore;
-import org.navistack.framework.cache.DefaultScopedCacheStoreBuilder;
+import org.navistack.framework.cache.DefaultHierarchicalCacheStoreBuilder;
 import org.navistack.framework.cache.HashMapCacheStore;
 import org.navistack.framework.cache.RedisOperationsCacheStore;
-import org.navistack.framework.cache.ScopedCacheStoreBuilder;
+import org.navistack.framework.cache.HierarchicalCacheStoreBuilder;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.data.redis.core.RedisOperations;
@@ -25,8 +25,8 @@ class CacheAutoConfigurationTest {
                             .hasSingleBean(CacheStore.class);
                     assertThat(context.getBean(CacheStore.class))
                             .isInstanceOf(RedisOperationsCacheStore.class);
-                    assertThat(context.getBean(ScopedCacheStoreBuilder.class))
-                            .isInstanceOf(DefaultScopedCacheStoreBuilder.class);
+                    assertThat(context.getBean(HierarchicalCacheStoreBuilder.class))
+                            .isInstanceOf(DefaultHierarchicalCacheStoreBuilder.class);
                 });
     }
 
@@ -37,8 +37,8 @@ class CacheAutoConfigurationTest {
                     .hasSingleBean(CacheStore.class);
             assertThat(context.getBean(CacheStore.class))
                     .isInstanceOf(HashMapCacheStore.class);
-            assertThat(context.getBean(ScopedCacheStoreBuilder.class))
-                    .isInstanceOf(DefaultScopedCacheStoreBuilder.class);
+            assertThat(context.getBean(HierarchicalCacheStoreBuilder.class))
+                    .isInstanceOf(DefaultHierarchicalCacheStoreBuilder.class);
         });
     }
 
@@ -55,12 +55,12 @@ class CacheAutoConfigurationTest {
     }
 
     @Test
-    void shouldNotOverrideUserProvidedScopedCacheStoreBuilderWhenBuilderBeanExists() {
-        ScopedCacheStoreBuilder userBuilder = mock(ScopedCacheStoreBuilder.class);
-        contextRunner.withBean(ScopedCacheStoreBuilder.class, () -> userBuilder)
+    void shouldNotOverrideUserProvidedHierarchicalCacheStoreBuilderWhenBuilderBeanExists() {
+        HierarchicalCacheStoreBuilder userBuilder = mock(HierarchicalCacheStoreBuilder.class);
+        contextRunner.withBean(HierarchicalCacheStoreBuilder.class, () -> userBuilder)
                 .run(context -> {
-                    assertThat(context).hasSingleBean(ScopedCacheStoreBuilder.class);
-                    assertThat(context.getBean(ScopedCacheStoreBuilder.class)).isSameAs(userBuilder);
+                    assertThat(context).hasSingleBean(HierarchicalCacheStoreBuilder.class);
+                    assertThat(context.getBean(HierarchicalCacheStoreBuilder.class)).isSameAs(userBuilder);
                 });
     }
 

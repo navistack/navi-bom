@@ -5,7 +5,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.navistack.framework.cache.CacheScope;
 import org.navistack.framework.cache.CacheStore;
-import org.navistack.framework.cache.ScopedCacheStoreBuilder;
+import org.navistack.framework.cache.HierarchicalCacheStoreBuilder;
 import org.navistack.framework.captcha.simplecaptcha.imagefilters.BorderImageFilter;
 import org.navistack.framework.captcha.simplecaptcha.imagefilters.GradientBackgroundImageFilter;
 import org.navistack.framework.captcha.simplecaptcha.imagefilters.NoiseImageFilter;
@@ -48,7 +48,7 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
 
     private final CacheStore cacheStore;
 
-    public DefaultSimpleCaptchaService(ScopedCacheStoreBuilder cacheServiceBuilder) {
+    public DefaultSimpleCaptchaService(HierarchicalCacheStoreBuilder cacheServiceBuilder) {
         this.cacheStore = cacheServiceBuilder.build(CacheScope.of("NAVI").scope("SIMPLE_CAPTCHA"));
     }
 

@@ -6,14 +6,14 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(fluent = true)
-public class DefaultScopedCacheStoreBuilder implements ScopedCacheStoreBuilder {
+public class DefaultHierarchicalCacheStoreBuilder implements HierarchicalCacheStoreBuilder {
 
     @Getter
     @Setter
     private CacheStore cacheStore;
 
     @Override
-    public ScopedCacheStore build(CacheScope cacheScope) {
+    public DefaultHierarchicalCacheStore build(CacheScope cacheScope) {
         if (cacheScope == null) {
             throw new IllegalStateException("cacheScope must not be null");
         }
@@ -22,11 +22,11 @@ public class DefaultScopedCacheStoreBuilder implements ScopedCacheStoreBuilder {
             throw new IllegalStateException("cacheStore must not be null");
         }
 
-        return new ScopedCacheStore(cacheStore, cacheScope);
+        return new DefaultHierarchicalCacheStore(cacheScope, cacheStore);
     }
 
     @Override
-    public ScopedCacheStore build(@NonNull String scope) {
+    public DefaultHierarchicalCacheStore build(@NonNull String scope) {
         return build(CacheScope.of(scope));
     }
 }

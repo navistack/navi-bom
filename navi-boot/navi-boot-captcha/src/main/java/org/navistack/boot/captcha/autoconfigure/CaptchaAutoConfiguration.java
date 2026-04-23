@@ -5,7 +5,7 @@ import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import org.navistack.boot.alibaba.cloud.autoconfigure.captcha.AlibabaCloudCaptchaProperties;
 import org.navistack.boot.cache.autoconfigure.CacheAutoConfiguration;
 import org.navistack.boot.tencent.cloud.autoconfigure.captcha.TencentCloudCaptchaProperties;
-import org.navistack.framework.cache.ScopedCacheStoreBuilder;
+import org.navistack.framework.cache.HierarchicalCacheStoreBuilder;
 import org.navistack.framework.captcha.CaptchaTestInterceptor;
 import org.navistack.framework.captcha.CaptchaTester;
 import org.navistack.framework.captcha.CaptchaTesterComposite;
@@ -75,8 +75,9 @@ public class CaptchaAutoConfiguration {
     public static class SimpleCaptchaTesterConfiguration {
         @Bean
         @ConditionalOnMissingBean(SimpleCaptchaService.class)
-        @ConditionalOnBean(ScopedCacheStoreBuilder.class)
-        public DefaultSimpleCaptchaService defaultSimpleCaptchaService(ScopedCacheStoreBuilder cacheServiceBuilder) {
+        @ConditionalOnBean(HierarchicalCacheStoreBuilder.class)
+        public DefaultSimpleCaptchaService defaultSimpleCaptchaService(
+                HierarchicalCacheStoreBuilder cacheServiceBuilder) {
             return new DefaultSimpleCaptchaService(cacheServiceBuilder);
         }
 

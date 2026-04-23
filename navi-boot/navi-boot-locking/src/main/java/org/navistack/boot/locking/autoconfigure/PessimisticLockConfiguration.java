@@ -2,7 +2,7 @@ package org.navistack.boot.locking.autoconfigure;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.navistack.framework.cache.ScopedCacheStoreBuilder;
+import org.navistack.framework.cache.HierarchicalCacheStoreBuilder;
 import org.navistack.framework.expression.DefaultMethodExpressionEvaluatorFactory;
 import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
 import org.navistack.framework.locking.CachePessimisticLockService;
@@ -26,7 +26,7 @@ public class PessimisticLockConfiguration implements ApplicationContextAware {
 
     @Bean
     @ConditionalOnMissingBean
-    public PessimisticLockService pessimisticLockService(ScopedCacheStoreBuilder cacheServiceBuilder) {
+    public PessimisticLockService pessimisticLockService(HierarchicalCacheStoreBuilder cacheServiceBuilder) {
         return new CachePessimisticLockService(cacheServiceBuilder);
     }
 

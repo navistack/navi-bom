@@ -5,7 +5,7 @@ import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
 import org.junit.jupiter.api.Test;
 import org.navistack.boot.alibaba.cloud.autoconfigure.captcha.AlibabaCloudCaptchaProperties;
 import org.navistack.boot.tencent.cloud.autoconfigure.captcha.TencentCloudCaptchaProperties;
-import org.navistack.framework.cache.ScopedCacheStoreBuilder;
+import org.navistack.framework.cache.HierarchicalCacheStoreBuilder;
 import org.navistack.framework.captcha.CaptchaTesterComposite;
 import org.navistack.framework.captcha.aliyun.AliyunCaptchaTester;
 import org.navistack.framework.captcha.simplecaptcha.DefaultSimpleCaptchaService;
@@ -25,7 +25,7 @@ class CaptchaAutoConfigurationTest {
 
     @Test
     void shouldRegisterCaptchaInterceptorWithUrlPatternsWhenUrlPatternsPropertyIsSet() {
-        contextRunner.withBean(ScopedCacheStoreBuilder.class, () -> mock(ScopedCacheStoreBuilder.class))
+        contextRunner.withBean(HierarchicalCacheStoreBuilder.class, () -> mock(HierarchicalCacheStoreBuilder.class))
                 .withPropertyValues(CaptchaProperties.PROPERTIES_PREFIX + ".url-patterns=/login")
                 .run(context -> {
                     assertThat(context).hasBean("captchaTestInterceptor");
@@ -36,8 +36,8 @@ class CaptchaAutoConfigurationTest {
     }
 
     @Test
-    void shouldRegisterSimpleCaptchaServiceAndTesterWhenScopedCacheStoreIsAvailable() {
-        contextRunner.withBean(ScopedCacheStoreBuilder.class, () -> mock(ScopedCacheStoreBuilder.class))
+    void shouldRegisterSimpleCaptchaServiceAndTesterWhenHierarchicalCacheStoreIsAvailable() {
+        contextRunner.withBean(HierarchicalCacheStoreBuilder.class, () -> mock(HierarchicalCacheStoreBuilder.class))
                 .run(context -> {
                     assertThat(context).hasSingleBean(SimpleCaptchaService.class);
                     assertThat(context.getBean(SimpleCaptchaService.class)).isInstanceOf(DefaultSimpleCaptchaService.class);
@@ -49,7 +49,7 @@ class CaptchaAutoConfigurationTest {
 
     @Test
     void shouldRegisterAliyunCaptchaTesterWhenAliyunClientAndPropertiesArePresent() {
-        contextRunner.withBean(ScopedCacheStoreBuilder.class, () -> mock(ScopedCacheStoreBuilder.class))
+        contextRunner.withBean(HierarchicalCacheStoreBuilder.class, () -> mock(HierarchicalCacheStoreBuilder.class))
                 .withBean(Client.class, () -> mock(Client.class))
                 .withBean(AlibabaCloudCaptchaProperties.class, () -> mock(AlibabaCloudCaptchaProperties.class))
                 .run(context -> {
@@ -61,7 +61,7 @@ class CaptchaAutoConfigurationTest {
 
     @Test
     void shouldRegisterTencentCloudCaptchaTesterWhenTencentCloudClientAndPropertiesArePresent() {
-        contextRunner.withBean(ScopedCacheStoreBuilder.class, () -> mock(ScopedCacheStoreBuilder.class))
+        contextRunner.withBean(HierarchicalCacheStoreBuilder.class, () -> mock(HierarchicalCacheStoreBuilder.class))
                 .withBean(CaptchaClient.class, () -> mock(CaptchaClient.class))
                 .withBean(TencentCloudCaptchaProperties.class, () -> mock(TencentCloudCaptchaProperties.class))
                 .run(context -> {

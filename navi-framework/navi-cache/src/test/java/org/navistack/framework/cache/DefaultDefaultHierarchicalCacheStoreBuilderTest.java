@@ -6,17 +6,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 
-class DefaultScopedCacheStoreBuilderTest {
+class DefaultDefaultHierarchicalCacheStoreBuilderTest {
     @Test
-    void shouldBuildScopedCacheStoreWhenCacheStoreAndScopeProvided() {
+    void shouldBuildHierarchicalCacheStoreWhenCacheStoreAndScopeProvided() {
         CacheStore underlyingCacheStore = mock(CacheStore.class);
-        DefaultScopedCacheStoreBuilder cacheStoreBuilder = new DefaultScopedCacheStoreBuilder()
+        DefaultHierarchicalCacheStoreBuilder cacheStoreBuilder = new DefaultHierarchicalCacheStoreBuilder()
                 .cacheStore(underlyingCacheStore);
-        ScopedCacheStore cacheStore = cacheStoreBuilder.build("test");
+        DefaultHierarchicalCacheStore cacheStore = cacheStoreBuilder.build("test");
         assertThat(cacheStore)
                 .isNotNull();
         assertThat(cacheStore)
-                .isInstanceOf(ScopedCacheStore.class);
+                .isInstanceOf(DefaultHierarchicalCacheStore.class);
         CacheScope cacheScope = cacheStore.getCacheScope();
         assertThat(cacheScope)
                 .isNotNull()
@@ -33,7 +33,7 @@ class DefaultScopedCacheStoreBuilderTest {
     @Test
     void shouldThrowIllegalStateExceptionWhenCacheScopeIsNull() {
         CacheStore underlyingCacheStore = mock(CacheStore.class);
-        DefaultScopedCacheStoreBuilder cacheStoreBuilder = new DefaultScopedCacheStoreBuilder()
+        DefaultHierarchicalCacheStoreBuilder cacheStoreBuilder = new DefaultHierarchicalCacheStoreBuilder()
                 .cacheStore(underlyingCacheStore);
 
         assertThatThrownBy(() -> cacheStoreBuilder.build((CacheScope) null))
@@ -43,7 +43,7 @@ class DefaultScopedCacheStoreBuilderTest {
 
     @Test
     void shouldThrowIllegalStateExceptionWhenCacheStoreIsNull() {
-        DefaultScopedCacheStoreBuilder cacheStoreBuilder = new DefaultScopedCacheStoreBuilder();
+        DefaultHierarchicalCacheStoreBuilder cacheStoreBuilder = new DefaultHierarchicalCacheStoreBuilder();
 
         assertThatThrownBy(() -> cacheStoreBuilder.build("test"))
                 .isInstanceOf(IllegalStateException.class)

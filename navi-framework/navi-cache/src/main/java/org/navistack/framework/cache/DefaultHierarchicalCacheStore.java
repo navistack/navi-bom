@@ -6,56 +6,56 @@ import lombok.NonNull;
 import java.time.Duration;
 
 @Getter
-public class ScopedCacheStore implements CacheStore {
+public class DefaultHierarchicalCacheStore implements HierarchicalCacheStore {
 
-    private final CacheStore cacheStore;
+    private final CacheStore parentCacheStore;
 
     private final CacheScope cacheScope;
 
-    public ScopedCacheStore(@NonNull CacheStore cacheStore, @NonNull CacheScope cacheScope) {
-        this.cacheStore = cacheStore;
+    public DefaultHierarchicalCacheStore(@NonNull CacheScope cacheScope, @NonNull CacheStore parentCacheStore) {
+        this.parentCacheStore = parentCacheStore;
         this.cacheScope = cacheScope;
     }
 
     @Override
     public void set(String key, Object value) {
         String scopedKey = cacheScope.key(key);
-        cacheStore.set(scopedKey, value);
+        parentCacheStore.set(scopedKey, value);
     }
 
     @Override
     public void set(String key, Object value, Duration timeout) {
         String scopedKey = cacheScope.key(key);
-        cacheStore.set(scopedKey, value, timeout);
+        parentCacheStore.set(scopedKey, value, timeout);
     }
 
     @Override
     public boolean setIfAbsent(String key, Object value) {
         String scopedKey = cacheScope.key(key);
-        return cacheStore.setIfAbsent(scopedKey, value);
+        return parentCacheStore.setIfAbsent(scopedKey, value);
     }
 
     @Override
     public boolean setIfAbsent(String key, Object value, Duration timeout) {
         String scopedKey = cacheScope.key(key);
-        return cacheStore.setIfAbsent(scopedKey, value, timeout);
+        return parentCacheStore.setIfAbsent(scopedKey, value, timeout);
     }
 
     @Override
     public <V> V get(String key, Class<V> clazz) {
         String scopedKey = cacheScope.key(key);
-        return cacheStore.get(scopedKey, clazz);
+        return parentCacheStore.get(scopedKey, clazz);
     }
 
     @Override
     public boolean delete(String key) {
         String scopedKey = cacheScope.key(key);
-        return cacheStore.delete(scopedKey);
+        return parentCacheStore.delete(scopedKey);
     }
 
     @Override
     public <V> V getAndDelete(String key, Class<V> clazz) {
         String scopedKey = cacheScope.key(key);
-        return cacheStore.getAndDelete(scopedKey, clazz);
+        return parentCacheStore.getAndDelete(scopedKey, clazz);
     }
 }
