@@ -18,7 +18,7 @@ public class CacheAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(CacheStore.class)
-    public HashMapCacheStore hashMapCacheService() {
+    public HashMapCacheStore hashMapCacheStore() {
         return new HashMapCacheStore();
     }
 
@@ -31,7 +31,7 @@ public class CacheAutoConfiguration {
 
     @Configuration
     @ConditionalOnClass(RedisOperations.class)
-    static class RedisCacheServiceConfiguration {
+    static class RedisCacheStoreConfiguration {
 
         @Bean
         @ConditionalOnBean(RedisOperations.class)

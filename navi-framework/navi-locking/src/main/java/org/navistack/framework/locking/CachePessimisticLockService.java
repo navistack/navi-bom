@@ -9,8 +9,8 @@ import java.time.Duration;
 public class CachePessimisticLockService implements PessimisticLockService {
     private final CacheStore cacheStore;
 
-    public CachePessimisticLockService(HierarchicalCacheStoreBuilder cacheServiceBuilder) {
-        this.cacheStore = cacheServiceBuilder.build(CacheScope.of("NAVI").scope("P_LOCK"));
+    public CachePessimisticLockService(HierarchicalCacheStoreBuilder cacheStoreBuilder) {
+        this.cacheStore = cacheStoreBuilder.build(CacheScope.of("NAVI").scope("P_LOCK"));
     }
 
     @Override

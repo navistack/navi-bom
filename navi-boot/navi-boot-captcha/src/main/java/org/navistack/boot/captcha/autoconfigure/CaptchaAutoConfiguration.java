@@ -77,8 +77,8 @@ public class CaptchaAutoConfiguration {
         @ConditionalOnMissingBean(SimpleCaptchaService.class)
         @ConditionalOnBean(HierarchicalCacheStoreBuilder.class)
         public DefaultSimpleCaptchaService defaultSimpleCaptchaService(
-                HierarchicalCacheStoreBuilder cacheServiceBuilder) {
-            return new DefaultSimpleCaptchaService(cacheServiceBuilder);
+                HierarchicalCacheStoreBuilder cacheStoreBuilder) {
+            return new DefaultSimpleCaptchaService(cacheStoreBuilder);
         }
 
         @Bean

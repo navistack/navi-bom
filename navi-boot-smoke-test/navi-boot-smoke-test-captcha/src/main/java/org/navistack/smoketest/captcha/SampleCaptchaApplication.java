@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Bean;
 public class SampleCaptchaApplication {
 
     @Bean
-    public SimpleCaptchaService simpleCaptchaService(HierarchicalCacheStoreBuilder cacheServiceBuilder) {
-        DefaultSimpleCaptchaService service = new DefaultSimpleCaptchaService(cacheServiceBuilder);
+    public SimpleCaptchaService simpleCaptchaService(HierarchicalCacheStoreBuilder cacheStoreBuilder) {
+        DefaultSimpleCaptchaService service = new DefaultSimpleCaptchaService(cacheStoreBuilder);
         service.setTextGenerator(() -> "FIXED");
         return service;
     }

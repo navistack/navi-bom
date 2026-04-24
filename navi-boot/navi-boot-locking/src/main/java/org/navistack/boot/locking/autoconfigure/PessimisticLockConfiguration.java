@@ -26,8 +26,8 @@ public class PessimisticLockConfiguration implements ApplicationContextAware {
 
     @Bean
     @ConditionalOnMissingBean
-    public PessimisticLockService pessimisticLockService(HierarchicalCacheStoreBuilder cacheServiceBuilder) {
-        return new CachePessimisticLockService(cacheServiceBuilder);
+    public PessimisticLockService pessimisticLockService(HierarchicalCacheStoreBuilder cacheStoreBuilder) {
+        return new CachePessimisticLockService(cacheStoreBuilder);
     }
 
     @Bean

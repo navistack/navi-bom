@@ -48,8 +48,8 @@ public class DefaultSimpleCaptchaService implements SimpleCaptchaService {
 
     private final CacheStore cacheStore;
 
-    public DefaultSimpleCaptchaService(HierarchicalCacheStoreBuilder cacheServiceBuilder) {
-        this.cacheStore = cacheServiceBuilder.build(CacheScope.of("NAVI").scope("SIMPLE_CAPTCHA"));
+    public DefaultSimpleCaptchaService(HierarchicalCacheStoreBuilder cacheStoreBuilder) {
+        this.cacheStore = cacheStoreBuilder.build(CacheScope.of("NAVI").scope("SIMPLE_CAPTCHA"));
     }
 
     @Override
