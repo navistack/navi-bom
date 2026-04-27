@@ -46,22 +46,10 @@ public class OperationLogAspect {
             return;
         }
         switch (level) {
-            case TRACE:
-                logService.trace(declaringType, message);
-                return;
-            case DEBUG:
-                logService.debug(declaringType, message);
-                return;
-            case INFO:
-                logService.info(declaringType, message);
-                return;
-            case WARN:
-                logService.warn(declaringType, message);
-                return;
-            case ERROR:
-                logService.error(declaringType, message);
-                return;
-            default:
+            case TRACE -> logService.trace(declaringType, message);
+            case DEBUG -> logService.debug(declaringType, message);
+            case WARN -> logService.warn(declaringType, message);
+            case ERROR -> logService.error(declaringType, message);
         }
     }
 }
