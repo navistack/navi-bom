@@ -19,8 +19,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-;
-
 @AutoConfiguration
 @ConditionalOnWebApplication
 @ConditionalOnClass(ContentSanitizer.class)
