@@ -14,7 +14,7 @@ class StringsTest {
         Constructor<Strings> constructor = Strings.class.getDeclaredConstructor();
         assertThat(Modifier.isPrivate(constructor.getModifiers())).isEqualTo(true);
         constructor.setAccessible(true);
-        assertThatThrownBy(constructor::newInstance).getCause().isInstanceOf(UnsupportedOperationException.class);
+        assertThatThrownBy(constructor::newInstance).cause().isInstanceOf(UnsupportedOperationException.class);
         constructor.setAccessible(false);
     }
 
