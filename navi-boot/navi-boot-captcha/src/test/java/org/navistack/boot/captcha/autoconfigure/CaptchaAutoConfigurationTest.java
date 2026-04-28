@@ -2,6 +2,7 @@ package org.navistack.boot.captcha.autoconfigure;
 
 import com.aliyun.captcha20230305.Client;
 import com.tencentcloudapi.captcha.v20190722.CaptchaClient;
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Test;
 import org.navistack.boot.alibaba.cloud.autoconfigure.captcha.AlibabaCloudCaptchaProperties;
 import org.navistack.boot.tencent.cloud.autoconfigure.captcha.TencentCloudCaptchaProperties;
@@ -43,7 +44,7 @@ class CaptchaAutoConfigurationTest {
                     assertThat(context.getBean(SimpleCaptchaService.class)).isInstanceOf(DefaultSimpleCaptchaService.class);
                     assertThat(context).hasSingleBean(SimpleCaptchaTester.class);
                     assertThat(context).hasSingleBean(CaptchaTesterComposite.class);
-                    assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asList().hasSize(1).hasOnlyElementsOfType(SimpleCaptchaTester.class);
+                    assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asInstanceOf(InstanceOfAssertFactories.LIST).hasSize(1).hasOnlyElementsOfType(SimpleCaptchaTester.class);
                 });
     }
 
@@ -55,7 +56,7 @@ class CaptchaAutoConfigurationTest {
                 .run(context -> {
                     assertThat(context).hasSingleBean(AliyunCaptchaTester.class);
                     assertThat(context).hasSingleBean(CaptchaTesterComposite.class);
-                    assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asList().hasAtLeastOneElementOfType(AliyunCaptchaTester.class);
+                    assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asInstanceOf(InstanceOfAssertFactories.LIST).hasAtLeastOneElementOfType(AliyunCaptchaTester.class);
                 });
     }
 
@@ -67,7 +68,7 @@ class CaptchaAutoConfigurationTest {
                 .run(context -> {
                     assertThat(context).hasSingleBean(TencentCloudCaptchaTester.class);
                     assertThat(context).hasSingleBean(CaptchaTesterComposite.class);
-                    assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asList().hasAtLeastOneElementOfType(TencentCloudCaptchaTester.class);
+                    assertThat(context.getBean(CaptchaTesterComposite.class)).extracting(CaptchaTesterComposite::getCaptchaTesters).asInstanceOf(InstanceOfAssertFactories.LIST).hasAtLeastOneElementOfType(TencentCloudCaptchaTester.class);
                 });
     }
 }
