@@ -13,12 +13,6 @@
     <artifactId>navi-boot-jackson</artifactId>
 
     <dependencies>
-        <!-- Navi Boot -->
-        <dependency>
-            <groupId>org.navistack.boot</groupId>
-            <artifactId>navi-boot-core</artifactId>
-        </dependency>
-
         <!-- Navi Framework -->
         <dependency>
             <groupId>org.navistack.framework</groupId>
