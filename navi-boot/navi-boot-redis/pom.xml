@@ -13,12 +13,6 @@
     <artifactId>navi-boot-redis</artifactId>
 
     <dependencies>
-        <!-- Navi Boot -->
-        <dependency>
-            <groupId>org.navistack.boot</groupId>
-            <artifactId>navi-boot-core</artifactId>
-        </dependency>
-
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
