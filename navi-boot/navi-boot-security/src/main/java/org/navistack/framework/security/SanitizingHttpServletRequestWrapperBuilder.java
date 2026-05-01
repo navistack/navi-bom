@@ -12,7 +12,7 @@ import java.util.Collection;
 @Setter
 @Accessors(fluent = true)
 public class SanitizingHttpServletRequestWrapperBuilder
-        implements HttpServletRequestWrapperBuilder<SanitizingHttpServletRequestWrapper> {
+        implements HttpServletRequestWrapperBuilder {
 
     private ContentSanitizer contentSanitizer;
     private Collection<String> bypassedHeaders;
