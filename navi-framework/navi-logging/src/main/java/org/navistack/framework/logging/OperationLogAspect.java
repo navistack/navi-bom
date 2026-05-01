@@ -50,6 +50,7 @@ public class OperationLogAspect {
             case DEBUG -> logService.debug(declaringType, message);
             case WARN -> logService.warn(declaringType, message);
             case ERROR -> logService.error(declaringType, message);
+            default -> logService.info(declaringType, message);
         }
     }
 }
