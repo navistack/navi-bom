@@ -1,10 +1,7 @@
 package org.navistack.boot.ratelimit.autoconfigure;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.navistack.boot.redis.autoconfigure.RedisAutoConfiguration;
-import org.navistack.framework.expression.DefaultMethodExpressionEvaluatorFactory;
-import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
+import org.navistack.framework.expression.MethodExpressionBinder;
 import org.navistack.framework.ratelimit.FixedWindowRateLimit;
 import org.navistack.framework.ratelimit.FixedWindowRateLimitAspect;
 import org.navistack.framework.ratelimit.FixedWindowRateLimiter;
@@ -13,13 +10,10 @@ import org.navistack.framework.ratelimit.RedisSlidingWindowRateLimiter;
 import org.navistack.framework.ratelimit.SlidingWindowRateLimit;
 import org.navistack.framework.ratelimit.SlidingWindowRateLimitAspect;
 import org.navistack.framework.ratelimit.SlidingWindowRateLimiter;
-import org.navistack.framework.utils.ApplicationContexts;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisOperations;
@@ -29,11 +23,7 @@ import org.springframework.data.redis.core.RedisOperations;
 public class RateLimitAutoConfiguration {
     @Configuration
     @ConditionalOnClass(FixedWindowRateLimit.class)
-    public static class FixedWindowRateLimitAutoConfiguration implements ApplicationContextAware {
-        @Getter
-        @Setter
-        private ApplicationContext applicationContext;
-
+    public static class FixedWindowRateLimitAutoConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public FixedWindowRateLimiter fixedWindowRateLimiter(RedisOperations<String, Long> redisOperations) {
@@ -41,23 +31,15 @@ public class RateLimitAutoConfiguration {
         }
 
         @Bean
-        public FixedWindowRateLimitAspect fixedWindowRateLimitAspect(FixedWindowRateLimiter rateLimiter) {
-            MethodExpressionEvaluatorFactory evaluatorFactory;
-            evaluatorFactory = ApplicationContexts.getBean(applicationContext, MethodExpressionEvaluatorFactory.class);
-            if (evaluatorFactory == null) {
-                evaluatorFactory = new DefaultMethodExpressionEvaluatorFactory();
-            }
-            return new FixedWindowRateLimitAspect(evaluatorFactory, rateLimiter);
+        public FixedWindowRateLimitAspect fixedWindowRateLimitAspect(MethodExpressionBinder expressionBinder,
+                                                                     FixedWindowRateLimiter rateLimiter) {
+            return new FixedWindowRateLimitAspect(expressionBinder, rateLimiter);
         }
     }
 
     @Configuration
     @ConditionalOnClass(SlidingWindowRateLimit.class)
-    public static class SlidingWindowRateLimitAutoConfiguration implements ApplicationContextAware {
-        @Getter
-        @Setter
-        private ApplicationContext applicationContext;
-
+    public static class SlidingWindowRateLimitAutoConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public SlidingWindowRateLimiter slidingWindowRateLimiter(RedisOperations<String, Long> redisOperations) {
@@ -65,13 +47,9 @@ public class RateLimitAutoConfiguration {
         }
 
         @Bean
-        public SlidingWindowRateLimitAspect slidingWindowRateLimitAspect(SlidingWindowRateLimiter rateLimiter) {
-            MethodExpressionEvaluatorFactory evaluatorFactory;
-            evaluatorFactory = ApplicationContexts.getBean(applicationContext, MethodExpressionEvaluatorFactory.class);
-            if (evaluatorFactory == null) {
-                evaluatorFactory = new DefaultMethodExpressionEvaluatorFactory();
-            }
-            return new SlidingWindowRateLimitAspect(evaluatorFactory, rateLimiter);
+        public SlidingWindowRateLimitAspect slidingWindowRateLimitAspect(MethodExpressionBinder expressionBinder,
+                                                                         SlidingWindowRateLimiter rateLimiter) {
+            return new SlidingWindowRateLimitAspect(expressionBinder, rateLimiter);
         }
     }
 }

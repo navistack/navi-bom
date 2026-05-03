@@ -7,8 +7,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.navistack.framework.expression.ExpressionEvaluator;
-import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
+import org.navistack.framework.expression.BoundExpression;
+import org.navistack.framework.expression.MethodExpressionBinder;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
@@ -19,16 +19,16 @@ public class SlidingWindowRateLimitAspect {
     @Getter
     @Setter
     @NonNull
-    private MethodExpressionEvaluatorFactory evaluatorFactory;
+    private MethodExpressionBinder expressionBinder;
 
     @Getter
     @Setter
     @NonNull
     private SlidingWindowRateLimiter rateLimiter;
 
-    public SlidingWindowRateLimitAspect(MethodExpressionEvaluatorFactory evaluatorFactory,
+    public SlidingWindowRateLimitAspect(MethodExpressionBinder expressionBinder,
                                         SlidingWindowRateLimiter rateLimiter) {
-        this.evaluatorFactory = evaluatorFactory;
+        this.expressionBinder = expressionBinder;
         this.rateLimiter = rateLimiter;
     }
 
@@ -43,8 +43,8 @@ public class SlidingWindowRateLimitAspect {
         long windowSize = rateLimit.windowSize();
         TemporalUnit sizeUnit = rateLimit.sizeUnit();
         String message = rateLimit.message();
-        ExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
-        String userKey = evaluator.evaluate(String.class, args);
+        BoundExpression expression = expressionBinder.bind(userKeyExpression, method);
+        String userKey = expression.evaluate(String.class, args);
         if (!rateLimiter.tryAcquire(userKey, maxRequests, Duration.of(windowSize, sizeUnit))) {
             throw new RateLimitExceededException(message);
         }

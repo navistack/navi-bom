@@ -8,8 +8,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.navistack.framework.expression.ExpressionEvaluator;
-import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
+import org.navistack.framework.expression.BoundExpression;
+import org.navistack.framework.expression.MethodExpressionBinder;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
@@ -21,16 +21,16 @@ public class PessimisticLockAspect {
     @Getter
     @Setter
     @NonNull
-    private MethodExpressionEvaluatorFactory evaluatorFactory;
+    private MethodExpressionBinder expressionBinder;
 
     @Getter
     @Setter
     @NonNull
     private PessimisticLockService lockService;
 
-    public PessimisticLockAspect(MethodExpressionEvaluatorFactory evaluatorFactory,
+    public PessimisticLockAspect(MethodExpressionBinder expressionBinder,
                                  PessimisticLockService lockService) {
-        this.evaluatorFactory = evaluatorFactory;
+        this.expressionBinder = expressionBinder;
         this.lockService = lockService;
     }
 
@@ -44,8 +44,8 @@ public class PessimisticLockAspect {
         long timeout = pessimisticLock.timeout();
         TemporalUnit unit = pessimisticLock.unit();
         String message = pessimisticLock.message();
-        ExpressionEvaluator evaluator = evaluatorFactory.getObject(userKeyExpression, method);
-        String userKey = evaluator.evaluate(String.class, args);
+        BoundExpression expression = expressionBinder.bind(userKeyExpression, method);
+        String userKey = expression.evaluate(String.class, args);
         if (!lockService.tryLock(userKey, Duration.of(timeout, unit))) {
             throw new LockAcquisitionFailureException(message);
         }

@@ -8,8 +8,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.navistack.framework.expression.ExpressionEvaluator;
-import org.navistack.framework.expression.MethodExpressionEvaluatorFactory;
+import org.navistack.framework.expression.BoundExpression;
+import org.navistack.framework.expression.MethodExpressionBinder;
 
 import java.lang.reflect.Method;
 
@@ -19,15 +19,15 @@ public class OperationLogAspect {
     @Getter
     @Setter
     @NonNull
-    private MethodExpressionEvaluatorFactory evaluatorFactory;
+    private MethodExpressionBinder expressionBinder;
 
     @Getter
     @Setter
     @NonNull
     private OperationLogService logService;
 
-    public OperationLogAspect(MethodExpressionEvaluatorFactory evaluatorFactory, OperationLogService logService) {
-        this.evaluatorFactory = evaluatorFactory;
+    public OperationLogAspect(MethodExpressionBinder expressionBinder, OperationLogService logService) {
+        this.expressionBinder = expressionBinder;
         this.logService = logService;
     }
 
@@ -39,8 +39,8 @@ public class OperationLogAspect {
         Class<?> declaringType = signature.getDeclaringType();
         String messageExpression = operationLog.value();
         OperationLog.Level level = operationLog.level();
-        ExpressionEvaluator evaluator = evaluatorFactory.getObject(messageExpression, method);
-        String message = evaluator.evaluate(String.class, args);
+        BoundExpression expression = expressionBinder.bind(messageExpression, method);
+        String message = expression.evaluate(String.class, args);
         if (OperationLog.Level.INFO.equals(level)) {
             logService.info(declaringType, message);
             return;
