@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FixedWindowRateLimit {
+public @interface PeriodicRateLimit {
     String key();
 
     int maxRequests();

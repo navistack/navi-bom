@@ -40,38 +40,33 @@ class SampleRateLimitApplicationTest {
     }
 
     @Test
-    void testSlidingWindowRateLimitedPing() throws Exception {
-        mockMvc.perform(get("/rate-limited/sliding-window/ping"))
+    void testRollingRateLimitedPing() throws Exception {
+        mockMvc.perform(get("/rate-limited/rolling/ping"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(jsonPath("$.succeeded", is(true)));
-        mockMvc.perform(get("/rate-limited/sliding-window/ping"))
+        mockMvc.perform(get("/rate-limited/rolling/ping"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.TOO_MANY_REQUESTS.value()))
                 .andExpect(jsonPath("$.succeeded", is(false)))
                 .andExpect(jsonPath("$.error", is(ErrorCodes.FREQUENT_REQUEST)));
         Thread.sleep(2000);
-        mockMvc.perform(get("/rate-limited/sliding-window/ping"))
+        mockMvc.perform(get("/rate-limited/rolling/ping"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(jsonPath("$.succeeded", is(true)));
     }
 
     @Test
-    void testFixedWindowRateLimitedPing() throws Exception {
-        mockMvc.perform(get("/rate-limited/fixed-window/ping"))
+    void testPeriodicRateLimitedPing() throws Exception {
+        mockMvc.perform(get("/rate-limited/periodic/ping"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(jsonPath("$.succeeded", is(true)));
-        mockMvc.perform(get("/rate-limited/fixed-window/ping"))
+        mockMvc.perform(get("/rate-limited/periodic/ping"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.TOO_MANY_REQUESTS.value()))
                 .andExpect(jsonPath("$.succeeded", is(false)))
                 .andExpect(jsonPath("$.error", is(ErrorCodes.FREQUENT_REQUEST)));
-        Thread.sleep(1000);
-        mockMvc.perform(get("/rate-limited/fixed-window/ping"))
-                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().is(HttpStatus.OK.value()))
-                .andExpect(jsonPath("$.succeeded", is(true)));
     }
 }

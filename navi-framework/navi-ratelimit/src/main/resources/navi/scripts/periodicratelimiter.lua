@@ -1,4 +1,4 @@
--- Fixed Window Rate Limiter
+-- Periodic Rate Limiter
 -- @param KEYS[1] Key
 -- @param ARGV[1] Max requests per window
 -- @param ARGV[2] Expiration
