@@ -5,6 +5,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.time.Duration;
+
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -14,6 +16,7 @@ public class PeriodicRateLimitHandler implements RateLimitHandler<PeriodicRateLi
 
     @Override
     public boolean tryAcquire(PeriodicRateLimit annotation, String resolvedKey) {
-        return rateLimiter.tryAcquire(resolvedKey, annotation.maxRequests(), annotation.temporalUnit());
+        return rateLimiter.tryAcquire(resolvedKey, annotation.maxRequests(),
+                Duration.of(annotation.period(), annotation.periodUnit()));
     }
 }

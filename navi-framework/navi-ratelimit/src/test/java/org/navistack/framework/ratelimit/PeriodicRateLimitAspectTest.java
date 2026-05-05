@@ -13,7 +13,6 @@ import org.navistack.framework.expression.BoundExpression;
 import org.navistack.framework.expression.MethodExpressionBinder;
 
 import java.lang.reflect.Method;
-import java.time.temporal.ChronoUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -45,7 +44,7 @@ class PeriodicRateLimitAspectTest {
     private PeriodicRateLimitAspect aspect;
 
     static class TestTarget {
-        @PeriodicRateLimit(key = "'key'", maxRequests = 10, temporalUnit = ChronoUnit.SECONDS)
+        @PeriodicRateLimit(key = "'key'", maxRequests = 10)
         void method() {}
     }
 

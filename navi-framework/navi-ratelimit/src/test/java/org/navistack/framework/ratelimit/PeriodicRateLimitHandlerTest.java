@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +22,7 @@ class PeriodicRateLimitHandlerTest {
     private PeriodicRateLimitHandler handler;
 
     static class TestTarget {
-        @PeriodicRateLimit(key = "'key'", maxRequests = 100, temporalUnit = ChronoUnit.MINUTES)
+        @PeriodicRateLimit(key = "'key'", maxRequests = 100, period = 1, periodUnit = ChronoUnit.MINUTES)
         void method() {}
     }
 
@@ -29,17 +30,19 @@ class PeriodicRateLimitHandlerTest {
     void tryAcquire_delegatesToLimiterWithAnnotationParams() throws NoSuchMethodException {
         PeriodicRateLimit annotation = TestTarget.class.getDeclaredMethod("method")
                 .getAnnotation(PeriodicRateLimit.class);
-        when(rateLimiter.tryAcquire("key", 100, ChronoUnit.MINUTES)).thenReturn(true);
+        Duration expectedPeriod = Duration.ofMinutes(1);
+        when(rateLimiter.tryAcquire("key", 100, expectedPeriod)).thenReturn(true);
 
         assertThat(handler.tryAcquire(annotation, "key")).isTrue();
-        verify(rateLimiter).tryAcquire("key", 100, ChronoUnit.MINUTES);
+        verify(rateLimiter).tryAcquire("key", 100, expectedPeriod);
     }
 
     @Test
     void tryAcquire_returnsFalseWhenLimiterDenies() throws NoSuchMethodException {
         PeriodicRateLimit annotation = TestTarget.class.getDeclaredMethod("method")
                 .getAnnotation(PeriodicRateLimit.class);
-        when(rateLimiter.tryAcquire("key", 100, ChronoUnit.MINUTES)).thenReturn(false);
+        Duration expectedPeriod = Duration.ofMinutes(1);
+        when(rateLimiter.tryAcquire("key", 100, expectedPeriod)).thenReturn(false);
 
         assertThat(handler.tryAcquire(annotation, "key")).isFalse();
     }

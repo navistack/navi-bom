@@ -13,7 +13,9 @@ public @interface PeriodicRateLimit {
 
     int maxRequests();
 
-    ChronoUnit temporalUnit() default ChronoUnit.SECONDS;
+    long period() default 1;
+
+    ChronoUnit periodUnit() default ChronoUnit.SECONDS;
 
     String message() default "navi.service.ratelimit.message";
 }

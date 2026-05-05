@@ -8,8 +8,6 @@ import org.navistack.framework.web.rest.RestResults;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.temporal.ChronoUnit;
-
 @RestController
 public class PingController {
     @GetMapping("/rate-limited/rolling/ping")
@@ -19,7 +17,7 @@ public class PingController {
     }
 
     @GetMapping("/rate-limited/periodic/ping")
-    @PeriodicRateLimit(key = "echo.#{#request.remoteAddr}", maxRequests = 1, temporalUnit = ChronoUnit.MINUTES)
+    @PeriodicRateLimit(key = "echo.#{#request.remoteAddr}", maxRequests = 1)
     public RestResult<Void> periodicRateLimitedPing(HttpServletRequest request) {
         return RestResults.ok();
     }

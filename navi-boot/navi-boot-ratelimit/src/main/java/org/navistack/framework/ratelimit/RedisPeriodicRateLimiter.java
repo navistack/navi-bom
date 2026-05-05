@@ -9,8 +9,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.script.RedisScript;
 
-import java.time.Instant;
-import java.time.temporal.TemporalUnit;
+import java.time.Duration;
 import java.util.Collections;
 
 @Getter
@@ -38,11 +37,10 @@ public class RedisPeriodicRateLimiter implements PeriodicRateLimiter {
     }
 
     @Override
-    public boolean tryAcquire(String key, int maxRequests, TemporalUnit temporalUnit) {
+    public boolean tryAcquire(String key, int maxRequests, Duration period) {
         key = Strings.hasText(key) ? key : DEFAULT_USER_KEY;
-        long epochMilli = Instant.now().truncatedTo(temporalUnit).toEpochMilli();
-        String scopedKey = cacheScope.key(key, Long.toString(epochMilli));
-        long expiration = temporalUnit.getDuration().getSeconds();
+        String scopedKey = cacheScope.key(key);
+        long expiration = Math.max(1L, period.toSeconds());
         Boolean result = redisOperations.execute(
                 script,
                 Collections.singletonList(scopedKey),
