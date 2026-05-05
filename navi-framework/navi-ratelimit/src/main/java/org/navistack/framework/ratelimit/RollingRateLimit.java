@@ -15,7 +15,7 @@ public @interface RollingRateLimit {
 
     long windowSize();
 
-    ChronoUnit windowSizeUnit() default ChronoUnit.MILLIS;
+    ChronoUnit windowSizeUnit() default ChronoUnit.SECONDS;
 
     String message() default "navi.service.ratelimit.message";
 }

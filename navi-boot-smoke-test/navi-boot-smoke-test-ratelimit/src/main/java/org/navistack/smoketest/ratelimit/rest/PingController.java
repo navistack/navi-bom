@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
 @RestController
 public class PingController {
     @GetMapping("/rate-limited/rolling/ping")
-    @RollingRateLimit(key = "echo.#{#request.remoteAddr}", maxRequests = 1, windowSize = 2000)
+    @RollingRateLimit(key = "echo.#{#request.remoteAddr}", maxRequests = 1, windowSize = 2)
     public RestResult<Void> rollingRateLimitedPing(HttpServletRequest request) {
         return RestResults.ok();
     }
