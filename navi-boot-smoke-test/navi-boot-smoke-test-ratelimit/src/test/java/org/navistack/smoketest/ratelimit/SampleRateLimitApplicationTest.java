@@ -40,7 +40,7 @@ class SampleRateLimitApplicationTest {
     }
 
     @Test
-    void testRollingRateLimitedPing() throws Exception {
+    void shouldAllowAfterWindowWhenRollingPingIsRateLimited() throws Exception {
         mockMvc.perform(get("/rate-limited/rolling/ping"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
@@ -58,7 +58,7 @@ class SampleRateLimitApplicationTest {
     }
 
     @Test
-    void testPeriodicRateLimitedPing() throws Exception {
+    void shouldRejectSecondCallWhenPeriodicPingIsRateLimited() throws Exception {
         mockMvc.perform(get("/rate-limited/periodic/ping"))
                 .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is(HttpStatus.OK.value()))
