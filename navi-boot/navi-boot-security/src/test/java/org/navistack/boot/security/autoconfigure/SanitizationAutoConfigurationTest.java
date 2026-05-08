@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SanitizationAutoConfigurationTest {
 
     @Test
-    void testDefault() {
+    void shouldRegisterDefaultBeansWhenNoPropertiesProvided() {
         new WebApplicationContextRunner()
                 .withConfiguration(AutoConfigurations.of(SanitizationAutoConfiguration.class))
                 .run(context -> {
@@ -24,7 +24,7 @@ class SanitizationAutoConfigurationTest {
     }
 
     @Test
-    void testWithProperties() {
+    void shouldApplyConfiguredPropertiesWhenSanitizationConfigured() {
         new WebApplicationContextRunner()
                 .withConfiguration(AutoConfigurations.of(SanitizationAutoConfiguration.class))
                 .withPropertyValues(SanitizationProperties.PROPERTIES_PREFIX + ".url-patterns=/post/**,/comment/**")
