@@ -24,6 +24,7 @@ class SanitizationAutoConfigurationTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void shouldApplyConfiguredPropertiesWhenSanitizationConfigured() {
         new WebApplicationContextRunner()
                 .withConfiguration(AutoConfigurations.of(SanitizationAutoConfiguration.class))
