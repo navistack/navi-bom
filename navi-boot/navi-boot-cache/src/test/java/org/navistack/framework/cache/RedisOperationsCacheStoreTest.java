@@ -15,9 +15,9 @@ import static org.mockito.Mockito.when;
 class RedisOperationsCacheStoreTest {
 
     @Test
+    @SuppressWarnings("unchecked")
     void shouldSetValueWhenSetCalled() {
         RedisOperations<String, Object> redisOperations = mock(RedisOperations.class);
-        @SuppressWarnings("unchecked")
         ValueOperations<String, Object> valueOperations = mock(ValueOperations.class);
         when(redisOperations.opsForValue()).thenReturn(valueOperations);
 
@@ -28,9 +28,9 @@ class RedisOperationsCacheStoreTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void shouldSetValueWithTimeoutWhenSetCalledWithTimeout() {
         RedisOperations<String, Object> redisOperations = mock(RedisOperations.class);
-        @SuppressWarnings("unchecked")
         ValueOperations<String, Object> valueOperations = mock(ValueOperations.class);
         when(redisOperations.opsForValue()).thenReturn(valueOperations);
 
@@ -41,9 +41,9 @@ class RedisOperationsCacheStoreTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void shouldReturnFalseWhenSetIfAbsentReturnsNull() {
         RedisOperations<String, Object> redisOperations = mock(RedisOperations.class);
-        @SuppressWarnings("unchecked")
         ValueOperations<String, Object> valueOperations = mock(ValueOperations.class);
         when(redisOperations.opsForValue()).thenReturn(valueOperations);
         when(valueOperations.setIfAbsent("key", "value")).thenReturn(null);
@@ -62,6 +62,7 @@ class RedisOperationsCacheStoreTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void shouldGetAndDeleteValueWhenGetAndDeleteCalled() {
         RedisOperations<String, Object> redisOperations = mock(RedisOperations.class);
         RedisOperationsCacheStore store = new RedisOperationsCacheStore(redisOperations);
@@ -69,9 +70,7 @@ class RedisOperationsCacheStoreTest {
         ArgumentCaptor<org.springframework.data.redis.core.SessionCallback<Object>> captor =
                 ArgumentCaptor.forClass(org.springframework.data.redis.core.SessionCallback.class);
 
-        @SuppressWarnings("unchecked")
         RedisOperations<String, Object> ops = mock(RedisOperations.class);
-        @SuppressWarnings("unchecked")
         ValueOperations<String, Object> valueOps = mock(ValueOperations.class);
         when(ops.opsForValue()).thenReturn(valueOps);
         when(valueOps.get("key")).thenReturn("value");
