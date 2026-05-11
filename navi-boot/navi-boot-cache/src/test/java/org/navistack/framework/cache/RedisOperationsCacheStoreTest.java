@@ -53,6 +53,7 @@ class RedisOperationsCacheStoreTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void shouldReturnFalseWhenDeleteReturnsNull() {
         RedisOperations<String, Object> redisOperations = mock(RedisOperations.class);
         when(redisOperations.delete("key")).thenReturn(null);
