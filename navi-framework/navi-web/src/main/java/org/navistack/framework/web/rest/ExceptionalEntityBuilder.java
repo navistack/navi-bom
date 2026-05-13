@@ -87,7 +87,7 @@ public class ExceptionalEntityBuilder {
                     frameInfoBuilder.append("@").append(moduleVersion);
                 }
             }
-            if (frameInfoBuilder.length() > 0) {
+            if (!frameInfoBuilder.isEmpty()) {
                 frameInfoBuilder.append("/");
             }
             frameInfoBuilder.append(frame.getClassName());
