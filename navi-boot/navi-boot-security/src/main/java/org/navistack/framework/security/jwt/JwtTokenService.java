@@ -236,7 +236,7 @@ public class JwtTokenService implements TokenService {
 
         List<String> audiences = jwtClaimsSet.getAudience();
         if (audiences != null && !audiences.isEmpty()) {
-            claims.putAudience(audiences.get(0));
+            claims.putAudience(audiences.getFirst());
         }
 
         java.util.Date expirationTime = jwtClaimsSet.getExpirationTime();
