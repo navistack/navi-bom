@@ -44,7 +44,7 @@ public class CaptchaAutoConfiguration {
     public MappedInterceptor captchaTestInterceptor(CaptchaTesterComposite captchaTesterComposite,
                                                     CaptchaProperties properties) {
         CaptchaTestInterceptor interceptor = new CaptchaTestInterceptor(captchaTesterComposite);
-        return new MappedInterceptor(properties.getUrlPatterns().stream().toArray(String[]::new), interceptor);
+        return new MappedInterceptor(properties.getUrlPatterns().toArray(String[]::new), interceptor);
     }
 
     @Configuration
