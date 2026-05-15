@@ -8,7 +8,7 @@ public interface TwoWayConverter<S, T> extends Converter<S, T> {
     S convertBack(T dst);
 
     default <U> TwoWayConverter<S, U> andThen(@NonNull TwoWayConverter<T, U> converter) {
-        return new TwoWayConverter<S, U>() {
+        return new TwoWayConverter<>() {
             @Override
             public U convert(S src) {
                 T t = TwoWayConverter.this.convert(src);
@@ -32,7 +32,7 @@ public interface TwoWayConverter<S, T> extends Converter<S, T> {
     }
 
     static <S, T> TwoWayConverter<S, T> of(Converter<S, T> converter, Converter<T, S> backwardConverter) {
-        return new TwoWayConverter<S, T>() {
+        return new TwoWayConverter<>() {
             @Override
             public T convert(S src) {
                 return converter.convert(src);
