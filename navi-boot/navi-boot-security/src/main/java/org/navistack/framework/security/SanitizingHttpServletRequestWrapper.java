@@ -36,7 +36,7 @@ public class SanitizingHttpServletRequestWrapper extends HttpServletRequestWrapp
     @Override
     public Enumeration<String> getHeaders(String name) {
         Enumeration<String> headers = super.getHeaders(name);
-        return new Enumeration<String>() {
+        return new Enumeration<>() {
             @Override
             public boolean hasMoreElements() {
                 return headers.hasMoreElements();
