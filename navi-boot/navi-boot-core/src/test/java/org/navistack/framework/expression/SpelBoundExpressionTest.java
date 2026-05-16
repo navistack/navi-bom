@@ -24,7 +24,7 @@ class SpelBoundExpressionTest {
 
     @Test
     void shouldBindArgsByPositionalIndex() {
-        SpelBoundExpression bound = compile("#{#arg0}.#{#arg1}", new String[0]);
+        SpelBoundExpression bound = compile("#{#arg0}.#{#arg1}");
         String result = bound.evaluate(String.class, "foo", "bar");
         assertThat(result).isEqualTo("foo.bar");
     }
@@ -45,7 +45,7 @@ class SpelBoundExpressionTest {
 
     @Test
     void shouldEvaluateToRequestedType() {
-        SpelBoundExpression bound = compile("#{#arg0 + #arg1}", new String[0]);
+        SpelBoundExpression bound = compile("#{#arg0 + #arg1}");
         Integer result = bound.evaluate(Integer.class, 3, 4);
         assertThat(result).isEqualTo(7);
     }
