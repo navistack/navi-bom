@@ -1,5 +1,6 @@
 package org.navistack.framework.jackson;
 
+import lombok.Getter;
 import tools.jackson.core.JsonParser;
 import tools.jackson.core.TreeNode;
 import tools.jackson.databind.DeserializationContext;
@@ -12,6 +13,7 @@ import java.util.Map;
 public class PolymorphicPropertyDeserializer<T> extends ValueDeserializer<T> {
     private static final String DEFAULT_PROPERTY = "type";
 
+    @Getter
     private final Map<String, Class<? extends T>> subTypes = new LinkedHashMap<>();
 
     private final String property;
@@ -31,10 +33,6 @@ public class PolymorphicPropertyDeserializer<T> extends ValueDeserializer<T> {
     protected PolymorphicPropertyDeserializer(String property, Map<String, Class<? extends T>> subTypes) {
         this.property = property;
         this.subTypes.putAll(subTypes);
-    }
-
-    public Map<String, Class<? extends T>> getSubTypes() {
-        return subTypes;
     }
 
     public void registerSubTypes(Map<String, Class<? extends T>> subTypes) {
