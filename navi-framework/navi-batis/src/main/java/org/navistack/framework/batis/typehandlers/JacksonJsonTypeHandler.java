@@ -1,5 +1,6 @@
 package org.navistack.framework.batis.typehandlers;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
@@ -10,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Getter
 public class JacksonJsonTypeHandler<E> extends BaseTypeHandler<E> {
     private final Class<E> type;
 
@@ -21,14 +23,6 @@ public class JacksonJsonTypeHandler<E> extends BaseTypeHandler<E> {
         }
         this.type = type;
         this.objectMapper = new ObjectMapper();
-    }
-
-    public Class<E> getType() {
-        return type;
-    }
-
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
     }
 
     public void setObjectMapper(ObjectMapper objectMapper) {
