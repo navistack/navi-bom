@@ -9,6 +9,8 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.navistack.framework.security.TokenService;
 import org.navistack.framework.security.TokenServiceAuthenticationException;
@@ -35,6 +37,8 @@ import javax.crypto.SecretKey;
 public class JwtTokenService implements TokenService {
     private static final int DEFAULT_VALIDITY = 2 * 60 * 60 * 1000;
 
+    @Setter
+    @Getter
     private JwtPayloadResolver payloadResolver;
 
     /**
@@ -85,14 +89,6 @@ public class JwtTokenService implements TokenService {
         } catch (JOSEException e) {
             throw new TokenServiceException(e);
         }
-    }
-
-    public JwtPayloadResolver getPayloadResolver() {
-        return payloadResolver;
-    }
-
-    public void setPayloadResolver(JwtPayloadResolver payloadResolver) {
-        this.payloadResolver = payloadResolver;
     }
 
     @Override
