@@ -36,7 +36,7 @@ public class DefaultServletContextRootResolver implements ServletContextRootReso
                 uriComponent.append("/");
             } else {
                 contextPath = contextPath.trim();
-                if (contextPath.isEmpty() || !contextPath.startsWith("/")) {
+                if (!contextPath.startsWith("/")) {
                     uriComponent.append("/");
                 } else {
                     uriComponent.append(contextPath);
