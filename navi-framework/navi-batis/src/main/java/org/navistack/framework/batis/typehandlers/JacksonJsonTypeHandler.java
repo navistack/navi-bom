@@ -34,13 +34,13 @@ public class JacksonJsonTypeHandler<E> extends BaseTypeHandler<E> {
 
     @Override
     @SneakyThrows
-    public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) throws SQLException {
+    public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) {
         ps.setString(i, objectMapper.writeValueAsString(parameter));
     }
 
     @Override
     @SneakyThrows
-    public E getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    public E getNullableResult(ResultSet rs, String columnName) {
         String value = rs.getString(columnName);
         if (value == null) {
             return null;
@@ -50,7 +50,7 @@ public class JacksonJsonTypeHandler<E> extends BaseTypeHandler<E> {
 
     @Override
     @SneakyThrows
-    public E getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    public E getNullableResult(ResultSet rs, int columnIndex) {
         String value = rs.getString(columnIndex);
         if (value == null) {
             return null;
@@ -60,7 +60,7 @@ public class JacksonJsonTypeHandler<E> extends BaseTypeHandler<E> {
 
     @Override
     @SneakyThrows
-    public E getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    public E getNullableResult(CallableStatement cs, int columnIndex) {
         String value = cs.getString(columnIndex);
         if (value == null) {
             return null;
