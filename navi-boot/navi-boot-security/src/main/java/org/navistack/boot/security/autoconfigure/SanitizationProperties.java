@@ -26,7 +26,7 @@ public class SanitizationProperties implements InitializingBean {
     private AntiSamyProperties antiSamy = new AntiSamyProperties();
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         Assert.notNull(urlPatterns, "urlPatterns must not be null");
         Assert.notNull(bypassedHeaders, "bypassedHeaders must not be null");
         Assert.notNull(bypassedParameters, "bypassedParameters must not be null");

@@ -23,7 +23,7 @@ public class JwtTokenProperties implements InitializingBean {
     private String secret;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         Assert.isTrue(validity > 0, "Validity can not be negative or zero");
     }
 }

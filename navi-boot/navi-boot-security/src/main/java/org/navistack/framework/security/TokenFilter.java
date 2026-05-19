@@ -52,7 +52,7 @@ public class TokenFilter extends GenericFilterBean implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws ServletException {
+    public void afterPropertiesSet() {
         Assert.notNull(this.authenticationManager, "authenticationManager must be specified");
     }
 }
