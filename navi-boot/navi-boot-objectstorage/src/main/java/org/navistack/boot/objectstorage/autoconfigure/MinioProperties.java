@@ -20,7 +20,7 @@ public class MinioProperties implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         Assert.hasText(endpoint, "Endpoint can't not be empty");
         Assert.hasText(credentials.accessKey, "Access key can't not be empty");
         Assert.hasText(credentials.secretKey, "Secret key can't not be empty");
