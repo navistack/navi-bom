@@ -10,7 +10,7 @@ public class TencentCloudCredentialProperties implements InitializingBean {
     private String secretKey;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         Assert.hasText(secretId, "secretId must not be empty");
         Assert.hasText(secretKey, "secretKey must not be empty");
     }
