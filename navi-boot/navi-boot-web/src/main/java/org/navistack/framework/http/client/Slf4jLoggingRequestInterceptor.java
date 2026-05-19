@@ -33,7 +33,7 @@ public class Slf4jLoggingRequestInterceptor implements ClientHttpRequestIntercep
         return response;
     }
 
-    private void logRequest(HttpRequest request, byte[] body) throws IOException {
+    private void logRequest(HttpRequest request, byte[] body) {
         log.debug("* Sending request");
         log.debug("> URI    : {} {}", request.getMethod(), request.getURI());
         log.debug("> Headers: {}", request.getHeaders());
