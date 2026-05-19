@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class JsonStringDeserializerTest {
     @Test
-    void shouldDeserializeJsonStringAsObjectOfTargetTypeWhenJsonStringContainsArray() throws Exception {
+    void shouldDeserializeJsonStringAsObjectOfTargetTypeWhenJsonStringContainsArray() {
         ObjectMapper mapper = new ObjectMapper();
         String json = "{\"n\":0,\"s\":\"s0\",\"o\":{\"n\":1,\"s\":\"s1\"},\"a\":\"[{\\\"n\\\":2,\\\"s\\\":\\\"s2\\\"},{\\\"n\\\":3,\\\"s\\\":\\\"s3\\\"}]\"}";
         JsonObject actual = mapper.readValue(json, JsonObject.class);
@@ -44,7 +44,7 @@ class JsonStringDeserializerTest {
     }
 
     @Test
-    void shouldDeserializeNullAsNullWhenJsonValueIsNull() throws Exception {
+    void shouldDeserializeNullAsNullWhenJsonValueIsNull() {
         ObjectMapper mapper = new ObjectMapper();
         String json = "{\"n\":1,\"s\":\"s1\",\"o\":null,\"a\":null}";
         JsonObject actual = mapper.readValue(json, JsonObject.class);
@@ -52,7 +52,7 @@ class JsonStringDeserializerTest {
     }
 
     @Test
-    void shouldDeserializeEmptyArrayWhenJsonStringIsEmptyArray() throws Exception {
+    void shouldDeserializeEmptyArrayWhenJsonStringIsEmptyArray() {
         ObjectMapper mapper = new ObjectMapper();
         String json = "{\"n\":1,\"s\":\"s1\",\"o\":null,\"a\":\"[]\"}";
         JsonObject actual = mapper.readValue(json, JsonObject.class);

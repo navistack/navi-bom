@@ -35,7 +35,7 @@ class JsonStringSerializerTest {
             .build();
 
     @Test
-    void shouldSerializeAsJsonStringWhenUsingDefaultMapper() throws Exception {
+    void shouldSerializeAsJsonStringWhenUsingDefaultMapper() {
         JsonMapper mapper = JsonMapper.shared();
 
         String expected = "{\"n\":0,\"s\":\"s0\",\"o\":{\"n\":1,\"s\":\"s1\",\"o\":null,\"a\":null},\"a\":\"[{\\\"n\\\":2,\\\"s\\\":\\\"s2\\\",\\\"o\\\":null,\\\"a\\\":null},{\\\"n\\\":3,\\\"s\\\":\\\"s3\\\",\\\"o\\\":null,\\\"a\\\":null}]\"}";
@@ -45,7 +45,7 @@ class JsonStringSerializerTest {
     }
 
     @Test
-    void shouldRespectJsonIncludeWhenContentAndValueInclusionIsNonNull() throws Exception {
+    void shouldRespectJsonIncludeWhenContentAndValueInclusionIsNonNull() {
         JsonMapper mapper = JsonMapper.builder()
                 .changeDefaultPropertyInclusion(incl -> incl.withValueInclusion(JsonInclude.Include.NON_NULL))
                 .changeDefaultPropertyInclusion(incl -> incl.withContentInclusion(JsonInclude.Include.NON_NULL))
@@ -58,7 +58,7 @@ class JsonStringSerializerTest {
     }
 
     @Test
-    void shouldSerializeNullArrayAsNullWhenArrayIsNull() throws Exception {
+    void shouldSerializeNullArrayAsNullWhenArrayIsNull() {
         JsonMapper mapper = JsonMapper.shared();
         JsonObject objectWithNullArray = JsonObject.builder()
                 .n(10)
@@ -73,7 +73,7 @@ class JsonStringSerializerTest {
     }
 
     @Test
-    void shouldSerializeEmptyArrayAsEmptyJsonArrayStringWhenArrayIsEmpty() throws Exception {
+    void shouldSerializeEmptyArrayAsEmptyJsonArrayStringWhenArrayIsEmpty() {
         JsonMapper mapper = JsonMapper.shared();
         JsonObject objectWithEmptyArray = JsonObject.builder()
                 .n(20)
