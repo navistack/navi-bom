@@ -16,7 +16,7 @@ public class AlibabaCloudSmsProperties implements InitializingBean {
     private String endpoint;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         Assert.hasText(accessKeyId, "accessKeyId must not be empty");
         Assert.hasText(accessKeySecret, "accessKeySecret must not be empty");
         Assert.hasText(endpoint, "endpoint must not be empty");
