@@ -9,7 +9,6 @@ import tools.jackson.databind.ObjectMapper;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @Getter
 public class JacksonJsonTypeHandler<E> extends BaseTypeHandler<E> {
