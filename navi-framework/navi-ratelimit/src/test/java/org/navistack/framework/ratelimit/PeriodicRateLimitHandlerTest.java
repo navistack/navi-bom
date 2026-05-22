@@ -22,7 +22,7 @@ class PeriodicRateLimitHandlerTest {
     private PeriodicRateLimitHandler handler;
 
     static class TestTarget {
-        @PeriodicRateLimit(key = "'key'", maxRequests = 100, period = 1, periodUnit = ChronoUnit.MINUTES)
+        @PeriodicRateLimit(key = "'key'", maxRequests = 100, periodUnit = ChronoUnit.MINUTES)
         void method() {}
     }
 
