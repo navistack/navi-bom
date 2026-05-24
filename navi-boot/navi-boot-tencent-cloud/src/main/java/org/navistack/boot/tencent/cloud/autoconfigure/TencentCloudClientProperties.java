@@ -11,7 +11,7 @@ public class TencentCloudClientProperties implements InitializingBean {
     private TencentCloudClientProfileProperties clientProfile = new TencentCloudClientProfileProperties();
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         credential.afterPropertiesSet();
         Assert.notNull(region, "Region must not be null");
     }
