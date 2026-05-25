@@ -17,7 +17,7 @@ public class TencentCloudSmsProperties implements InitializingBean {
     private String appKey;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         client.afterPropertiesSet();
         Assert.notNull(sdkAppId, "sdkAppId must not be null");
         Assert.hasText(appKey, "appKey must not be empty");

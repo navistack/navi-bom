@@ -17,7 +17,7 @@ public class TencentCloudCaptchaProperties implements InitializingBean {
     private String appSecretKey;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         client.afterPropertiesSet();
         Assert.notNull(captchaAppId, "captchaAppId can not be null");
         Assert.hasText(appSecretKey, "appSecretKey can not be empty");
