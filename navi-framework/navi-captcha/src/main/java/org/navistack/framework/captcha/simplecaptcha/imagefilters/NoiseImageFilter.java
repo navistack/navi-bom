@@ -62,7 +62,7 @@ public class NoiseImageFilter implements ImageFilter {
         int height = image.getHeight();
 
         // the points where the line changes the stroke and direction
-        Point2D[] pts = null;
+        Point2D[] pts;
 
         // the curve from where the points are taken
         CubicCurve2D cc = new CubicCurve2D.Float(width * factorOne, height
