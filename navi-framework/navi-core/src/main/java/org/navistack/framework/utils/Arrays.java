@@ -51,7 +51,7 @@ public class Arrays {
         if (length <= 0) {
             throw new IllegalArgumentException("length must not be negative or zero");
         }
-        if (arr.length <= 0) {
+        if (arr.length == 0) {
             return generator.apply(0);
         }
         T[] newArray = generator.apply(arr.length + length);
