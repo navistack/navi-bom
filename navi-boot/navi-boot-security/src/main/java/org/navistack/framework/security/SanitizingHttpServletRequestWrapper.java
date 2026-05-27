@@ -120,7 +120,7 @@ public class SanitizingHttpServletRequestWrapper extends HttpServletRequestWrapp
     }
 
     private String[] sanitizeParameters(String name, String[] values) {
-        if (values == null || values.length <= 0) {
+        if (values == null || values.length == 0) {
             return values;
         }
         String[] sanitizedValues = new String[values.length];
