@@ -21,12 +21,12 @@ class DefaultDefaultHierarchicalCacheStoreBuilderTest {
         assertThat(cacheScope)
                 .isNotNull()
                 .isInstanceOf(CacheScope.class)
-                .extracting(CacheScope::getName)
+                .extracting(CacheScope::name)
                 .isEqualTo("test");
         assertThat(cacheScope)
                 .isNotNull()
                 .isInstanceOf(CacheScope.class)
-                .extracting(CacheScope::getDelimiter)
+                .extracting(CacheScope::delimiter)
                 .isEqualTo(":");
     }
 

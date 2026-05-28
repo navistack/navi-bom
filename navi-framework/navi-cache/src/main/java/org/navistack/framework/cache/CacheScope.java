@@ -1,24 +1,11 @@
 package org.navistack.framework.cache;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.util.StringJoiner;
 
-@AllArgsConstructor
-public class CacheScope {
+public record CacheScope(String delimiter, String name, CacheScope scope) {
 
     private static final String DEFAULT_NAME = "";
     private static final String DEFAULT_DELIMITER = ":";
-
-    @Getter
-    private final String delimiter;
-
-    @Getter
-    private final String name;
-
-    @Getter
-    private final CacheScope scope;
 
     public CacheScope(String name) {
         this(DEFAULT_DELIMITER, name, null);
