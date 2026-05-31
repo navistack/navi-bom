@@ -1,22 +1,12 @@
 package org.navistack.framework.data;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-
-@Getter
-@EqualsAndHashCode
-public class Range<T extends Comparable<? super T>> {
-    private final T left;
-    private final T right;
-
-    public Range(T left, T right) {
+public record Range<T extends Comparable<? super T>>(T left, T right) {
+    public Range {
         if (left != null && right != null && left.compareTo(right) > 0) {
             T t = left;
             left = right;
             right = t;
         }
-        this.left = left;
-        this.right = right;
     }
 
     public Range<T> withLeft(T left) {
@@ -32,8 +22,8 @@ public class Range<T extends Comparable<? super T>> {
             return false;
         }
 
-        T left = other.getLeft();
-        T right = other.getRight();
+        T left = other.left();
+        T right = other.right();
 
         if (this.left == null && this.right == null) {
             return true;

@@ -8,45 +8,45 @@ class RangeTest {
     @Test
     void constructor_shouldConstructWhenBothAreNulls() {
         Range<Integer> range = new Range<>(null, null);
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(null);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(null);
     }
 
     @Test
     void constructor_shouldConstructWhenLeftIsNull() {
         Range<Integer> range = new Range<>(null, 2);
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(null);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(2);
     }
 
     @Test
     void constructor_shouldConstructWhenRightIsNull() {
         Range<Integer> range = new Range<>(1, null);
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(1);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(null);
     }
 
     @Test
     void constructor_shouldNotSwapWhenLeftIsLessThanRight() {
         Range<Integer> range = new Range<>(1, 2);
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(1);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(2);
     }
 
     @Test
     void constructor_shouldSwapWhenLeftIsGreaterThanRight() {
         Range<Integer> range = new Range<>(2, 1);
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(1);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(2);
     }
 
@@ -54,15 +54,15 @@ class RangeTest {
     void withLeft_shouldConstructNewInstance() {
         Range<Integer> range = new Range<>(1, 2);
         Range<Integer> newRange = range.withLeft(3);
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(1);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(2);
         assertThat(newRange)
                 .isNotSameAs(range);
-        assertThat(newRange.getLeft())
+        assertThat(newRange.left())
                 .isEqualTo(2);
-        assertThat(newRange.getRight())
+        assertThat(newRange.right())
                 .isEqualTo(3);
     }
 
@@ -70,15 +70,15 @@ class RangeTest {
     void withLeft_shouldConstructNewInstanceWhenLeftIsNull() {
         Range<Integer> range = new Range<>(1, 2);
         Range<Integer> newRange = range.withLeft(null);
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(1);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(2);
         assertThat(newRange)
                 .isNotSameAs(range);
-        assertThat(newRange.getLeft())
+        assertThat(newRange.left())
                 .isEqualTo(null);
-        assertThat(newRange.getRight())
+        assertThat(newRange.right())
                 .isEqualTo(2);
     }
 
@@ -86,15 +86,15 @@ class RangeTest {
     void withRight_shouldConstructNewInstance() {
         Range<Integer> range = new Range<>(1, 2);
         Range<Integer> newRange = range.withRight(0);
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(1);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(2);
         assertThat(newRange)
                 .isNotSameAs(range);
-        assertThat(newRange.getLeft())
+        assertThat(newRange.left())
                 .isEqualTo(0);
-        assertThat(newRange.getRight())
+        assertThat(newRange.right())
                 .isEqualTo(1);
     }
 
@@ -102,15 +102,15 @@ class RangeTest {
     void withRight_shouldConstructNewInstanceWhenLeftIsNull() {
         Range<Integer> range = new Range<>(1, 2);
         Range<Integer> newRange = range.withRight(null);
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(1);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(2);
         assertThat(newRange)
                 .isNotSameAs(range);
-        assertThat(newRange.getLeft())
+        assertThat(newRange.left())
                 .isEqualTo(1);
-        assertThat(newRange.getRight())
+        assertThat(newRange.right())
                 .isEqualTo(null);
     }
 
@@ -135,9 +135,9 @@ class RangeTest {
         Range<Integer> range = Range.of(1, 2);
         assertThat(range)
                 .isNotNull();
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(1);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(2);
     }
 
@@ -146,9 +146,9 @@ class RangeTest {
         Range<Integer> range = Range.leftUnbounded(2);
         assertThat(range)
                 .isNotNull();
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isNull();
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isEqualTo(2);
     }
 
@@ -157,9 +157,9 @@ class RangeTest {
         Range<Integer> range = Range.rightUnbounded(1);
         assertThat(range)
                 .isNotNull();
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isEqualTo(1);
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isNull();
     }
 
@@ -168,9 +168,9 @@ class RangeTest {
         Range<Integer> range = Range.unbounded();
         assertThat(range)
                 .isNotNull();
-        assertThat(range.getLeft())
+        assertThat(range.left())
                 .isNull();
-        assertThat(range.getRight())
+        assertThat(range.right())
                 .isNull();
     }
 
