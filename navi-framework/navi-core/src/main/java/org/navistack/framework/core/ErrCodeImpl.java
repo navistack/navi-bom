@@ -1,19 +1,9 @@
 package org.navistack.framework.core;
 
-import lombok.Getter;
 import lombok.experimental.Accessors;
 
-@Getter
 @Accessors(fluent = true)
-public class ErrCodeImpl implements ErrCode {
-    private final int value;
-
-    private final ErrCategory category;
-
-    public ErrCodeImpl(int value, ErrCategory category) {
-        this.value = value;
-        this.category = category;
-    }
+public record ErrCodeImpl(int value, ErrCategory category) implements ErrCode {
 
     @Override
     public boolean equals(Object other) {
