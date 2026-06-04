@@ -24,7 +24,7 @@ public interface TwoWayConverter<S, T> extends Converter<S, T> {
     }
 
     default Converter<S, T> converter() {
-        return this::convert;
+        return this;
     }
 
     default Converter<T, S> backwardConverter() {
