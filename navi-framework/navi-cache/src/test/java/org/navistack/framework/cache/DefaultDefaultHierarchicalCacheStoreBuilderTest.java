@@ -17,7 +17,7 @@ class DefaultDefaultHierarchicalCacheStoreBuilderTest {
                 .isNotNull();
         assertThat(cacheStore)
                 .isInstanceOf(DefaultHierarchicalCacheStore.class);
-        CacheScope cacheScope = cacheStore.getCacheScope();
+        CacheScope cacheScope = cacheStore.cacheScope();
         assertThat(cacheScope)
                 .isNotNull()
                 .isInstanceOf(CacheScope.class)

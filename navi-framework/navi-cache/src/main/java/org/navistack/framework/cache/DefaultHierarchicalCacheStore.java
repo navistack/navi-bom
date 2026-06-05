@@ -1,16 +1,11 @@
 package org.navistack.framework.cache;
 
-import lombok.Getter;
 import lombok.NonNull;
 
 import java.time.Duration;
 
-@Getter
-public class DefaultHierarchicalCacheStore implements HierarchicalCacheStore {
-
-    private final CacheStore parentCacheStore;
-
-    private final CacheScope cacheScope;
+public record DefaultHierarchicalCacheStore(CacheScope cacheScope,
+                                            CacheStore parentCacheStore) implements HierarchicalCacheStore {
 
     public DefaultHierarchicalCacheStore(@NonNull CacheScope cacheScope, @NonNull CacheStore parentCacheStore) {
         this.parentCacheStore = parentCacheStore;

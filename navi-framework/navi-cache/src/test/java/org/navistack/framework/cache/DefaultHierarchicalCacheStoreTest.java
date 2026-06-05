@@ -15,7 +15,7 @@ class DefaultHierarchicalCacheStoreTest {
     void shouldReturnParentCacheStoreWhenGetParentCacheStore() {
         CacheStore underlyingStore = mock(CacheStore.class);
         DefaultHierarchicalCacheStore store = new DefaultHierarchicalCacheStore(CacheScope.of("test"), underlyingStore);
-        assertThat(store.getParentCacheStore()).isSameAs(underlyingStore);
+        assertThat(store.parentCacheStore()).isSameAs(underlyingStore);
     }
 
     @Test
