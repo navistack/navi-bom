@@ -44,6 +44,9 @@ public class RedisAutoConfiguration {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
+            if (beanFactory == null) {
+                return false;
+            }
             ResolvableType generics;
             generics = ResolvableType.forClassWithGenerics(RedisOperations.class, String.class, Object.class);
             String[] names = beanFactory.getBeanNamesForType(generics);
@@ -70,6 +73,9 @@ public class RedisAutoConfiguration {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
+            if (beanFactory == null) {
+                return false;
+            }
             ResolvableType generics;
             generics = ResolvableType.forClassWithGenerics(RedisOperations.class, String.class, Long.class);
             String[] names = beanFactory.getBeanNamesForType(generics);
