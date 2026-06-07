@@ -13,7 +13,6 @@ public class BufferingRequestInterceptor implements ClientHttpRequestInterceptor
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
             throws IOException {
         ClientHttpResponse response = execution.execute(request, body);
-        BufferingClientHttpResponseWrapper responseWrapper = new BufferingClientHttpResponseWrapper(response);
-        return responseWrapper;
+        return new BufferingClientHttpResponseWrapper(response);
     }
 }
