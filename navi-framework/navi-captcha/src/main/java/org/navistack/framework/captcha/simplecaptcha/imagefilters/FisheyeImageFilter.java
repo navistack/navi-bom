@@ -48,7 +48,7 @@ public class FisheyeImageFilter implements ImageFilter {
         }
 
         // create a pixel array of the original image.
-        // we need this later to do the operations on..
+        // we need this later to do the operations on...
         int[] pix = new int[imageHeight * imageWidth];
         int j = 0;
 
@@ -66,7 +66,7 @@ public class FisheyeImageFilter implements ImageFilter {
         int widthMiddle = image.getWidth() / 2;
         int heightMiddle = image.getHeight() / 2;
 
-        // again iterate over all pixels..
+        // again iterate over all pixels...
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
 
