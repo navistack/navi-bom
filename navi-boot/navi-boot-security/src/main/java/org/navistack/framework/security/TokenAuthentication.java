@@ -38,7 +38,7 @@ public class TokenAuthentication extends AbstractAuthenticationToken {
     }
 
     /**
-     * This factory method can be safely used by any code that wishes to create a
+     * This factory method can be safely used by any code that wishes to create an
      * unauthenticated <code>TokenAuthentication</code>.
      *
      * @return TokenAuthentication with false isAuthenticated() result
@@ -48,7 +48,7 @@ public class TokenAuthentication extends AbstractAuthenticationToken {
     }
 
     /**
-     * This factory method can be safely used by any code that wishes to create a
+     * This factory method can be safely used by any code that wishes to create an
      * authenticated <code>TokenAuthentication</code>.
      *
      * @return TokenAuthentication with true isAuthenticated() result
