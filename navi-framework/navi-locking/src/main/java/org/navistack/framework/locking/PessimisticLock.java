@@ -15,7 +15,7 @@ public @interface PessimisticLock {
     String key();
 
     /**
-     * How long should the tryLock be released.
+     * How long the tryLock should be released.
      */
     long timeout();
 
