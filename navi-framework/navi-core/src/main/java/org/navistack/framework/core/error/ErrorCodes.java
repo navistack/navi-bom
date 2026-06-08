@@ -5,7 +5,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ErrorCodes {
     /**
-     * Authentication failed, for example invalid credentials.
+     * Authentication failed, for example an invalid credentials.
      */
     public final int AUTHENTICATION_FAILURE = ErrorCategory.User.errorCode(0x101);
 
