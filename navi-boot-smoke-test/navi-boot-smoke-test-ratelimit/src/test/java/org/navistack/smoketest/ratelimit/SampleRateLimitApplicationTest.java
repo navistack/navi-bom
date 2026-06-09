@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Testcontainers(disabledWithoutDocker = true)
 class SampleRateLimitApplicationTest {
     @Container
-    static RedisContainer redis = new RedisContainer();
+    static final RedisContainer redis = new RedisContainer();
 
     private final MockMvc mockMvc;
 
