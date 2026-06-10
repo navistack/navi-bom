@@ -39,9 +39,6 @@ public class TokenFilter extends GenericFilterBean implements InitializingBean {
             Authentication authentication = authenticationManager.authenticate(
                     TokenAuthentication.unauthenticated(token, token)
             );
-            if (authentication == null) {
-                return;
-            }
             SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
             securityContext.setAuthentication(authentication);
             SecurityContextHolder.setContext(securityContext);
