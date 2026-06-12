@@ -20,7 +20,10 @@ public class DefaultJwtPayloadResolver implements JwtPayloadResolver {
                 .collect(Collectors.joining(","));
 
         DefaultJwtClaims claims = new DefaultJwtClaims();
-        claims.putSubject(authentication.getPrincipal().toString());
+        Object principal = authentication.getPrincipal();
+        if (principal != null) {
+            claims.putSubject(principal.toString());
+        }
         claims.put(AUTHORITIES_KEY, authorities);
         return claims;
     }
