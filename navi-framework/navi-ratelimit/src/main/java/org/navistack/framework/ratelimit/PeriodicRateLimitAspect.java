@@ -12,8 +12,8 @@ public class PeriodicRateLimitAspect extends AbstractRateLimitAspect<PeriodicRat
         super(expressionBinder, handler);
     }
 
-    @Around("@annotation(annotation)")
-    public Object around(ProceedingJoinPoint joinPoint, PeriodicRateLimit annotation) throws Throwable {
-        return handle(joinPoint, annotation, annotation.key(), annotation.message());
+    @Around("@annotation(periodicRateLimit)")
+    public Object around(ProceedingJoinPoint joinPoint, PeriodicRateLimit periodicRateLimit) throws Throwable {
+        return handle(joinPoint, periodicRateLimit, periodicRateLimit.key(), periodicRateLimit.message());
     }
 }

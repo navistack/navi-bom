@@ -12,8 +12,8 @@ public class RollingRateLimitAspect extends AbstractRateLimitAspect<RollingRateL
         super(expressionBinder, handler);
     }
 
-    @Around("@annotation(annotation)")
-    public Object around(ProceedingJoinPoint joinPoint, RollingRateLimit annotation) throws Throwable {
-        return handle(joinPoint, annotation, annotation.key(), annotation.message());
+    @Around("@annotation(rollingRateLimit)")
+    public Object around(ProceedingJoinPoint joinPoint, RollingRateLimit rollingRateLimit) throws Throwable {
+        return handle(joinPoint, rollingRateLimit, rollingRateLimit.key(), rollingRateLimit.message());
     }
 }
