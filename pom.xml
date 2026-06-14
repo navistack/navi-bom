@@ -23,41 +23,41 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <spring-boot.version>4.0.3</spring-boot.version>
-        <spring-framework.version>7.0.5</spring-framework.version>
-        <spring-data-bom.version>2025.1.3</spring-data-bom.version>
-        <spring-security.version>7.0.3</spring-security.version>
-        <jackson-bom.version>3.0.4</jackson-bom.version>
+        <spring-boot.version>4.1.0</spring-boot.version>
+        <spring-framework.version>7.0.8</spring-framework.version>
+        <spring-data-bom.version>2026.0.0</spring-data-bom.version>
+        <spring-security.version>7.1.0</spring-security.version>
+        <jackson-bom.version>3.1.4</jackson-bom.version>
         <junit-jupiter.version>6.0.3</junit-jupiter.version>
-        <lombok.version>1.18.42</lombok.version>
+        <lombok.version>1.18.46</lombok.version>
         <junit.version>4.13.2</junit.version>
         <hamcrest.version>3.0</hamcrest.version>
         <aliyun-captcha20230305.version>1.2.0</aliyun-captcha20230305.version>
-        <aliyun-dysmsapi20170525.version>4.5.0</aliyun-dysmsapi20170525.version>
-        <tencentcloud-sdk-java-common.version>3.1.1423</tencentcloud-sdk-java-common.version>
+        <aliyun-dysmsapi20170525.version>4.5.1</aliyun-dysmsapi20170525.version>
+        <tencentcloud-sdk-java-common.version>3.1.1484</tencentcloud-sdk-java-common.version>
         <tencentcloud-sdk-java-captcha.version>3.1.1417</tencentcloud-sdk-java-captcha.version>
-        <tencentcloud-sdk-java-sms.version>3.1.1422</tencentcloud-sdk-java-sms.version>
+        <tencentcloud-sdk-java-sms.version>3.1.1451</tencentcloud-sdk-java-sms.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <swagger-v3.version>2.2.45</swagger-v3.version>
+        <swagger-v3.version>2.2.49</swagger-v3.version>
         <jakarta-servlet.version>6.1.0</jakarta-servlet.version>
-        <slf4j.version>2.0.17</slf4j.version>
+        <slf4j.version>2.0.18</slf4j.version>
         <aspectj.version>1.9.25.1</aspectj.version>
-        <nimbus-jose-jwt.version>10.8</nimbus-jose-jwt.version>
+        <nimbus-jose-jwt.version>10.9.1</nimbus-jose-jwt.version>
         <assertj.version>3.27.7</assertj.version>
         <minio.version>8.5.17</minio.version>
         <commons-codec.version>1.21.0</commons-codec.version>
-        <mockito.version>5.20.0</mockito.version>
+        <mockito.version>5.23.0</mockito.version>
         <jhlabs-filters.version>2.0.235-1</jhlabs-filters.version>
         <antisamy.version>1.7.8</antisamy.version>
-        <testcontainers.version>2.0.3</testcontainers.version>
+        <testcontainers.version>2.0.5</testcontainers.version>
         <mybatis.version>3.5.19</mybatis.version>
         <mybatis-spring-boot.version>4.0.1</mybatis-spring-boot.version>
 
-        <checkstyle.version>13.3.0</checkstyle.version>
+        <checkstyle.version>13.5.0</checkstyle.version>
         <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
-        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.9.0</maven-dependency-plugin.version>
-        <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.10.0</maven-dependency-plugin.version>
+        <maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
     </properties>
 
     <dependencies>
